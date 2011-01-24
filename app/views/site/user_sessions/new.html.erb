@@ -1,0 +1,22 @@
+
+<div>
+  <%= flash[:notice] %>
+</div>
+  <p>ログインしてください</p>
+  <% form_for( @user_session,
+      :url => { :action => "create"} )   do |f|   %>
+
+    <div class="field">
+      <%= f.label t :login,:scope => [:activerecord, :attributes, :user]  %><br />
+      <%= f.text_field :login %>
+    </div>
+    <div class="field">
+      <%= f.label t :password,:scope => [:activerecord, :attributes, :user] %><br />
+      <%= f.password_field :password %>
+    </div>
+    <div class="actions">
+      <%= f.submit "ログイン" %>
+    </div>
+
+  <% end %>
+</fieldset>

@@ -1,0 +1,2 @@
+module Site::BaseControllerHelper
+end

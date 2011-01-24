@@ -1,0 +1,27 @@
+ja: 
+  activerecord: 
+    models: 
+      user: "会員"  
+      article: "記事"
+
+    attributes: 
+      user: 
+        login: "アカウント"
+        email: "EMailアドレス"  
+        password: "パスワード"  
+        password_confirmation: 'パスワード確認'
+
+      user_session:
+        login: "アカウント"
+        password: "パスワード"  
+      
+      article:
+        title: "タイトル"
+        content: "内容"
+        
+        
+  categories:
+    heading_level:
+      h1: "見出し１"
+      h2: "見出し２"
+      h3: "見出し３"
