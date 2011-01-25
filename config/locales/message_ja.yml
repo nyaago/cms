@@ -1,8 +1,11 @@
 ja:
   messages:
     site:
-      need_to_login:"ログインしてください"
-      
+      user_sessions:
+        need_to_login: "ログインしてください"
+      articles:
+        updated: "記事が更新されました"
+        created: "記事が作成されました"
   
   
       

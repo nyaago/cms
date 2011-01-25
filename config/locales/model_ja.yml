@@ -18,6 +18,7 @@ ja:
       article:
         title: "タイトル"
         content: "内容"
+        heading_level: "見出しレベル"
         
         
   categories:

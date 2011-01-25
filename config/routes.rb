@@ -8,7 +8,10 @@ Cms::Application.routes.draw do
 #    resources :login 
     match 'login/:action' => 'login#:action'
     match 'user_sessions/:action' => 'user_sessions#:action'
+#    resources :articles
+    match 'articles/:action/:id' => 'articles#:action#:id'
     match 'articles/:action' => 'articles#:action'
+    
     
 #    match 'users/index/:id' => 'users#index#:id'
 #    match 'users/new/:id' => 'users#new#:id'
