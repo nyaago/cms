@@ -3,7 +3,12 @@
 # 認証などの共通処理を定義
 class Site::BaseController < ApplicationController
   
+  # action  の before filter. 
+  # 認証確認
   before_filter :authenticate
+  
+  # 翻訳リソースのスコープ
+  TRANSLATION_SCOPE = [:messages, :site].freeze
   
   protected
 
@@ -23,8 +28,9 @@ class Site::BaseController < ApplicationController
   def authenticate
     unless current_user
       store_location
-      flash[:notice] = I18n.t :need_to_login, :scope => [:messages, :site]
-      redirect_to '/site/user_sessions/new'
+      flash[:notice] = I18n.t :need_to_login, 
+                              :scope => TRANSLATION_SCOPE + [:user_sessions]
+      redirect_to :controller => :user_sessions, :action => :new
       return false
     end
     return true

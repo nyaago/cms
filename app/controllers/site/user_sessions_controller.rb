@@ -15,7 +15,6 @@ class Site::UserSessionsController  < Site::BaseController
   # ユーザーセッションを生成,保存.
   # ログイン情報が不正であれば,ログインページを表示.
   def create
-    
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       redirect_back_or_default '/site/user_sessions/new'

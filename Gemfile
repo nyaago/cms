@@ -11,8 +11,8 @@ gem "mysql2"
 
 # additional gem
 gem "authlogic"
-gem "will_paginate"
-
+#gem "will_paginate"
+gem 'will_paginate','3.0.pre'
 
 # Use unicorn as the web server
 # gem 'unicorn'

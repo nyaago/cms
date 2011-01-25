@@ -1,8 +1,9 @@
-
 <div>
   <%= flash[:notice] %>
 </div>
-  <p>ログインしてください</p>
+
+<fieldset>
+  <legend>ログイン</legend>
   <% form_for( @user_session,
       :url => { :action => "create"} )   do |f|   %>
 

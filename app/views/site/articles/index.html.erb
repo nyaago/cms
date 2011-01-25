@@ -1,21 +1,50 @@
-<h1>Listing articles</h1>
-
+<h1>
+  ページ記事一覧
+</h1>
+<p id="notice"><%= flash[:notice] %></p>
 <table>
   <tr>
-    <th></th>
+    <th>
+      <%= link_to 'タイトル', articles_path(:sort => 'title') %>
+    </th>
+    <th>
+      <%= link_to '見出しレベル', articles_path(:sort => 'heading_level') %>
+    </th>
+    <th>
+      <%= link_to '更新日時', articles_path(:sort => 'updated_at') %>
+    </th>
     <th></th>
     <th></th>
   </tr>
 
 <% @articles.each do |article| %>
   <tr>
-    <td><%= link_to 'Show', article %></td>
-    <td><%= link_to 'Edit', edit_article_path(article) %></td>
-    <td><%= link_to 'Destroy', article, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="title">
+      <%= link_to h(article.title), show_article_path(article) %>
+    </td>
+    <td>
+    <%= heading_level_name_with_id(article.heading_level) %>
+    </td>
+    <td >
+      <%= I18n.l article.updated_at, :format => :short %>
+    </td>
+    <td class="edit"><%= link_to '編集', 
+        edit_article_path(article) %></td>
+    <td class="destroy"><%= link_to '削除', 
+        destroy_article_path(article) ,
+                :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Article', new_article_path %>
+<% if @articles.size > 0 %>
+  <div>
+    <%= will_paginate @articles, :prev_label => '<=', :next_label => '=>' %>
+
+    </div>
+<% end %>
+
+
+<%= link_to '新規記事', new_article_path %>
