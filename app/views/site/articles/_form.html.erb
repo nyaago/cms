@@ -1,3 +1,14 @@
+
+<%= javascript_include_tag 'ckeditor/ckeditor' %>
+<%= javascript_include_tag 'ckfinder/ckfinder_v1' %>
+
+<%= javascript_tag(
+<<EOS 
+
+EOS
+)
+%>
+</script>
 <%= form_for(@article, :url => update_article_path(@article)) do |f| %>
   <% if @article.errors.any? %>
     <div id="error_explanation">
@@ -27,9 +38,42 @@
     
     <div class="field">
       <%= f.label :content %><br />
-      <%= f.text_area :content %>
+      <%= f.text_area :content, :class => "ckeditor" %>
     </div>
     
     <%= f.submit %>
   </div>
 <% end %>
+<%= javascript_tag(
+<<EOS 
+/*
+if ( typeof CKEDITOR == 'undefined' )
+{
+document.write(
+'<strong><span style="color: #ff0000">Error</span>: CKEditor not found</strong>.' +
+'This sample assumes that CKEditor (not included with CKFinder) is installed in' +
+'the "/ckeditor/" path. If you have it installed in a different place, just edit' +
+'this file, changing the wrong paths in the &lt;head&gt; (line 5) and the "BasePath"' +
+'value (line 32).' ) ;
+}
+else
+{
+var editor = CKEDITOR.replace( 'article_content' );
+
+// Just call CKFinder.SetupCKEditor and pass the CKEditor instance as the first argument.
+// The second parameter (optional), is the path for the CKFinder installation (default = "/ckfinder/").
+alert(editor);
+CKFinder.SetupCKEditor( editor, '/javascripts/ckfinder/' ) ;
+alert("editor2");
+
+
+// It is also possible to pass an object with selected CKFinder properties as a second argument.
+// CKFinder.SetupCKEditor( editor, { BasePath : '../../', RememberLastFolder : false } ) ;
+}
+
+//var editor = CKEDITOR.replace( 'article[content]' );
+//CKFinder.SetupCKEditor( editor, '/ckfinder/' );
+*/
+EOS
+)
+%>
