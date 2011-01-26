@@ -1,27 +1,31 @@
 Cms::Application.routes.draw do
 
+  resources :pages
+
   namespace :admin do 
 
   end
 
-  namespace :site do 
+  namespace :site, :path => "site" do 
 #    resources :login 
-    match 'login/:action' => 'login#:action'
-    match 'user_sessions/:action' => 'user_sessions#:action'
 #    resources :articles
+#    scope :controller => :articles do
+#      match 'articles/:action/:id' => ':action#:id'
+#      match 'articles/:action' => ':action'
+#    end
+
+    # User Sessions
+    match 'user_sessions/:action' => 'user_sessions#:action'
+    # Articles
     match 'articles/:action/:id' => 'articles#:action#:id'
     match 'articles/:action' => 'articles#:action'
-    
-    
-#    match 'users/index/:id' => 'users#index#:id'
-#    match 'users/new/:id' => 'users#new#:id'
+    # Pages
+    match 'pages/:action/:id' => 'pages#:action#:id'
+    match 'pages/:action' => 'pages#:action'
+    # Users
     match 'users/update/:id' => 'users#update#:id'
     match 'users/:action' => 'users#:action'
-    #    match 'login/index' => 'login#index'
-#    match 'login/show' => 'login#index'
-#    match 'login/authoricate' => 'login#authoricate'
-
-
+    #
     resource :user_session
     resources :users
   end

@@ -3,6 +3,7 @@ ja:
     models: 
       user: "会員"  
       article: "記事"
+      page: "ページ"
 
     attributes: 
       user: 
@@ -19,10 +20,23 @@ ja:
         title: "タイトル"
         content: "内容"
         heading_level: "見出しレベル"
+        updated_at: "更新日時"
+
+      page:
+        title: "タイトル"
+        description: "説明"
+        published: "公開状態"
+        menu_order: "メニュー表示順"
+        updated_at: "更新日時"
         
         
   categories:
+    published:
+      published: "公開"
+      unpublished: "非公開"
+      
     heading_level:
       h1: "見出し１"
       h2: "見出し２"
       h3: "見出し３"
+

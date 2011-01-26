@@ -9,7 +9,7 @@ EOS
 )
 %>
 </script>
-<%= form_for(@article, :url => update_article_path(@article)) do |f| %>
+<%= form_for(@article, :url => site_article_path(@article)) do |f| %>
   <% if @article.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>

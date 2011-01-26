@@ -102,9 +102,10 @@ class Site::ArticlesController < Site::BaseController
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-
     respond_to do |format|
-      format.html { redirect_to(articles_url) }
+      format.html { redirect_to(index_url, 
+        :notice => I18n.t("destroyed", :scope => TRANSLATION_SCOPE)) }
+
       format.xml  { head :ok }
     end
   end  
@@ -114,7 +115,10 @@ class Site::ArticlesController < Site::BaseController
   # 一覧ページへのurlを返す
   def index_url
     url_for(:action => :index, 
-    :page => if !params[:page].blank? then params[:page] else 1 end)
+      :page => if !params[:page].blank? then params[:page] else 1 end,
+      :sort => if !params[:sort].blank? then params[:sort] else nil end,
+      :direction => if !params[:direction].blank? then params[:direction] else nil end
+      )
   end
   
   # order by 句を返す
@@ -127,7 +131,7 @@ class Site::ArticlesController < Site::BaseController
   # リクエストパラメーターの'sort'で指定されているもの、あるいはデフォルトのカラム名を返す.
   def order_column()
     if !params[:sort].blank?  && SORTABLE_COLUMN.include?(params[:sort])  
-      !params[:sort] 
+      params[:sort] 
     else 
       'title' 
     end

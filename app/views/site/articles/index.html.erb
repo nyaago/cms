@@ -1,17 +1,20 @@
 <h1>
-  ページ記事一覧
+  <%= Article.model_name.human %>一覧
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 <table>
   <tr>
     <th>
-      <%= link_to 'タイトル', articles_path(:sort => 'title') %>
+      <%= link_to Article.human_attribute_name(:title), 
+        site_articles_path(:sort => 'title') %>
     </th>
     <th>
-      <%= link_to '見出しレベル', articles_path(:sort => 'heading_level') %>
+      <%= link_to Article.human_attribute_name(:heading_level), 
+        site_articles_path(:sort => 'heading_level') %>
     </th>
     <th>
-      <%= link_to '更新日時', articles_path(:sort => 'updated_at') %>
+      <%= link_to Article.human_attribute_name(:updated_at), 
+        site_articles_path(:sort => 'updated_at') %>
     </th>
     <th></th>
     <th></th>
@@ -20,7 +23,7 @@
 <% @articles.each do |article| %>
   <tr>
     <td class="title">
-      <%= link_to h(article.title), show_article_path(article) %>
+      <%= link_to h(article.title), site_article_path(article) %>
     </td>
     <td>
     <%= heading_level_name_with_id(article.heading_level) %>
@@ -29,9 +32,9 @@
       <%= I18n.l article.updated_at, :format => :short %>
     </td>
     <td class="edit"><%= link_to '編集', 
-        edit_article_path(article) %></td>
+        site_article_path(article, :action => :edit) %></td>
     <td class="destroy"><%= link_to '削除', 
-        destroy_article_path(article) ,
+        site_article_path(article, :action => :destroy) ,
                 :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -47,4 +50,4 @@
 <% end %>
 
 
-<%= link_to '新規記事', new_article_path %>
+<%= link_to "新規#{Article.model_name.human}", new_site_article_path %>

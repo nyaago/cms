@@ -1,0 +1,51 @@
+<h1>
+  <%= Page.model_name.human %>一覧
+</h1>
+
+<table>
+  <tr>
+    <th>
+      <%= link_to Page.human_attribute_name(:title), 
+        site_pages_path(:sort => 'title') %>
+    </th>
+    <th>
+      説明
+    </th>
+    <th>
+      <%= link_to Page.human_attribute_name(:published), 
+        site_pages_path(:sort => 'published') %>
+    </th>
+    <th>
+      <%= link_to Page.human_attribute_name(:menu_order), 
+        site_pages_path(:sort => 'menu_order') %>
+    </th>
+    <th>
+      <%= link_to Page.human_attribute_name(:updated_at), 
+        site_articles_path(:sort => 'updated_at') %>
+    </th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pages.each do |page| %>
+  <tr>
+    <td>
+      <%= link_to page.title, site_page_path(page)  %>
+    </td>
+    <td><%= page.description %></td>
+    <td><%= published_name(page) %></td>
+    <td><%= page.menu_order %></td>
+    <td >
+      <%= I18n.l page.updated_at, :format => :short %>
+    </td>
+    <td><%= link_to '', page %></td>
+    <td><%= link_to '編集', site_page_path(page, :action => :edit) %></td>
+    <td><%= link_to '削除', site_page_path(page, :action => :destroy), 
+            :confirm => '削除してよろしいでしょうか?'%></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to "新規#{Page.model_name.human}", new_site_page_path %>

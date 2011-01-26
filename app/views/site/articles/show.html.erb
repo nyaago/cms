@@ -1,24 +1,29 @@
+<h1>
+  <%= Article.model_name.human %>詳細
+</h1>
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>タイトル:</b>
+  <b><%= Article.human_attribute_name(:title) %>:</b>
   <%= @article.title %>
 </p>
 
 <p>
-  <b>見出しレベル:</b>
+  <b><%= Article.human_attribute_name(:heading_level) %>:</b>
   <%= heading_level_name_with_id(@article.heading_level) %>
 </p>
 
 <p>
-  <b>内容:</b>
+  <b><%= Article.human_attribute_name(:content) %>:</b>
   <%= @article.content.html_safe %>
 </p>
 <p>
-  <b>更新日時:</b>
+  <b><%= Article.human_attribute_name(:updated_at) %>:</b>
   <%= I18n.l @article.updated_at, :format => :long %>
 </p>
 
 
-<%= link_to '編集', edit_article_path(@article, :current_page => params[:page]) %> |
-<%= link_to '戻る', articles_path %>
+<%= link_to '編集', site_article_path(@article, 
+    :action => :edit, :page => params[:page]) %> |
+<%= link_to '戻る', site_articles_path %>
