@@ -4,6 +4,7 @@
 
 <p id="notice"><%= notice %></p>
 
+<% if @article %>
 <p>
   <b><%= Article.human_attribute_name(:title) %>:</b>
   <%= @article.title %>
@@ -31,7 +32,39 @@
   <%= I18n.l @article.updated_at, :format => :long %>
 </p>
 
+<table>
+  <tr>
+    <th>
+      <%= ArticleHistory.human_attribute_name(:updated_at) %>
+    </th>
+    <th>
+      <%= ArticleHistory.human_attribute_name(:last_updated_at) %>
+    </th>
+    <th>
+    </th>
+  </tr>
+  <% @article_histories.each do |article| %>
+    <tr>
+      <td >
+        <%= I18n.l article.updated_at, :format => :short %>
+      </td>
+      <td >
+        <%= I18n.l article.last_updated_at, :format => :short %>
+      </td>
+      <td class="edit"><%= link_to '編集', 
+          site_article_path(article, :action => :edit) %></td>
+    </tr>
 
+  <% end %>
+  </table>
+<% else %>  
+  <p class='not_found'>
+    指定された記事はみつかりません
+  </p>
+<% end %>
+  
+<% if @article %>
 <%= link_to '編集', site_article_path(@article, 
     :action => :edit, :page => params[:page]) %> |
+<% end %>
 <%= link_to '戻る', :back %>

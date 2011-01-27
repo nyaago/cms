@@ -1,9 +1,12 @@
 # = Site::ArticlesController
 # 記事作成関連のコントローラー
 class Site::ArticlesController < Site::BaseController
-  
-  PER_PAGR = 3
 
+  # 記事一覧の１ページの件数
+  PER_PAGR = 3
+  # 記事履歴の表示件数制限
+  LIMIT_HISTORY = 20
+  
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "articles"].freeze
   # ソート可能なカラム一覧
@@ -36,8 +39,14 @@ class Site::ArticlesController < Site::BaseController
   # GET /articles/1.xml
   # 記事詳細表示
   def show
-    @article = Article.find_by_id(params[:id])
-
+    @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @article_histories = if @article
+      ArticleHistory.where("article_id = ?", params[:id]).
+                          order('created_at desc').
+                          limit(LIMIT_HISTORY)
+    else
+      nil
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @article }
@@ -57,7 +66,20 @@ class Site::ArticlesController < Site::BaseController
 
   # GET /articles/1/edit
   def edit
-    @article = Article.find_by_id(params[:id])
+    @article = 
+    if params[:is_history]
+      article = ArticleHistory.find_by_id_and_site_id(
+        params[:id] ,
+        current_user.site_id)
+      if !article.nil?
+        article.id = article.article_id
+      end
+      article
+    else 
+      Article.find_by_id_and_site_id(
+        params[:id] ,
+        current_user.site_id)
+    end
   end
 
   # POST /articles
@@ -82,11 +104,28 @@ class Site::ArticlesController < Site::BaseController
   # PUT /articles/1
   # PUT /articles/1.xml
   def update
-    @article = Article.find(params[:id])
+    @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
+    if @article.nil?
+      respond_to do |format|
+        flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
+        format.html { 
+          render :action => "edit" }
+        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
+      end
+    end
+    # 変更前の状態をバックアップ
+    article_before_update = @article.clone
+    article_before_update.id = @article.id
+    # 属性設定
     @article.user_id = current_user.id
-    save_history_from(@article)
+    @article.attributes = params[:article]
+
     respond_to do |format|
-      if @article.update_attributes(params[:article])
+      # 変更されていれば、履歴を作成
+      if @article.changed? then
+        save_history_from(article_before_update)
+      end
+      if @article. save
         format.html { redirect_to(index_url, 
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
         format.xml  { head :ok }
@@ -100,7 +139,15 @@ class Site::ArticlesController < Site::BaseController
   # DELETE /articles/1
   # DELETE /articles/1.xml
   def destroy
-    @article = Article.find(params[:id])
+    @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
+    if @article.nil?
+      respond_to do |format|
+        format.html { redirect_to(index_url, 
+          :notice => I18n.t("not_found", :scope => TRANSLATION_SCOPE)) }
+        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
+      end
+    end
+
     @article.destroy
     respond_to do |format|
       format.html { redirect_to(index_url, 
@@ -112,15 +159,20 @@ class Site::ArticlesController < Site::BaseController
   
   private 
   
-  def save_history_from(article)
+  # 記事の履歴を保存.
+  # 保存前後で内容がかわっていなければ、作成しない.
+  def save_history_from(article_before_update)
+    # 変更前の
     history = {}
-    article.attributes.each_pair do |key, value|
-      p "========"
+    article_before_update.attributes.each_pair do |key, value|
       p "#{key} = #{value}"
-      history[key] = value
+      if key.to_s != 'created_at' and key.to_s != 'updated_at' 
+        history[key] = value
+      end
     end
-    # history['last_updated_at'] = article.updated_at
-    # ArticleHistory.create(history)
+    history['last_updated_at'] = article_before_update.updated_at
+    history['article_id'] = article_before_update.id
+    ArticleHistory.create(history)
   end
   
   # 一覧ページへのurlを返す

@@ -16,7 +16,7 @@ CKEDITOR.config.toolbar =
 ['Link','Unlink','Anchor'],
 ['Image','Flash','Table','HorizontalRule','SpecialChar'],
 '/',
-['Font','FontSize'],
+['Format','Font','FontSize'],
 ['TextColor','BGColor'],
 ['Maximize', 'ShowBlocks','-','About'],
 ];

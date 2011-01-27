@@ -25,6 +25,17 @@ ja:
         is_home: "トップページか?"
         updated_at: "更新日時"
 
+      article:
+        name: "名前"
+        title: "タイトル"
+        content: "内容"
+        published: "公開状態"
+        menu_order: "メニュー表示順"
+        is_home: "トップページか?"
+        updated_at: "更新日時"
+        created_at: "履歴作成日時"
+        last_updated_at: "記事最終更新日時"
+
       page:
         title: "タイトル"
         description: "説明"

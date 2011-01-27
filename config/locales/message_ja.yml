@@ -7,7 +7,8 @@ ja:
         updated: "記事が更新されました"
         created: "記事が作成されました"
         destroyed: "記事が削除されました"
-  
+        not_found: "記事がみつかりませんでした"
+        
       pages:
         updated: "ページが更新されました"
         created: "ページが作成されました"
