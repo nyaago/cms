@@ -36,6 +36,10 @@ EOS
       <%= f.text_area :content, :class => "ckeditor" %>
     </div>
     <div class="field">
+      <%= f.label :keywords %><br />
+      <%= f.text_field :keywords %>
+    </div>
+    <div class="field">
       <%= f.label :published %><br />
       <%= f.select( :published, 
       Article.map_for_published_selection,

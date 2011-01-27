@@ -15,6 +15,10 @@
   <%= @article.content.html_safe %>
 </p>
 <p>
+  <b><%= Article.human_attribute_name(:keywords) %>:</b>
+  <%= @article.keywords %>
+</p>
+<p>
   <b><%= Article.human_attribute_name(:menu_order) %>:</b>
   <%= @article.menu_order %>
 </p>
