@@ -13,7 +13,7 @@ module Site::ArticlesHelper
     url_for( :controller => "articles", 
     :action => if options[:action].blank? then 'index' else options[:action] end,
     :page => if !params[:page].blank?  then params[:page]  else 1 end,
-    :sort => if !options[:sort].blank?  then options[:page]  else nil end,
+    :sort => if !options[:sort].blank?  then options[:sort]  else nil end,
     :direction => if !options[:sort].blank?  then 
       if !params[:direction].blank? and  params[:direction] == 'asc'
         'desc'
@@ -51,7 +51,7 @@ module Site::ArticlesHelper
             end,
             :page => if !params[:page].blank?  then params[:page]  else 1 end,
             :sort => if !params[:sort].blank?  then params[:sort]  else nil end,
-            :direction => if !params[:direction].blank?  then params[:direction]  else nil end,
+            :direction => if !params[:direction].blank?  then params[:direction]  else nil end
               )
   end
 
@@ -60,11 +60,4 @@ module Site::ArticlesHelper
     site_article_path(:nil, :action => :new)
   end
   
-  # 指定したidの見出しレベル表示名を返す.
-  # idは1〜3の値を指定.
-  def heading_level_name_with_id(id)
-    Category::HeadingLevel.name_with_id(id)
-  end
-
-
 end

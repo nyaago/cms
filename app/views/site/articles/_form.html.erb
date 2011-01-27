@@ -24,21 +24,37 @@ EOS
 
   <div class="actions">
     <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
       <%= f.label :title %><br />
       <%= f.text_field :title %>
     </div>
     <div class="field">
-      <%= f.label :heading_level %><br />
-      <%= f.select( :heading_level, 
-      @headings,
+      <%= f.label :content %><br />
+      <%= f.text_area :content, :class => "ckeditor" %>
+    </div>
+    <div class="field">
+      <%= f.label :published %><br />
+      <%= f.select( :published, 
+      Article.map_for_published_selection,
       { :include_blank => false } 
       )
       %>
     </div>
-    
     <div class="field">
-      <%= f.label :content %><br />
-      <%= f.text_area :content, :class => "ckeditor" %>
+      <%= f.label :is_home %><br />
+      <%= f.check_box(:is_home)
+      %>
+    </div>
+    <div class="field">
+      <%= f.label :menu_order %><br />
+      <%= f.select( :menu_order, 
+      (1..10),
+      { :include_blank => false } 
+      )
+      %>
     </div>
     
     <%= f.submit %>

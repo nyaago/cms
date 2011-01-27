@@ -17,9 +17,12 @@ ja:
         password: "パスワード"  
       
       article:
+        name: "名前"
         title: "タイトル"
         content: "内容"
-        heading_level: "見出しレベル"
+        published: "公開状態"
+        menu_order: "メニュー表示順"
+        is_home: "トップページか?"
         updated_at: "更新日時"
 
       page:
@@ -34,6 +37,10 @@ ja:
     published:
       published: "公開"
       unpublished: "非公開"
+
+    is_home:
+      is_home: "トップページである"
+      not_home: "トップページでない"
       
     heading_level:
       h1: "見出し１"

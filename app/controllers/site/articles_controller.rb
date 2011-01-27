@@ -7,7 +7,8 @@ class Site::ArticlesController < Site::BaseController
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "articles"].freeze
   # ソート可能なカラム一覧
-  SORTABLE_COLUMN = ['title', 'updated_at', 'heading_level'].freeze
+  SORTABLE_COLUMN = 
+  ['name','title', 'updated_at', 'menu_order', 'published', 'is_home'].freeze
   # ソートの方向一覧
   ORDER_DIRECTION = ['asc', 'desc'].freeze
   
@@ -47,7 +48,6 @@ class Site::ArticlesController < Site::BaseController
   # GET /articles/new.xml
   def new
     @article = Article.new
-    @headings = Category::HeadingLevel.map_for_selection
 
     respond_to do |format|
       format.html # new.html.erb
@@ -58,7 +58,6 @@ class Site::ArticlesController < Site::BaseController
   # GET /articles/1/edit
   def edit
     @article = Article.find_by_id(params[:id])
-    @headings = Category::HeadingLevel.map_for_selection
   end
 
   # POST /articles
@@ -66,6 +65,7 @@ class Site::ArticlesController < Site::BaseController
   def create
     @article = Article.new(params[:article])
     @article.site_id = current_user.site_id
+    @article.user_id = current_user.id
     @article.article_type = Article::TYPE_PAGE
     respond_to do |format|
       if @article.save
@@ -73,7 +73,6 @@ class Site::ArticlesController < Site::BaseController
           :notice => I18n.t("created", :scope => TRANSLATION_SCOPE)) }
         format.xml  { render :xml => @article, :status => :created, :location => @article }
       else
-        @headings = Category::HeadingLevel.map_for_selection
         format.html { render :action => "new" }
         format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
       end
@@ -84,13 +83,14 @@ class Site::ArticlesController < Site::BaseController
   # PUT /articles/1.xml
   def update
     @article = Article.find(params[:id])
+    @article.user_id = current_user.id
+    save_history_from(@article)
     respond_to do |format|
       if @article.update_attributes(params[:article])
         format.html { redirect_to(index_url, 
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
         format.xml  { head :ok }
       else
-        @headings = Category::HeadingLevel.map_for_selection
         format.html { render :action => "edit" }
         format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
       end
@@ -111,6 +111,17 @@ class Site::ArticlesController < Site::BaseController
   end  
   
   private 
+  
+  def save_history_from(article)
+    history = {}
+    article.attributes.each_pair do |key, value|
+      p "========"
+      p "#{key} = #{value}"
+      history[key] = value
+    end
+    # history['last_updated_at'] = article.updated_at
+    # ArticleHistory.create(history)
+  end
   
   # 一覧ページへのurlを返す
   def index_url
@@ -133,7 +144,7 @@ class Site::ArticlesController < Site::BaseController
     if !params[:sort].blank?  && SORTABLE_COLUMN.include?(params[:sort])  
       params[:sort] 
     else 
-      'title' 
+      'name' 
     end
   end
 

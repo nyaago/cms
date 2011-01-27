@@ -10,14 +10,22 @@
 </p>
 
 <p>
-  <b><%= Article.human_attribute_name(:heading_level) %>:</b>
-  <%= heading_level_name_with_id(@article.heading_level) %>
-</p>
-
-<p>
   <b><%= Article.human_attribute_name(:content) %>:</b>
   <%= @article.content.html_safe %>
 </p>
+<p>
+  <b><%= Article.human_attribute_name(:menu_order) %>:</b>
+  <%= @article.menu_order %>
+</p>
+<p>
+  <b><%= Article.human_attribute_name(:published) %>:</b>
+  <%= @article.published_name %>
+</p>
+<p>
+  <b><%= Article.human_attribute_name(:is_home) %>:</b>
+  <%= @article.is_home_name %>
+</p>
+
 <p>
   <b><%= Article.human_attribute_name(:updated_at) %>:</b>
   <%= I18n.l @article.updated_at, :format => :long %>
@@ -26,4 +34,4 @@
 
 <%= link_to '編集', site_article_path(@article, 
     :action => :edit, :page => params[:page]) %> |
-<%= link_to '戻る', site_articles_path %>
+<%= link_to '戻る', :back %>
