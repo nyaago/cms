@@ -13,6 +13,8 @@ gem "mysql2"
 gem "authlogic"
 #gem "will_paginate"
 gem 'will_paginate','3.0.pre'
+gem 'jquery-rails'
+gem 'paperclip'
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -25,7 +27,7 @@ gem 'will_paginate','3.0.pre'
 # gem 'ruby-debug19'
 
 # Bundle the extra gems:
-# gem 'bj'
+
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
