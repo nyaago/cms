@@ -168,7 +168,7 @@ class Site::ArticlesController < Site::BaseController
       if max_article.nil? then 1 else max_article.max_order + 1 end
                           
     respond_to do |format|
-      if @article.save
+      if @article.save(:validate => true)
         format.html { redirect_to(index_url, 
           :notice => I18n.t("created", :scope => TRANSLATION_SCOPE)) }
         format.xml  { render :xml => @article, :status => :created, 
@@ -206,7 +206,7 @@ class Site::ArticlesController < Site::BaseController
       if @article.changed? then
         save_history_from(article_before_update)
       end
-      if @article. save
+      if @article.save(:validate => true)
         format.html { redirect_to(index_url, 
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
         format.xml  { head :ok }

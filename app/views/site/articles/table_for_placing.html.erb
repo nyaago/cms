@@ -1,28 +1,22 @@
 <table>
   <tr>
     <th>
-      <%= link_to Article.human_attribute_name(:name), 
-        site_articles_path(:sort => 'name') %>
+      <%= Article.human_attribute_name(:name) %>
     </th>
     <th>
-      <%= link_to Article.human_attribute_name(:title), 
-        site_articles_path(:sort => 'title') %>
+      <%= Article.human_attribute_name(:title) %>
     </th>
     <th>
-      <%= link_to Article.human_attribute_name(:menu_order), 
-        site_articles_path(:sort => 'menu_order') %>
+      <%= Article.human_attribute_name(:menu_order) %>
     </th>
     <th>
-      <%= link_to Article.human_attribute_name(:published), 
-        site_articles_path(:sort => 'published') %>
+      <%= Article.human_attribute_name(:published) %>
     </th>
     <th>
-      <%= link_to Article.human_attribute_name(:is_home), 
-        site_articles_path(:sort => 'is_home') %>
+      <%= Article.human_attribute_name(:is_home) %>
     </th>
     <th>
-      <%= link_to Article.human_attribute_name(:updated_at), 
-        site_articles_path(:sort => 'updated_at') %>
+      <%= Article.human_attribute_name(:updated_at) %>
     </th>
     <th colspan='2'>
       並び変更

@@ -6,12 +6,13 @@
 </div>
 <br />
 
-<%= link_to '戻る', url_for(:back) %>
+<%= link_to '一覧へ戻る', url_for(:back) %>
 
 
 <script type="text/javascript">
 //<![CDATA[
 
+  // 記事一覧を得て表示
   function loadArticles(){
     var url = '<%= url_for( :action => "table_for_placing") %>';
     new Ajax.Updater('articles_div', url, {
@@ -26,6 +27,7 @@
     });
   }
 
+  // 選択記事のメニュー表示順を１つ前にして、記事一覧を置換
   function previousOrder(articleId){
     var url = '<%= url_for( :action => "previous_order") %>';
     url += '/' + articleId;
@@ -41,6 +43,7 @@
     });
   }
 
+  // 選択記事のメニュー表示順を１つ後ろにして、記事一覧を置換
   function nextOrder(articleId){
     var url = '<%= url_for( :action => "next_order") %>';
     url += '/' + articleId;

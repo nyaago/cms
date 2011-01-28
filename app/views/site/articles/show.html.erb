@@ -71,4 +71,4 @@
 <%= link_to '編集', site_article_path(@article, 
     :action => :edit, :page => params[:page]) %> |
 <% end %>
-<%= link_to '戻る', :back %>
+<%= link_to_function '戻る', "history.back();return false;" %>

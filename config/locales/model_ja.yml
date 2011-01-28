@@ -61,3 +61,12 @@ ja:
       h2: "見出し２"
       h3: "見出し３"
 
+  errors:
+
+    messages:
+      only_lower_alpha: "は小文字半角アルファベットのみで入力してください。"
+      uniqness_in_site: "は一意になるよう入力してください。"
+      
+    article:
+      messages:
+        page_limit: "公開記事数が制限を超えています"
