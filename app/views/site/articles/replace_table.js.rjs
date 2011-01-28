@@ -1,0 +1,1 @@
+page['articles_div'].replace_html  :partial => :place_table

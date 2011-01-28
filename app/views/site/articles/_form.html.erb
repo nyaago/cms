@@ -52,14 +52,6 @@ EOS
       <%= f.check_box(:is_home)
       %>
     </div>
-    <div class="field">
-      <%= f.label :menu_order %><br />
-      <%= f.select( :menu_order, 
-      (1..10),
-      { :include_blank => false } 
-      )
-      %>
-    </div>
     
     <%= f.submit %>
   </div>

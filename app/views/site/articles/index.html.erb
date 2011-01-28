@@ -72,3 +72,5 @@
 
 
 <%= link_to "新規#{Article.model_name.human}", new_site_article_path %>
+<%= link_to "#{Article.model_name.human}並びかえ",
+  site_articles_path(:action => :place) %>

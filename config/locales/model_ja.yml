@@ -3,6 +3,7 @@ ja:
     models: 
       user: "会員"  
       article: "記事"
+      article_history: "記事"
       page: "ページ"
 
     attributes: 

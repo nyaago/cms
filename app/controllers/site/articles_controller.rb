@@ -2,6 +2,8 @@
 # 記事作成関連のコントローラー
 class Site::ArticlesController < Site::BaseController
 
+  helper :all
+
   # 記事一覧の１ページの件数
   PER_PAGR = 3
   # 記事履歴の表示件数制限
@@ -19,15 +21,17 @@ class Site::ArticlesController < Site::BaseController
   # GET /articles.xml
   # 記事一覧の表示
   def index
-    @articles = Article.paginate(:all, 
-                              ["site_id = ?", current_user.site_id],
-                              :order => order_by,
-                              :page => if !params[:page].blank? && params[:page].to_i >= 1 
-                                params[:page].to_i
-                              else 
-                                1 
-                              end, 
+    @articles = Article.where("site_id = :site_id", :site_id => current_user.site_id).
+                        order(order_by).
+                        paginate(
+                              :page => 
+                                if !params[:page].blank? && params[:page].to_i >= 1 
+                                  params[:page].to_i
+                                else 
+                                  1 
+                                end, 
                               :per_page => PER_PAGR)
+
     #p "total -- " + @articles.total_entries.to_s
     respond_to do |format|
       format.html # index.html.erb
@@ -52,6 +56,73 @@ class Site::ArticlesController < Site::BaseController
       format.xml  { render :xml => @article }
     end
   end
+
+  # 並び替えページ表示のアクション
+  # 一覧部分は、table_for_placingアクションをAjaxで取得しての表示となる。
+  def place
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @articles }
+    end
+  end
+
+  # 並び替えの一覧部分表示のアクション
+  # Ajaxでの使用を目的とする
+  def table_for_placing
+    @articles = Article.where("site_id = :site_id", 
+                              :site_id => current_user.site_id).
+                        order('menu_order')
+    respond_to do |format|
+      format.html do
+      end
+    end
+  end
+
+  # 記事のメニュー表示位置を１つ前に移動するアクション
+  # Ajaxでの実行となり.モデル更新後,viewの一覧テーブル部分のみをreplaceする
+  def previous_order
+    @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
+    if @article.nil?
+      @articles = Article.where("site_id = :site_id", 
+                                :site_id => current_user.site_id).
+                                order('menu_order')
+      render :action => :table_for_placing
+      return
+    end
+    @article.to_previous_menu_order 
+    @articles = Article.where("site_id = :site_id", 
+                              :site_id => current_user.site_id).
+                              order('menu_order')
+    
+    respond_to do |format|
+      format.html do
+        render :action => :table_for_placing
+      end
+    end
+  end
+
+  # 記事のメニュー表示位置を１つ後ろに移動するアクション
+  # Ajaxでの実行となり.モデル更新後,viewの一覧テーブル部分のみをreplaceする
+  def next_order
+    @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
+    if @article.nil?
+      @articles = Article.where("site_id = :site_id", 
+                                :site_id => current_user.site_id).
+                                order('menu_order')
+      render :action => :table_for_placing
+      return
+    end
+    @article.to_next_menu_order 
+    @articles = Article.where("site_id = :site_id", 
+                              :site_id => current_user.site_id).
+                              order('menu_order')
+    respond_to do |format|
+      format.html do
+        render :action => :table_for_placing
+      end
+    end
+  end
+
 
   # GET /articles/new
   # GET /articles/new.xml
@@ -89,14 +160,23 @@ class Site::ArticlesController < Site::BaseController
     @article.site_id = current_user.site_id
     @article.user_id = current_user.id
     @article.article_type = Article::TYPE_PAGE
+    max_article = Article.select('max(menu_order) as max_order').
+                          where('site_id = :site_id', 
+                                :site_id => current_user.site_id).
+                          first
+    @article.menu_order = 
+      if max_article.nil? then 1 else max_article.max_order + 1 end
+                          
     respond_to do |format|
       if @article.save
         format.html { redirect_to(index_url, 
           :notice => I18n.t("created", :scope => TRANSLATION_SCOPE)) }
-        format.xml  { render :xml => @article, :status => :created, :location => @article }
+        format.xml  { render :xml => @article, :status => :created, 
+          :location => @article }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @article.errors, 
+          :status => :unprocessable_entity }
       end
     end
   end
@@ -110,7 +190,8 @@ class Site::ArticlesController < Site::BaseController
         flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
         format.html { 
           render :action => "edit" }
-        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @article.errors, 
+          :status => :unprocessable_entity }
       end
     end
     # 変更前の状態をバックアップ
@@ -131,7 +212,8 @@ class Site::ArticlesController < Site::BaseController
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @article.errors, 
+          :status => :unprocessable_entity }
       end
     end
   end
@@ -144,7 +226,8 @@ class Site::ArticlesController < Site::BaseController
       respond_to do |format|
         format.html { redirect_to(index_url, 
           :notice => I18n.t("not_found", :scope => TRANSLATION_SCOPE)) }
-        format.xml  { render :xml => @article.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @article.errors, 
+          :status => :unprocessable_entity }
       end
     end
 

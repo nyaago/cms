@@ -1,0 +1,59 @@
+<table>
+  <tr>
+    <th>
+      <%= link_to Article.human_attribute_name(:name), 
+        site_articles_path(:sort => 'name') %>
+    </th>
+    <th>
+      <%= link_to Article.human_attribute_name(:title), 
+        site_articles_path(:sort => 'title') %>
+    </th>
+    <th>
+      <%= link_to Article.human_attribute_name(:menu_order), 
+        site_articles_path(:sort => 'menu_order') %>
+    </th>
+    <th>
+      <%= link_to Article.human_attribute_name(:published), 
+        site_articles_path(:sort => 'published') %>
+    </th>
+    <th>
+      <%= link_to Article.human_attribute_name(:is_home), 
+        site_articles_path(:sort => 'is_home') %>
+    </th>
+    <th>
+      <%= link_to Article.human_attribute_name(:updated_at), 
+        site_articles_path(:sort => 'updated_at') %>
+    </th>
+    <th colspan='2'>
+      並び変更
+    </th>
+  <% @articles.each do |article| %>
+    <tr>
+      <td class="name">
+        <%= link_to h(article.name), site_article_path(article) %>
+      </td>
+      <td class="title">
+        <%= article.title %>
+      </td>
+      <td class="menu_order">
+        <%= article.menu_order %>
+      </td>
+      <td class="published">
+        <%= article.published_name %>
+      </td>
+      <td class="is_home">
+        <%= article.is_home_name %>
+      </td>
+      <td >
+        <%= I18n.l article.updated_at, :format => :short %>
+      </td>
+      <td>
+        <%= link_to_function '↑', "previousOrder(#{article.id}); return false;" %>
+      </td>
+      <td>
+        <%= link_to_function '↓', "nextOrder(#{article.id}); return false;" %>
+      </td>
+      
+    </tr>
+  <% end %>
+</table>
