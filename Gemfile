@@ -16,6 +16,12 @@ gem 'will_paginate','3.0.pre'
 gem 'jquery-rails'
 gem 'paperclip'
 
+#
+gem 'rspec'
+gem 'rspec-rails'
+gem 'autotest'
+gem 'autotest-rails'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

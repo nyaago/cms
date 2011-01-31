@@ -15,7 +15,7 @@ development:
 test:
   adapter: mysql2
   encoding: utf8
-  database: cms
+  database: cms_test
   username: moomin
   password: moomin
   pool: 5
