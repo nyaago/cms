@@ -6,6 +6,10 @@ class Article < ActiveRecord::Base
   # 記事ががhome(top)ページに指定された場合,他の記事のhome設定を解除
   before_save :cancel_is_home_except_self
   
+  # 新規作成前のcallback
+  # menu order をサイトでの最大値とする
+  before_create :set_max_menu_order
+  
   TRANSLATION_SCOPE = [:errors, :messages]
   
   # 記事タイプ
@@ -15,6 +19,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :site, :readonly => true
   belongs_to :user, :readonly => true
+  has_many   :article_histories
     
   validates_presence_of :title
   validates_presence_of :name
@@ -118,6 +123,21 @@ class Article < ActiveRecord::Base
     rescue ActiveModel::MissingAttributeError => ex
       # is_home 属性が選択されていない場合の例外なので無視
     end
+  end
+
+  # menu order をサイトでの最大値とする
+  def set_max_menu_order
+    max_article = Article.select('max(menu_order) as max_order').
+                          where('site_id = :site_id', 
+                                :site_id => self.site.id).
+                          first
+    self.menu_order = 
+      if max_article.nil? || max_article.max_order.nil? 
+        1 
+      else 
+        max_article.max_order + 1 
+      end
+    
   end
   
     

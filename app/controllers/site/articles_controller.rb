@@ -160,12 +160,6 @@ class Site::ArticlesController < Site::BaseController
     @article.site_id = current_user.site_id
     @article.user_id = current_user.id
     @article.article_type = Article::TYPE_PAGE
-    max_article = Article.select('max(menu_order) as max_order').
-                          where('site_id = :site_id', 
-                                :site_id => current_user.site_id).
-                          first
-    @article.menu_order = 
-      if max_article.nil? then 1 else max_article.max_order + 1 end
                           
     respond_to do |format|
       if @article.save(:validate => true)
@@ -245,10 +239,8 @@ class Site::ArticlesController < Site::BaseController
   # 記事の履歴を保存.
   # 保存前後で内容がかわっていなければ、作成しない.
   def save_history_from(article_before_update)
-    # 変更前の
     history = {}
     article_before_update.attributes.each_pair do |key, value|
-      p "#{key} = #{value}"
       if key.to_s != 'created_at' and key.to_s != 'updated_at' 
         history[key] = value
       end
