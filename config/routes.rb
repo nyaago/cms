@@ -25,7 +25,12 @@ Cms::Application.routes.draw do
     # Users
     match 'users/update/:id' => 'users#update#:id'
     match 'users/:action' => 'users#:action'
-    #
+    # Template
+    match 'template/:action' => 'template#:action'
+    # Images
+    match 'images/update/:id' => 'images#update#:id'
+    match 'images/:action' => 'images#:action'
+    
     resource :user_session
     resources :users
   end

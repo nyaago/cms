@@ -5,6 +5,7 @@ ja:
       article: "記事"
       article_history: "記事"
       page: "ページ"
+      image: "画像"
 
     attributes: 
       user: 
@@ -39,6 +40,12 @@ ja:
         last_updated_at: "記事最終更新日時"
         keywords: "メタタグキーワード"
 
+      image: 
+        title: "画像"
+        image_file_name: "ファイル名"
+        image_file_size: "ファイルサイズ"
+        image_content_type: "コンテンツタイプ"
+
       page:
         title: "タイトル"
         description: "説明"
@@ -70,3 +77,9 @@ ja:
     article:
       messages:
         page_limit: "公開記事数が制限を超えています"
+
+    image:
+      messages:
+        attachment_content_type: "JPG, GIF, PNG, PDF, EXCEL, Word, PowerPointのみアップロードできます"
+        attachment_size: "ファイルサイズが大きすぎます(最大 :max バイトまで)"
+        

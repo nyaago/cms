@@ -8,6 +8,14 @@ ja:
         created: "記事が作成されました"
         destroyed: "記事が削除されました"
         not_found: "記事がみつかりませんでした"
+
+      template:
+        updated: "テンプレートとテーマが更新されました"
+      
+      images:
+        created: "ファイルをアップロードしました"
+        updated: "更新しました"
+        destroyed: "削除されました"
         
       pages:
         updated: "ページが更新されました"

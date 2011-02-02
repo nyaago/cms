@@ -1,0 +1,14 @@
+# = Site::TemplateHelper
+#
+module Site::TemplateHelper
+
+  # urlパスを返す.
+  # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.
+  # == options
+  # :action => action.デフォルトは,'index'
+  def site_template_path(options = {})
+    url_for( :controller => "template", 
+    :action => if options[:action].blank? then 'index' else options[:action] end)
+  end
+
+end
