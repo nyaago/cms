@@ -1,0 +1,63 @@
+
+base latoutテンプレート
+
+== 設定ファイル
+
+config/layouts/templates/<任意>.yml に設定
+
+== 設定ファイルの内容
+templates:
+  - name:<template>
+    title:<表示タイトル>
+  - name .....
+
+
+== 以下のファイルを含む
+
+レイアウトテンプレート
+  app/views/layout/base_layout/<template>.html.erb
+      テーマごとにレイアウトテンプレートを準備
+      カスタマイズするここのcss要素はインラインに
+      
+  public/layouts/<template>/style.css
+      html.erbから参照するcss (erbではない)
+  public/layouts/<template>/images/*.*
+      参照する画像
+
+  public/layouts/<template>/icon.jpg
+      テーマ選択のアイコン
+  
+
+== モデルクラス
+
+::Layout::Template
+
+===
+
+=テーマ  
+
+== 設定ファイル
+config/layouts/themes/<任意>.yml に設定
+
+== 設定ファイルの内容
+themes:
+  - name:<theme名(=フォルダ名)>
+    title:<表示タイトル>
+
+
+== 以下のファイルを含む
+
+public/themes/<theme>/stylesheet/theme.css
+    html.erbから参照するcss (erbではない)
+    
+public/themes/<theme>/icon.jpg
+    テーマ選択のアイコン
+    
+public/themes/<theme>/images/*.*
+    html.erbから参照するcss (erbではない)
+
+
+== モデルクラス
+
+::Layout::Theme
+
