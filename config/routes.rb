@@ -28,7 +28,7 @@ Cms::Application.routes.draw do
     # Template
     match 'template/:action' => 'template#:action'
     # Images
-    match 'images/update/:id' => 'images#update#:id'
+    match 'images/:action/:id' => 'images#:action#:id'
     match 'images/:action' => 'images#:action'
     
     resource :user_session

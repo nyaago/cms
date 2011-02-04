@@ -1,0 +1,174 @@
+<script type="text/javascript">
+//<![CDATA[
+
+  function filterByMonth() {
+    $('#filtered_month').first().val($('#images_months').first().val());
+    $('#filteting_by_month').first().submit();
+  }
+
+  // 一括操作の実行
+  function processBatch(){
+    var value = $('#images_processing_method option:selected').val();
+    if(!value) {
+      return true;
+    }
+    if($('.check_for_batch:checked').size() == 0) {
+      alert('操作対象が選択されていません');
+      return true;
+    }
+
+    $('#process_with_batch').first().submit();
+  }
+  
+  $(document).ready( function() {
+    $('#check_all').change( function() {
+      checkAll($(this).attr('checked'));
+      
+    } );
+    } );  
+
+  
+  function checkAll(check) {
+    $('.check_for_batch').attr( { checked: check ? "checked" : ""} );
+  }
+  
+//]]>
+</script>
+
+
+<%= stylesheet_link_tag "site/images" %>
+<h1>
+  画像一覧とアップロード
+</h1>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div>
+<h2>
+  画像アップロード
+</h2>
+
+<%= form_for(@image, :html => { :multipart => true, 
+                #                :target => 'frame'  
+                                } , 
+:url => site_image_path(@image, :action => :create))  do |f| %>
+  <% if @image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image.errors.count, "error") %> エラーが発生しました:</h2>
+
+      <ul>
+      <% @image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+    
+    
+  <% end %>
+  <div class="field">
+    <%= f.label :image, "ファイルを選択" %><br />
+    <%= f.file_field :image%>
+  </div>
+
+  <div class="field">
+    <%= label :image, :title %><br />
+    <%= text_field :image_additional, :title %>
+  </div>
+  
+  <div class="field">
+    <%= label :image, :alternative %><br />
+    <%= text_field :image_additional, :alternative %>
+  </div>
+  
+  <div class="actions">
+  <%= f.submit :value => "ファイルをアップロード" %>
+  </div>
+  <!--
+  <iframe id='frame' name="frame"></iframe> 
+  -->
+<% end %>
+</div>
+
+<div>
+<h2>
+  画像一覧
+</h2>
+<%= form_tag({:action => :index},
+               {:id => 'filteting_by_month', :method => 'get'}) do -%>
+  <%= hidden_field_tag 'images[month]', nil, { :id => 'filtered_month'}  %>
+<% end %>
+<%= form_tag({:action => :process_with_batch},
+             {:id => 'process_with_batch', :method => 'get', :name => 'images'}) do -%>
+<div>
+  チェックされたものの
+  <%= select_tag('images[processing_method]',
+  options_for_select([['削除', 'destroy']]),
+  { :include_blank => true }) %>
+  <%= button_to_function('一括実行', 'return processBatch();') %>
+  
+  <%= select_tag('images[months]',
+  options_for_select(
+    [['全て', '']] +
+    @months.collect { |month|
+      [month.to_s('%Y年%m日'), month.to_s('%Y%m') ]
+    },
+    if params[:images] then params[:images][:month] else nil end
+  ), { :include_blank => false, :id => 'images_months' } )
+
+  %>
+    <%= button_to_function('フィルター', 'return filterByMonth();') %>
+</div>
+<% if @images.size > 0 %>
+    <%= will_paginate @images, :prev_label => '<=', :next_label => '=>' %>
+<% end %>
+
+<table id="images">
+  <tr>
+    <th>
+      <%= check_box_tag("check_all",1, false, 
+      {:class => 'check_all'}) %>
+    </th>
+    <th>
+      タイトル
+    </th>
+    <th>
+      作成日時
+    </th>
+  </tr>
+  <% @images.each_with_index do |image, i| %>
+    <tr>
+    </tr>
+    <tr class="image_entry_row, <%= if i % 2 == 0 then 'even' else 'odd' end %>" >
+      <td>
+        <%= check_box_tag("images[checked][#{image.id}]",image.id, false, 
+        {:class => 'check_for_batch'}) %>
+      </td>
+      <td class="image_entry">
+        <div class="image_thumb">
+           <%= thumb_tag(image) %> 
+        </div>
+        <div class="image_info">
+          <div class="image_title">
+            <%= image.title %>
+          </div>
+          <div class="actions"> 
+            <%= link_to("編集", site_image_path(image, :action => :edit)) %>
+            <%= link_to('削除', url_for(:action => :destroy, :id => image.id), 
+            :confirm => '削除してよろしいでしょうか?') %>
+            <%= link_to("表示", url_for(:action => :show, :id => image.id)) %>
+          </div> 
+        </div>
+      </td>
+      <td>
+        <%= I18n.l(image.created_at, :format => :short) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<% end %>
+<% if @images.size > 0 %>
+    <%= will_paginate @images, :prev_label => '<=', :next_label => '=>' %>
+<% end %>
+
+</div>
+
+

@@ -1,0 +1,78 @@
+div {
+
+}
+
+#images {
+  clear: both;
+}
+
+
+h2 {
+  clear: both;
+}
+input {
+  clear: both;
+}
+
+div.pagination {
+  clear: both;
+}
+
+#images {
+  border-style: solid;
+  border-color: #dddddd;
+  border-width: 3px;
+  
+}
+
+.image_entry_row td {
+  /*
+  border-style: solid;
+  border-color: #dddddd;
+  border-width: 3px;
+  */
+}
+
+.even {
+  background-color: #ffffcc;
+}
+
+.odd {
+    background-color: #dddddd;
+}
+
+
+.image_entry {
+  /*
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  */
+  width: 600px;
+  height: 120px;
+  
+
+}
+
+.image_info {
+  float: left;
+}
+
+.image_title {
+}
+
+
+.image_entry .actions {
+  position: relative;
+  top: 65px;
+}
+
+
+.image_thumb {
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  float: left;
+}
+

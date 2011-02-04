@@ -41,11 +41,16 @@ ja:
         keywords: "メタタグキーワード"
 
       image: 
-        title: "画像"
+        title: "タイトル"
         image_file_name: "ファイル名"
         image_file_size: "ファイルサイズ"
         image_content_type: "コンテンツタイプ"
-
+        total_size: "容量"
+        updated_at: "更新日時"
+        created_at: "作成日時"
+        alternative: "代替テキスト"
+        url: "画像url"
+        
       page:
         title: "タイトル"
         description: "説明"
@@ -80,6 +85,6 @@ ja:
 
     image:
       messages:
-        attachment_content_type: "JPG, GIF, PNG, PDF, EXCEL, Word, PowerPointのみアップロードできます"
+        attachment_content_type: "がJPG, GIF, PNG, PDF, EXCEL, Wordのもののみアップロードできます"
         attachment_size: "ファイルサイズが大きすぎます(最大 :max バイトまで)"
         

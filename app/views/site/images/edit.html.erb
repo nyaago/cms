@@ -1,12 +1,12 @@
 <h1>
-  新規画像アップロード
+  画像情報変更
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 
 <%= form_for(@image, :html => { :multipart => true, 
                 #                :target => 'frame'  
                                 } , 
-:url => site_image_path(@image, :action => :create))  do |f| %>
+:url => site_image_path(@image, :action => :update))  do |f| %>
   <% if @image.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@image.errors.count, "error") %> エラーが発生しました:</h2>
@@ -20,28 +20,33 @@
     
     
   <% end %>
-  <div class="field">
-    <%= f.label :image, "ファイルを選択" %><br />
-    <%= f.file_field :image%>
-  </div>
 
   <div class="field">
     <%= label :image, :title %><br />
-    <%= text_field :image_additional, :title %>
+    <%= text_field :image, :title %>
   </div>
   
   <div class="field">
     <%= label :image, :alternative %><br />
-    <%= text_field :image_additional, :alternative %>
+    <%= text_field :image, :alternative %>
+  </div>
+
+  <div class="field">
+    <%= label :image, :url %><br />
+    <%= link_to(image_url(@image),image_url(@image), :target => '_blank')  %>
+  </div>
+
+  <div>
+    <%= image_tag(@image) %>
   </div>
 
   
   <div class="actions">
-  <%= f.submit :value => "ファイルをアップロード" %>
+  <%= f.submit :value => "更新" %>
   </div>
   <!--
   <iframe id='frame' name="frame"></iframe> 
   -->
 <% end %>
 
-<%= link_to_function '戻る', "history.back();return false;" %>
+<%= link_to '戻る', site_images_path(:action => :index) %>

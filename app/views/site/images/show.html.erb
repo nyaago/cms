@@ -1,0 +1,38 @@
+<p id="notice"><%= flash[:notice] %></p>
+
+<div>
+  <% if @image.image_content_type? %>
+  <div>
+    <%= image_tag(@image) %>
+  </div>
+  <% end %>
+  <table>
+    <tr>
+      <th>
+        タイトル
+      </th>
+      <td>
+        <%= @image.title %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        代替テキスト
+      </th>
+      <td>
+        <%= @image.alternative %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        URL
+      </th>
+      <td>
+        <%= link_to(image_url(@image),image_url(@image), :target => '_blank')  %>
+      </td>
+    </tr>
+
+  </table>
+  
+</div>

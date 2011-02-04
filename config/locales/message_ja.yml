@@ -16,7 +16,9 @@ ja:
         created: "ファイルをアップロードしました"
         updated: "更新しました"
         destroyed: "削除されました"
-        
+        not_implemented_batch: "操作が定義されていません"
+        complete_destroy_batch: "%{count}件の削除を行いました"
+        not_found: "画像がみつかりませんでした"
       pages:
         updated: "ページが更新されました"
         created: "ページが作成されました"
