@@ -1,0 +1,84 @@
+2.お知らせ
+
+・下書き（非公開） / 公開の状態を可とする。
+・下書き(非公開)から公開への日付け予約          
+・一般公開とパスワード保護の別.サイト共用のパスワードを用意する。 - 優先度は低い
+・平文投稿対応..
+
+2.お知らせ/ページ記事への画像挿入
+・画像一覧/アップロード機能で登録されたファイルから選択
+・その場でアップロードして - 優先度 - 中
+
+2.記事のSEO (P4)
+・メタタグのtitle, keywords, description に対応したものの入力
+・SEO設定無効の設定 - ここでの設定を無効とする。titleはページタイトルと同じものだけ設定
+
+画像編集機能
+ 優先度 - 低or中
+ 
+テーマ(P10) 
+  プレビュー機能は保留
+  
+  
+テーマデザイン(P12)
+・Eye Cetch Type
+  Eye Cetch画像の配置方法
+    none, 
+    Header Area - title(h1?)と重ねる, 
+    Header Area(Banner type) - titleと重ねない
+    Content Area - contentとsideの上, titleの下
+    Main Area - contentの上, sideの横で開始y座標は同じ
+    
+  Feed Type
+    RSS, ATOM
+    
+  Title Tag
+    タイトルタグの書式 (<site名> - <entry名>   ..など)
+    
+  Global Navigation
+    左上のHomeへのリンクのある・なし
+    
+  アクセス解析コード
+    各ページに付加するjavascript
+    
+  Layout
+    サイドバーなし / サイドバー左 / サイドバー右
+    
+  Skin Color 
+    Blue , Silver , Red, Green,
+    
+  Logo Location
+    不要
+  
+  Header Logo 
+    画像(アップロード済み選択　or アップロード ?)
+  
+  Background 
+    画像(アップロード済み選択　or アップロード ?),
+    カラー
+    repeat - horizontal, vertical, no-repeat, tile
+    
+  Header Image
+    画像(アップロード済み選択　or アップロード ?)
+    
+  Footer Image
+    画像(アップロード済み選択　or アップロード ?)
+    
+  Font size
+    
+  Copy right  
+  
+    
+投稿設定
+  「整形」設定は不要
+  
+お知らせ - メールでの投稿
+  設定されたさきに pop3 でとりにいく
+  設定 - サーバー、ログイン, パスワード
+  
+
+  
+
+
+
+
