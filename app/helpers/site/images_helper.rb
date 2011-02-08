@@ -12,6 +12,7 @@ module Site::ImagesHelper
   def site_images_path(options = {})
     url_for( :controller => "images", 
     :action => if options[:action].blank? then 'index' else options[:action] end,
+    :month => if !params[:month].blank?  then params[:month]  else nil end,
     :page => if !params[:page].blank?  then params[:page]  else 1 end,
     :sort => if !options[:sort].blank?  then options[:sort]  else false end,
     :direction => if !options[:sort].blank?  then 
@@ -40,6 +41,7 @@ module Site::ImagesHelper
     url_for( :controller => "images", 
         :action => if options[:action].blank? then 'index' else options[:action] end,
         :id =>  if image.nil? then nil else image.id end,
+        :month => if !params[:month].blank?  then params[:month]  else nil end,
         :page => if !params[:page].blank?  then params[:page]  else 1 end,
         :sort => if !params[:sort].blank?  then params[:sort]  else nil end,
         :direction => if !params[:direction].blank?  then params[:direction]  else nil end)

@@ -2,7 +2,7 @@
 //<![CDATA[
 
   function filterByMonth() {
-    $('#filtered_month').first().val($('#images_months').first().val());
+    $('#filtered_month').first().val($('#filtering_month').first().val());
     $('#filteting_by_month').first().submit();
   }
 
@@ -94,7 +94,7 @@
 </h2>
 <%= form_tag({:action => :index},
                {:id => 'filteting_by_month', :method => 'get'}) do -%>
-  <%= hidden_field_tag 'images[month]', nil, { :id => 'filtered_month'}  %>
+  <%= hidden_field_tag 'month', nil, { :id => 'filtered_month'}  %>
 <% end %>
 <%= form_tag({:action => :process_with_batch},
              {:id => 'process_with_batch', :method => 'get', :name => 'images'}) do -%>
@@ -111,8 +111,8 @@
     @months.collect { |month|
       [month.to_s('%Y年%m日'), month.to_s('%Y%m') ]
     },
-    if params[:images] then params[:images][:month] else nil end
-  ), { :include_blank => false, :id => 'images_months' } )
+    if params[:month] then params[:month] else nil end
+  ), { :include_blank => false, :id => 'filtering_month', :name => 'month'} )
 
   %>
     <%= button_to_function('フィルター', 'return filterByMonth();') %>

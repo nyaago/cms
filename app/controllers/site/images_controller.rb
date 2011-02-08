@@ -1,5 +1,7 @@
 
 class Site::ImagesController < Site::BaseController
+
+  include Site::ImagesHelper
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "images"].freeze
@@ -26,19 +28,19 @@ class Site::ImagesController < Site::BaseController
   def index
     @image = Image.new
     @months = Image.created_months(current_user.site_id)
-    cur_month = if params[:images] then params[:images][:month] else nil end
+    cur_month = if params[:month] then params[:month] else nil end
     @images = Image.where("site_id = :site_id ",
                           :site_id => current_user.site_id).
                         filter_by_month(cur_month).
                         order(order_by).
                         paginate(
-                              :page => 
-                                if !params[:page].blank? && params[:page].to_i >= 1 
-                                  params[:page].to_i
-                                else 
-                                  1 
-                                end, 
-                              :per_page => PER_PAGR)
+                          :page => 
+                            if !params[:page].blank? && params[:page].to_i >= 1 
+                              params[:page].to_i
+                            else 
+                              1 
+                            end, 
+                          :per_page => PER_PAGR)
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @images }
@@ -203,11 +205,7 @@ class Site::ImagesController < Site::BaseController
   
   # 一覧ページへのurlを返す
   def index_url
-    url_for(:action => :index, 
-      :page => if !params[:page].blank? then params[:page] else 1 end,
-      :sort => if !params[:sort].blank? then params[:sort] else nil end,
-      :direction => if !params[:direction].blank? then params[:direction] else nil end
-      )
+    site_images_path
   end
 
   # order by 句を返す
