@@ -8,6 +8,7 @@ class Site::ThemeController < Site::BaseController
   def index
     @site = current_user.site
     @themes = Layout::Theme.load
+    @selected_theme = @themes.find_by_name(@site.site_layout.theme)
     #@site.theme = 'default'
   end
   
@@ -15,26 +16,32 @@ class Site::ThemeController < Site::BaseController
   # PUT /theme/1.xml
   def update
     @site = Site.find_by_id( current_user.site_id)
-    if @site.nil?
+    if @site.nil? || @site.site_layout.nil?
       respond_to do |format|
+        @themes = Layout::Theme.load
+        @selected_theme = @themes.find_by_name(@site.site_layout.theme)
+        
         flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
         format.html { 
           render :action => "index" }
         format.xml  { render :xml => @site.errors, 
           :status => :unprocessable_entity }
+        return
       end
     end
     # 属性設定
 #    @site.user_id = current_user.id
-    @site.attributes = params[:site]
+    @site.site_layout.attributes = params[:site_layout]
 
     respond_to do |format|
       # 変更されていれば、履歴を作成
-      if @site.save(:validate => true)
+      if @site.site_layout.save(:validate => true)
         format.html { redirect_to(index_url, 
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
         format.xml  { head :ok }
       else
+        @themes = Layout::Theme.load
+        @selected_theme = @themes.find_by_name(@site.site_layout.theme)
         format.html { render :action => "index" }
         format.xml  { render :xml => @site.errors, 
           :status => :unprocessable_entity }

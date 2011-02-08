@@ -2,6 +2,12 @@ module Layout
 
   # = Conig::Layout::Base
   # レイアウトの設定を保持するモデルのベース
+  # == 共通のクラスMethod
+  # * self.load
+  # == 共通のインスタンスMethod
+  # * == () - 同値比較.名前による比較
+  # == load されたコレクション(Array)に追加されるmethod
+  # * find_by_name - 名前を指定して要素を返す
   class Base
 
     # 一覧設定ディレクトリ内のyamlファイルを読み込み,
@@ -21,10 +27,28 @@ module Layout
         end
         models += self.yaml2models(yaml)
       end
+      
+      # 名前から要素を返す
+      def models.find_by_name(name)
+        return nil if self.size == 0
+        model = self[0].class.new(name)
+        if self.include?(model)
+          self[self.find_index(model)]
+        else
+          nil
+        end
+      end
+      
       models
     end
 
-
+    # 同値比較.
+    # nameが同じであれば同値と判定
+    def == (other)
+      self.name == other.name
+    end
+    
+    
     protected
   
     # yamlの読み込み結果からmodelのarrayを生成.

@@ -24,8 +24,8 @@
         $(this).addClass('selected');
       });
     } ) ;
-    $('.theme_radio_button').val(['<%= @site.theme %>']);
-    $('div#theme_<%= @site.theme %>').addClass('selected');
+    $('.theme_radio_button').val(['<%= @site.site_layout.theme %>']);
+    $('div#theme_<%= @site.site_layout.theme %>').addClass('selected');
     
   } );
   
@@ -38,9 +38,29 @@
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 
-<%= form_for(@site, :url => site_theme_path(:action => 'update')) do |f| %>
+<h2>
+  選択されているテーマ
+</h2>
+<div class="selected_theme" id="selected_theme">
+  <label for="theme_thumb"> 
+  <div class="theme_thumb"
+       style="background-image:url(<%= @selected_theme.thumb_url %>);"> </div> 
+  </label> 
+  <p class="theme_select"> 
+  <label for="theme" id="theme_title" > 
+    <%= @selected_theme.title %>
+  </label> 
+  </p> 
+</div>
+  
+
+
+<%= form_for(@site.site_layout, :url => site_theme_path(:action => 'update')) do |f| %>
 
 <div>
+<h2>
+  選択可能なテーマ
+</h2>
 <div id="themes">
   <% @themes.each do |theme| %>
     <div class="theme" id="theme_<%= theme.name %>">
@@ -53,7 +73,10 @@
       <label for="theme" id="theme_title" > 
         <%= theme.title %>
       </label> 
-      </p> 
+      </p>
+      <div class="theme_description"> 
+      <%= theme.description.html_safe %>
+      </div>
     </div>
   <% end %>
 </div>

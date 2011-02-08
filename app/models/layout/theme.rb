@@ -10,14 +10,17 @@ module Layout
     attr_reader :name
     # themeの表示タイトル
     attr_reader :title
+    # themeの説明
+    attr_reader :description
     
     # 初期化
     # nameとoptionsのマップを引数で含む
     # == Options
     # :title 
-    def initialize(name,options)
+    def initialize(name,options = {})
       @name = name
-      @title = options[:title] if options.include?(:title)
+      @title = options[:title] if options.include?(:title) 
+      @description = options[:description] if options.include?(:description) 
     end
     
     # 選択のためのサムネイルのファイルシステム上のパス
@@ -61,8 +64,14 @@ module Layout
                           map['name']
                         else
                           map['title']
+                        end,
+              :description => if map['description'].nil? 
+                          ''
+                        else
+                          map['description']
                         end
                         )
+                        
     end
 
   end
