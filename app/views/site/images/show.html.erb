@@ -6,8 +6,8 @@
     <%= image_tag(@image) %>
   </div>
   <% end %>
-  <table>
-    <tr>
+  <table class="list">
+    <tr class="title">
       <th>
         タイトル
       </th>
@@ -15,7 +15,23 @@
         <%= @image.title %>
       </td>
     </tr>
-    <tr>
+    <tr class="caption">
+      <th>
+        キャプション
+      </th>
+      <td>
+        <%= @image.alternative %>
+      </td>
+    </tr>
+    <tr class="description">
+      <th>
+        説明
+      </th>
+      <td>
+        <%= simple_format(@image.description) %>
+      </td>
+    </tr>
+    <tr class="alternative">
       <th>
         代替テキスト
       </th>
@@ -24,7 +40,7 @@
       </td>
     </tr>
 
-    <tr>
+    <tr class="url">
       <th>
         URL
       </th>
@@ -35,4 +51,8 @@
 
   </table>
   
+</div>
+
+<div class="actions">
+<%= link_to_function '戻る', 'history.back();' %>
 </div>

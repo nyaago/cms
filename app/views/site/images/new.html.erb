@@ -35,6 +35,17 @@
     <%= text_field :image_additional, :alternative %>
   </div>
 
+  <div class="field">
+    <%= label :image, :caption %><br />
+    <%= text_field :image_additional, :caption %>
+  </div>
+  
+  </div class="field">
+    <%= label :image, :description %><br />
+    <%= text_area :image_additional, :description %>
+  </div>
+  
+
   
   <div class="actions">
   <%= f.submit :value => "ファイルをアップロード" %>

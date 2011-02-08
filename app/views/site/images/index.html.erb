@@ -1,36 +1,22 @@
 <script type="text/javascript">
 //<![CDATA[
-
-  function filterByMonth() {
-    $('#filtered_month').first().val($('#filtering_month').first().val());
-    $('#filteting_by_month').first().submit();
-  }
-
-  // 一括操作の実行
-  function processBatch(){
-    var value = $('#images_processing_method option:selected').val();
-    if(!value) {
-      return true;
-    }
-    if($('.check_for_batch:checked').size() == 0) {
-      alert('操作対象が選択されていません');
-      return true;
-    }
-
-    $('#process_with_batch').first().submit();
-  }
   
-  $(document).ready( function() {
-    $('#check_all').change( function() {
-      checkAll($(this).attr('checked'));
-      
-    } );
-    } );  
-
+  // see javascript/site/images.js
   
-  function checkAll(check) {
-    $('.check_for_batch').attr( { checked: check ? "checked" : ""} );
-  }
+  // ページload時,
+  // アップロードフォームの表示On/Off,#display_uploadフィールドの値で切り替え
+  $(document).ready( function(){
+    var  f = false;
+    if($('#display_upload').attr('value') == 1) {
+      f = true;
+    }
+    else {
+      f = false;
+    }
+    showOrHideUpload(f);
+  });
+
+
   
 //]]>
 </script>
@@ -43,9 +29,8 @@
 
 <p id="notice"><%= flash[:notice] %></p>
 <div>
-<h2>
-  画像アップロード
-</h2>
+
+<%= link_to_function('隠す', 'reverseDisplayingUpload();', :id => 'link_to_display_upload')%>
 
 <%= form_for(@image, :html => { :multipart => true, 
                 #                :target => 'frame'  
@@ -64,6 +49,14 @@
     
     
   <% end %>
+
+<div id="upload">
+  <h2>
+    画像アップロード
+  </h2>
+  
+  <%= hidden_field_tag :display_upload, 
+    if params[:display_upload].nil? then 0  else params[:display_upload] end %>
   <div class="field">
     <%= f.label :image, "ファイルを選択" %><br />
     <%= f.file_field :image%>
@@ -79,6 +72,18 @@
     <%= text_field :image_additional, :alternative %>
   </div>
   
+  <div class="field">
+    <%= label :image, :caption %><br />
+    <%= text_field :image_additional, :caption %>
+  </div>
+  
+  <div class="field">
+    <%= label :image, :description %><br />
+    <%= text_area :image_additional, :description %>
+  </div>
+
+  
+  
   <div class="actions">
   <%= f.submit :value => "ファイルをアップロード" %>
   </div>
@@ -87,6 +92,7 @@
   -->
 <% end %>
 </div>
+
 
 <div>
 <h2>
@@ -118,7 +124,9 @@
     <%= button_to_function('フィルター', 'return filterByMonth();') %>
 </div>
 <% if @images.size > 0 %>
-    <%= will_paginate @images, :prev_label => '<=', :next_label => '=>' %>
+  <%= will_paginate @images,  
+    :params=>{:display_upload=>0}, 
+    :prev_label => '<=', :next_label => '=>' %>
 <% end %>
 
 <table id="images">
@@ -143,12 +151,15 @@
         {:class => 'check_for_batch'}) %>
       </td>
       <td class="image_entry">
-        <div class="image_thumb">
+        <div class="thumb">
            <%= thumb_tag(image) %> 
         </div>
-        <div class="image_info">
-          <div class="image_title">
+        <div class="info">
+          <div class="title">
             <%= image.title %>
+          </div>
+          <div class="description">
+            <%= image.description %>
           </div>
           <div class="actions"> 
             <%= link_to("編集", site_image_path(image, :action => :edit)) %>
@@ -166,7 +177,9 @@
 </table>
 <% end %>
 <% if @images.size > 0 %>
-    <%= will_paginate @images, :prev_label => '<=', :next_label => '=>' %>
+    <%= will_paginate @images,  
+      :params=>{:display_upload=>0}, 
+      :prev_label => '<=', :next_label => '=>' %>
 <% end %>
 
 </div>

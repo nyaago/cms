@@ -36,17 +36,30 @@
     <%= link_to(image_url(@image),image_url(@image), :target => '_blank')  %>
   </div>
 
+  <div class="field">
+    <%= label :image, :caption %><br />
+    <%= text_field :image, :caption %>
+  </div>
+  
+  </div class="field">
+    <%= label :image, :description %><br />
+    <%= text_area :image, :description %>
+  </div>
+  
+
+
   <div>
     <%= image_tag(@image) %>
   </div>
 
   
   <div class="actions">
-  <%= f.submit :value => "更新" %>
+    <%= link_to_function '戻る', 'history.back();' %>
+   <%= f.submit :value => "更新" %>
   </div>
   <!--
   <iframe id='frame' name="frame"></iframe> 
   -->
 <% end %>
 
-<%= link_to '戻る', site_images_path(:action => :index) %>
+

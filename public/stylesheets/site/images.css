@@ -50,26 +50,46 @@ div.pagination {
   margin-bottom: 1em;
   */
   width: 600px;
-  height: 120px;
+  height: 10em;
   
 
 }
 
-.image_info {
+div.info {
   float: left;
+  height: 8em;
 }
 
-.image_title {
+div.title {
+  height: 1.4em;
+  margin-top: 0.2em;
+  padding-bottom: 0.4em;
+  margin-left: 0.2em;
+  margin-bottom: 0.2em;
+  font-weight: bold;
+  font-size: 110%;
+}
+
+div.description {
+  height: 5.5em;
+}
+
+div.actions {
 }
 
 
-.image_entry .actions {
+
+.image_entry div.actions {
+  /*
   position: relative;
-  top: 65px;
+  top: 4.5em;
+  */
+  height: 1.2em;
+  
 }
 
 
-.image_thumb {
+div.thumb {
   width: 120px;
   height: 120px;
   text-align: center;

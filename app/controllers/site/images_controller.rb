@@ -70,7 +70,7 @@ class Site::ImagesController < Site::BaseController
         if @image = Image.create( additional_attrs.merge params[:image] )
           format.html do 
             @image.update_attributes(params[:image_additional])
-            redirect_to(url_for(:action => :index), 
+            redirect_to(url_for(:action => :index, :display_upload => 1), 
             :notice => I18n.t("created", :scope => TRANSLATION_SCOPE)) 
           end
           format.xml  { render :xml => @image, :status => :created, 
