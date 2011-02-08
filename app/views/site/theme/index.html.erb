@@ -1,0 +1,66 @@
+<script type="text/javascript">
+//<![CDATA[
+
+  $(document).ready( function(){
+    // == theme
+    // radio button 変更時
+    $('.theme_radio_button').each( function() {
+      $(this).change(function () {
+        $('.theme_radio_button').each( function() {
+          $(this).parent().parent().removeClass('selected');
+        } );
+        $(this).parent().parent().addClass('selected');
+      });
+    } ) ;
+    // div 選択時、radio buttonの値変更
+    $('div.theme').each( function() {
+      $(this).click(function () {
+        var  id =  $(this).attr('id');
+        id = id.replace(/theme_/,'');
+        $('.theme_radio_button').each( function() {
+          $(this).parent().parent().removeClass('selected');
+        } );
+        $('.theme_radio_button').val([id]);
+        $(this).addClass('selected');
+      });
+    } ) ;
+    $('.theme_radio_button').val(['<%= @site.theme %>']);
+    $('div#theme_<%= @site.theme %>').addClass('selected');
+    
+  } );
+  
+//]]>
+</script>
+
+<%= stylesheet_link_tag "site/theme" %>
+<h1>
+  テーマの選択
+</h1>
+<p id="notice"><%= flash[:notice] %></p>
+
+<%= form_for(@site, :url => site_theme_path(:action => 'update')) do |f| %>
+
+<div>
+<div id="themes">
+  <% @themes.each do |theme| %>
+    <div class="theme" id="theme_<%= theme.name %>">
+      <label for="theme_thumb"> 
+      <div class="theme_thumb"
+           style="background-image:url(<%= theme.thumb_url %>);"> </div> 
+      </label> 
+      <p class="theme_select"> 
+      <%= f.radio_button :theme, theme.name,:class => "theme_radio_button"  %>
+      <label for="theme" id="theme_title" > 
+        <%= theme.title %>
+      </label> 
+      </p> 
+    </div>
+  <% end %>
+</div>
+</div>
+<div class="actions">
+<%= f.submit :value => "テーマを更新" %>
+</div>
+<% end %>
+
+

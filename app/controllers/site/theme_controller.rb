@@ -1,20 +1,18 @@
 # == Site::TemplateController
 # レイアウトベーステンプレート、テーマの選択
-class Site::TemplateController < Site::BaseController
+class Site::ThemeController < Site::BaseController
 
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "template"].freeze
+  TRANSLATION_SCOPE = ["messages", "site", "theme"].freeze
   
   def index
     @site = current_user.site
-    @templates = Layout::Template.load
     @themes = Layout::Theme.load
-    #@site.template = 'default'
     #@site.theme = 'default'
   end
   
-  # PUT /template/1
-  # PUT /template/1.xml
+  # PUT /theme/1
+  # PUT /theme/1.xml
   def update
     @site = Site.find_by_id( current_user.site_id)
     if @site.nil?
