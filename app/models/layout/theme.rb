@@ -9,17 +9,17 @@ module Layout
     # themeの名前
     attr_reader :name
     # themeの表示タイトル
-    attr_reader :title
+    attr_reader :human_name
     # themeの説明
     attr_reader :description
     
     # 初期化
     # nameとoptionsのマップを引数で含む
     # == Options
-    # :title 
+    # :human_name 
     def initialize(name,options = {})
       @name = name
-      @title = options[:title] if options.include?(:title) 
+      @human_name = options[:human_name] if options.include?(:human_name) 
       @description = options[:description] if options.include?(:description) 
     end
     
@@ -34,7 +34,7 @@ module Layout
     end
     
     def inspect
-      "name => #{name}, title => #{title}"
+      "name => #{name}, human_name => #{human_name}"
     end
     
     def to_s
@@ -55,15 +55,15 @@ module Layout
     end
 
     # map(Hash)からモデルを生成して返す.生成できなければnil.
-    # mapには'name'が含まれることが必須.Optionは'title'
+    # mapには'name'が含まれることが必須.Optionは'human_name'
     def self.map_to_model(map)
       return nil if map['name'].nil?
 
       self.new(map['name'], 
-              :title => if map['title'].nil? 
+              :human_name => if map['human_name'].nil? 
                           map['name']
                         else
-                          map['title']
+                          map['human_name']
                         end,
               :description => if map['description'].nil? 
                           ''

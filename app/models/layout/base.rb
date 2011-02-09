@@ -10,11 +10,31 @@ module Layout
   # * find_by_name - 名前を指定して要素を返す
   class Base
 
-    # 一覧設定ディレクトリ内のyamlファイルを読み込み,
-    # modelのarrayを生成する.
+    # 設定yamlファイルを読み込み,
+    # config_path属性がディレクトリーならそのディレクトリー内のymlファイルを全て,
+    # 通常ファイルであればそのファイルを読み込む.
+    # 結果として,modelのarrayを生成する.
     def self.load
       models = []
-      Dir[config_path + "/*.yml"].each do |file|
+      
+      # file一覧を取得
+      files = 
+      if File.directory?(config_path) 
+        files_in_dir = []
+        Dir[config_path + "/*.yml"].each do |file|
+          files_in_dir << file
+        end
+        files_in_dir
+      elsif File.file?(config_path)
+        [config_path]
+      else
+        nil
+      end
+      
+      return nil if files.nil?
+
+      # ファイルを読み込み,モデルの配列を生成
+      files.each do |file|
         begin
           yaml = YAML.load_file(file)
         rescue  => ex
@@ -28,16 +48,8 @@ module Layout
         models += self.yaml2models(yaml)
       end
       
-      # 名前から要素を返す
-      def models.find_by_name(name)
-        return nil if self.size == 0
-        model = self[0].class.new(name)
-        if self.include?(model)
-          self[self.find_index(model)]
-        else
-          nil
-        end
-      end
+      # モデルの配列(Array)への特異method追加
+      models.extend(ArrayMethods)
       
       models
     end
@@ -72,8 +84,6 @@ module Layout
       end
     end
 
-
-
     # loggerを返す
     def self.logger
       require 'logger'
@@ -84,9 +94,24 @@ module Layout
       end
       Logger.new(::Rails.root.to_s + "/log/#{rails_env}.log")
     end
+  
+  end
 
-  
-  
+
+  # モデルのload method　で返される arrayインスタンスに追加する特異メソッドを定義
+  module ArrayMethods
+    
+    # 名前から要素を返す
+    def find_by_name(name)
+      return nil if self.size == 0
+      model = self[0].class.new(name)
+      if self.include?(model)
+        self[self.find_index(model)]
+      else
+        nil
+      end
+    end
+
   end
   
 end

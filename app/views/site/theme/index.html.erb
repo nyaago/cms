@@ -47,8 +47,8 @@
        style="background-image:url(<%= @selected_theme.thumb_url %>);"> </div> 
   </label> 
   <p class="theme_select"> 
-  <label for="theme" id="theme_title" > 
-    <%= @selected_theme.title %>
+  <label for="theme" id="theme_human_name" > 
+    <%= @selected_theme.human_name %>
   </label> 
   </p> 
 </div>
@@ -70,8 +70,8 @@
       </label> 
       <p class="theme_select"> 
       <%= f.radio_button :theme, theme.name,:class => "theme_radio_button"  %>
-      <label for="theme" id="theme_title" > 
-        <%= theme.title %>
+      <label for="theme" id="theme_human_name" > 
+        <%= theme.human_name %>
       </label> 
       </p>
       <div class="theme_description"> 

@@ -1,5 +1,5 @@
 themes:
   name: "default"
-  title: "標準"
+  human_name: "標準"
   description: "<p>標準のテーマです</p>"
   
