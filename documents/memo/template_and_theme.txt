@@ -1,37 +1,3 @@
-
-base latoutテンプレート
-
-== 設定ファイル
-
-config/layouts/templates/<任意>.yml に設定
-
-== 設定ファイルの内容
-templates:
-  - name:<template>
-    title:<表示タイトル>
-  - name .....
-
-
-== 以下のファイルを含む
-
-レイアウトテンプレート
-  app/views/layout/base_layout/<template>.html.erb
-      テーマごとにレイアウトテンプレートを準備
-      カスタマイズするここのcss要素はインラインに
-      
-  public/layouts/<template>/style.css
-      html.erbから参照するcss (erbではない)
-  public/layouts/<template>/images/*.*
-      参照する画像
-
-  public/layouts/<template>/icon.jpg
-      テーマ選択のアイコン
-  
-
-== モデルクラス
-
-::Layout::Template
-
 ===
 
 =テーマ  
@@ -54,10 +20,141 @@ public/themes/<theme>/icon.jpg
     テーマ選択のアイコン
     
 public/themes/<theme>/images/*.*
-    html.erbから参照するcss (erbではない)
+    theme.cssから参照する画像
 
 
 == モデルクラス
 
 ::Layout::Theme
 
+
+=Eye Catch Type
+
+== 設定ファイル
+config/layouts/eye_catch.yml
+
+== 設定ファイルの内容
+eye_catches:
+  - name:<eye_catch_type名>
+    human_name:<表示タイトル>
+    
+== 以下のファイルを含む
+
+public/eye_catches/<eye_catch_type>/stylesheet/eye_catch.css
+   そのtypeが選択されたときに適用されるcss
+public/eye_catches/<eye_catch_type>/icon.jpg
+   選択のためのアイコン
+
+== 設定値(name - human_name - 備考)
+
+none - なし - ,
+header_area - ヘッダー領域 - title(h1?)と重ねる, 
+header_area_banner - ヘッダー領域(バナータイプ) - titleと重ねない
+content_area - コンテンツ領域 - contentとsideの上, titleの下
+main_area - Main Area - contentの上, sideの横で開始y座標は同じ
+
+
+=title tag
+
+== 設定ファイル
+config/layouts/title_tag.yml
+
+== 設定ファイルの内容
+title_tags:
+ - name:<title tag名>
+   human_name:<表示タイトル>
+   format:<format>
+   
+==フォーマットで指定できる変数
+%site_title%       
+   サイトタイトル
+%article_title%
+   記事名
+
+== 設定値(name - human_name - format)
+
+site_article - 'サイトタイトル - 記事タイトル' - '%site_title% - %article_title%'
+article_site - '記事タイトル - サイトタイトル' - '%article_title% - %site_title%'
+
+
+=global naigation (home リンクの有無)
+
+==設定ファイル
+config/layouts/global_navigation.yml
+
+== 設定ファイルの内容
+global_navigations:
+  - name:<global_navigation名>
+    human_name:<表示タイトル>
+    
+== 以下のファイルを含む
+
+public/global_navigations/<global_navigation>/stylesheet/global_navigation.css
+   そのtypeが選択されたときに適用されるcss
+
+== 設定値(name - human_name)
+
+home_link - ホームリンクを表示
+no_home_link - ホームリンクを表示しない
+
+=column_layout
+
+==設定ファイル
+config/layouts/column_layout.yml
+  
+== 設定ファイルの内容
+column_layouts:
+  - name:<column_layout名>
+    human_name:<表示タイトル>
+    
+== 以下のファイルを含む
+
+public/column_layouts/<column_layout>/stylesheet/column_layout.css
+   そのlayoutが選択されたときに適用されるcss
+public/column_layouts/<column_layout>/icon.jpg
+   選択のためのアイコン
+
+== 設定値(name - human_name)
+single - サイドメニューなし
+menu_on_left - 左サイドメニュー
+menu_on_right - 右サイドメニュー
+
+
+=skin_color
+
+==設定ファイル
+config/layouts/skin_color.yml
+
+== 設定ファイルの内容
+skin_colors:
+  - name:<column_layout名>
+    human_name:<表示タイトル>
+
+== 以下のファイルを含む
+
+public/skin_colors/<skin_color/stylesheet/skin_color.css
+   そのcolorが選択されたときに適用されるcss
+public/skin_colors/<skin_color>/icon.jpg
+   選択のためのアイコン
+
+== 設定値(name - human_name)
+default - テーマのデフォルトを使用
+blue  - 青
+silver - シルバー
+red - 赤
+green - 緑
+
+=font_size
+
+==設定ファイル
+config/layouts/font_size.yml
+
+== 設定ファイルの内容
+font_sizes:
+　　- name:<column_layout名>
+  　　human_name:<表示タイトル>
+
+== 設定値(name - human_name)
+  default - テーマのデフォルトを使用
+  small - 小さく
+  small - 大きく

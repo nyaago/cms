@@ -1,0 +1,129 @@
+<script type="text/javascript">
+//<![CDATA[
+
+  $(document).ready( function(){
+    registOnChangeRadio('eye_catch');
+    registOnChangeRadio('skin_color');
+    registOnChangeRadio('column_layout');
+    selectRadio('eye_catch',  '<%= @site.site_layout.eye_catch_type %>');
+    selectRadio('skin_color',  '<%= @site.site_layout.skin_color %>');
+    selectRadio('column_layout',  '<%= @site.site_layout.column_layout %>');
+//    selectRadio('font_size',  '<%= @site.site_layout.font_size %>');
+  } );
+  
+//]]>
+</script>
+  
+<h1>
+  テーマの選択
+</h1>
+<p id="notice"><%= flash[:notice] %></p>
+
+
+<%= form_for(@site.site_layout, :url => site_layout_path(:action => 'update')) do |f| %>
+
+<div>
+<h2>
+  アイキャッチレイアウト
+</h2>
+<div id="eye_catches">
+  <% @layout_defs.eye_catches.each do |eye_catch| %>
+    <div class="eye_catch" id="eye_catch_<%= eye_catch.name %>">
+      <label for="eye_catch_thumb"> 
+      <div class="eye_catch_thumb"
+           style="background-image:url(<%= eye_catch.thumb_url %>);"> </div> 
+      </label> 
+      <p class="eye_catch_select"> 
+      <%= f.radio_button :eye_catch_type, eye_catch.name,:class => "eye_catch_radio_button"  %>
+      <label for="eye_catch" id="eye_catch_human_name" > 
+        <%= eye_catch.human_name %>
+      </label> 
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<h2>
+  タイトルタグ
+</h2>
+<div id="title_tag">
+  <%= f.select(:title_tag, 
+      @layout_defs.title_tags.collect { |tag| [tag.human_name, tag.name] }  ) %>
+</div>
+
+<h2>
+  グローバルナビゲーション
+</h2>
+<div id="global_navigation">
+  <%= f.select(:global_navigation, 
+      @layout_defs.global_navigations.collect { |navi| [navi.human_name, navi.name] }  ) %>
+</div>
+
+<h2>
+  カラムレイアウト
+</h2>
+<div id="column_layout">
+  <% @layout_defs.column_layouts.each do |column_layout| %>
+    <div class="column_layout" id="column_layout_<%= column_layout.name %>">
+      <label for="column_layout_thumb"> 
+      <div class="column_layout_thumb"
+           style="background-image:url(<%= column_layout.thumb_url %>);"> </div> 
+      </label> 
+      <p class="column_layout_select"> 
+      <%= f.radio_button :column_layout, column_layout.name,
+      :class => "column_layout_radio_button"  %>
+      <label for="column_layout" id="column_layout_human_name" > 
+        <%= column_layout.human_name %>
+      </label> 
+      </p>
+    </div>
+  <% end %>
+</div>
+
+
+
+<h2>
+  スキンカラー
+</h2>
+<div id="skin_color">
+  <% @layout_defs.skin_colors.each do |skin_color| %>
+    <div class="skin_color" id="skin_color_<%= skin_color.name %>">
+      <label for="skin_color_thumb"> 
+      <div class="skin_color_thumb"
+           style="background-image:url(<%= skin_color.thumb_url %>);"> </div> 
+      </label> 
+      <p class="skin_color_select"> 
+      <%= f.radio_button :skin_color, skin_color.name,:class => "skin_color_radio_button"  %>
+      <label for="skin_color" id="skin_color_human_name" > 
+        <%= skin_color.human_name %>
+      </label> 
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<h2>
+  フォントサイズ
+</h2>
+<div id="font_size">
+  <% @layout_defs.font_sizes.each do |font_size| %>
+    <div class="font_size" id="font_size_<%= font_size.name %>">
+      <p class="font_size_select"> 
+      <%= f.radio_button :font_size, font_size.name,:class => "font_size_radio_button"  %>
+      <label for="font_size" id="font_size_human_name" > 
+        <%= font_size.human_name %>
+      </label> 
+      </p>
+    </div>
+  <% end %>
+</div>
+
+
+
+</div>
+<div class="actions">
+<%= f.submit :value => "テーマを更新" %>
+</div>
+<% end %>
+
+

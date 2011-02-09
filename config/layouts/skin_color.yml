@@ -1,0 +1,13 @@
+skin_colors:
+  - name: "default"
+    human_name: "テーマのデフォルトを使用"
+  - name: "blue"
+    human_name: "青"
+  - name: "silver"
+    human_name: "シルバー"
+  - name: "red"
+    human_name: "赤"
+  - name: "green"
+    human_name: "緑"
+
+  

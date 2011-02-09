@@ -1,0 +1,9 @@
+title_tags:
+  - name: "site_article"
+    human_name: "サイトタイトル - 記事タイトル"
+    format: "%site_title% - %article_title%"
+  - name: "article_site"
+    human_name: "記事タイトル - サイトタイトル"
+    format: "%article_title% - %site_title%"
+    
+

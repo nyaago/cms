@@ -6,73 +6,16 @@ module Layout
     # theme一覧設定ファイル(yaml)ファイルを配置するパス
     CONFIG_DIR = ::Rails.root.to_s + "/config/layouts/themes"
     
-    # themeの名前
-    attr_reader :name
-    # themeの表示タイトル
-    attr_reader :human_name
     # themeの説明
-    attr_reader :description
-    
-    # 初期化
-    # nameとoptionsのマップを引数で含む
-    # == Options
-    # :human_name 
-    def initialize(name,options = {})
-      @name = name
-      @human_name = options[:human_name] if options.include?(:human_name) 
-      @description = options[:description] if options.include?(:description) 
-    end
-    
-    # 選択のためのサムネイルのファイルシステム上のパス
-    def thumb_path
-      ::Rails.root.to_s + "/public/themes/#{self.name}/thumb.jpg"
-    end
-
-    # 選択のためのサムネイルのurl
-    def thumb_url
-      "/themes/#{self.name}/thumb.jpg" 
-    end
-    
-    def inspect
-      "name => #{name}, human_name => #{human_name}"
-    end
-    
-    def to_s
-      name
-    end
-    
+    attr_accessor :description
 
     protected
     
-    # yamlのrootの要素名を返す
-    def self.element_root
-      "themes"
-    end
-
     # 一覧設定ファイル(yaml)ファイルを配置するパス
     def self.config_path
       CONFIG_DIR
     end
 
-    # map(Hash)からモデルを生成して返す.生成できなければnil.
-    # mapには'name'が含まれることが必須.Optionは'human_name'
-    def self.map_to_model(map)
-      return nil if map['name'].nil?
-
-      self.new(map['name'], 
-              :human_name => if map['human_name'].nil? 
-                          map['name']
-                        else
-                          map['human_name']
-                        end,
-              :description => if map['description'].nil? 
-                          ''
-                        else
-                          map['description']
-                        end
-                        )
-                        
-    end
-
   end
+  
 end

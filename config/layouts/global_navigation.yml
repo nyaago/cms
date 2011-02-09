@@ -1,0 +1,6 @@
+global_navigations:
+  - name: "home_link"
+    human_name: "ホームリンクを表示"
+  - name: "no_home_link"
+    human_name: "ホームリンクを表示しない"
+  

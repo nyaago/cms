@@ -1,0 +1,7 @@
+font_sizes:
+  - name: "default"
+    human_name: "テーマのデフォルトを使用"
+  - name: "small"
+    human_name: "小さくする"
+  - name: "latge"
+    human_name: "大きくする"

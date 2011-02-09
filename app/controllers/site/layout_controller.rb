@@ -1,26 +1,28 @@
-# == Site::ThemeController
+# == Site::LayoutController
 # レイアウトテーマの選択
-class Site::ThemeController < Site::BaseController
-
-  # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "theme"].freeze
+class Site::LayoutController < Site::BaseController
   
+  # 翻訳リソースのスコープ
+  TRANSLATION_SCOPE = ["messages", "site", "layout"].freeze
+  
+  # indexページ
+  # 各レイアウト設定を行うページを表示
   def index
     @site = current_user.site
-    @themes = Layout::Theme.load
-    @selected_theme = @themes.find_by_name(@site.site_layout.theme)
-    #@site.theme = 'default'
+    @site_layout = @site.site_layout
+    @layout_defs = Layout::DefinitionArrays.new
   end
   
-  # PUT /theme/1
-  # PUT /theme/1.xml
+  # layout/update/1
+  # layout/update/1.xml
+  # レイアウトフォームの内容でlayout モデル更新.
   def update
     @site = Site.find_by_id( current_user.site_id)
     if @site.nil? || @site.site_layout.nil?
       respond_to do |format|
-        @themes = Layout::Theme.load
-        @selected_theme = @themes.find_by_name(@site.site_layout.theme)
-        
+        @site_layout = @site.site_layout
+        @layout_defs = Layout::DefinitionArrays.new
+
         flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
         format.html { 
           render :action => "index" }
@@ -34,21 +36,21 @@ class Site::ThemeController < Site::BaseController
     @site.site_layout.attributes = params[:site_layout]
 
     respond_to do |format|
-      # 変更されていれば、履歴を作成
+      # 
       if @site.site_layout.save(:validate => true)
         format.html { redirect_to(index_url, 
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
         format.xml  { head :ok }
       else
-        @themes = Layout::Theme.load
-        @selected_theme = @themes.find_by_name(@site.site_layout.theme)
+        @site_layout = @site.site_layout
+        @layout_defs = Layout::DefinitionArrays.new
         format.html { render :action => "index" }
         format.xml  { render :xml => @site.errors, 
           :status => :unprocessable_entity }
       end
     end
   end
-
+  
   # 一覧ページへのurlを返す
   def index_url
     url_for(:action => :index)

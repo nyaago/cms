@@ -10,6 +10,18 @@ module Layout
   # * find_by_name - 名前を指定して要素を返す
   class Base
 
+    # themeの名前
+    attr_reader :name
+    # themeの表示タイトル
+    attr_accessor :human_name
+
+    # 初期化
+    # nameを指定して初期化
+    def initialize(name)
+      @name = name
+    end
+
+
     # 設定yamlファイルを読み込み,
     # config_path属性がディレクトリーならそのディレクトリー内のymlファイルを全て,
     # 通常ファイルであればそのファイルを読み込む.
@@ -60,8 +72,54 @@ module Layout
       self.name == other.name
     end
     
+    def inspect
+      "#{self.class.name.demodulize.underscore} " + super
+    end
+    
+    def to_s
+      name
+    end
+    
+    # 選択のためのサムネイルのファイルシステム上のパス
+    def thumb_path
+      ::Rails.root.to_s + 
+      "/public/#{self.class.name.demodulize.underscore.pluralize}/#{self.name}/thumb.jpg"
+    end
+
+    # 選択のためのサムネイルのurl
+    def thumb_url
+      "/#{self.class.name.demodulize.underscore.pluralize}/#{self.name}/thumb.jpg" 
+    end
     
     protected
+  
+    # 一覧設定ファイル(yaml)ファイルを配置するパス
+    def self.config_path
+      ::Rails.root.to_s + "/config/layouts/#{name.demodulize.underscore}.yml"
+    end
+  
+  
+    # yamlのrootの要素名を返す
+    def self.element_root
+      name.demodulize.underscore.pluralize
+    end
+    
+    # map(Hash)からモデルを生成して返す.生成できなければnil.
+    # mapには'name'が含まれることが必須.Optionは'human_name'
+    def self.map_to_model(map)
+      return nil if map['name'].nil?
+
+      model = self.new(map['name'])
+      
+      # option属性設定
+      map.each_pair do |key, value|
+        if key != 'name' && model.respond_to?("#{key}=".to_sym)
+          model.send("#{key}=".to_sym, value)
+        end
+      end
+      model                  
+        
+    end
   
     # yamlの読み込み結果からmodelのarrayを生成.
     def self.yaml2models(yaml)
@@ -81,6 +139,8 @@ module Layout
         else
           [model]
         end
+      else
+        []
       end
     end
 
@@ -109,6 +169,17 @@ module Layout
         self[self.find_index(model)]
       else
         nil
+      end
+    end
+
+    # defaultの要素を返す
+    def find_default
+      return nil if self.size == 0
+      model = self[0].class.new('default')
+      if self.include?(model)
+        self[self.find_index(model)]
+      else
+        self[0]
       end
     end
 

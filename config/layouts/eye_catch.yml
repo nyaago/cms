@@ -1,0 +1,11 @@
+eye_catches:
+  - name: "none"
+    human_name: "なし"
+  - name: "header_area"
+    human_name: "ヘッダー領域"
+  - name: "header_area_banner"
+    human_name: "ヘッダー領域（バナータイプ）"
+  - name: "content_area"
+    human_name: "コンテンツ領域"
+  - name: "main_area"
+    human_name: "メイン領域"

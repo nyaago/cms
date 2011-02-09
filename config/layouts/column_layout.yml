@@ -1,0 +1,8 @@
+column_layouts:
+  - name: "single"
+    human_name: "サイドメニューなし"
+  - name: "menu_on_left"
+    human_name: "左サイドメニュー"
+  - name: "menu_on_right"
+    human_name: "右サイドメニュー"
+  
