@@ -12,7 +12,7 @@ ja:
       theme:
         updated: "テーマが更新されました"
 
-      theme:
+      layout:
         updated: "レイアウト設定が更新されました"
       
       images:

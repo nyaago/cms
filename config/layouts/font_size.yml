@@ -3,5 +3,5 @@ font_sizes:
     human_name: "テーマのデフォルトを使用"
   - name: "small"
     human_name: "小さくする"
-  - name: "latge"
+  - name: "large"
     human_name: "大きくする"

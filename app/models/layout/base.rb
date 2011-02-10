@@ -90,6 +90,24 @@ module Layout
     def thumb_url
       "/#{self.class.name.demodulize.underscore.pluralize}/#{self.name}/thumb.jpg" 
     end
+
+    # スタイルシートのパス
+    def css_path
+      ::Rails.root.to_s + 
+      "/public/#{self.class.name.demodulize.underscore.pluralize}/#{self.name}/" + 
+        "#{self.class.name.demodulize.underscore}.css"
+    end
+    
+    # cssの内容取得
+    def css_content
+      if File.file?(css_path)
+        File.open(css_path) do |file|
+          file.read
+        end
+      else
+        ''
+      end
+    end
     
     protected
   

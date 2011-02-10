@@ -5,7 +5,7 @@ module Layout
   class DefinitionArrays 
 
     # レイアウトモデルクラス名一覧
-    LAYOUT_CLASSES = [Layout::EyeCatch, 
+    LAYOUT_CLASSES = [Layout::EyeCatchType, 
                         Layout::ColumnLayout, 
                         Layout::FontSize, 
                         Layout::GlobalNavigation, 

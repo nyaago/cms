@@ -1,8 +1,8 @@
 module Layout
 
-  # = Layout::EyeCatch
+  # = Layout::EyeCatchType
   # eye catch typeの設定を保持するモデル
-  class EyeCatch < Layout::Base
+  class EyeCatchType < Layout::Base
     
   end
 end

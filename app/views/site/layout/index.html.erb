@@ -2,10 +2,10 @@
 //<![CDATA[
 
   $(document).ready( function(){
-    registOnChangeRadio('eye_catch');
+    registOnChangeRadio('eye_catch_type');
     registOnChangeRadio('skin_color');
     registOnChangeRadio('column_layout');
-    selectRadio('eye_catch',  '<%= @site.site_layout.eye_catch_type %>');
+    selectRadio('eye_catch_type',  '<%= @site.site_layout.eye_catch_type %>');
     selectRadio('skin_color',  '<%= @site.site_layout.skin_color %>');
     selectRadio('column_layout',  '<%= @site.site_layout.column_layout %>');
 //    selectRadio('font_size',  '<%= @site.site_layout.font_size %>');
@@ -26,17 +26,17 @@
 <h2>
   アイキャッチレイアウト
 </h2>
-<div id="eye_catches">
-  <% @layout_defs.eye_catches.each do |eye_catch| %>
-    <div class="eye_catch" id="eye_catch_<%= eye_catch.name %>">
-      <label for="eye_catch_thumb"> 
-      <div class="eye_catch_thumb"
-           style="background-image:url(<%= eye_catch.thumb_url %>);"> </div> 
+<div id="eye_catch_types">
+  <% @layout_defs.eye_catch_types.each do |eye_catch_type| %>
+    <div class="eye_catch_type" id="eye_catch_type_<%= eye_catch_type.name %>">
+      <label for="eye_catch_type_thumb"> 
+      <div class="eye_catch_type_thumb"
+           style="background-image:url(<%= eye_catch_type.thumb_url %>);"> </div> 
       </label> 
-      <p class="eye_catch_select"> 
-      <%= f.radio_button :eye_catch_type, eye_catch.name,:class => "eye_catch_radio_button"  %>
-      <label for="eye_catch" id="eye_catch_human_name" > 
-        <%= eye_catch.human_name %>
+      <p class="eye_catch_type_select"> 
+      <%= f.radio_button :eye_catch_type, eye_catch_type.name,:class => "eye_catch_type_radio_button"  %>
+      <label for="eye_catch_type" id="eye_catch_type_human_name" > 
+        <%= eye_catch_type.human_name %>
       </label> 
       </p>
     </div>

@@ -1,4 +1,4 @@
-eye_catches:
+eye_catch_types:
   - name: "none"
     human_name: "なし"
   - name: "header_area"
