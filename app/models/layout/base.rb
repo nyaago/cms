@@ -65,6 +65,36 @@ module Layout
       
       models
     end
+    
+    def self.attribute_name
+      self.name.demodulize.underscore
+    end
+    
+    # スタイルシートのパス
+    def self.css_path(name)
+      ::Rails.root.to_s + 
+      "/public/#{self.name.demodulize.underscore.pluralize}/#{name}/" + 
+        "#{self.name.demodulize.underscore}.css"
+    end
+    # スタイルシートのパス
+    def self.css_url(name)
+      "/#{self.name.demodulize.underscore.pluralize}/#{name}/" + 
+        "#{self.name.demodulize.underscore}.css"
+    end
+
+    
+    # cssの内容取得
+    def self.css_content(name)
+      if File.file?(css_path(name))
+        File.open(css_path(name)) do |file|
+          file.read
+        end
+      else
+        ''
+      end
+    end
+    
+    ##### instance method #######
 
     # 同値比較.
     # nameが同じであれば同値と判定

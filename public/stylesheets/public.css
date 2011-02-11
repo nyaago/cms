@@ -61,3 +61,31 @@ div.field, div.actions {
 .actions {
   clear: both;
 }
+
+
+div {
+
+}
+
+div#header {
+    width: 1000px;
+}
+
+div#container {
+  width: 1000px;
+}
+
+div#side {
+  float: left;
+  width: 20%;
+
+}
+
+div#contents {
+  width: 80%;
+  float: right;
+}
+
+div#footer {
+  clear :both;
+}

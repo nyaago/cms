@@ -1,16 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cms</title>
-  <%= stylesheet_link_tag :all %>
+  <title><%= title_tag_text %></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <meta name="robots" content="all" /> 
+  <meta name="keywords" content="" /> 
+  <meta name="description" content="" /> 
+  <meta name="title" content="" /> 
+  
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
-  <%= stylesheet_link_tag "#{params[:controller]}" %>
-  <%= javascript_include_tag "#{params[:controller]}" %>
+  <%= stylesheet_link_tag "public", :media => :all %>
+
+  <%= site_stylesheet_link_tags :media => :all %>
+  
+  <style type="text/css">
+  <!--
+  -->
+  </style>
+  
 </head>
 <body>
+    
+<div id="header">
+    <%= render "/layouts/public/header" %>
+    <%= render_eye_catch_if_require :header %>
+</div>   <!-- header -->
+
+<div id="container">
+
+<%= render_eye_catch_if_require :container %>
+
+<div id="contents">
+
+<%= render_eye_catch_if_require :contents %>
 
 <%= yield %>
+
+</div>   <!-- contents -->
+
+<div id="side">
+
+
+<%= render "/layouts/public/side" %>
+
+</div>   <!-- side -->
+
+</div>   <!-- container -->
+
+<div class="footer">
+    <%= render "/layouts/public/footer" %>
+</div>
 
 </body>
 </html>

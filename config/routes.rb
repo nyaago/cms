@@ -38,6 +38,9 @@ Cms::Application.routes.draw do
   end
 
   resources :articles
+  
+#  match ':site/pages/:page' => 'pages#show#:site#:page'
+  match 'pages/:site/:page' => 'pages#show#:site#:page'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

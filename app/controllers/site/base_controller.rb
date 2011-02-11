@@ -1,8 +1,11 @@
 # = Site::BaseController
 # サイトユーザの操作に関わるコントローラーのベース.
 # 認証などの共通処理を定義
-class Site::BaseController < ApplicationController
+class Site::BaseController < ActionController::Base
   
+  protect_from_forgery # :except => :hoge
+  
+  layout "site"
   # action  の before filter. 
   # 認証確認
   before_filter :authenticate

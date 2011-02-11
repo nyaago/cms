@@ -1,0 +1,43 @@
+<ul class="menu_group">
+  <li class="menu_group_header">
+    お知らせ
+  </li>
+  <li>
+    お知らせ一覧
+  </li>
+  <li>
+    お知らせ追加
+  </li>
+</ul>
+
+
+<ul class="menu_group">
+  <li class="menu_group_header">
+    画像・ファイル
+  </li>
+  <li>
+    <%=link_to "画像一覧", :controller => "site/images", :action => :index %>
+  </li>
+</ul>
+
+
+<ul class="menu_group">
+  <li class="menu_group_header">
+    ページ
+  </li>
+  <li>
+    <%=link_to "ページ一覧", :controller => "site/articles", :action => :index %>
+  </li>
+</ul>
+
+<ul class="menu_group">
+  <li class="menu_group_header">
+    デザイン
+  </li>
+  <li>
+    <%=link_to "テーマ", :controller => "site/theme", :action => :index %>
+  </li>
+  <li>
+    <%=link_to "デザイン", :controller => "site/layout", :action => :index %>
+  </li>
+</ul>

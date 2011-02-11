@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cms</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+  <%= stylesheet_link_tag "site" %>
+  <%= stylesheet_link_tag "#{params[:controller]}" %>
+  <%= javascript_include_tag "#{params[:controller]}" %>
+</head>
+<body>
+    
+<div id="header">
+    <%= render "/layouts/site/header" %>
+</div>   <!-- header -->
+
+<div id="container">
+
+
+<div id="contents">
+
+<%= yield %>
+
+</div>   <!-- contents -->
+
+<div id="side">
+
+
+<%= render "/layouts/site/side" %>
+
+</div>   <!-- side -->
+
+</div>   <!-- container -->
+
+<div class="footer">
+    <%= render "/layouts/site/footer" %>
+</div>
+
+</body>
+</html>

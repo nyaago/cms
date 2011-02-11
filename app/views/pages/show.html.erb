@@ -1,0 +1,21 @@
+<h1>
+  <%= @article.title %>
+</h1>
+
+<p id="notice"><%= notice %></p>
+
+<% if @article %>
+<p>
+  <%= @article.content.html_safe %>
+</p>
+
+
+<% else %>  
+  <p class='not_found'>
+    指定された記事はみつかりません
+  </p>
+<% end %>
+
+<div class="actions">  
+<%= link_to_function '戻る', "history.back();return false;" %>
+</div>

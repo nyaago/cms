@@ -2,23 +2,14 @@ div {
 
 }
 
-#templates {
-  clear: both;
-}
 
 #themes {
   clear: both;
 }
 
 h2 {
-  clear: both;
 }
 input {
-  clear: both;
-}
-
-input.template_radio_button {
-  display: none;
 }
 
 input.theme_radio_button {
@@ -50,7 +41,7 @@ input.theme_radio_button {
   width: 180px;
   height: 180px;
 
-  float: left;
+  float: left; 
 }
 
 

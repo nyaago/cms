@@ -24,6 +24,11 @@ module Layout
       attr_reader clazz.name.split('::').last.underscore.pluralize
     end
 
+    # レイアウトモデルクラス名一覧
+    def self.layout_classes
+      LAYOUT_CLASSES
+    end
+
     # 初期化
     # 各レイアウト定義を読み込み,このオブジェクトのインスタンス属性に設定していく
     def initialize

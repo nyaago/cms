@@ -9,6 +9,10 @@ module Layout
     # themeの説明
     attr_accessor :description
 
+    def description
+      if @description.nil? then '' else @description end
+    end
+
     protected
     
     # 一覧設定ファイル(yaml)ファイルを配置するパス
