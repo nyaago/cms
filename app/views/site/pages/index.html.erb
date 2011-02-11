@@ -6,27 +6,27 @@
   <tr>
     <th>
       <%= link_to Article.human_attribute_name(:name), 
-        site_articles_path(:sort => 'name') %>
+        site_pages_path(:sort => 'name') %>
     </th>
     <th>
       <%= link_to Article.human_attribute_name(:title), 
-        site_articles_path(:sort => 'title') %>
+        site_pages_path(:sort => 'title') %>
     </th>
     <th>
       <%= link_to Article.human_attribute_name(:menu_order), 
-        site_articles_path(:sort => 'menu_order') %>
+        site_pages_path(:sort => 'menu_order') %>
     </th>
     <th>
       <%= link_to Article.human_attribute_name(:published), 
-        site_articles_path(:sort => 'published') %>
+        site_pages_path(:sort => 'published') %>
     </th>
     <th>
       <%= link_to Article.human_attribute_name(:is_home), 
-        site_articles_path(:sort => 'is_home') %>
+        site_pages_path(:sort => 'is_home') %>
     </th>
     <th>
       <%= link_to Article.human_attribute_name(:updated_at), 
-        site_articles_path(:sort => 'updated_at') %>
+        site_pages_path(:sort => 'updated_at') %>
     </th>
     <th></th>
     <th></th>
@@ -35,7 +35,7 @@
 <% @articles.each do |article| %>
   <tr>
     <td class="name">
-      <%= link_to h(article.name), site_article_path(article) %>
+      <%= link_to h(article.name), site_page_path(article) %>
     </td>
     <td class="title">
       <%= article.title %>
@@ -53,9 +53,9 @@
       <%= I18n.l article.updated_at, :format => :short %>
     </td>
     <td class="edit"><%= link_to '編集', 
-        site_article_path(article, :action => :edit) %></td>
+        site_page_path(article, :action => :edit) %></td>
     <td class="destroy"><%= link_to '削除', 
-        site_article_path(article, :action => :destroy) ,
+        site_page_path(article, :action => :destroy) ,
                 :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -71,6 +71,6 @@
 <% end %>
 
 
-<%= link_to "新規#{Article.model_name.human}", new_site_article_path %>
+<%= link_to "新規#{Article.model_name.human}", new_site_page_path %>
 <%= link_to "#{Article.model_name.human}並びかえ",
-  site_articles_path(:action => :place) %>
+  site_pages_path(:action => :place) %>

@@ -56,7 +56,7 @@
         <%= I18n.l article.last_updated_at, :format => :short %>
       </td>
       <td class="edit"><%= link_to '編集', 
-          site_article_path(article, :action => :edit) %></td>
+          site_page_path(article, :action => :edit) %></td>
     </tr>
 
   <% end %>
@@ -68,7 +68,7 @@
 <% end %>
   
 <% if @article %>
-<%= link_to '編集', site_article_path(@article, 
+<%= link_to '編集', site_page_path(@article, 
     :action => :edit, :page => params[:page]) %> |
 <% end %>
 <%= link_to_function '戻る', "history.back();return false;" %>

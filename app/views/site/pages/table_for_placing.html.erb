@@ -24,7 +24,7 @@
   <% @articles.each do |article| %>
     <tr>
       <td class="name">
-        <%= link_to h(article.name), site_article_path(article) %>
+        <%= link_to h(article.name), site_page_path(article) %>
       </td>
       <td class="title">
         <%= article.title %>

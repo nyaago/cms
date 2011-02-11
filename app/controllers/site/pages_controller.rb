@@ -1,6 +1,6 @@
-# = Site::ArticlesController
+# = Site::PagesController
 # 記事作成関連のコントローラー
-class Site::ArticlesController < Site::BaseController
+class Site::PagesController < Site::BaseController
 
   helper :all
 
@@ -10,7 +10,7 @@ class Site::ArticlesController < Site::BaseController
   LIMIT_HISTORY = 20
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "articles"].freeze
+  TRANSLATION_SCOPE = ["messages", "site", "pages"].freeze
   # ソート可能なカラム一覧
   SORTABLE_COLUMN = 
   ['name','title', 'updated_at', 'menu_order', 'published', 'is_home'].freeze
