@@ -39,8 +39,12 @@ Cms::Application.routes.draw do
 
   resources :articles
   
-#  match ':site/pages/:page' => 'pages#show#:site#:page'
-  match 'pages/:site/:page' => 'pages#show#:site#:page'
+#  root :to => 'home#show'
+  
+
+#  match 'pages/:site/:page' => 'pages#show#:site#:page'
+  match ':site/pages/:page' => 'pages#show#:site#:page'
+  match ':site/' => 'pages#show#:site'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
