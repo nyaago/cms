@@ -39,6 +39,11 @@ ja:
         created_at: "履歴作成日時"
         last_updated_at: "記事最終更新日時"
         keywords: "メタタグキーワード"
+      
+      site_layout:
+        background_repeat: "背景画像の繰り返し"
+        background_color: "背景色"
+
 
       image: 
         title: "タイトル"
@@ -50,6 +55,17 @@ ja:
         created_at: "作成日時"
         alternative: "代替テキスト"
         url: "画像url"
+                
+      layout_image: 
+        image_file_name: "ファイル名"
+        image_file_size: "ファイルサイズ"
+        image_content_type: "コンテンツタイプ"
+        total_size: "容量"
+        updated_at: "更新日時"
+        created_at: "作成日時"
+        url: "画像url"
+
+
         
       page:
         title: "タイトル"
@@ -87,4 +103,8 @@ ja:
       messages:
         attachment_content_type: "がJPG, GIF, PNG, PDF, EXCEL, Wordのもののみアップロードできます"
         attachment_size: "ファイルサイズが大きすぎます(最大 :max バイトまで)"
-        
+
+    layout_image:
+      messages:
+        attachment_content_type: "がJPG, GIF, PNGのもののみアップロードできます"
+        attachment_size: "ファイルサイズが大きすぎます(最大 :max バイトまで)"

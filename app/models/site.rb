@@ -8,6 +8,8 @@ class Site < ActiveRecord::Base
   has_many  :articles, :dependent => :destroy
   has_many  :users, :dependent => :destroy
   has_one   :site_layout,  :dependent => :destroy
+  has_many  :images
+  has_many  :layout_images
   
   protected
   

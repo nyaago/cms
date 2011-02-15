@@ -1,3 +1,13 @@
+<%= javascript_include_tag "colorpicker/colorpicker" %>
+<%= stylesheet_link_tag "colorpicker/colorpicker" %>
+
+<style type="text/css">
+	#picker {width:20px; 
+	  height:20px;
+	  background:<%= @site_layout.background_color %>;
+	  border:2px 
+	  solid #C9C9C9;}
+</style>
 <script type="text/javascript">
 //<![CDATA[
 
@@ -8,21 +18,94 @@
     selectRadio('eye_catch_type',  '<%= @site.site_layout.eye_catch_type %>');
     selectRadio('skin_color',  '<%= @site.site_layout.skin_color %>');
     selectRadio('column_layout',  '<%= @site.site_layout.column_layout %>');
-//    selectRadio('font_size',  '<%= @site.site_layout.font_size %>');
+    
+    $("#site_layout_background_color").change(function () {
+      $("#picker").css("background", $(this).val() );
+    });
+
   } );
   
+	$(function(){
+		$("#site_layout_background_color,#picker").ColorPicker({
+			color : "<%= @site.site_layout.background_color %>",
+			onChange : function( hsb, hex, rgb ){
+				$("#picker").css("background", "#"+ hex);
+				$("#site_layout_background_color").val("#" + hex);
+			},
+      onBeforeShow: function () {
+      		$(this).ColorPickerSetColor($("#site_layout_background_color").val());
+    	}    	
+		}) ;
+	}) ;
 //]]>
 </script>
   
 <h1>
-  テーマの選択
+  レイアウトの設定
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 
 
-<%= form_for(@site.site_layout, :url => site_layout_path(:action => 'update')) do |f| %>
+<%= form_for(@site.site_layout, :url => site_layout_path(:action => 'update'),
+      :html => { :multipart => true } ) do |f| %>
 
-<div>
+<div class="error">
+  <% if @site_layout.errors.any? || 
+    @header_image.errors.any? || 
+    @footer_image.errors.any? ||
+    @logo_image.errors.any? ||
+    @background_image.errors.any?  %>
+    <div id="error_explanation">
+      <h2>レイアウト設定に関して
+      <%= pluralize(@site_layout.errors.count, "error") %> エラーが発生しました:</h2>
+      <ul>
+      <% @site_layout.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      <h2>ヘッダー画像に関して
+      <%= pluralize(@header_image.errors.count, "error") %> エラーが発生しました:</h2>
+      
+      <ul>
+      <% @header_image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      <h2>フッター画像に関して
+      <%= pluralize(@footer_image.errors.count, "error") %> エラーが発生しました:</h2>
+
+      <ul>
+      <% @footer_image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+
+      <h2>背景画像に関して
+      <%= pluralize(@background_image.errors.count, "error") %> エラーが発生しました:</h2>
+      <ul>
+      <% @background_image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+
+      <h2>ロゴ画像に関して
+      <%= pluralize(@logo_image.errors.count, "error") %> エラーが発生しました:</h2>
+      <ul>
+      <% @logo_image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+
+
+    </div>
+
+
+  <% end %>
+</div>
+
+
+  
+<div class="inputs">
 <h2>
   アイキャッチレイアウト
 </h2>
@@ -42,7 +125,11 @@
     </div>
   <% end %>
 </div>
+<div class="inputs_bottom">
+</div>
+</div>
 
+<div class="inputs">
 <h2>
   タイトルタグ
 </h2>
@@ -50,7 +137,11 @@
   <%= f.select(:title_tag, 
       @layout_defs.title_tags.collect { |tag| [tag.human_name, tag.name] }  ) %>
 </div>
+</div>
 
+
+
+<div class="inputs">
 <h2>
   グローバルナビゲーション
 </h2>
@@ -58,7 +149,9 @@
   <%= f.select(:global_navigation, 
       @layout_defs.global_navigations.collect { |navi| [navi.human_name, navi.name] }  ) %>
 </div>
+</div>
 
+<div class="inputs">
 <h2>
   カラムレイアウト
 </h2>
@@ -79,9 +172,12 @@
     </div>
   <% end %>
 </div>
+<div class="inputs_bottom">
+</div>
 
+</div>
 
-
+<div class="inputs">
 <h2>
   スキンカラー
 </h2>
@@ -101,7 +197,12 @@
     </div>
   <% end %>
 </div>
+<div class="inputs_bottom">
+</div>
 
+</div>
+
+<div class="inputs">
 <h2>
   フォントサイズ
 </h2>
@@ -117,10 +218,80 @@
     </div>
   <% end %>
 </div>
-
-
+<div class="inputs_bottom">
+</div>
 
 </div>
+
+<div class="inputs">
+<h2>
+  ヘッダー画像
+</h2>
+<div id="header_image">
+  <div class="field">
+    <%= label 'header', :image, "ファイルを選択" %><br />
+    <%= file_field 'header', :image%>
+    <%= check_box 'delete_image', :header %>ファイルを削除する
+  </div>
+  <%= layout_image_tag(@site_layout, :header) %>
+</div>
+</div>
+
+<div class="inputs">
+<h2>
+  フッター画像
+</h2>
+<div id="footer_image">
+  <div class="field">
+    <%= label 'footer', :image, "ファイルを選択" %><br />
+    <%= file_field 'footer', :image%>
+    <%= check_box 'delete_image', :footer %>ファイルを削除する
+  </div>
+  <%= layout_image_tag(@site_layout, :footer) %>
+</div>
+</div>
+
+<div class="inputs">
+<h2>
+  背景
+</h2>
+<div id="background">
+  <div class="field">
+    <%= label 'background', :image, "ファイルを選択" %><br />
+    <%= file_field 'background', :image%>
+    <%= check_box 'delete_image', :background %>ファイルを削除する
+  </div>
+  <div class="field">
+    <%= f.label :background_color %>:
+    <%= f.text_field :background_color  %>
+    <input type="button" id="picker"></input>
+  </div>
+  <div class="field">
+    <%= f.label :background_repeat %>:
+    <%= f.radio_button :background_repeat, "repeat" %>縦横に繰り返し
+    <%= f.radio_button :background_repeat, "repeat-x" %>横方向に繰り返し
+    <%= f.radio_button :background_repeat, "repeat-y" %>縦方向に繰り返し
+    <%= f.radio_button :background_repeat, "no-repeat" %>繰り返しなし
+  </div>
+  <%= layout_image_tag(@site_layout, :background) %>
+</div>
+</div>
+
+<div class="inputs">
+<h2>
+  ロゴ
+</h2>
+<div id="logo_image">
+  <div class="field">
+    <%= label 'logo', :image, "ファイルを選択" %><br />
+    <%= file_field 'logo', :image%>
+    <%= check_box 'delete_image', :logo %>ファイルを削除する
+  </div>
+  <%= layout_image_tag(@site_layout, :logo) %>
+</div>
+</div>
+
+
 <div class="actions">
 <%= f.submit :value => "テーマを更新" %>
 </div>

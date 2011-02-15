@@ -4,6 +4,9 @@ module ApplicationHelper
   def site_stylesheet_link_tags(options)
     if !@site.nil? && !@site.site_layout.nil?
       result = []
+      # theme のcss
+      result << stylesheet_link_tag(@site.site_layout.theme_stylesheet_url)
+      # 各デザイン設定のcss
       Layout::DefinitionArrays.layout_classes.each do |clazz|
         if @site.site_layout.respond_to?(clazz.attribute_name)
           path = clazz.css_path(@site.site_layout.send(clazz.attribute_name))
@@ -19,6 +22,7 @@ module ApplicationHelper
       ''
     end
   end
+  
 
   # site_layoutモデルに定義されているタイトルタグフォーマットより、タイトルに表示する値を得る
   # ==　置換される文字
@@ -46,6 +50,10 @@ module ApplicationHelper
         end
       end
     end
+  end
+  
+  def render_theme_partial(template)
+    render @site.site_layout.theme_partial_path_for_rendering(template)
   end
   
 end

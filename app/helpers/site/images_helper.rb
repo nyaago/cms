@@ -56,7 +56,7 @@ module Site::ImagesHelper
     
   end
   
-  def image_tag(image, style = nil)
+  def user_image_tag(image, style = nil)
     if image.exist?(style) 
       "<img src='#{image.url(style)}' alt='#{image.title}' />".html_safe
     else

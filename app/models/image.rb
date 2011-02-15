@@ -6,6 +6,8 @@
 # * path(style = default_style)
 class Image < ActiveRecord::Base
 
+  belongs_to :site
+  
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["errors", "image", "messages"].freeze
   #

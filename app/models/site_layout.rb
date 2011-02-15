@@ -44,6 +44,101 @@ class SiteLayout < ActiveRecord::Base
     result
   end
   
+  # theme の cssのファイルシステム上の場所を返す
+  # なければnilを返す
+  def theme_stylesheet_path
+    dir = 
+    if theme.nil? 
+      nil
+    else 
+      path = ::Rails.root.to_s + "/public/themes/#{theme}/stylesheets/theme.css"
+      if File.file?(path)
+        path
+      else
+        nil
+      end
+    end
+  end
+
+  # default の themeの場所を返す
+  def default_theme_stylesheet_path
+    ::Rails.root.to_s + "/public/themes/default/stylesheets/theme.css" 
+  end
+
+  # themeのstylesheet があるか/ないか ?
+  def theme_stylesheet_exists?
+    !theme_stylesheet_path.nil?
+  end
+  
+  # theme の cssのurlを返す
+  def theme_stylesheet_url
+    if theme_stylesheet_exists?
+      "/themes/#{theme}/stylesheets/theme.css"
+    else
+      "/themes/default/stylesheets/theme.css"
+    end
+  end
+  
+  # themeの layout templateのファイルシステム上の場所を返す
+  def theme_layout_path
+    if theme.nil? 
+      nil
+    else 
+      path = ::Rails.root.to_s + "/app/views/layouts/themes/#{theme}/application.html.erb"
+      if File.file?(path)
+        path
+      else
+        nil
+      end
+    end
+  end
+
+  # themeの 部分レイアウトlayout ファイルシステム上の場所を返す
+  def theme_partial_path(template)
+    if theme.nil? 
+      nil
+    else 
+      path = ::Rails.root.to_s + "/app/views/layouts/themes/#{theme}/_#{template}.html.erb"
+      if File.file?(path)
+        path
+      else
+        nil
+      end
+    end
+  end
+
+  
+  # themeのlayout template があるか/ないか ?
+  def theme_layout_exists?
+    !theme_layout_path.nil?
+  end
+
+  # themeのpartial template があるか/ないか ?
+  def theme_partial_exists?(template)
+    !theme_partial_path(template).nil?
+  end
+  
+  # render method の :layout optionに渡すパス
+  def theme_layout_path_for_rendering
+    if theme_layout_exists?
+      "themes/#{theme}/application.html.erb"
+    else
+      "themes/default/application.html.erb"
+    end
+  end
+
+
+
+  # render method の :layout optionに渡すパス
+  def theme_partial_path_for_rendering(template)
+    if theme_partial_exists?(template)
+      "layouts/themes/#{theme}/#{template}"
+    else
+      "layouts/themes/default/#{template}"
+    end
+  end
+  
+  
   protected
   
   # default値の設定
@@ -54,6 +149,8 @@ class SiteLayout < ActiveRecord::Base
     self.skin_color = 'default'
     self.column_layout = 'menu_on_left'
     self.global_navigation = 'home_link'
+    self.background_repeat = 'repeat'
+    self.background_color = ''
   end
 
   # formatに関する属性について.そのformatの属性への値設定

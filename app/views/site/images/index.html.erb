@@ -35,6 +35,7 @@
                 #                :target => 'frame'  
                                 } , 
 :url => site_image_path(@image, :action => :create))  do |f| %>
+<div class="error">
   <% if @image.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@image.errors.count, "error") %> エラーが発生しました:</h2>
@@ -48,7 +49,7 @@
     
     
   <% end %>
-
+</div>
 <div id="upload">
   <h2>
     画像アップロード
