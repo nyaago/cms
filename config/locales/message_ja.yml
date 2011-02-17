@@ -34,4 +34,7 @@ ja:
         created: "ページが作成されました"
         destroyed: "ページが削除されました"
   
+      setting:
+        updated: "設定が更新されました"
+        
       

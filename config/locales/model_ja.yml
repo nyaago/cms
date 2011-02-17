@@ -43,10 +43,26 @@ ja:
         last_updated_at: "記事最終更新日時"
         keywords: "メタタグキーワード"
       
+      site:
+        name: "サイト名"
+        title: "サイトタイトル"
+        description: "サイトの説明"
+        email: "連絡先メイルアドレス"
+        updated_at: "更新日時"
+        created_at: "作成日時"
+        published: "公開状態"
+        suspended: "停止状態"
+        canceled: "解約状態"
+      
       site_layout:
         background_repeat: "背景画像の繰り返し"
         background_color: "背景色"
+        
 
+      site_setting:
+        date_format: "日付フォーマット"
+        time_format: "時刻フォーマット"
+        analytics_script: "アクセス解析"
 
       image: 
         title: "タイトル"
@@ -97,6 +113,7 @@ ja:
     messages:
       only_lower_alpha: "は小文字半角アルファベットのみで入力してください。"
       uniqness_in_site: "は一意になるよう入力してください。"
+      invalid_email_address: "はEmailアドレスとして不正なフォーマットです。"
       
     article:
       messages:

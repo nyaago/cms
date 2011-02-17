@@ -29,6 +29,8 @@ Cms::Application.routes.draw do
     match 'theme/:action' => 'theme#:action'
     # Layout
     match 'layout/:action' => 'layout#:action'
+    # Setting
+    match 'setting/:action' => 'setting#:action'
     # Images
     match 'images/:action/:id' => 'images#:action#:id'
     match 'images/:action' => 'images#:action'

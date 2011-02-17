@@ -1,0 +1,62 @@
+<h1>
+  一般設定
+</h1>
+
+<script type="text/javascript" charset="utf-8">
+</script>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div id="edit_setting">
+<%= form_for(@site, :url => site_setting_path(:action => 'update')) do |f| %>
+  <% if @site.errors.any? || @site_setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= (@site.errors.count + @site_setting.errors.count).to_s %> 
+        つのエラーが発生しました:</h2>
+
+      <ul>
+      <% @site.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      <% @site_setting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" id="title_field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field" id="description_field">
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field" id="email_field">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <div class="field" id="date_format_field">
+    <%= label :site_setting, :date_format %>
+    あとで
+  </div>
+
+  <div class="field" id="time_format_field">
+    <%= label :site_setting, :time_format %>
+    あとで
+  </div>
+
+  <div class="field" id="analytics_script_field">
+    <%= label :site_setting, :analytics_script %>
+    <%= text_area :site_setting, :analytics_script %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "設定を保存" %>
+  </div>  
+
+
+<% end %>  
+
+</div>

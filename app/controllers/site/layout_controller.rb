@@ -25,7 +25,6 @@ class Site::LayoutController < Site::BaseController
     if @site.nil? || @site.site_layout.nil?
       # site not found
       respond_to do |format|
-        @site_layout = @site.site_layout
         @layout_defs = Layout::DefinitionArrays.new
 
         flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
@@ -36,14 +35,16 @@ class Site::LayoutController < Site::BaseController
         return
       end
     end
+    @site_layout = @site.site_layout
     # 属性設定
 #    @site.user_id = current_user.id
-    @site.site_layout.attributes = params[:site_layout]
+    @site_layout.attributes = params[:site_layout]
+    
 
     respond_to do |format|
       # 画像登録 + site_layoutモデルの登録
-      if create_images(@site.site_layout) && 
-        @site.site_layout.save(:validate => true) 
+      if create_images(@site_layout) && 
+        @site_layout.save(:validate => true) 
         # 
         remove_checked_images(@site.site_layout)
         # 古い画像削除
@@ -53,7 +54,6 @@ class Site::LayoutController < Site::BaseController
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
         format.xml  { head :ok }
       else
-        @site_layout = @site.site_layout
         @layout_defs = Layout::DefinitionArrays.new
         format.html { render :action => "index" }
         format.xml  { render :xml => @site.errors, 
