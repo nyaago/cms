@@ -63,4 +63,8 @@ module Site::PagesHelper
     site_page_path(false, :action => :new)
   end
   
+  def published_human_name(article)
+    Category::Published.name_with_bool(article.published)
+  end
+  
 end

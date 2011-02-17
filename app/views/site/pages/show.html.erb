@@ -5,43 +5,84 @@
 <p id="notice"><%= notice %></p>
 
 <% if @article %>
-<p>
+<div class="article">
+
+<p class="name">
+  <b><%= Article.human_attribute_name(:name) %>:</b>
+  <%= @article.name %>
+</p>
+
+<p class="title">
   <b><%= Article.human_attribute_name(:title) %>:</b>
   <%= @article.title %>
 </p>
 
-<p>
+<p class="content">
   <b><%= Article.human_attribute_name(:content) %>:</b>
   <%= @article.content.html_safe %>
 </p>
-<p>
-  <b><%= Article.human_attribute_name(:keywords) %>:</b>
-  <%= @article.keywords %>
-</p>
-<p>
+<p class="menu_order">
   <b><%= Article.human_attribute_name(:menu_order) %>:</b>
   <%= @article.menu_order %>
 </p>
-<p>
+<p class="published">
   <b><%= Article.human_attribute_name(:published) %>:</b>
   <%= @article.published_name %>
 </p>
-<p>
+<p class="is_home">
   <b><%= Article.human_attribute_name(:is_home) %>:</b>
   <%= @article.is_home_name %>
 </p>
 
-<p>
+<p class="updated_at">
   <b><%= Article.human_attribute_name(:updated_at) %>:</b>
   <%= I18n.l @article.updated_at, :format => :long %>
 </p>
 
+<p class="published">
+  <b>
+    公開
+  </b>
+  <span id="published_status_info">
+    ステータス:
+    <span id="published_status">
+    <%= published_human_name(@article) %>
+    </span>
+  </span>
+  <span id="published_from_status_info">
+    公開日時:
+    <span id="published_from_status">
+    <%= if @article.published_from.nil? then 
+      '未設定' 
+      else 
+        I18n.l @article.published_from, :format => :long
+      end  %>
+      </span>
+  </span>
+</p>
+
+<p class="meta_keywords">
+  <b><%= Article.human_attribute_name(:meta_keywords) %>:</b>
+  <%= @article.meta_keywords %>
+</p>
+
+<p class="meta_description">
+  <b><%= Article.human_attribute_name(:meta_description) %>:</b>
+  <%= @article.meta_description %>
+</p>
+
+</div>
+
+<div style="clear: both;">
+</div>
+
+<div id="article_histories" class="articles_div">
 <table>
   <tr>
-    <th>
+    <th class="updated_at">
       <%= ArticleHistory.human_attribute_name(:updated_at) %>
     </th>
-    <th>
+    <th class="last_updated_at">
       <%= ArticleHistory.human_attribute_name(:last_updated_at) %>
     </th>
     <th>
@@ -49,26 +90,29 @@
   </tr>
   <% @article_histories.each do |article| %>
     <tr>
-      <td >
+      <td class="updated_at">
         <%= I18n.l article.updated_at, :format => :short %>
       </td>
-      <td >
+      <td class="last_udated_at">
         <%= I18n.l article.last_updated_at, :format => :short %>
       </td>
-      <td class="edit"><%= link_to '編集', 
+      <td class="actions"><%= link_to '編集', 
           site_page_path(article, :action => :edit) %></td>
     </tr>
 
   <% end %>
   </table>
+</div>
 <% else %>  
   <p class='not_found'>
     指定された記事はみつかりません
   </p>
 <% end %>
   
+<div class="actions">
 <% if @article %>
 <%= link_to '編集', site_page_path(@article, 
     :action => :edit, :page => params[:page]) %> |
 <% end %>
-<%= link_to_function '戻る', "history.back();return false;" %>
+<%= link_to '一覧へ戻る', url_for(:back) %>
+</div>

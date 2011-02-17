@@ -1,5 +1,9 @@
-<h1>New article</h1>
+<h1>
+  新規ページの作成
+</h1>
 
 <%= render 'form' %>
 
-<%= link_to_function '戻る', "history.back();return false;" %>
+<div class="actions" id="back_action">
+<%= link_to '一覧へ戻る', url_for(:back) %>
+</div>

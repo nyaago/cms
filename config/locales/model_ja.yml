@@ -26,7 +26,10 @@ ja:
         menu_order: "メニュー表示順"
         is_home: "トップページか?"
         updated_at: "更新日時"
-        keywords: "メタタグキーワード"
+        meta_keywords: "キーワード"
+        published_from: "公開開始日時"
+        meta_description: "概要"
+        ignore_meta: "無効にする"
 
       article_history:
         name: "名前"
@@ -77,8 +80,8 @@ ja:
         
   categories:
     published:
-      published: "公開"
-      unpublished: "非公開"
+      published: "公開済み"
+      unpublished: "下書き"
 
     is_home:
       is_home: "トップページである"

@@ -5,6 +5,10 @@ class Article < ActiveRecord::Base
   # 保存前のcallback
   # 記事ががhome(top)ページに指定された場合,他の記事のhome設定を解除
   before_save :cancel_is_home_except_self
+
+  # 保存前のcallback
+  # 公開開始日時が将来に設定されている場合、公開状態をoffにする
+  before_save :check_published
   
   # 新規作成前のcallback
   # menu order をサイトでの最大値とする
@@ -140,5 +144,13 @@ class Article < ActiveRecord::Base
     
   end
   
+  # 公開開始日時が将来に設定されている場合、公開状態をoffにする
+  def check_published
+    unless published_from.nil?
+      if Time.now < published_from
+        self.published = nil
+      end
+    end
+  end
     
 end

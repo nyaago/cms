@@ -21,7 +21,7 @@
     <th colspan='2'>
       並び変更
     </th>
-  <% @articles.each do |article| %>
+  <% @articles.each_with_index do |article, i| %>
     <tr>
       <td class="name">
         <%= link_to h(article.name), site_page_path(article) %>
@@ -42,10 +42,18 @@
         <%= I18n.l article.updated_at, :format => :short %>
       </td>
       <td>
-        <%= link_to_function '↑', "previousOrder(#{article.id}); return false;" %>
+        <% if i > 0 %>
+        <%= button_to_function '↑', "previousOrder(#{article.id});", 
+        :class => "previous_order"
+        %>
+        <% end %>
       </td>
       <td>
-        <%= link_to_function '↓', "nextOrder(#{article.id}); return false;" %>
+        <% if i < @articles.size - 1 %>
+        <%= button_to_function '↓', "nextOrder(#{article.id}); ",
+        :class => "next_order"
+         %>
+         <% end %>
       </td>
       
     </tr>

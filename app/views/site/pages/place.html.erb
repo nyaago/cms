@@ -2,7 +2,7 @@
   <%= Article.model_name.human %>並び替え
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
-<div id="articles_div">
+<div class="articles_div" id="article_ordering">
 </div>
 <br></br>
 
@@ -15,7 +15,7 @@
   // 記事一覧を得て表示
   function loadArticles(){
     var url = '<%= url_for( :action => "table_for_placing") %>';
-    $('#articles_div').load(url, function(response, status, xhr) {
+    $('#article_ordering').load(url, function(response, status, xhr) {
       if (status == "error") {
         alert('記事読み込み中にエラーが発生しました'); 
        } 
@@ -26,7 +26,7 @@
   function previousOrder(articleId){
     var url = '<%= url_for( :action => "previous_order") %>';
     url += '/' + articleId;
-    $('#articles_div').load(url, function(response, status, xhr) {
+    $('#article_ordering').load(url, function(response, status, xhr) {
       if (status == "error") {
         alert('記事の並び替え中にエラーが発生しました'); 
        } 
@@ -37,17 +37,23 @@
   function nextOrder(articleId){
     var url = '<%= url_for( :action => "next_order") %>';
     url += '/' + articleId;
-    $('#articles_div').load(url, function(response, status, xhr) {
+    $('#article_ordering').load(url, function(response, status, xhr) {
       if (status == "error") {
         alert('記事の並び替え中にエラーが発生しました'); 
        } 
     });
   }
 
-  jQuery.event.add(window, "load", function(){ 
-    loadArticles();
-    });
 
+  jQuery(function($) {
+    loadArticles();    
+  });
+  
+  /*
+  jQuery.event.add(window, "load", function(){ 
+
+    });
+*/
   
 //]]>
 </script>

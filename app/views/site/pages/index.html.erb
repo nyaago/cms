@@ -2,29 +2,30 @@
   <%= Article.model_name.human %>一覧
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
+<div class="artcies_div" id="articles">
 <table>
   <tr>
-    <th>
+    <th class="name">
       <%= link_to Article.human_attribute_name(:name), 
         site_pages_path(:sort => 'name') %>
     </th>
-    <th>
+    <th class="title">
       <%= link_to Article.human_attribute_name(:title), 
         site_pages_path(:sort => 'title') %>
     </th>
-    <th>
+    <th class="menu_order">
       <%= link_to Article.human_attribute_name(:menu_order), 
         site_pages_path(:sort => 'menu_order') %>
     </th>
-    <th>
+    <th class="published">
       <%= link_to Article.human_attribute_name(:published), 
         site_pages_path(:sort => 'published') %>
     </th>
-    <th>
+    <th class="is_home">
       <%= link_to Article.human_attribute_name(:is_home), 
         site_pages_path(:sort => 'is_home') %>
     </th>
-    <th>
+    <th class="updated_at">
       <%= link_to Article.human_attribute_name(:updated_at), 
         site_pages_path(:sort => 'updated_at') %>
     </th>
@@ -60,7 +61,7 @@
   </tr>
 <% end %>
 </table>
-
+</div>
 <br />
 
 <% if @articles.size > 0 %>
@@ -70,7 +71,8 @@
     </div>
 <% end %>
 
-
+<div class="actions">
 <%= link_to "新規#{Article.model_name.human}", new_site_page_path %>
 <%= link_to "#{Article.model_name.human}並びかえ",
   site_pages_path(:action => :place) %>
+</div>

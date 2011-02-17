@@ -2,13 +2,81 @@
 <%= javascript_include_tag 'ckeditor/ckeditor' %>
 
 
-<%= javascript_tag(
-<<EOS 
+<script type="text/javascript" charset="utf-8">
 
-EOS
-)
-%>
+jQuery(function($){
+    $("#published_from_select_date").datepicker();
+    $("#published_from_select_date").datepicker("option", 
+    {dateFormat: 'yy/mm/dd'
+    });
+    $("div#published_from").css("display", "none");
+    $("div#published").css("display", "none");    
+});
+
+// 公開開始日の入力divを表示
+function showPublishedFrom() {
+  $("div#published_from").css("display", "block");
+}
+
+// 公開/下書き切り替えの入力divを表示
+function showPublished() {
+  $("div#published").css("display", "block");
+}
+
+// 公開開始日の入力のcancel.値を元の値に戻して入力部分のdivを非表示にする
+function cancelPublishedFrom() {
+  $("#published_from_select_date").val($("#published_from_date").val());
+  $("#published_from_select_hour").val($("#published_from_hour").val());
+  $("#published_from_select_minute").val($("#published_from_minute").val());
+  $("div#published_from").css("display", "none");
+}
+
+// 公開/下書き切り替えの入力のcancel.値を元の値に戻して入力部分のdivを非表示にする
+function cancelPublished() {
+  $("#article_published_select").attr('selected', $("#article_published").attr('selected'));
+  $("div#published").css("display", "none");
+}
+
+// 公開開始日の入力の確定.
+// 1.値をサーバーでの登録対象となるフォームのhiddenフィールドに設定. 
+// 2.ステータス表示部分のテキストの更新
+// 3.入力部分のdivを非表示にする
+function okPublishedFrom() {
+  $("#published_from_date").val($("#published_from_select_date").val());
+  $("#published_from_hour").val($("#published_from_select_hour").val());
+  $("#published_from_minute").val($("#published_from_select_minute").val());
+  var dt = new Date($("#published_from_date").val() +  " " +
+  $("#published_from_hour").val()  + ":"+ $("#published_from_minute").val() + ":00" );
+  $("div#published_from").css("display", "none");
+  $('#published_from_status').text(dt.toJapaneseString());
+}
+
+// 公開/下書きの入力の確定.
+// 1.値をサーバーでの登録対象となるフォームのhiddenフィールドに設定. 
+// 2.ステータス表示部分のテキストの更新
+// 3.入力部分のdivを非表示にする
+function okPublished() {
+    $("#article_published").val($("#article_published_select").val());
+    $("div#published").css("display", "none");
+    if($("#article_published").val()) {
+      $('#published_status').text('公開済み');
+    }
+    else {
+      $('#published_status').text('下書き');
+    }
+}
+
+// 公開予定日入力のフォーム要素の内容をクリア
+function clearPublishedFrom() {
+  $("#published_from_select_date").val('');
+  $("#published_from_select_hour").val( '00');
+  $("#published_from_select_minute").val( '00');
+  
+}
+
 </script>
+
+<div id="edit_article">
 <%= form_for(@article, :url => site_page_path(@article)) do |f| %>
   <% if @article.errors.any? %>
     <div id="error_explanation">
@@ -22,7 +90,20 @@ EOS
     </div>
   <% end %>
 
-  <div class="actions">
+  <h2 id="article_heading">
+    記事入力
+  </h2>
+  <div class="inputs" id="article_fields">
+    <div id="updated_at_info">
+     最終更新日時:
+       <span id="updated_at">
+        <%= if @article.updated_at.nil? then 
+        '未保存' 
+        else 
+          I18n.l @article.updated_at, :format => :long
+        end  %>
+      </span>
+    </div>
     <div class="field">
       <%= f.label :name %><br />
       <%= f.text_field :name %>
@@ -36,28 +117,152 @@ EOS
       <%= f.text_area :content, :class => "ckeditor" %>
     </div>
     <div class="field">
-      <%= f.label :keywords %><br />
-      <%= f.text_field :keywords %>
-    </div>
-    <div class="field">
-      <%= f.label :published %><br />
-      <%= f.select( :published, 
-      Article.map_for_published_selection,
-      { :include_blank => false } 
-      )
-      %>
-    </div>
-    <div class="field">
       <%= f.label :is_home %><br />
       <%= f.check_box(:is_home)
       %>
     </div>
-    
-    <%= f.submit %>
   </div>
+
+  <h2 id="published_heading">
+    公開
+  </h2>
+  <div class="inputs" id="published_fields">
+    <div class="" id="published_status_info">
+      <span id="published_status_info">
+        ステータス:
+        <span id="published_status">
+        <%= published_human_name(@article) %>
+        </span>
+        &nbsp;
+        <%= link_to_function("編集", "showPublished();") %>
+        
+      </span>
+      <span id="published_from_status_info">
+        公開日時:
+        <span id="published_from_status">
+        <%= if @article.published_from.nil? then 
+          '未設定' 
+          else 
+            I18n.l @article.published_from, :format => :long
+          end  %>
+          </span>
+        <%= link_to_function("編集", "showPublishedFrom();") %>
+      </span>
+    </div>
+
+    <div class="" id="published">
+      <div class="field">
+        <%= f.label :published %><br />
+        
+        <%= select_tag( :article_published_select,
+        options_for_select(Article.map_for_published_selection, @article.published),
+        {:selected => @article.published}
+         ) 
+         %>
+      </div>
+      <!-- 公開/下書き切り替えの確定値を格納するhiddenフィールド -->
+      <%= f.hidden_field :published %>
+      <div class="actions">
+        <%= button_to_function "OK", "okPublished();" %>
+        <%= button_to_function "キャンセル", "cancelPublished();" %>
+      </div>
+      
+    </div>
+
+    <div class="" id="published_from">
+      
+      <%= text_field 'published_from_select' , 'date', 
+        :value => if @article.published_from.blank?  
+                    '' 
+                  else 
+                    @article.published_from.strftime('%Y/%m/%d') 
+                  end
+          %>日
+      <%= select 'published_from_select',  'hour' ,
+        (0..23).collect {|h|  sprintf("%02d", h) },
+        {:selected => if @article.published_from.blank?  
+                    ''
+                  else
+                    @article.published_from.strftime('%H') 
+                  end}
+      %>:
+      <%= select 'published_from_select',  'minute' ,
+        [0,5,10,15,20,25,30,35,40,45,50,55].collect {|m|  sprintf("%02d", m) },
+        {:selected => if @article.published_from.blank?  
+                    ''
+                  else
+                    @article.published_from.strftime('%M') 
+                  end}
+          
+        
+      %>
+      <%=
+        button_to_function "クリア", "clearPublishedFrom();" 
+      %>
+      
+      <!-- 公開開始日時の確定値を格納するhiddenフィールド達 -->
+      <%= hidden_field_tag 'published_from[date]' , 
+                if @article.published_from.blank?  
+                  '' 
+                else 
+                  @article.published_from.strftime('%Y/%m/%d') 
+                end,
+                {:id => "published_from_date"}
+      %>
+      <%= hidden_field_tag 'published_from[hour]' , 
+                if @article.published_from.blank?  
+                  '' 
+                else 
+                  @article.published_from.strftime('%H') 
+                end,
+                {:id => "published_from_hour"}
+      %>
+      <%= hidden_field_tag 'published_from[minute]' , 
+                if @article.published_from.blank?  
+                  '' 
+                else 
+                  @article.published_from.strftime('%M') 
+                end,
+                {:id => "published_from_minute"}
+      %>
+      <!-- hiddenフィールド終わり -->
+      <div class="actions">
+        <%= button_to_function "OK", "okPublishedFrom();" %>
+        <%= button_to_function "キャンセル", "cancelPublishedFrom();" %>
+      </div>
+      
+      
+    </div>
+    <!-- flaotのクリア  -->
+    <div style="clear: both;">
+    </div>
+
+  </div>
+
+  <h2 id="seo_heading">
+    SEO
+  </h2>
+  <div class="inputs" id="seo">
+    <div class="field">
+      <%= f.label :meta_keywords %>
+      <%= f.text_field :meta_keywords %>
+    </div>
+    <div class="field">
+      <%= f.label :meta_description %>
+      <%= f.text_area :meta_description, :rows => 4 %>
+    </div>
+    <div class="field">
+      <%= f.label :ignore_meta %>
+      <%= f.check_box :ignore_meta %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>  
 <% end %>
-<%= javascript_tag(
-<<EOS 
+</div>
+<script type="text/javascript" charset="utf-8">
 /*
 if ( typeof CKEDITOR == 'undefined' )
 {
@@ -74,9 +279,7 @@ var editor = CKEDITOR.replace( 'article_content' );
 
 // Just call CKFinder.SetupCKEditor and pass the CKEditor instance as the first argument.
 // The second parameter (optional), is the path for the CKFinder installation (default = "/ckfinder/").
-alert(editor);
 CKFinder.SetupCKEditor( editor, '/javascripts/ckfinder/' ) ;
-alert("editor2");
 
 
 // It is also possible to pass an object with selected CKFinder properties as a second argument.
@@ -86,6 +289,4 @@ alert("editor2");
 //var editor = CKEDITOR.replace( 'article[content]' );
 //CKFinder.SetupCKEditor( editor, '/ckfinder/' );
 */
-EOS
-)
-%>
+</script>

@@ -1,3 +1,4 @@
+
 # = Site::PagesController
 # 記事作成関連のコントローラー
 class Site::PagesController < Site::BaseController
@@ -43,6 +44,7 @@ class Site::PagesController < Site::BaseController
   # GET /articles/1.xml
   # 記事詳細表示
   def show
+    flash[:notice] = ''
     @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
     @article_histories = if @article
       ArticleHistory.where("article_id = ?", params[:id]).
@@ -74,6 +76,7 @@ class Site::PagesController < Site::BaseController
                         order('menu_order')
     respond_to do |format|
       format.html do
+        render :layout => nil
       end
     end
   end
@@ -96,7 +99,7 @@ class Site::PagesController < Site::BaseController
     
     respond_to do |format|
       format.html do
-        render :action => :table_for_placing
+        render :action => :table_for_placing, :layout => nil
       end
     end
   end
@@ -104,6 +107,7 @@ class Site::PagesController < Site::BaseController
   # 記事のメニュー表示位置を１つ後ろに移動するアクション
   # Ajaxでの実行となり.モデル更新後,viewの一覧テーブル部分のみをreplaceする
   def next_order
+    flash[:notice] = ''
     @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
     if @article.nil?
       @articles = Article.where("site_id = :site_id", 
@@ -118,7 +122,7 @@ class Site::PagesController < Site::BaseController
                               order('menu_order')
     respond_to do |format|
       format.html do
-        render :action => :table_for_placing
+        render :action => :table_for_placing, :layout => nil
       end
     end
   end
@@ -137,6 +141,7 @@ class Site::PagesController < Site::BaseController
 
   # GET /articles/1/edit
   def edit
+    flash[:notice] = ''
     @article = 
     if params[:is_history]
       article = ArticleHistory.find_by_id_and_site_id(
@@ -160,6 +165,8 @@ class Site::PagesController < Site::BaseController
     @article.site_id = current_user.site_id
     @article.user_id = current_user.id
     @article.article_type = Article::TYPE_PAGE
+    # 公開開始日
+    @article.published_from = date_from_partial(params[:published_from])
                           
     respond_to do |format|
       if @article.save(:validate => true)
@@ -194,7 +201,8 @@ class Site::PagesController < Site::BaseController
     # 属性設定
     @article.user_id = current_user.id
     @article.attributes = params[:article]
-
+    # 公開開始日
+    @article.published_from = date_from_partial(params[:published_from])
     respond_to do |format|
       # 変更されていれば、履歴を作成
       if @article.changed? then
@@ -282,6 +290,33 @@ class Site::PagesController < Site::BaseController
       params[:direction] 
     else 
       'asc' 
+    end
+  end
+  
+  def date_from_partial(date_params)
+    
+    begin
+      require 'time'
+      if date_params.include?(:date) && !date_params[:date].blank?  && 
+          date_params.include?(:hour) && date_params.include?(:minute)  
+        Time.parse("#{date_params[:date]} #{date_params[:hour]}:#{date_params[:minute]}:0")
+      elsif date_params.include?(:date) && !date_params[:date].blank?
+        Time.parse("#{date_params[:date]}")
+      else
+        nil
+      end
+    rescue 
+      require 'parsedate'
+      if date_params.include?(:date) && !date_params[:date].blank?  && 
+          date_params.include?(:hour) && date_params.include?(:minute)  
+        ParseDate::parsedate("#{date_params[:date]} #{date_params[:hour]}:#{date_params[:minute]}:0")
+        Time::local(*ary[0..-3])
+      elsif date_params.include?(:date) && !date_params[:date].blank?
+        ParseDate::parsedate("#{date_params[:date]}")
+        Time::local(*ary[0..-3])
+      else
+        nil
+      end
     end
   end
   

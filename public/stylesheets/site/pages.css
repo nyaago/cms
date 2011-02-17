@@ -1,0 +1,20 @@
+div.inputs div#article {
+  float: left;
+}
+
+
+div.inputs div#article {
+  float: left;
+}
+
+/* 並び替え - 上方向 のボタン */
+input.previous_order {
+  background-color: #FFCCAA; 
+	border: 1px solid #999999; 
+}
+
+/* 並び替え - 下方向 のボタン */
+input.next_order {
+  background-color: #FFCCAA; 
+	border: 1px solid #999999; 
+}
