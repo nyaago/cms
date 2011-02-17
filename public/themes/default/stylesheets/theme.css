@@ -89,3 +89,79 @@ div#contents {
 div#footer {
   clear :both;
 }
+
+ul#head_menu {
+	list-style:none;
+	padding:0em;
+	margin:0em;
+}
+ul#head_menu li {
+	float:left;
+	margin-right:2px;
+}
+ul#head_menu li a {
+	display:block;
+	color:#000000;
+	padding:0.2em 0.8em;
+	text-decoration:none;
+}
+ul#head_menu li a:hover {
+	color:#333333;
+	background:#dddddd;
+	text-decoration:underline;
+}
+ul#head_menu li a:active {
+	color:#ffffff;
+	background:#999999;
+}
+
+ul#head_menu li a:link {　　/*未訪問のリンク*/
+font-weight: bold;
+color: #FFFFFF;
+background-color: #7B7B3C;
+display: block;
+margin-top: 3px;
+margin-right: 0px;
+margin-bottom: 0px;
+margin-left: 0px;
+padding-top: 3px;
+padding-right: 0px;
+padding-bottom: 3px;
+padding-left: 0px;
+width: 100%;
+text-indent: 10px;
+}
+ul#head_menu li a:visited {　　/*訪問済みのリンク*/
+font-weight: bold;
+color: #FFFFFF;
+background-color: #7B7B3C;
+display: block;
+margin-top: 3px;
+margin-right: 0px;
+margin-bottom: 0px;
+margin-left: 0px;
+padding-top: 3px;
+padding-right: 0px;
+padding-bottom: 3px;
+padding-left: 0px;
+text-decoration: none;
+width: 100%;
+text-indent: 10px;
+}
+ul#head_menu li a:hover {　　/*マウスポインタが乗ったとき*/
+font-weight: bold;
+color: #7B7B3C;
+background-color: #FFCC99;
+display: block;
+margin-top: 3px;
+margin-right: 0px;
+margin-bottom: 0px;
+margin-left: 0px;
+padding-top: 3px;
+padding-right: 0px;
+padding-bottom: 3px;
+padding-left: 0px;
+text-decoration: none;
+width: 100%;
+text-indent: 10px;
+}

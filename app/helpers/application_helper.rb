@@ -93,14 +93,10 @@ module ApplicationHelper
   
   # home の urlを返す
   def home_url
-    "http://#{request.server_name}" + 
-    if request.server_port.to_i != 80 then ":#{request.server_port}" else '' end +
-    "/" +
-    unless @site.nil? 
-      "#{@site.name}/"
-    else
-      ''
-    end
+    url = url_for(:controller => :pages, 
+                  :action => :show, 
+                  :site => @site.name, 
+                  :page => nil)
   end
   
   # footer 画像のhtmlタグを返す. ホームリンク表示が有効の場合はリンクを含める
@@ -160,6 +156,26 @@ module ApplicationHelper
       ''
     end
     content << "}\n"
+  end
+  
+  # head menu のhtmlを返す
+  # メニューは,idをhead_menu とするul タグ. 各メニュー項目はliタグとなる
+  def head_menu_html
+    return '' if @site.nil?
+    html = '<ul id="head_menu">'
+    @site.pages.select("title, name, is_home").
+                where('published = 1').
+                order('menu_order').each do |page|
+      url = url_for(:controller => :pages, 
+                    :action => :show, 
+                    :site => @site.name, 
+                    :page => if page.is_home then nil else page.name  end)
+      html << "<li><a href='#{url}'>" <<
+            page.title <<
+            "</a></li>\n"
+    end
+    html << '</ul>'
+    html.html_safe
   end
   
 end
