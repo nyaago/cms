@@ -196,8 +196,26 @@ module ApplicationHelper
       else
         @site.title
     end +
-    "<title>").html_safe
+    "</title>").html_safe
   end
+  
+  # not found ページのタイトルタグを返す
+  def not_found_title_tag
+    ("<title>" +
+    if self.instance_variable_defined?(:@site) && 
+          !@site.nil? && !@site.search_engine_optimization.nil?
+      @site.search_engine_optimization.not_found_title_text(request)
+    else
+      "404 Not Found"
+    end +
+    "</title>").html_safe
+  end
+
+  # request url
+  def request_url
+    request.request_uri
+  end
+    
 
   # keywords の meta タグを返す
   def meta_keywords_tag
