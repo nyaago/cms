@@ -22,8 +22,7 @@ class Site::PagesController < Site::BaseController
   # GET /articles.xml
   # 記事一覧の表示
   def index
-    @articles = Article.where("site_id = :site_id", :site_id => current_user.site_id).
-                        order(order_by).
+    @articles = @site.pages.order(order_by).
                         paginate(
                               :page => 
                                 if !params[:page].blank? && params[:page].to_i >= 1 
@@ -71,9 +70,7 @@ class Site::PagesController < Site::BaseController
   # 並び替えの一覧部分表示のアクション
   # Ajaxでの使用を目的とする
   def table_for_placing
-    @articles = Article.where("site_id = :site_id", 
-                              :site_id => current_user.site_id).
-                        order('menu_order')
+    @articles = @site.pages.order('menu_order')
     respond_to do |format|
       format.html do
         render :layout => nil
@@ -84,19 +81,15 @@ class Site::PagesController < Site::BaseController
   # 記事のメニュー表示位置を１つ前に移動するアクション
   # Ajaxでの実行となり.モデル更新後,viewの一覧テーブル部分のみをreplaceする
   def previous_order
+    @article = @site.pages.where("id = :id", params[:id])
     @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
     if @article.nil?
-      @articles = Article.where("site_id = :site_id", 
-                                :site_id => current_user.site_id).
-                                order('menu_order')
+      @articles = @site.pages.order('menu_order')
       render :action => :table_for_placing
       return
     end
     @article.to_previous_menu_order 
-    @articles = Article.where("site_id = :site_id", 
-                              :site_id => current_user.site_id).
-                              order('menu_order')
-    
+    @articles = @site.pages.order('menu_order')    
     respond_to do |format|
       format.html do
         render :action => :table_for_placing, :layout => nil

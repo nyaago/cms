@@ -13,19 +13,20 @@ module Validator
       TRANSLATION_SCOPE = [:errors, :article,:messages]
     
       def validate(record)
-        return if !record.published 
+        return if record.published.blank? && record.published.blank?
 
-        article_count = ::Article.select("count(*) as article_count").
-                          where("site_id = :site_id " + 
-                                " and published = true " +
-                                " and article_type = #{::Article::TYPE_PAGE}" +
+        article_count = record.site.pages.select("count(*) as article_count").
+                          where(" (published = true " +
+                                " or " +
+                                " published_from is not null" +
+                                " ) " +
                                 if record.new_record? then 
                                   '' 
                                 else 
                                   " and id <> #{record.id}" 
                                 end,
                                 :site_id => record.site_id).first
-        if !article_count.nil? &&  article_count.article_count >= LIMIT_VALUE - 1
+        if !article_count.nil? &&  article_count.article_count >= LIMIT_VALUE 
           record.errors[:base] << I18n.t(:page_limit, 
                                         :scope => TRANSLATION_SCOPE)
         end

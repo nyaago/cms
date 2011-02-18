@@ -117,7 +117,7 @@ ja:
       
     article:
       messages:
-        page_limit: "公開記事数が制限を超えています"
+        page_limit: "公開済み記事/公開予約済み記事数が制限を超えています"
 
     image:
       messages:

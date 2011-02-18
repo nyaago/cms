@@ -25,7 +25,7 @@ class Site::BaseController < ActionController::Base
   def current_user
     @current_user ||= current_user_session && current_user_session.user
   end
-
+  
   # 認証の確認.
   # 認証されていなければ、ログインページへのリダイレクト
   def authenticate
@@ -36,6 +36,7 @@ class Site::BaseController < ActionController::Base
       redirect_to :controller => :user_sessions, :action => :new
       return false
     end
+    @site = current_user.site
     return true
   end
   
