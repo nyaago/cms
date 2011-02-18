@@ -1,3 +1,5 @@
+# = SearchEngineOptimization 
+# SEO設定のモデル
 class SearchEngineOptimization < ActiveRecord::Base
   
   # 変数置換に関するmodule

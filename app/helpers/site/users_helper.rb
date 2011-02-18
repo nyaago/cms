@@ -1,3 +1,5 @@
+# Site::UsersHelper
+# 
 module Site::UsersHelper
 
   def users_path

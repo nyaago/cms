@@ -1,3 +1,5 @@
+# = Site::SettingHelper
+# サイト一般設定の view helper
 module Site::SettingHelper
   
   # urlパスを返す.

@@ -1,5 +1,5 @@
 # = ApplicationController
-#
+# 公開ページ共通のController
 class ApplicationController < ActionController::Base
   protect_from_forgery # :except => :hoge
   

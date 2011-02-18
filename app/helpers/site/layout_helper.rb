@@ -1,3 +1,5 @@
+# = Site::LayoutHelper
+# レイアウトデザイン設定の view helper
 module Site::LayoutHelper
   
   # urlパスを返す.

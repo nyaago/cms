@@ -1,5 +1,5 @@
-# = Site::TemplateHelper
-#
+# = Site::ThemeHelper
+# テーマ選択の view helper
 module Site::ThemeHelper
 
   # urlパスを返す.

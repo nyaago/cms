@@ -1,5 +1,8 @@
+# = Site
+# サイト基本情報のモデル
 class Site < ActiveRecord::Base
  
+# email の validator を読み込む
 require 'email_validator' 
   
   # 作成時のFilter. default値の設定
@@ -12,6 +15,7 @@ require 'email_validator'
   validates_presence_of :name
   validates_presence_of :title
 
+  #
   has_many  :articles, :dependent => :destroy
   has_many  :pages, 
             :class_name => 'Article', 

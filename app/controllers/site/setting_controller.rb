@@ -1,3 +1,5 @@
+# = Site::SettingController
+# サイト一般設定のcontroller
 class Site::SettingController < Site::BaseController
   
   # 翻訳リソースのスコープ

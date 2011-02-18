@@ -1,4 +1,5 @@
-
+# = Site::ImagesController
+# 画像一覧、アップロードページのController
 class Site::ImagesController < Site::BaseController
 
   include Site::ImagesHelper

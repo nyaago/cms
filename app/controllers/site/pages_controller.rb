@@ -1,4 +1,3 @@
-
 # = Site::PagesController
 # 記事作成関連のコントローラー
 class Site::PagesController < Site::BaseController

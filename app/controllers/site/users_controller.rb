@@ -1,3 +1,5 @@
+# 
+#
 class Site::UsersController < Site::BaseController
   # GET /admin/users
   # GET /admin/users.xml

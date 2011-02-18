@@ -1,3 +1,5 @@
+# = Site::OptimizationHelper
+# SEO設定の view helper
 module Site::OptimizationHelper
   
   # urlパスを返す.

@@ -1,3 +1,5 @@
+# = Site::OptimizationController
+# SEO設定ページのコントローラー
 class Site::OptimizationController < Site::BaseController
   
   # 翻訳リソースのスコープ

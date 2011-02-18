@@ -1,3 +1,5 @@
+# = SiteLayout
+# サイトレイアウトのモデル
 class SiteLayout < ActiveRecord::Base
   
   TITLE_REPLACE_MAP_FOR_ARTICLE = {
