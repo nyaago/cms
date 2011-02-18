@@ -31,6 +31,8 @@ Cms::Application.routes.draw do
     match 'layout/:action' => 'layout#:action'
     # Setting
     match 'setting/:action' => 'setting#:action'
+    # Optimization
+    match 'optimization/:action' => 'optimization#:action'
     # Images
     match 'images/:action/:id' => 'images#:action#:id'
     match 'images/:action' => 'images#:action'

@@ -1,0 +1,77 @@
+<h1>
+  SEO設定
+</h1>
+
+<script type="text/javascript" charset="utf-8">
+</script>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div id="edit_optimization">
+<%= form_for(@optimization, :url => site_optimization_path(:action => 'update')) do |f| %>
+  <% if @optimization.errors.any?  %>
+    <div id="error_explanation">
+      <h2><%= (@optimization.errors.count).to_s %> 
+        つのエラーが発生しました:</h2>
+
+      <ul>
+      <% @optimization.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field" id="canonical_url_enabled_field">
+    <%= f.label :canonical_url_enabled %>
+    <%= f.check_box :canonical_url_enabled %>
+  </div>
+
+  <div class="field" id="page_title_format_field">
+    <%= f.label :page_title_format %>
+    <%= f.text_field :page_title_format %>
+  </div>
+
+  <div class="field" id="blog_title_format_field">
+    <%= f.label :blog_title_format %>
+    <%= f.text_field :blog_title_format %>
+  </div>
+
+  <div class="field" id="archive_title_format_field">
+    <%= f.label :archive_title_format %>
+    <%= f.text_field :archive_title_format %>
+  </div>
+
+  <div class="field" id="not_found_title_format_field">
+    <%= f.label :not_found_title_format %>
+    <%= f.text_field :not_found_title_format %>
+  </div>
+
+  <div class="field" id="page_keywords_field">
+    <%= f.label :page_keywords %>
+    <%= f.text_field :page_keywords %>
+  </div>
+
+  <div class="field" id="blog_keywords_field">
+    <%= f.label :blog_keywords %>
+    <%= f.text_field :blog_keywords %>
+  </div>
+
+  <div class="field" id="page_description_field">
+    <%= f.label :page_description %>
+    <%= f.text_area :page_description , :rows => 3 %>
+  </div>
+
+  <div class="field" id="blog_description_field">
+    <%= f.label :blog_description %>
+    <%= f.text_area :blog_description, :rows => 3 %>
+  </div>
+
+
+  <div class="actions">
+    <%= f.submit "設定を保存" %>
+  </div>  
+
+
+<% end %>  
+
+</div>

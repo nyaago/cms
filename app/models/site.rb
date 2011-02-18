@@ -19,6 +19,7 @@ require 'email_validator'
   has_many  :users, :dependent => :destroy
   has_one   :site_layout,   :dependent => :destroy
   has_one   :site_setting,  :dependent => :destroy
+  has_one   :search_engine_optimization,  :dependent => :destroy
   has_many  :images
   has_many  :layout_images
 
@@ -34,6 +35,7 @@ require 'email_validator'
   def create_dependance
     layout = SiteLayout.create(:site => self)
     setting = SiteSetting.create(:site => self)
+    optimization = SearchEngineOptimization.create(:site => self)
   end
   
 end

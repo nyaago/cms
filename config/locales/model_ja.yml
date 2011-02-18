@@ -6,6 +6,9 @@ ja:
       article_history: "記事"
       page: "ページ"
       image: "画像"
+      site_layout: "レイアウトデザイン設定"
+      site_setting: "サイト一般設定"
+      search_engine_optimization: "SEO設定"
 
     attributes: 
       user: 
@@ -93,6 +96,18 @@ ja:
         menu_order: "メニュー表示順"
         updated_at: "更新日時"
         
+      search_engine_optimization:
+        enabled: "設定有効"
+        canonical_url_enabled: "Canonical URL"
+        title_rewriting: "タイトルの書き換え"
+        page_title_format: "ページ記事タイトルフォーマット"
+        blog_title_format: "お知らせ（ブログ）記事タイトルフォーマット"
+        archive_title_format: "アーカイブ記事タイトルフォーマット"
+        not_found_title_format: "404ページタイトルのフォーマット"
+        page_keywords: "ページ記事のキーワードメタタグ"
+        blog_keywords: "お知らせ記事のキーワードメタタグ"
+        page_description: "ページ記事の概要メタタグ"
+        blog_description: "お知らせ記事の概要メタタグ"
         
   categories:
     published:

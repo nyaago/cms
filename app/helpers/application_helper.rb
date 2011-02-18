@@ -178,4 +178,116 @@ module ApplicationHelper
     html.html_safe
   end
   
+  # title タグを返す
+  def title_tag
+    controller = params[:controller]
+    article = if @article.nil?
+      ''
+    else
+      @article
+    end
+    return '<title></title>' if @site.nil? || @site.search_engine_optimization.nil?
+    ("<title>" +
+    case  controller
+      when 'pages'
+        @site.search_engine_optimization.page_title_text(article)
+      when 'blogs'
+        @site.search_engine_optimization.blog_title_text(article)
+      else
+        @site.title
+    end +
+    "<title>").html_safe
+  end
+
+  # keywords の meta タグを返す
+  def meta_keywords_tag
+    controller = params[:controller]
+    article = if @article.nil?
+      ''
+    else
+      @article
+    end
+    return '' if @site.nil? || @site.search_engine_optimization.nil?
+    ('<meta name="keywords" content="' +
+    case  controller
+      when 'pages'
+        (if article.ignore_meta == false && 
+              !@site.search_engine_optimization.page_keywords.blank?
+          @site.search_engine_optimization.page_keywords
+        end || '') +
+        (if article.ignore_meta == false && 
+              !@site.search_engine_optimization.page_keywords.blank? &&
+              !article.meta_keywords.blank?
+          ','
+        end || '') +
+        (unless article.meta_keywords.blank? 
+          article.meta_keywords
+        end || '')
+      when 'blogs'
+        (if article.ignore_meta == false && 
+              !@site.search_engine_optimization.blog_keywords.blank?
+          @site.search_engine_optimization.blog_keywords
+        end || '') +
+        (if article.ignore_meta == false && 
+              !@site.search_engine_optimization.blog_keywords.blank? &&
+              !article.meta_keywords.blank? 
+          ','
+        end || '') +
+        (unless article.meta_keywords.blank? 
+          article.meta_keywords
+        end || '')
+      else
+        (if !@site.search_engine_optimization.page_keywords.blank?
+          @site.search_engine_optimization.page_keywords
+        end || '')
+    end + 
+    '"/>').html_safe
+  end
+
+  # description の meta タグを返す
+  def meta_description_tag
+    controller = params[:controller]
+    article = if @article.nil?
+      ''
+    else
+      @article
+    end
+    return '' if @site.nil? || @site.search_engine_optimization.nil?
+    ('<meta name="description" content="' +
+    case  controller
+      when 'pages'
+        (if article.ignore_meta == false && 
+              !@site.search_engine_optimization.page_description.blank?
+          @site.search_engine_optimization.page_description
+        end || '') +
+        (if article.ignore_meta == false && 
+              !@site.search_engine_optimization.page_description.blank? &&
+              !article.meta_description.blank?
+          ','
+        end || '') +
+        (unless article.meta_description.blank? 
+          article.meta_description
+        end || '') 
+      when 'blogs'
+        (if article.ignore_meta == false && 
+              !@site.search_engine_optimization.blog_description.blank?
+          @site.search_engine_optimization.blog_description
+        end || '') +
+        (if article.ignore_meta == false && 
+              !@site.search_engine_optimization.blog_description.blank? &&
+              !article.meta_description.blank? 
+          ','
+        end || '') +
+        (unless article.meta_keywords.blank? 
+          article.meta_description
+        end || '') 
+      else
+        (if !@site.search_engine_optimization.page_keywords.blank?
+          @site.search_engine_optimization.page_keywords
+        end || '') 
+      end + 
+      '"/>').html_safe
+
+  end
+  
 end
