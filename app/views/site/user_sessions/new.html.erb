@@ -4,8 +4,10 @@
 
 <fieldset>
   <legend>ログイン</legend>
+  
   <% form_for( @user_session,
       :url => { :action => "create"} )   do |f|   %>
+
 
     <div class="field">
       <%= f.label t :login,:scope => [:activerecord, :attributes, :user]  %><br />
@@ -15,6 +17,9 @@
       <%= f.label t :password,:scope => [:activerecord, :attributes, :user] %><br />
       <%= f.password_field :password %>
     </div>
+    
+    </div>
+    
     <div class="actions">
       <%= f.submit "ログイン" %>
     </div>

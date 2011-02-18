@@ -24,6 +24,8 @@
     </div>
   <% end %>
 
+  <div id="setting" class="inputs">
+
   <div class="field" id="title_field">
     <%= f.label :title %>
     <%= f.text_field :title %>
@@ -51,6 +53,8 @@
     <%= label :site_setting, :analytics_script %>
     <%= text_area :site_setting, :analytics_script %>
   </div>
+
+  </div>  <!-- setting  -->
 
   <div class="actions">
     <%= f.submit "設定を保存" %>

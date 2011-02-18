@@ -38,7 +38,8 @@
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 
-<h2>
+<div class="inputs">
+<h2 id="heading_selected_theme">
   選択されているテーマ
 </h2>
 <div class="selected_theme" id="selected_theme">
@@ -52,13 +53,19 @@
   </label> 
   </p> 
 </div>
+<div class="inputs_bottom">
+</div>
+
+</div>
   
 
 
 <%= form_for(@site.site_layout, :url => site_theme_path(:action => 'update')) do |f| %>
 
-<div>
-<h2>
+<div style="clear: both;"/>
+</div>
+<div class="inputs">
+<h2 id="heading_theme">
   選択可能なテーマ
 </h2>
 <div id="themes">
@@ -80,6 +87,9 @@
     </div>
   <% end %>
 </div>  <!-- themes -->
+<div class="inputs_bottom">
+</div>
+
 </div>
 <div class="actions">
 <%= f.submit :value => "テーマを更新" %>

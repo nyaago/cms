@@ -80,7 +80,7 @@ function clearPublishedFrom() {
 <%= form_for(@article, :url => site_page_path(@article)) do |f| %>
   <% if @article.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@article.errors.count, "error") %> prohibited this article from being saved:</h2>
+      <h2><%= (@article.errors.count).to_s %> のエラーが発生しました</h2>
 
       <ul>
       <% @article.errors.full_messages.each do |msg| %>
