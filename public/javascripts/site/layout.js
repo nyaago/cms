@@ -1,24 +1,24 @@
 
 // radio button 変更時
-function registOnChangeRadio(elemId) {
-  $('.' + elemId + '_radio_button').each( function() {
+function registOnChangeRadio(elemClass) {
+  $('.' + elemClass + '_radio_button').each( function() {
     $(this).change(function () {
-      $('.' + elemId + '_radio_button').each( function() {
-        $(this).parent().parent().removeClass('selected');
+      $('.' + elemClass + '_radio_button').each( function() {
+        $('div.' + elemClass + ':has(#' + $(this).attr('id') + ')').removeClass('selected');
       } );
-      $(this).parent().parent().addClass('selected');
+      $('div.' + elemClass + ':has(#' + $(this).attr('id') + ')').addClass('selected');
     });
   } ) ;
   // div 選択時、radio buttonの値変更
-  $('div.' + elemId).each( function() {
+  $('div.' + elemClass).each( function() {
     $(this).click(function () {
       var  id =  $(this).attr('id');
-      var re = new RegExp(elemId + '_');
+      var re = new RegExp(elemClass + '_');
       id = id.replace(re,'');
-      $('.' + elemId + '_radio_button').each( function() {
-        $(this).parent().parent().removeClass('selected');
+      $('.' + elemClass + '_radio_button').each( function() {
+        $('div.' + elemClass + ':has(#' + $(this).attr('id') + ')').removeClass('selected');
       } );
-      $('.' + elemId + '_radio_button').val([id]);
+      $('.' + elemClass + '_radio_button').val([id]);
       $(this).addClass('selected');
     });
   } ) ;
@@ -26,11 +26,11 @@ function registOnChangeRadio(elemId) {
 }
 
 // radioボタンの選択
-// @param elemId - タグのid
+// @param elemClass - タグの Class
 // @param value - 選択値
-function selectRadio(elemId, value) {
+function selectRadio(elemClass, value) {
 
-  $('.' + elemId + '_radio_button').val([value]);
-  $('div#' + elemId + '_' + value).addClass('selected');
+  $('.' + elemClass + '_radio_button').val([value]);
+  $('div#' + elemClass + '_' + value).addClass('selected');
 
 }
