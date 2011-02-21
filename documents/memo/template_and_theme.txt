@@ -8,24 +8,36 @@ config/layouts/themes/<任意>.yml に設定
 == 設定ファイルの内容
 themes:
   - name:<theme名(=フォルダ名)>
-    title:<表示タイトル>
+    human_name:<表示タイトル>
 
 
 == 以下のファイルを含む
 
-public/themes/<theme>/stylesheet/theme.css
+=== html 出力の テンプレート (erbを使用)
+
+app/views/layouts/themes/<theme>/application.html.erb
+    メインのviewテンプレート
+app/views/layouts/themes/<theme>/_header.html.erb
+    headerテンプレート
+app/views/layouts/themes/<theme>/_side.html.erb
+    sideバー部分のテンプレート
+app/views/layouts/themes/<theme>/_footer.html.erb
+    footter部分のテンプレート
+app/views/layouts/themes/<theme>/_eye_catch.html.erb
+    eye_catch部分のテンプレート
+
+=== 公開フォルダの素材ファイル
+
+public/themes/<theme>/stylesheets/theme.css
     html.erbから参照するcss (erbではない)
     
-public/themes/<theme>/icon.jpg
+public/themes/<theme>/thumb.jpg
     テーマ選択のアイコン
     
 public/themes/<theme>/images/*.*
     theme.cssから参照する画像
 
 
-== モデルクラス
-
-::Layout::Theme
 
 
 =Eye Catch Type
@@ -40,7 +52,7 @@ eye_catches:
     
 == 以下のファイルを含む
 
-public/eye_catches/<eye_catch_type>/stylesheet/eye_catch.css
+public/eye_catches/<eye_catch_type>/eye_catch.css
    そのtypeが選択されたときに適用されるcss
 public/eye_catches/<eye_catch_type>/icon.jpg
    選択のためのアイコン
@@ -89,7 +101,7 @@ global_navigations:
     
 == 以下のファイルを含む
 
-public/global_navigations/<global_navigation>/stylesheet/global_navigation.css
+public/global_navigations/<global_navigation>/global_navigation.css
    そのtypeが選択されたときに適用されるcss
 
 == 設定値(name - human_name)
@@ -132,17 +144,18 @@ skin_colors:
 
 == 以下のファイルを含む
 
-public/skin_colors/<skin_color/stylesheet/skin_color.css
+public/skin_colors/<skin_color/skin_color.css
    そのcolorが選択されたときに適用されるcss
 public/skin_colors/<skin_color>/icon.jpg
    選択のためのアイコン
 
-== 設定値(name - human_name)
+== 設定値(name - human_name) 
 default - テーマのデフォルトを使用
 blue  - 青
 silver - シルバー
 red - 赤
 green - 緑
+
 
 =font_size
 
@@ -154,7 +167,12 @@ font_sizes:
 　　- name:<column_layout名>
   　　human_name:<表示タイトル>
 
-== 設定値(name - human_name)
+== 設定値(name - human_name) - 仮
   default - テーマのデフォルトを使用
   small - 小さく
   small - 大きく
+
+
+------------------
+
+

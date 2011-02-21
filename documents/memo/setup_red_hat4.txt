@@ -1,0 +1,117 @@
+1.ruby 1.8.7 への更新
+
+2.curl, git のインストール
+
+- curl
+$yum install curl
+
+- git
+
+
+3.不足パッケージ
+
+$su
+$yum install mysql-devel
+$yum install ImageMagick-devel
+$yum install readline-devel
+$exit # 一般ユーザ
+
+
+
+
+4.rvm　のインストール / 設定
+
+- rvm インストール
+
+-rvmをインストール
+
+- readline をインストトール
+$rvm package install readline
+
+- ruby 1.9.2をインストール
+$rvm install 1.9.2
+
+- .bashrc に
+
+if [ -s $HOME/.rvm/scripts/rvm ] ; then
+source $HOME/.rvm/scripts/rvm
+fi
+
+rvm 1.9.2
+
+
+5.gem インストール 
+
+$gem install rails
+$gem install mysql2 --  --with-mysql-include=/usr/include/mysql
+
+
+
+
+6.charset
+
+以下を .bashrcに追加
+export LANG=ja_JP.UTF-8
+
+7.git リポジトリー作成と
+
+- サーバ側リポジトリ作成
+$cd
+$mkdir  cms.git
+$cd cms.git
+$git --bare init
+
+- 開発環境からサーバーへリポジトリをpush (開発環境PC)
+$cd <リポジトリ>
+$git remote add origin ssh://smart539@smart539.rsjp.net/home/smart539/cms.git
+$git push origin master
+
+
+- サーバー側,作業リポジトリ作成
+
+$cd
+$git clone /home/smart539/cms.git
+
+
+
+
+8.rails - bundle 
+$cd ~/cms
+$bundle install
+
+
+9.データベース設定の変更
+- ~/cms/config/database.yml の設定変更
+
+-- socket 設定を削除する
+-- アカウント情報
+
+
+10.データベース
+
+- データベース作成
+
+
+
+10.table 生成
+$cd ~/cms
+$ rake db:migrate
+
+
+
+
+yum remove mysql
+
+http://dev.mysql.com/get/Downloads/MySQL-5.1/MySQL-embedded-community-5.1.55-1.rhel4.i386.rpm/from/http://ftp.jaist.ac.jp/pub/mysql/
+
+http://dev.mysql.com/get/Downloads/MySQL-5.1/MySQL-devel-community-5.1.55-1.rhel4.i386.rpm/from/http://ftp.iij.ad.jp/pub/db/mysql/
+
+
+rpm -i MySQL-devel-community-5.1.55-1.rhel4.i386.rpm
+rpm -i MySQL-embedded-community-5.1.55-1.rhel4.i386.rpm
+rpm -ihv MySQL-client-community-5.1.55-1.rhel4.i386.rpm
+rpm -ihv MySQL-shared-community-5.1.55-1.rhel4.i386.rpm
+
+ rpm -qa | grep MySQL
+ 
+ /sbin/service   mysql start

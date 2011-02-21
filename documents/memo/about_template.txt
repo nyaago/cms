@@ -1,0 +1,2 @@
+theme のtemplateファイル(erb)　に関して
+
