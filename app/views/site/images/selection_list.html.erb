@@ -1,0 +1,163 @@
+<script type="text/javascript">
+//<![CDATA[
+  
+  // see javascript/site/images.js
+  
+  // ページload時,
+  // アップロードフォームの表示On/Off,#display_uploadフィールドの値で切り替え
+  $(document).ready( function(){
+    var  f = false;
+    if($('#display_upload').attr('value') == 1) {
+      f = true;
+    }
+    else {
+      f = false;
+    }
+    showOrHideUpload(f);
+  });
+
+  function insertImages() {
+    window.opener.insertImages();
+  }
+
+  
+//]]>
+</script>
+
+
+<%= stylesheet_link_tag "site/images" %>
+<h1>
+  画像の選択
+</h1>
+
+<p id="notice"><%= flash[:notice] %></p>
+
+
+
+<div>
+<h2>
+  画像一覧
+</h2>
+<%= form_tag({:action => :index},
+               {:id => 'filteting_by_month', :method => 'get'}) do -%>
+  <%= hidden_field_tag 'month', nil, { :id => 'filtered_month'}  %>
+<% end %>
+<%= form_tag({:action => :process_with_batch},
+             {:id => 'process_with_batch', :method => 'get', :name => 'images'}) do -%>
+             
+<div id="settings_for_images">              
+  <h3>
+    使用する画像の設定
+  </h3>
+  <div class="inputs">
+    <div class="field" id="image_size_field">
+      <span class="caption">
+        大きさ:
+      </span>
+      <%= radio_button_tag("image_size", 'original', true ) %>オリジナル&nbsp;
+      <%= radio_button_tag("image_size", 'medium', false ) %>中ぐらい&nbsp;
+      <%= radio_button_tag("image_size", 'small', false ) %>小さい&nbsp;
+      <%= radio_button_tag("image_size", 'thumb', false ) %>サムネイル&nbsp;
+    </div>
+    <div class="field" id="image_ordering_direction_field">
+      <span class="caption">
+        追加順:
+      </span>
+      <%= radio_button_tag("image_ordering_direction", 'desc', true ) %>新しいものから&nbsp;
+      <%= radio_button_tag("image_ordering_direction", 'asc', false ) %>古いものから&nbsp;
+    </div>
+    <div class="field" id="image_align_field">
+      <span class="caption">
+        配置:
+      </span>
+      <%= radio_button_tag("image_align", 'no', true ) %>指定なし&nbsp;
+      <%= radio_button_tag("image_align", 'center', false ) %>中央&nbsp;
+      <%= radio_button_tag("image_align", 'left', false) %>左&nbsp;
+      <%= radio_button_tag("image_align", 'right', false ) %>右&nbsp;
+    </div>
+  </div>
+  <div class="actions">
+  <%= button_to_function('画像を挿入', 'return insertImages();') %>
+  </div>
+</div>
+             
+<div>
+  
+  <%= select_tag('images[months]',
+  options_for_select(
+    [['全て', '']] +
+    @months.collect { |month|
+      [month.to_s('%Y年%m日'), month.to_s('%Y%m') ]
+    },
+    if params[:month] then params[:month] else nil end
+  ), { :include_blank => false, :id => 'filtering_month', :name => 'month'} )
+
+  %>
+    <%= button_to_function('フィルター', 'return filterByMonth();') %>
+</div>
+<% if @images.size > 0 %>
+  <%= will_paginate @images,  
+    :params=>{:display_upload=>0}, 
+    :prev_label => '<=', :next_label => '=>' %>
+<% end %>
+
+<table id="images">
+  <tr>
+    <th>
+      <%= check_box_tag("check_all",1, false, 
+      {:class => 'check_all'}) %>
+    </th>
+    <th>
+      タイトル
+    </th>
+    <th>
+      作成日時
+    </th>
+  </tr>
+  <% @images.each_with_index do |image, i| %>
+    <tr>
+    </tr>
+    <tr class="image_entry_row, <%= if i % 2 == 0 then 'even' else 'odd' end %>" >
+      <td>
+        <%= check_box_tag("images[checked][#{image.id}]",image.id, false, 
+        {:class => 'check_for_batch'}) %>
+      </td>
+      <td class="image_entry">
+        <div class="thumb">
+           <%= thumb_tag(image) %> 
+        </div>
+        <div class="info">
+          <div class="title">
+            <%= image.title %>
+          </div>
+          <div class="description">
+            <%= image.description %>
+          </div>
+          <div class="actions"> 
+            <%= link_to("編集", site_image_path(image, :action => :edit)) %>
+            <%= link_to('削除', url_for(:action => :destroy, :id => image.id), 
+            :confirm => '削除してよろしいでしょうか?') %>
+            <%= link_to("表示", url_for(:action => :show, :id => image.id)) %>
+          </div> 
+        </div>
+        <%= hidden_field_tag 'image_' + image.id.to_s + '_original', image_url(image, :original) %>
+        <%= hidden_field_tag 'image_' + image.id.to_s + '_medium', image_url(image, :medium) %>
+        <%= hidden_field_tag 'image_' + image.id.to_s + '_small', image_url(image, :small) %>
+        <%= hidden_field_tag 'image_' + image.id.to_s + '_thumb', image_url(image, :thumb) %>
+      </td>
+      <td>
+        <%= I18n.l(image.created_at, :format => :short) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<% end %>
+<% if @images.size > 0 %>
+    <%= will_paginate @images,  
+      :params=>{:display_upload=>0}, 
+      :prev_label => '<=', :next_label => '=>' %>
+<% end %>
+
+</div>
+
+

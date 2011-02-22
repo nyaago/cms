@@ -47,6 +47,37 @@ class Site::ImagesController < Site::BaseController
       format.xml  { render :xml => @images }
     end
   end
+
+  # 選択用の一覧表示
+  # 画像モデルの行コレクションとデータのある月日のコレクションを得る
+  # == リクエストパラメータ
+  # * page - 現在のページ
+  # * sort  - 並び変えカラム, defaultは created_at
+  # * direction - ソート方向(asc/desc), defaultは desc
+  # * images[month] - 年月(yyyymm 書式)
+  def selection_list
+    @image = Image.new
+    @months = Image.created_months(current_user.site_id)
+    cur_month = if params[:month] then params[:month] else nil end
+    @images = Image.where("site_id = :site_id ",
+                          :site_id => current_user.site_id).
+                        filter_by_month(cur_month).
+                        order(order_by).
+                        paginate(
+                          :page => 
+                            if !params[:page].blank? && params[:page].to_i >= 1 
+                              params[:page].to_i
+                            else 
+                              1 
+                            end, 
+                          :per_page => PER_PAGR)
+    respond_to do |format|
+      format.html { render :layout => 'site_no_navi' }
+      format.xml  { render :xml => @images }
+    end
+  end
+  
+  
   
   def new
     @image = Image.new
