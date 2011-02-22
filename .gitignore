@@ -7,4 +7,6 @@ tmp/**/*
 public/**/.DS_Store
 vendor/**/.DS_Store
 app/**/.DS_Store
+rdoc
+
 

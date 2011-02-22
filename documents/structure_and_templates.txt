@@ -1,0 +1,121 @@
+= 基本ディレクト構成(実行に必要なもの)
+
+<application> - app
+              - public   - stylesheets
+                         - javascripts
+                         - <各レイアウト関連のcssなどを置くディレクトリー>
+                         - ..
+                         - user-images
+                         - layout-images
+              - config
+              - lib
+              - log
+              - vendor
+              
+
+=htmlテンプレートの形式の仕様
+eRubyという任意のテキストファイルに Ruby スクリプトを埋め込む書式の仕様を採用。
+その実装の１つである、erbを利用。
+
+== eRuby概要
+eRuby では任意のテキストファイルに Ruby スクリプトを埋め込めます。 基本的には、次のマークアップ (eRuby タグ) を使って Ruby スクリプトを埋め込みます。
+
+<% ... %>
+Ruby スクリプト片をその場で実行
+
+<%= ... %>
+式を評価した結果をその場に挿入
+
+<%# ... %>
+eRuby のコメント (ERB#src (後述) にも埋め込まれない)
+
+<%%
+「<%」をその場に挿入 (「<% ... %>」の中ではそのまま)
+%%>
+「<% ... %>」などの中で「%>」になる (「<% ... %>」の外では「%%>」のまま)
+% で始まる行
+ERB で trim_mode (後述) が '%' の時、また、eruby ではいつでも、Ruby スクリプト片をその場で実行
+
+%% で始まる行
+ERB で trim_mode (後述) が '%' の時、また、eruby ではいつでも、% で始まる行になる
+
+その他の部分 (地の文) はそのまま出力されます。
+eRuby は HTML や XML に限らず、任意のテキストファイルの出力に使用できます。
+
+(以上、http://jp.rubyist.net/magazine/?0017-BundledLibraries　より引用)
+
+
+
+=テーマのhtmlテンプレートの構成/公開ファイルの構成
+== htmlテンプレート
+各テーマは、各テーマのテンプレートディレクトリ（<application>/app/views/layouts/<theme>）に
+メインのhtmlテンプレートであるapplication.html.erb と　それにインクルードされる部分テンプレートで構成される。
+部分テンプレートは、以下のようなものを含む
+_header.html.erb
+_footer.html.erb
+_eye_catch_type.html.erb
+
+==theme,layout設定以外のstylesheets
+[<application>/public/stylesheets/common.css ]を公開ページの共通stylesheetsとして参照.
+
+==javascripts
+- アプリケーション共通のscript(<application>/public/javascripts/application.js)
+を参照.
+- ruby on rails が使用するscript - <application>/public/javascripts/rails.js
+
+==theme - layout
+theme_and_layout.txt を参照
+
+=サイト管理のテンプレート/公開ファイルの構成
+== html テンプレート
+メインのテンプレート(<application>/app/views/layouts/site.html.erb)
+と[<application>/app/views/layouts/site/ ]にある部分テンプレートで構成.
+
+== stylesheets
+- サイト管理共通の共通のcss(<application>/public/stylesheets/site.css)と
+[<application>/public/stylesheets/site]以下に、機能グループごとのcssを配置.
+機能グループごとのcssの名称は<機能グループ名>.cssとなる。
+機能グループ名は、そのページのurlのsite/に続く部分と等しい.
+- その他jqueryプラグインのテーマなどが[<application>/public/stylesheets]に配置されている
+
+
+== javascripts
+- アプリケーション共通のscript(<application>/public/javascripts/application.js)と
+[<application>/public/javascripts/site]以下に、機能グループごとのcssを配置.
+- ruby on rails が使用するscript - <application>/public/javascripts/rails.js
+- その他jqueryなどOpensourceライブラリーが[<application>/public/javascripts]に配置されている
+
+= テンプレートで出力用に埋め込むrubyのコード
+
+== （主に公開ページで使用する）アプリケーション固有のメソッド
+
+[<アプリケーション>/rdoc/doc/ApplicationHelper.html] を参照
+
+== ヘッダー部分で共通で埋め込んでいる.Ruby On Rails のヘルパーメソッド
+
+javascript_include_tag :defaults
+    共通で使用するjavascript の読み込み
+csrf_meta_tag
+    サイトスクリプティング対策のためのタグ出力
+    
+== その他 Ruby On Rails のヘルパーメソッドを利用
+
+以下、主なもの
+
+javascript_include_tag <名前>
+    javascriptファイル読み込み.<application>/public/javascripts以下の相対.拡張子を指定しない.
+stylesheet_link_tag <名前>
+    cssの読み込み.<application>/public/stylesheets以下の相対.拡張子を指定しない.
+render <名前>
+    部分テンプレートの挿入. 
+    例.
+      render '/layout/hoge'
+      =>
+      <application>/app/views/layout/_hoge.html.erb
+      render 'hoge'
+      =>
+      <読み込みもとのテンプレートの場所>/_hoge.html.erb
+
+
+
+

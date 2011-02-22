@@ -1,0 +1,37 @@
+### SEO 設定 ###
+
+=ページ | お知らせ 記事
+
+== SEO設定ページで使用できる変数
+
+%article_title%
+    記事タイトル
+%page_title%
+    記事タイトル
+%site_title%
+    サイトタイトル
+    
+= アーカイブ 
+
+== SEO設定ページで使用できる変数
+
+%article_title%
+    記事タイトル
+%page_title%
+    記事タイトル
+%site_title%
+    サイトタイトル
+.. その他検討
+
+
+= 404ページ
+
+== SEO設定ページで使用できる変数
+
+%request_url%
+    指定されたurl
+%request_uri%      
+    指定されたurl
+    
+    
+

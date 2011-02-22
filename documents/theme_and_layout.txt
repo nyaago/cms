@@ -1,14 +1,14 @@
-===
+### テーマとレイアウトデザイン設定 ###
 
-=テーマ  
+=テーマの設定  
 
 == 設定ファイル
 config/layouts/themes/<任意>.yml に設定
 
 == 設定ファイルの内容
 themes:
-  - name:<theme名(=フォルダ名)>
-    human_name:<表示タイトル>
+  - name: <theme名(=フォルダ名)>
+    human_name: <表示タイトル>
 
 
 == 以下のファイルを含む
@@ -29,15 +29,13 @@ app/views/layouts/themes/<theme>/_eye_catch.html.erb
 === 公開フォルダの素材ファイル
 
 public/themes/<theme>/stylesheets/theme.css
-    html.erbから参照するcss (erbではない)
+    html.erbから参照するcss
     
 public/themes/<theme>/thumb.jpg
-    テーマ選択のアイコン
+    テーマ選択のサムネイル
     
 public/themes/<theme>/images/*.*
     theme.cssから参照する画像
-
-
 
 
 =Eye Catch Type
@@ -47,15 +45,9 @@ config/layouts/eye_catch.yml
 
 == 設定ファイルの内容
 eye_catches:
-  - name:<eye_catch_type名>
-    human_name:<表示タイトル>
-    
-== 以下のファイルを含む
-
-public/eye_catches/<eye_catch_type>/eye_catch.css
-   そのtypeが選択されたときに適用されるcss
-public/eye_catches/<eye_catch_type>/icon.jpg
-   選択のためのアイコン
+  - name: <eye_catch_type名>
+    human_name: <表示タイトル>
+    location: <eye_catchを配置するタグID header|container|contents>
 
 == 設定値(name - human_name - 備考)
 
@@ -65,24 +57,15 @@ header_area_banner - ヘッダー領域(バナータイプ) - titleと重ねな�
 content_area - コンテンツ領域 - contentとsideの上, titleの下
 main_area - Main Area - contentの上, sideの横で開始y座標は同じ
 
+    
+== 以下のファイルを含む
 
-=title tag
+public/eye_catches/<eye_catch_type>/eye_catch.css
+   そのtypeが選択されたときに適用されるcss
+public/eye_catches/<eye_catch_type>/thumb.jpg
+   選択のためのサムネイル
 
-== 設定ファイル
-config/layouts/title_tag.yml
-
-== 設定ファイルの内容
-title_tags:
- - name:<title tag名>
-   human_name:<表示タイトル>
-   format:<format>
    
-==フォーマットで指定できる変数
-%site_title%       
-   サイトタイトル
-%article_title%
-   記事名
-
 == 設定値(name - human_name - format)
 
 site_article - 'サイトタイトル - 記事タイトル' - '%site_title% - %article_title%'
@@ -96,8 +79,8 @@ config/layouts/global_navigation.yml
 
 == 設定ファイルの内容
 global_navigations:
-  - name:<global_navigation名>
-    human_name:<表示タイトル>
+  - name: <global_navigation名>
+    human_name: <表示タイトル>
     
 == 以下のファイルを含む
 
@@ -116,15 +99,15 @@ config/layouts/column_layout.yml
   
 == 設定ファイルの内容
 column_layouts:
-  - name:<column_layout名>
-    human_name:<表示タイトル>
+  - name: <column_layout名>
+    human_name: <表示タイトル>
     
 == 以下のファイルを含む
 
 public/column_layouts/<column_layout>/stylesheet/column_layout.css
    そのlayoutが選択されたときに適用されるcss
-public/column_layouts/<column_layout>/icon.jpg
-   選択のためのアイコン
+public/column_layouts/<column_layout>/thumb.jpg
+   選択のためのサムネイル
 
 == 設定値(name - human_name)
 single - サイドメニューなし
@@ -139,15 +122,15 @@ config/layouts/skin_color.yml
 
 == 設定ファイルの内容
 skin_colors:
-  - name:<column_layout名>
-    human_name:<表示タイトル>
+  - name: <column_layout名>
+    human_name: <表示タイトル>
 
 == 以下のファイルを含む
 
 public/skin_colors/<skin_color/skin_color.css
    そのcolorが選択されたときに適用されるcss
-public/skin_colors/<skin_color>/icon.jpg
-   選択のためのアイコン
+public/skin_colors/<skin_color>/thumb.jpg
+   選択のためのサムネイル
 
 == 設定値(name - human_name) 
 default - テーマのデフォルトを使用
@@ -164,13 +147,18 @@ config/layouts/font_size.yml
 
 == 設定ファイルの内容
 font_sizes:
-　　- name:<column_layout名>
-  　　human_name:<表示タイトル>
+　　- name: <column_layout名>
+  　　human_name: <表示タイトル>
 
 == 設定値(name - human_name) - 仮
   default - テーマのデフォルトを使用
   small - 小さく
-  small - 大きく
+  large - 大きく
+
+== 以下のファイルを含む
+
+public/font_sizes/<font_size>/font_size.css
+   そのfont sizeが選択されたときに適用されるcss
 
 
 ------------------
