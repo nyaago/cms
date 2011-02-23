@@ -11,7 +11,7 @@ function selectImages() {
 
 
 
-CKEDITOR.plugins.add( 'imageSelector',
+CKEDITOR.plugins.add( 'imageselector',
 {
 	init : function( editor )
 	{
