@@ -74,23 +74,40 @@ function clearPublishedFrom() {
   
 }
 
-function selectImages() {
-  window.open('<%= url_for(:controller => :images, :action => :selection_list) %>', 
-  '_blank', 'width=' + (window.outerWidth > 400 ? window.outerWidth - 200 : 200) + 
-          ', height=' + (window.outerHeight > 300 ?   window.outerHeight - 100 : 200) + 
-          ', menubar=no, toolbar=no, scrollbars=yes');
-//  alert("aaa");
+
+// 画像タグを挿入
+// == parameters
+// * images - url, is_image, title, alternative配列を含む配列
+// * align - 画像の横方向のalign (left | rigjt | center | none )
+function insertImages(images, align) {
+
+  var editor = CKEDITOR.instances.article_content;
+  var alignStyle = align == "none" ? "" : "align-text: " + align + ";";
+  $.each(images, function(i) {
+    var p;
+    var img;
+    if(this['is_image'] == "true") {
+      p = '<p style="' + alignStyle + '">';
+      p += '</p>';
+      img = '<img src="' + this['url'] +  '" ' + 
+      'alt="' +  (this['alternative'] != "" ? this['alternative'] : this['title'])   +  '"/>';
+    }
+    else {
+      p = '<p style="' + alignStyle + '">';
+      p += '</p>';
+      img = '<a href="' + this['url'] + '" >' + this['title'] + '</a>';
+    }
+    var pElement = CKEDITOR.dom.element.createFromHtml(p);
+    var imgElement = CKEDITOR.dom.element.createFromHtml(img);
+    editor.insertElement(pElement);
+    pElement.append(imgElement);
+  }
+  );
+
 }
 
-function insertImages() {
-
-  editor = CKEDITOR.instances.article_content;
-  var element = CKEDITOR.dom.element.createFromHtml( 
-    '<img src="http://localhost:3000/user-images/83/original_user.jpg" border="0" title="Hello" />' );
-  editor.insertElement(element);
-}
-
-
+CKEDITOR.config.height = "25em";
+CKEDITOR.config.imageSelctorUrl = '<%= url_for(:controller => :images, :action => :selection_list) %>';
 
 
 </script>
@@ -134,9 +151,6 @@ function insertImages() {
     <div class="field">
       <%= f.label :content %><br />
       <%= f.text_area :content, :class => "ckeditor" %>
-      <div>
-        <%= button_to_function("画像","selectImages();") %>
-      </div>
     </div>
     <div class="field">
       <%= f.label :is_home %><br />

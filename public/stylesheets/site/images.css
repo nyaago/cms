@@ -67,11 +67,11 @@ div.title {
   margin-left: 0.2em;
   margin-bottom: 0.2em;
   font-weight: bold;
-  font-size: 110%;
+  font-size: 1.2em;
 }
 
 div.description {
-  height: 5.5em;
+  height: 1.2em;
 }
 
 div.actions {

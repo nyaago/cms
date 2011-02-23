@@ -16,6 +16,7 @@ a { color: #000; }
 a:visited { color: #666; }
 a:hover { color: #fff; background-color:#000; }
 
+
 div.field, div.actions {
   margin-bottom: 10px;
 }
@@ -83,7 +84,7 @@ div#side {
 
 div#contents {
   width: 80%;
-  float: right;
+  float: left;
 }
 
 div#footer {
@@ -112,4 +113,10 @@ div.actions input {
 }
 
 
+/* HTMLエディタの画像挿入アイコン  */
+.cke_skin_kama a.image_selector .cke_icon
+{
+  background-image: url(/images/site/image_selector.png);
+	background-position: 0 0;
+}
 

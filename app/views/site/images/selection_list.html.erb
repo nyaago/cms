@@ -1,6 +1,8 @@
 <script type="text/javascript">
 //<![CDATA[
   
+  
+  
   // see javascript/site/images.js
   
   // ページload時,
@@ -17,7 +19,41 @@
   });
 
   function insertImages() {
-    window.opener.insertImages();
+    //
+    var images = new Array();
+    // 
+    var size = $('#image_size_field :radio:checked').val();
+    var align = $('#image_align_field :radio:checked').val();
+    var direction = $('#image_ordering_direction_field :radio:checked').val();
+    //alert("size/align/direction = " + size + "/" + align + "/" + direction);
+    //
+    $('#images .check_for_batch:checked').each( function() {
+      var checkedId =  $(this).val();
+      var url  = '';
+      if($('#image_' + checkedId + "_is_image").val() == "true") {
+        url = $('#image_' + checkedId + "_" + size).val();
+      }
+      else {
+        url = $('#image_' + checkedId + "_original").val();
+      }
+      // alert(url);
+      var image = new Array();
+      image['url'] = url;
+      image['is_image'] = $('#image_' + checkedId + "_is_image").val();
+      image['title'] = $('#image_' + checkedId + "_title").val();;
+      image['alternative'] = $('#image_' + checkedId + "_alternative").val();;
+      images.push(image);
+    });
+    if(images.length == 0) {
+      alert("１件も画像が選択されていません。");
+      return;
+    }
+    if(direction == 'asc') {   // 古いもの - 下から
+      images.reverse();
+    }
+    //
+    window.opener.insertImages(images, align);
+    window.close();
   }
 
   
@@ -70,7 +106,7 @@
       <span class="caption">
         配置:
       </span>
-      <%= radio_button_tag("image_align", 'no', true ) %>指定なし&nbsp;
+      <%= radio_button_tag("image_align", 'none', true ) %>指定なし&nbsp;
       <%= radio_button_tag("image_align", 'center', false ) %>中央&nbsp;
       <%= radio_button_tag("image_align", 'left', false) %>左&nbsp;
       <%= radio_button_tag("image_align", 'right', false ) %>右&nbsp;
@@ -134,12 +170,12 @@
             <%= image.description %>
           </div>
           <div class="actions"> 
-            <%= link_to("編集", site_image_path(image, :action => :edit)) %>
-            <%= link_to('削除', url_for(:action => :destroy, :id => image.id), 
-            :confirm => '削除してよろしいでしょうか?') %>
             <%= link_to("表示", url_for(:action => :show, :id => image.id)) %>
           </div> 
         </div>
+        <%= hidden_field_tag 'image_' + image.id.to_s + '_is_image', image.image_content_type? %>
+        <%= hidden_field_tag 'image_' + image.id.to_s + '_title', image.title %>
+        <%= hidden_field_tag 'image_' + image.id.to_s + '_alternative', image.alternative %>
         <%= hidden_field_tag 'image_' + image.id.to_s + '_original', image_url(image, :original) %>
         <%= hidden_field_tag 'image_' + image.id.to_s + '_medium', image_url(image, :medium) %>
         <%= hidden_field_tag 'image_' + image.id.to_s + '_small', image_url(image, :small) %>
