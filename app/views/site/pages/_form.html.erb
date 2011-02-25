@@ -90,7 +90,9 @@ function insertImages(images, align) {
       p = '<p style="' + alignStyle + '">';
       p += '</p>';
       img = '<img src="' + this['url'] +  '" ' + 
-      'alt="' +  (this['alternative'] != "" ? this['alternative'] : this['title'])   +  '"/>';
+      'alt="' +  (this['alternative'] != "" ? this['alternative'] : this['title'])   +  '" ' +
+      'title="' + this['title'] + '"' +
+      '/>';
     }
     else {
       p = '<p style="' + alignStyle + '">';
