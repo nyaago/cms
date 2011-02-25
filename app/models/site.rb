@@ -10,7 +10,7 @@ require 'email_validator'
   # 作成時のFilter. 依存する子のモデルを生成
   after_create  :create_dependance
   # 更新前のFilter. (存在しなければ)依存する子のモデルを生成
-  before_update  :create_dependance
+  after_update  :create_dependance
 
 
   # validator
@@ -42,11 +42,14 @@ require 'email_validator'
   
   # 依存する子のモデルを生成
   def create_dependance
-    layout = SiteLayout.create(:site => self) if self.site_layout.nil?
-    setting = SiteSetting.create(:site => self) if self.site_setting.nil?
-    optimization = SearchEngineOptimization.create(:site => self) if self.search_engine_optimization.nil?
-    post_setting = PostSetting.create(:site => self) if self.post_setting.nil?
-    view_setting = ViewSetting.create(:site => self) if self.view_setting.nil?
+    layout = SiteLayout.create!(:site => self) if self.site_layout.nil?
+    setting = SiteSetting.create!(:site => self) if self.site_setting.nil?
+    optimization = SearchEngineOptimization.create!(:site => self) if self.search_engine_optimization.nil?
+    post_setting = PostSetting.create!(:site => self) if self.post_setting.nil?
+    if self.view_setting.nil?
+      v = ViewSetting.create(:site => self)   # ここが、エラーになる場合がある.. TODO 調査
+      v.save!
+    end
   end
   
 end

@@ -11,23 +11,26 @@ class ViewSetting < ActiveRecord::Base
   # validates
   validates_numericality_of :title_count_in_home, 
                             :greater_than  => 0,
-                            :less_than_or_equal_to => 10
+                            :less_than_or_equal_to => 10,
+                            :on => :update
   validates_numericality_of :article_count_per_page, 
                             :greater_than  => 0,
-                            :less_than_or_equal_to => 10
+                            :less_than_or_equal_to => 10,
+                            :on => :update
   validates_numericality_of :article_count_of_rss, 
                             :greater_than  => 0,
-                            :less_than_or_equal_to => 20
+                            :less_than_or_equal_to => 20,
+                            :on => :update
   
   protected
   
   # default 値の設定.
   def set_default
-    self.title_count_in_home = 5
-    self.article_count_per_page = 5
-    self.rss_type = "rss2"
-    self.article_count_of_rss = 10
-    self.view_whole_in_rss = false
+    self.title_count_in_home = 5 if self.title_count_in_home.nil?
+    self.article_count_per_page = 5 if self.article_count_per_page.nil?
+    self.rss_type = "rss2" if self.rss_type.nil?
+    self.article_count_of_rss = 10 if self.article_count_of_rss.nil?
+    self.view_whole_in_rss = false if self.view_whole_in_rss.nil?
   end
   
 end

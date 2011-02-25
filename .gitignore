@@ -5,6 +5,7 @@ tmp/**/*
 **/.DS_Store
 .DS_Store
 public/**/.DS_Store
+public/user-images/**/*.*
 vendor/**/.DS_Store
 app/**/.DS_Store
 rdoc
