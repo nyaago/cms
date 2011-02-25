@@ -45,6 +45,8 @@ module Cms
       g.test_framework :rspec
     end
     
+    
+    
     #config.middleware.use Rack::ShowStatus
   end
 end

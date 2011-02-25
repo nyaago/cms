@@ -39,4 +39,10 @@ ja:
         
       optimization:
         updated: "設定が更新されました"
+
+      post_setting:
+        updated: "設定が更新されました"
+
+      view_setting:
+        updated: "設定が更新されました"
       

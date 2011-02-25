@@ -12,7 +12,7 @@ class SiteLayout < ActiveRecord::Base
     '%blog_title%' => :title,
   }
   
-  
+  # サイトへの所属関連
   belongs_to :site
   
   # 作成時のFilter. default値の設定

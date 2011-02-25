@@ -6,14 +6,14 @@ class Site::OptimizationController < Site::BaseController
   TRANSLATION_SCOPE = ["messages", "site", "optimization"].freeze
   
   # indexページ
-  # 各一般設定を行うページを表示
+  # 各SEO設定を行うページを表示
   def index
     @optimization = @site.search_engine_optimization
   end
   
   # setting/update/1
   # setting/update/1.xml
-  # 一般設定フォームの内容でsite/site_setting モデル更新.
+  # SEO設定フォームの内容でsearch_engine_optimization  モデル更新.
   def update
     @optimization = @site.search_engine_optimization
     if @optimization.nil?
@@ -32,7 +32,7 @@ class Site::OptimizationController < Site::BaseController
 #    @site.user_id = current_user.id
     @optimization.attributes = params[:search_engine_optimization]
     respond_to do |format|
-      # 画像登録 + site_layoutモデルの登録
+      # search_engine_optimization モデルの登録
       if @optimization.save(:validate => true) 
         format.html { redirect_to(index_url, 
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}

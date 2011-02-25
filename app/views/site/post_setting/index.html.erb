@@ -1,0 +1,61 @@
+<h1>
+  <%= PostSetting.human_name %>
+</h1>
+
+<script type="text/javascript" charset="utf-8">
+</script>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div id="edit_post_setting" >
+<%= form_for(@post_setting, :url => site_post_setting_path(:action => 'update')) do |f| %>
+  <% if @post_setting.errors.any?  %>
+    <div id="error_explanation">
+      <h2><%= (@post_setting.errors.count).to_s %> 
+        のエラーが発生しました:</h2>
+
+      <ul>
+      <% @post_setting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="inputs" id="post_setting">
+
+  <div class="field" id="editor_row_count">
+    <%= f.label :editor_row_count %>
+    <%= f.text_field :editor_row_count %>
+  </div>
+
+</div>
+
+<div class="inputs">
+<h2>
+  メールでの投稿
+</h2>
+<p class="explanation">メールでの投稿を行う場合は、POP3のアカウント情報を入力してください。</p>
+  <div class="field" id="pop3_host">
+    <%= f.label :pop3_host %>
+    <%= f.text_field :pop3_host %>
+  </div>
+
+  <div class="field" id="pop3_login">
+    <%= f.label :pop3_login %>
+    <%= f.text_field :pop3_login %>
+  </div>
+
+  <div class="field" id="pop3_password">
+    <%= f.label :pop3_password %>
+    <%= f.text_field :pop3_password %>
+  </div>
+</div>
+
+  <div class="actions">
+    <%= f.submit "設定を保存" %>
+  </div>  
+
+
+<% end %>  
+
+</div>

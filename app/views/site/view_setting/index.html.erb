@@ -1,0 +1,61 @@
+<h1>
+  <%= ViewSetting.human_name %>
+</h1>
+
+<script type="text/javascript" charset="utf-8">
+</script>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div id="edit_view_setting" >
+<%= form_for(@view_setting, :url => site_view_setting_path(:action => 'update')) do |f| %>
+  <% if @view_setting.errors.any?  %>
+    <div id="error_explanation">
+      <h2><%= (@view_setting.errors.count).to_s %> 
+        のエラーが発生しました:</h2>
+
+      <ul>
+      <% @view_setting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="inputs" id="view_setting">
+
+  <div class="field" id="title_count_in_home">
+    <%= f.label :title_count_in_home %>
+    <%= f.text_field :title_count_in_home %>
+  </div>
+
+  <div class="field" id="article_count_per_page">
+    <%= f.label :article_count_per_page %>
+    <%= f.text_field :article_count_per_page %>
+  </div>
+
+  <div class="field" id="article_count_of_rss">
+    <%= f.label :article_count_of_rss %>
+    <%= f.text_field :article_count_of_rss %>
+  </div>
+
+  <div class="field" id="rss_type">
+    <%= f.label :rss_type %>
+    <%= f.select :rss_type, [["rss1.0", "rss1"],["rss2.0", "rss2"],["atom", "atom"]] %>
+  </div>
+
+  <div class="field" id="view_whole_in_rss">
+    <%= f.label :view_whole_in_rss %>
+    <%= f.radio_button :view_whole_in_rss, true %>全文を表示
+    <%= f.radio_button :view_whole_in_rss, false %>抜粋のみ
+  </div>
+
+</div>
+
+<div class="actions">
+  <%= f.submit "設定を保存" %>
+</div>  
+
+
+<% end %>  
+
+</div>

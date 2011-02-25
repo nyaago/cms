@@ -9,6 +9,8 @@ ja:
       site_layout: "レイアウトデザイン設定"
       site_setting: "サイト一般設定"
       search_engine_optimization: "SEO設定"
+      post_setting: "投稿設定"
+      view_setting: "表示設定"
 
     attributes: 
       user: 
@@ -66,6 +68,23 @@ ja:
         date_format: "日付フォーマット"
         time_format: "時刻フォーマット"
         analytics_script: "アクセス解析"
+
+      post_setting:
+        editor_row_count: "投稿入力欄の行数"
+        pop3_host: "メールサーバー"
+        pop3_login: "ログイン名"
+        pop3_crypted_password: "パスワード(暗号化)"
+        pop3_password_salt: "パスワード暗号化ソルト"
+        pop3_password: "パスワード"
+
+      view_setting:
+        title_count_in_home: "トップページに表示するタイトル数"
+        article_count_per_page: "１ページに表示する投稿数"
+        rss_type: "RSS/Atomタイプ"
+        article_count_of_rss: "RSS/Atomで表示する投稿数"
+        view_whole_in_rss: "RSS/Atomでの各投稿での表示"
+
+        
 
       image: 
         title: "タイトル"
@@ -129,6 +148,7 @@ ja:
       only_lower_alpha: "は小文字半角アルファベットのみで入力してください。"
       uniqness_in_site: "は一意になるよう入力してください。"
       invalid_email_address: "はEmailアドレスとして不正なフォーマットです。"
+      invalid_domain: "はサーバー名として不正なフォーマットです。"
       
     article:
       messages:
@@ -143,3 +163,7 @@ ja:
       messages:
         attachment_content_type: "がJPG, GIF, PNGのもののみアップロードできます"
         attachment_size: "ファイルサイズが大きすぎます(最大 :max バイトまで)"
+
+    post_setting:
+      messages:
+        pop3_consistency: "POP3の設定は、全て空白にするか、全てを入力してください"

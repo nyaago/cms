@@ -10,53 +10,145 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110121032430) do
+ActiveRecord::Schema.define(:version => 20110224010035) do
+
+  create_table "article_histories", :force => true do |t|
+    t.integer  "article_id",                                          :null => false
+    t.integer  "site_id",                                             :null => false
+    t.string   "title",            :limit => 50,                      :null => false
+    t.string   "name",             :limit => 15
+    t.text     "content"
+    t.integer  "article_type",     :limit => 1,                       :null => false
+    t.boolean  "published",                        :default => false
+    t.integer  "menu_order",                       :default => 0
+    t.integer  "integer",                          :default => 0
+    t.boolean  "is_home",                          :default => false
+    t.integer  "user_id"
+    t.datetime "last_updated_at"
+    t.datetime "backed_up_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "meta_description", :limit => 1000
+    t.string   "meta_keywords",    :limit => 256
+    t.boolean  "ignore_meta"
+    t.datetime "published_from"
+  end
 
   create_table "articles", :force => true do |t|
-    t.integer  "site_id",                                        :null => false
-    t.integer  "heading_level", :limit => 1,  :default => 1,     :null => false
-    t.string   "title",         :limit => 50,                    :null => false
+    t.integer  "site_id",                                             :null => false
+    t.string   "title",            :limit => 50,                      :null => false
+    t.string   "name",             :limit => 15
     t.text     "content"
-    t.integer  "article_type",  :limit => 1,                     :null => false
-    t.boolean  "published",                   :default => false
-    t.integer  "member_id"
+    t.integer  "article_type",     :limit => 1,                       :null => false
+    t.boolean  "published",                        :default => false
+    t.integer  "menu_order",                       :default => 0
+    t.integer  "integer",                          :default => 0
+    t.boolean  "is_home",                          :default => false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "published_from"
+    t.string   "meta_description", :limit => 1000
+    t.string   "meta_keywords",    :limit => 256
+    t.boolean  "ignore_meta"
+  end
+
+  create_table "images", :force => true do |t|
+    t.integer  "site_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.string   "title",              :limit => 100
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "alternative",        :limit => 50
+    t.boolean  "is_image"
+    t.integer  "total_size"
+    t.string   "caption"
+    t.text     "description"
+  end
+
+  create_table "layout_images", :force => true do |t|
+    t.integer  "site_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.string   "location_type",      :limit => 20
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "members", :force => true do |t|
-    t.integer  "site_id",                         :null => false
-    t.string   "account",          :limit => 32,  :null => false
-    t.string   "crypted_password", :limit => 32,  :null => false
-    t.string   "salt",             :limit => 32,  :null => false
-    t.string   "email",            :limit => 256, :null => false
+  create_table "post_settings", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "editor_row_count"
+    t.string   "pop3_host"
+    t.string   "pop3_login"
+    t.string   "pop3_crypted_password"
+    t.string   "pop3_password_salt"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "page_articles", :force => true do |t|
-    t.integer  "page_id",                    :null => false
-    t.integer  "article_id",                 :null => false
-    t.integer  "parent_id"
-    t.integer  "order_in_page", :limit => 8
+  create_table "search_engine_optimizations", :force => true do |t|
+    t.integer  "site_id",                                   :null => false
+    t.boolean  "enabled",                :default => true
+    t.boolean  "canonical_url_enabled",  :default => false
+    t.boolean  "title_rewriting",        :default => true
+    t.string   "page_title_format"
+    t.string   "blog_title_format"
+    t.string   "archive_title_format"
+    t.string   "not_found_title_format"
+    t.string   "page_keywords"
+    t.string   "blog_keywords"
+    t.string   "page_description"
+    t.string   "blog_description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "pages", :force => true do |t|
-    t.integer  "site_id",                  :null => false
-    t.string   "title",      :limit => 50
+  create_table "site_layouts", :force => true do |t|
+    t.integer  "site_id"
+    t.string   "theme",                   :limit => 20
+    t.string   "skin_color",              :limit => 20
+    t.string   "font_size",               :limit => 20
+    t.string   "eye_catch_type",          :limit => 20
+    t.string   "layout_type",             :limit => 20
+    t.string   "header_image_url",        :limit => 512
+    t.string   "footer_image_url",        :limit => 512
+    t.string   "logo_image_url",          :limit => 512
+    t.string   "background_image_url",    :limit => 512
+    t.string   "background_color",        :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title_tag",               :limit => 20
+    t.string   "title_tag_format",        :limit => 50
+    t.string   "global_navigation",       :limit => 20
+    t.string   "column_layout",           :limit => 20
+    t.string   "eye_catch_type_location", :limit => 20
+    t.string   "background_repeat",       :limit => 20
+  end
+
+  create_table "site_settings", :force => true do |t|
+    t.integer  "site_id",                        :null => false
+    t.string   "date_format",      :limit => 50
+    t.string   "time_format",      :limit => 50
+    t.string   "analytics_script"
+    t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "sites", :force => true do |t|
-    t.string   "name",       :limit => 50,                    :null => false
-    t.boolean  "published",                :default => false, :null => false
-    t.boolean  "suspended",                :default => false, :null => false
-    t.boolean  "canceled",                 :default => false, :null => false
+    t.string   "title",       :limit => 50,                      :null => false
+    t.string   "name",        :limit => 15,                      :null => false
+    t.boolean  "published",                   :default => false, :null => false
+    t.boolean  "suspended",                   :default => false, :null => false
+    t.boolean  "canceled",                    :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description", :limit => 1000
+    t.string   "email",       :limit => 250
+    t.string   "copyright",   :limit => 50
   end
 
   create_table "user_sessions", :force => true do |t|
@@ -72,7 +164,6 @@ ActiveRecord::Schema.define(:version => 20110121032430) do
     t.string   "crypted_password",                   :null => false
     t.string   "password_salt",                      :null => false
     t.string   "single_access_token",                :null => false
-    t.string   "peristable_token",                   :null => false
     t.integer  "login_count",         :default => 0, :null => false
     t.integer  "failed_login_count",  :default => 0, :null => false
     t.datetime "current_login_at"
@@ -80,6 +171,17 @@ ActiveRecord::Schema.define(:version => 20110121032430) do
     t.datetime "last_request_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "view_settings", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "title_count_in_home"
+    t.integer  "article_count_per_page"
+    t.string   "rss_type"
+    t.integer  "article_count_of_rss"
+    t.boolean  "view_whole_in_rss"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

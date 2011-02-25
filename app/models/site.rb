@@ -9,6 +9,9 @@ require 'email_validator'
   before_create :set_default
   # 作成時のFilter. 依存する子のモデルを生成
   after_create  :create_dependance
+  # 更新前のFilter. (存在しなければ)依存する子のモデルを生成
+  before_update  :create_dependance
+
 
   # validator
   validates :email, :email => true
@@ -24,6 +27,8 @@ require 'email_validator'
   has_one   :site_layout,   :dependent => :destroy
   has_one   :site_setting,  :dependent => :destroy
   has_one   :search_engine_optimization,  :dependent => :destroy
+  has_one   :post_setting,  :dependent => :destroy
+  has_one   :view_setting,  :dependent => :destroy
   has_many  :images
   has_many  :layout_images
 
@@ -37,9 +42,11 @@ require 'email_validator'
   
   # 依存する子のモデルを生成
   def create_dependance
-    layout = SiteLayout.create(:site => self)
-    setting = SiteSetting.create(:site => self)
-    optimization = SearchEngineOptimization.create(:site => self)
+    layout = SiteLayout.create(:site => self) if self.site_layout.nil?
+    setting = SiteSetting.create(:site => self) if self.site_setting.nil?
+    optimization = SearchEngineOptimization.create(:site => self) if self.search_engine_optimization.nil?
+    post_setting = PostSetting.create(:site => self) if self.post_setting.nil?
+    view_setting = ViewSetting.create(:site => self) if self.view_setting.nil?
   end
   
 end

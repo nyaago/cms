@@ -2,5 +2,7 @@
 # サイトの一般的な設定
 class SiteSetting < ActiveRecord::Base
   
-    belongs_to :site
+  # サイトへの所属関連
+  belongs_to :site
+
 end
