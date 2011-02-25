@@ -15,7 +15,7 @@ class Site::SettingController < Site::BaseController
   # setting/update/1.xml
   # 一般設定フォームの内容でsite/site_setting モデル更新.
   def update
-    @site_setting = @site.site_setting
+    site_setting = @site.site_setting    
     if @site.nil? || @site.site_layout.nil?
       # site not found
       respond_to do |format|
@@ -29,13 +29,16 @@ class Site::SettingController < Site::BaseController
       end
     end
     # 属性設定
-#    @site.user_id = current_user.id
-    @site.site_setting.attributes = params[:site_setting]
-    @site.attributes = params[:site]
+    site = Site.find_by_id(@site.id)
+    site.site_setting.attributes = params[:site_setting]
+    site.attributes = params[:site]
+    
     respond_to do |format|
       # 画像登録 + site_layoutモデルの登録
-      if @site_setting.save(:validate => true) &&
-          @site.save(:validate => true)
+#      if  site.save(:validate => true)
+#        if  @site_setting.save(:validate => true)
+      if site.site_setting.save(:validate => true) &&
+          site.save(:validate => true)
         format.html { redirect_to(index_url, 
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
         format.xml  { head :ok }

@@ -26,6 +26,10 @@
 
   <div id="setting" class="inputs">
 
+  <div class="field" id="name_field">
+    <%= f.label :name %>
+    <span><%= @site.name %></span>
+  </div>
   <div class="field" id="title_field">
     <%= f.label :title %>
     <%= f.text_field :title %>

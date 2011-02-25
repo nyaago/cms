@@ -14,8 +14,11 @@ require 'email_validator'
 
 
   # validator
+  validates_presence_of :email
   validates :email, :email => true
   validates_presence_of :name
+  validates_with Validator::Alphanumeric, :attribute => :name
+  validates_with Validator::Site::ReservedName
   validates_presence_of :title
 
   #

@@ -149,7 +149,11 @@ ja:
       uniqness_in_site: "は一意になるよう入力してください。"
       invalid_email_address: "はEmailアドレスとして不正なフォーマットです。"
       invalid_domain: "はサーバー名として不正なフォーマットです。"
-      
+      alphanumetic: "は先頭を半角英字,それ以降は半角英数字のみで入力してください"
+    
+    site:
+      messages:
+        reserved_name: "サイト名には、予約済みのキーワード(site/admin/pages/blogs/users)以外を入力してください"
     article:
       messages:
         page_limit: "公開済み記事/公開予約済み記事数が制限を超えています"
