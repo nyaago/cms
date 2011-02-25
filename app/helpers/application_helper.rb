@@ -328,4 +328,13 @@ module ApplicationHelper
     end
   end
   
+  # アクセス解析のjavascriptを挿入する
+  def analystic_javascript_tag
+    if @site.site_setting.nil? || @site.site_setting.analytics_script.blank?
+      ""
+    else
+      javascript_tag(@site.site_setting.analytics_script)
+    end
+  end
+  
 end
