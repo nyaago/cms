@@ -43,6 +43,8 @@ class Site::SettingController < Site::BaseController
           :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
         format.xml  { head :ok }
       else
+        @site = site
+        @site_setting = site_setting
         format.html { render :action => "index" }
         format.xml  { render :xml => @site.errors, 
           :status => :unprocessable_entity }

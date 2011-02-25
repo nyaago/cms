@@ -308,4 +308,24 @@ module ApplicationHelper
 
   end
   
+  # 日時を設定されている日付け書式を返す書式
+  def format_date(time)
+    return '' unless time.respond_to?(:strftime)
+    if @site.site_setting.nil?
+      time.strftime('%Y/%m/%d')
+    else
+      time.strftime(@site.site_setting.date_format)
+    end
+  end
+
+  # 日時を設定されている時刻け書式を返す書式
+  def format_time(time)
+    return '' unless time.respond_to?(:strftime)
+    if @site.site_setting.nil?
+      time.strftime('%H:%M')
+    else
+      time.strftime(@site.site_setting.time_format)
+    end
+  end
+  
 end

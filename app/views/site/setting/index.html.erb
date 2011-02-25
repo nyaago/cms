@@ -1,3 +1,29 @@
+<script type="text/javascript">
+//<![CDATA[
+
+  $(document).ready( function(){
+    // == 日付け書式
+    // check要素の付け替え(最後の要素からその他の要素へ) - see setting.js
+    recheckRadioWithLastRadio($("#date_format_selections :radio"));
+    // カスタマイズテキスト変更されたら、radio buttonの値を変更
+    $('#date_format_text_field').change(function() {
+      $("#date_format_selections :radio").last().val($(this).val());
+    });
+
+    // == 時間書式
+    // check要素の付け替え(最後の要素からその他の要素へ)
+    recheckRadioWithLastRadio($("#time_format_selections :radio"));
+    // カスタマイズテキスト変更されたら、radio buttonの値を変更
+    $('#time_format_text_field').change(function() {
+      $("#time_format_selections :radio").last().val($(this).val());
+    });
+    
+  } );
+  
+//]]>
+</script>
+
+
 <h1>
   一般設定
 </h1>
@@ -44,13 +70,39 @@
   </div>
 
   <div class="field" id="date_format_field">
-    <%= label :site_setting, :date_format %>
-    あとで
+    <%= label :site_setting, :date_format, :id => :label_for_date_format %>
+    <div id="date_format_selections">
+      <% now = Time.now %>
+      <%= radio_button :site_setting, :date_format, "%Y年%-m月%-d日"%>  
+      <%= now.strftime("%Y年%-m月%-d日") %><br/>
+      <%= radio_button :site_setting, :date_format, "%Y/%m/%d"%>  
+      <%= now.strftime("%Y/%m/%d") %><br/>
+      <%= radio_button :site_setting, :date_format, "%m/%d/%Y"%>  
+      <%= now.strftime("%m/%d/%Y") %><br/>
+      <%= radio_button :site_setting, :date_format, "%d/%m/%Y"%>  
+      <%= now.strftime("%d/%m/%Y") %><br/>
+      <%= radio_button :site_setting, :date_format, @site_setting.date_format, 
+      :id => :site_setting_date_format_customized %>カスタム:
+      <%= now.strftime(@site_setting.date_format) %>
+      <%= text_field_tag :date_format_text_field, @site_setting.date_format, 
+      :id => :date_format_text_field %><br/>
+    </div>
   </div>
 
   <div class="field" id="time_format_field">
-    <%= label :site_setting, :time_format %>
-    あとで
+    <%= label :site_setting, :time_format, :id => :label_for_time_format %>
+    <div id="time_format_selections">
+      <% now = Time.now %>
+      <%= radio_button :site_setting, :time_format, "%-I:%-M %p"%>  
+      <%= now.strftime("%-I:%-M %p") %><br/>
+      <%= radio_button :site_setting, :time_format, "%H:%M"%>  
+      <%= now.strftime("%H:%M") %><br/>
+      <%= radio_button :site_setting, :time_format, @site_setting.time_format, 
+      :id => :site_setting_time_format_customized %>カスタム:
+      <%= now.strftime(@site_setting.time_format) %>
+      <%= text_field_tag :time_format_text_field, @site_setting.time_format, 
+      :id => :time_format_text_field %><br/>
+    </div>
   </div>
 
   <div class="field" id="analytics_script_field">
