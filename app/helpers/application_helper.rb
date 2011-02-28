@@ -336,5 +336,14 @@ module ApplicationHelper
       javascript_tag(@site.site_setting.analytics_script)
     end
   end
+
+  # editor の投稿欄の大きさ(行数)
+  def editor_row_count
+    if @site.post_setting.nil? || @site.post_setting.editor_row_count.blank?
+      10
+    else
+      @site.post_setting.editor_row_count
+    end
+  end
   
 end

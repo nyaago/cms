@@ -109,7 +109,7 @@ function insertImages(images, align) {
 
 }
 
-CKEDITOR.config.height = "25em";
+CKEDITOR.config.height =  '<%= (editor_row_count * 1.25).to_i %>'  + "em";
 CKEDITOR.config.imageSelctorUrl = '<%= url_for(:controller => :images, :action => :selection_list) %>';
 
 
