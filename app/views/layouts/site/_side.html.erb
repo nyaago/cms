@@ -3,10 +3,10 @@
     お知らせ
   </li>
   <li>
-    お知らせ一覧
+    <%=link_to "お知らせ一覧", :controller => "site/blogs", :action => :index %>
   </li>
   <li>
-    お知らせ追加
+    <%=link_to "お知らせ作成", :controller => "site/blogs", :action => :new %>
   </li>
 </ul>
 

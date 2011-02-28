@@ -22,6 +22,9 @@ Cms::Application.routes.draw do
     # Pages
     match 'pages/:action/:id' => 'pages#:action#:id'
     match 'pages/:action' => 'pages#:action'
+    # Blogs
+    match 'blogs/:action/:id' => 'blogs#:action#:id'
+    match 'blogs/:action' => 'blogs#:action'
     # Users
     match 'users/update/:id' => 'users#update#:id'
     match 'users/:action' => 'users#:action'

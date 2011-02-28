@@ -33,7 +33,7 @@ function cancelPublishedFrom() {
 
 // 公開/下書き切り替えの入力のcancel.値を元の値に戻して入力部分のdivを非表示にする
 function cancelPublished() {
-  $("#article_published_select").attr('selected', $("#page_article_published").attr('selected'));
+  $("#article_published_select").attr('selected', $("#blog_article_published").attr('selected'));
   $("div#published").css("display", "none");
 }
 
@@ -56,9 +56,10 @@ function okPublishedFrom() {
 // 2.ステータス表示部分のテキストの更新
 // 3.入力部分のdivを非表示にする
 function okPublished() {
-    $("#page_article_published").val($("#article_published_select").val());
+  
+    $("#blog_article_published").val($("#article_published_select").val());
     $("div#published").css("display", "none");
-    if($("#page_article_published").val()) {
+    if($("#blog_article_published").val()) {
       $('#published_status').text('公開済み');
     }
     else {
@@ -115,7 +116,7 @@ CKEDITOR.config.imageSelctorUrl = '<%= url_for(:controller => :images, :action =
 </script>
 
 <div id="edit_article">
-<%= form_for(@article, :url => site_page_path(@article)) do |f| %>
+<%= form_for(@article, :url => site_blog_path(@article)) do |f| %>
   <% if @article.errors.any? %>
     <div id="error_explanation">
       <h2><%= (@article.errors.count).to_s %> のエラーが発生しました</h2>
@@ -143,21 +144,12 @@ CKEDITOR.config.imageSelctorUrl = '<%= url_for(:controller => :images, :action =
       </span>
     </div>
     <div class="field">
-      <%= f.label :name %><br />
-      <%= f.text_field :name %>
-    </div>
-    <div class="field">
       <%= f.label :title %><br />
       <%= f.text_field :title %>
     </div>
     <div class="field">
       <%= f.label :content %><br />
       <%= f.text_area :content, :class => "ckeditor" %>
-    </div>
-    <div class="field">
-      <%= f.label :is_home %><br />
-      <%= f.check_box(:is_home)
-      %>
     </div>
   </div>
 

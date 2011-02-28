@@ -58,7 +58,6 @@ class Site::ArticlesController < Site::BaseController
 
   # GET /articles/1/edit
   def edit
-    flash[:notice] = ''
     @article = 
     if params[:is_history]
       article = PageArticleHistory.find_by_id_and_site_id(

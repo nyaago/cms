@@ -26,10 +26,10 @@ class Article < ActiveRecord::Base
   has_many   :article_histories
     
   validates_presence_of :title
-  validates_presence_of :name
+
   
   # 名前が半角小文字英時であるかのvalidation
-  validates_format_of   :name, :with => /^[a-z]+$/, 
+  validates_format_of   :name, :with => /^[a-z]*$/, 
                         :message => I18n.t(:only_lower_alpha, 
                                             :scope => TRANSLATION_SCOPE)
   # 名前がサイト内でUniquであるのValidation  

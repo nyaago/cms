@@ -1,0 +1,83 @@
+<h1>
+  ページ詳細
+</h1>
+
+<p id="notice"><%= notice %></p>
+
+<% if @article %>
+<div class="article">
+
+
+<p class="title">
+  <b><%= Article.human_attribute_name(:title) %>:</b>
+  <%= @article.title %>
+</p>
+
+<p class="content">
+  <b><%= Article.human_attribute_name(:content) %>:</b>
+  <%= @article.content.html_safe %>
+</p>
+<p class="published">
+  <b><%= Article.human_attribute_name(:published) %>:</b>
+  <%= @article.published_name %>
+</p>
+
+<p class="created_at">
+  <b><%= Article.human_attribute_name(:created_at) %>:</b>
+  <%= I18n.l @article.updated_at, :format => :long %>
+</p>
+<p class="updated_at">
+  <b><%= Article.human_attribute_name(:updated_at) %>:</b>
+  <%= I18n.l @article.updated_at, :format => :long %>
+</p>
+
+<p class="published">
+  <b>
+    公開
+  </b>
+  <span id="published_status_info">
+    ステータス:
+    <span id="published_status">
+    <%= published_human_name(@article) %>
+    </span>
+  </span>
+  <span id="published_from_status_info">
+    公開日時:
+    <span id="published_from_status">
+    <%= if @article.published_from.nil? then 
+      '未設定' 
+      else 
+        I18n.l @article.published_from, :format => :long
+      end  %>
+      </span>
+  </span>
+</p>
+
+<p class="meta_keywords">
+  <b><%= Article.human_attribute_name(:meta_keywords) %>:</b>
+  <%= @article.meta_keywords %>
+</p>
+
+<p class="meta_description">
+  <b><%= Article.human_attribute_name(:meta_description) %>:</b>
+  <%= @article.meta_description %>
+</p>
+
+</div>
+
+<div style="clear: both;">
+</div>
+
+<% else %>  
+  <p class='not_found'>
+    指定された記事はみつかりません
+  </p>
+<% end %>
+  
+<div class="actions">
+<% if @article %>
+<%= link_to '編集', site_page_path(@article, 
+    :action => :edit, :page => params[:page]) %> |
+<% end %>
+<%= link_to '一覧へ戻る', url_for(:back) %>
+</div>

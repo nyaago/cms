@@ -1,0 +1,9 @@
+<h1>
+  <%= BlogArticle.human_name %>作成
+</h1>
+<p id="notice"><%= flash[:notice] %></p>
+<%= render 'form' %>
+
+<div class="actions" id="back_action">
+<%= link_to '一覧へ戻る', url_for(:back) %>
+</div>

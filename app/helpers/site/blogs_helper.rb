@@ -1,6 +1,6 @@
-# = Site::ArticlesHelper
+# = Site::BlogsHelper
 # サイトの記事編集のHelper
-module Site::PagesHelper
+module Site::BlogsHelper
   
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.
@@ -9,8 +9,8 @@ module Site::PagesHelper
   #   :direction - ソート方向,'asc'または'desc'.Defaultは,'asc'
   # == options
   # :action => action.デフォルトは,'index'
-  def site_pages_path(options = {})
-    url_for( :controller => "pages", 
+  def site_blogs_path(options = {})
+    url_for( :controller => "blogs", 
     :action => if options[:action].blank? then 'index' else options[:action] end,
     :page =>  if !params[:page].blank?  then 
                 params[:page]  
@@ -43,7 +43,7 @@ module Site::PagesHelper
   #   :direction - ソート方向,'asc'または'desc'.Defaultは,'asc'
   # == options
   # :action => action.デフォルトは,'show'
-  def site_page_path(article = false, options = {})
+  def site_blog_path(article = false, options = {})
     url_for(:action => if options[:action].blank? then 
               if params[:action] == 'edit' ||  params[:action] == 'update'
                 'update'
@@ -67,8 +67,8 @@ module Site::PagesHelper
   end
 
   # 新規記事作成Actionのurlパスを返す.
-  def new_site_page_path
-    site_page_path(false, :action => :new)
+  def new_site_blog_path
+    site_blog_path(false, :action => :new)
   end
   
   def published_human_name(article)

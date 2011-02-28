@@ -1,0 +1,97 @@
+<h1>
+  <%= BlogArticle.human_name %>一覧
+</h1>
+<%= form_tag({:action => :index},
+               {:id => 'filteting_by_month', :method => 'get'}) do -%>
+  <%= hidden_field_tag 'month', nil, { :id => 'filtered_month'}  %>
+<% end %>
+<%= form_tag({:action => :process_with_batch},
+             {:id => 'process_with_batch', :method => 'get', :name => 'blogs'}) do -%>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div>
+  チェックされたものの
+  <%= select_tag('blogs[processing_method]',
+  options_for_select([['削除', 'destroy']]),
+  { :include_blank => true }) %>
+  <%= button_to_function('一括実行', 'return processBatch();') %>
+  
+  <%= select_tag('blogs[months]',
+  options_for_select(
+    [['全て', '']] +
+    @months.collect { |month|
+      [month.to_s('%Y年%m日'), month.to_s('%Y%m') ]
+    },
+    if params[:month] then params[:month] else nil end
+  ), { :include_blank => false, :id => 'filtering_month', :name => 'month'} )
+
+  %>
+    <%= button_to_function('フィルター', 'return filterByMonth();') %>
+</div>
+
+<div class="artcies_div" id="articles">
+<table>
+  <tr>
+    <th>
+      <%= check_box_tag("check_all",1, false, 
+      {:class => 'check_all'}) %>
+    </th>
+    <th class="title">
+      <%= link_to Article.human_attribute_name(:title), 
+        site_blogs_path(:sort => 'title') %>
+    </th>
+    <th class="published">
+      <%= link_to Article.human_attribute_name(:published), 
+        site_blogs_path(:sort => 'published') %>
+    </th>
+    <th class="created_at">
+      <%= link_to Article.human_attribute_name(:updated_at), 
+        site_blogs_path(:sort => 'updated_at') %>
+    </th>
+    <th class="updated_at">
+      <%= link_to Article.human_attribute_name(:updated_at), 
+        site_blogs_path(:sort => 'updated_at') %>
+    </th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @articles.each do |article| %>
+  <tr>
+    <td>
+      <%= check_box_tag("blogs[checked][#{article.id}]",article.id, false, 
+      {:class => 'check_for_batch'}) %>
+    </td>
+    <td class="title">
+      <%= link_to article.title, site_page_path(article) %>
+    </td>
+    <td class="published">
+      <%= article.published_name %>
+    </td>
+    <td >
+      <%= I18n.l article.created_at, :format => :short %>
+    </td>
+    <td >
+      <%= I18n.l article.updated_at, :format => :short %>
+    </td>
+    <td class="edit"><%= link_to '編集', 
+        site_blog_path(article, :action => :edit) %></td>
+    <td class="destroy"><%= link_to '削除', 
+        site_blog_path(article, :action => :destroy) ,
+                :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<br />
+<% end %>
+<% if @articles.size > 0 %>
+  <div>
+    <%= will_paginate @articles, :prev_label => '<=', :next_label => '=>' %>
+
+    </div>
+<% end %>
+
+<div class="actions">
+<%= link_to "新規#{Article.model_name.human}", new_site_blog_path %>
+</div>

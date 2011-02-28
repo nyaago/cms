@@ -3,6 +3,8 @@
 # 記事(Article)モデルからの継承
 class PageArticle < Article
 
+  validates_presence_of :name
+  
   has_many   :page_article_histories
 
   # メニュー表示順を１つ後ろになるよう変更.

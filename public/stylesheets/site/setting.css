@@ -1,0 +1,30 @@
+/* 日付けフォーマット */
+#date_format_selections {
+  float: left;
+}
+
+#time_format_field {
+  clear: both;
+}
+
+#label_for_date_format {
+  float: left;
+}
+
+/* 時刻フォーマット */
+#time_format_selections {
+  float: left;
+}
+
+#time_format_field {
+  clear: both;
+}
+
+#label_for_time_format {
+  float: left;
+}
+
+/* アクセス解析 */
+#analytics_script_field {
+  clear: both;
+}
