@@ -1,10 +1,41 @@
 <h1>
-  ページ一覧
+  <%= PageArticle.human_name %>一覧
 </h1>
+<%= form_tag({:action => :index},
+               {:id => 'filteting_by_month', :method => 'get'}) do -%>
+  <%= hidden_field_tag 'month', nil, { :id => 'filtered_month'}  %>
+<% end %>
+<%= form_tag({:action => :process_with_batch},
+             {:id => 'process_with_batch', :method => 'get', :name => 'pages'}) do -%>
+
 <p id="notice"><%= flash[:notice] %></p>
+<div>
+  チェックされたものの
+  <%= select_tag('pages[processing_method]',
+  options_for_select([['削除', 'destroy']]),
+  { :include_blank => true }) %>
+  <%= button_to_function('一括実行', 'return processBatch();') %>
+  
+  <%= select_tag('pages[months]',
+  options_for_select(
+    [['全て', '']] +
+    @months.collect { |month|
+      [month.to_s('%Y年%m日'), month.to_s('%Y%m') ]
+    },
+    if params[:month] then params[:month] else nil end
+  ), { :include_blank => false, :id => 'filtering_month', :name => 'month'} )
+
+  %>
+    <%= button_to_function('フィルター', 'return filterByMonth();') %>
+</div>
+
 <div class="artcies_div" id="articles">
 <table>
   <tr>
+    <th>
+      <%= check_box_tag("check_all",1, false, 
+      {:class => 'check_all'}) %>
+    </th>
     <th class="name">
       <%= link_to Article.human_attribute_name(:name), 
         site_pages_path(:sort => 'name') %>
@@ -35,6 +66,10 @@
 
 <% @articles.each do |article| %>
   <tr>
+    <td>
+      <%= check_box_tag("pages[checked][#{article.id}]",article.id, false, 
+      {:class => 'check_for_batch'}) %>
+    </td>
     <td class="name">
       <%= link_to h(article.name), site_page_path(article) %>
     </td>
@@ -63,7 +98,7 @@
 </table>
 </div>
 <br />
-
+<% end %>
 <% if @articles.size > 0 %>
   <div>
     <%= will_paginate @articles, :prev_label => '<=', :next_label => '=>' %>

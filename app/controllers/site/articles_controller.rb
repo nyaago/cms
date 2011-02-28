@@ -3,7 +3,7 @@
 # == 継承先で作成すべきmethod
 # * articles 
 # * self.model
-# * self.translation_scope
+# * self.class.translation_scope
 class Site::ArticlesController < Site::BaseController
 
   helper :all
@@ -12,7 +12,7 @@ class Site::ArticlesController < Site::BaseController
   PER_PAGR = 3
   
   # 翻訳リソースのスコープ
-  #TRANSLATION_SCOPE = ["messages", "site", "pages"].freeze
+  #self.class.translation_scope = ["messages", "site", "pages"].freeze
   # @@translation_scape = nil
   # ソート可能なカラム一覧
   SORTABLE_COLUMN = 
@@ -24,7 +24,10 @@ class Site::ArticlesController < Site::BaseController
   # GET /articles.xml
   # 記事一覧の表示
   def index
-    @articles = articles.order(order_by).
+    @months = self.class.model.updated_months(current_user.site_id)
+    cur_month = if params[:month] then params[:month] else nil end
+    @articles = articles.filter_by_updated_month(cur_month).
+                        order(order_by).
                         paginate(
                               :page => 
                                 if !params[:page].blank? && params[:page].to_i >= 1 
@@ -78,7 +81,7 @@ class Site::ArticlesController < Site::BaseController
     if @article.nil?
       respond_to do |format|
         format.html { redirect_to(index_url, 
-          :notice => I18n.t("not_found", :scope => TRANSLATION_SCOPE)) }
+          :notice => I18n.t("not_found", :scope => self.class.translation_scope)) }
         format.xml  { render :xml => @article.errors, 
           :status => :unprocessable_entity }
       end
@@ -87,11 +90,43 @@ class Site::ArticlesController < Site::BaseController
     @article.destroy
     respond_to do |format|
       format.html { redirect_to(index_url, 
-        :notice => I18n.t("destroyed", :scope => TRANSLATION_SCOPE)) }
+        :notice => I18n.t("destroyed", :scope => self.class.translation_scope)) }
 
       format.xml  { head :ok }
     end
   end  
+  
+  # 一括操作の実行.
+  # <操作名>_by_id メソッドで個々のモデル要素の操作を実行していく.
+  # == リクエストパラーメーター
+  # * [record_parameter_name][:processing_method] => 操作名(destroy..)
+  # * [record_parameter_name][:checked][:id] => チェックされた画像モデルのid
+  def process_with_batch
+    p " ==== parameter -- #{record_parameter_name}"
+    p processing = params[record_parameter_name]
+    
+    # 操作(destroy..)を取得
+    processing = params[record_parameter_name][:processing_method]
+    # 処理を行うmethod('<操作>_by_id')の有無をチェック
+    if !respond_to?(processing + '_by_id', true)
+      return redirect_to(url_for(:action => :index), 
+      :notice => I18n.t("not_implemented_batch", :scope => self.class.translation_scope)) 
+    end
+    if params[record_parameter_name][:checked].empty? 
+      return redirect_to(url_for(:action => :index)) 
+    end
+    # checkされた　行ごとの処理
+    params[record_parameter_name][:checked].each do |attr|
+      send(processing + '_by_id', attr[1].to_i)
+    end
+    #
+    redirect_to(url_for(:action => :index), 
+    :notice => I18n.t("complete_#{processing}_batch", 
+      :scope => self.class.translation_scope,
+      :count => params[record_parameter_name][:checked].size.to_s)) 
+  end
+  
+  
   
   protected 
   
@@ -158,6 +193,15 @@ class Site::ArticlesController < Site::BaseController
     end
   end
   
+  # リクエストパラメータに含まれるレコードのパラメーター名
+  def record_parameter_name
+    self.class.model.name.underscore.match(/^([a-z\-]+)_([a-z]+)$/)[1].pluralize.to_sym
+  end
+  
+  # 指定されたidの行を削除
+  def destroy_by_id(id)
+    Article.delete(id)
+  end
   
   
   
