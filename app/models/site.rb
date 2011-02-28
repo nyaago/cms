@@ -24,8 +24,9 @@ require 'email_validator'
   #
   has_many  :articles, :dependent => :destroy
   has_many  :pages, 
-            :class_name => 'Article', 
-            :conditions => "article_type = #{Article::TYPE_PAGE}"
+            :class_name => 'PageArticle'
+  has_many  :blogs, 
+            :class_name => 'BlogArticle'
   has_many  :users, :dependent => :destroy
   has_one   :site_layout,   :dependent => :destroy
   has_one   :site_setting,  :dependent => :destroy
