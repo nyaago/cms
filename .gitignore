@@ -9,5 +9,5 @@ public/user-images/**/*.*
 vendor/**/.DS_Store
 app/**/.DS_Store
 rdoc
-
+documents/private/*
 

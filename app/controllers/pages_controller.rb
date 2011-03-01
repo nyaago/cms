@@ -2,15 +2,15 @@
 # ページ記事表示のコントローラー
 class PagesController < ApplicationController
   
-  # GET /pages/1
-  # GET /pages/1.xml
+  # GET /pages/show/1
+  # GET /pages/show/1.xml
   # 記事を表示
   def show
     @article = unless params[:page].blank? 
-      Article.find_by_name_and_site_id(params[:page], @site.id) 
+      @site.pages.where("name = :name and published = true", :name => params[:page])
     else
-      Article.find_by_is_home_and_site_id(true, @site.id) 
-    end
+      @site.pages.where("is_home = true and published = true")
+    end.first
 #    @article = Article.find_by_id(params[:id]) if @article.nil? &&  !params[:id].nil?      
 
     if @article.nil?

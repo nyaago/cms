@@ -18,10 +18,10 @@ class SearchEngineOptimization < ActiveRecord::Base
   # * article - 記事オブジェクト, title属性,それがなければto_sの値を参照
   # == see
   # * Category::ReplacedVariable
-  def page_title_text(article)
+  def page_title_text(article, site)
     s = self.page_title_format
     s = replace_string_with_mapping(s, article, map_for_article)
-    s = replace_string_with_mapping(s, article.site, map_for_site)
+    s = replace_string_with_mapping(s, site, map_for_site)
   end
   
   # フォーマット属性より、blog記事のタイトルに表示する値を得る
@@ -31,10 +31,10 @@ class SearchEngineOptimization < ActiveRecord::Base
   # * article - 記事オブジェクト, title属性,それがなければto_sの値を参照
   # == see
   # * Category::ReplacedVariable
-  def blog_title_text(article)
+  def blog_title_text(article, site)
     s = self.blog_title_format
     s = replace_string_with_mapping(s, article, map_for_article)
-    s = replace_string_with_mapping(s, article.site, map_for_site)
+    s = replace_string_with_mapping(s, site, map_for_site)
   end
   
   # フォーマット属性より、404ページのタイトルに表示する値を得る

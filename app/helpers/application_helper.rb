@@ -190,9 +190,9 @@ module ApplicationHelper
     ("<title>" +
     case  controller
       when 'pages'
-        @site.search_engine_optimization.page_title_text(article)
+        @site.search_engine_optimization.page_title_text(article, @site)
       when 'blogs'
-        @site.search_engine_optimization.blog_title_text(article)
+        @site.search_engine_optimization.blog_title_text(article, @site)
       else
         @site.title
     end +
@@ -221,7 +221,7 @@ module ApplicationHelper
   def meta_keywords_tag
     controller = params[:controller]
     article = if @article.nil?
-      ''
+      Article.new(:ignore_meta => false)
     else
       @article
     end
@@ -266,7 +266,7 @@ module ApplicationHelper
   def meta_description_tag
     controller = params[:controller]
     article = if @article.nil?
-      ''
+      Article.new
     else
       @article
     end

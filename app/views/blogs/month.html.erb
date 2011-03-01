@@ -1,0 +1,37 @@
+<h1>
+<%="" %>
+</h1>
+<% if @articles.size > 0 %>
+
+  <% @articles.each do |article| %>
+
+    <h2>
+      <%= article.title %>
+    </h2>
+
+    <p id="notice"><%= notice %></p>
+
+    <p id="content">
+      <%= article.content.html_safe %>
+    </p>
+
+  <% end %>
+
+<% else %>  
+  <p class='not_found'>
+    指定された記事はみつかりません
+  </p>
+<% end %>
+
+<% if @articles.size > 0 %>
+  <div>
+    <%= will_paginate @articles, :prev_label => '<=', :next_label => '=>' %>
+  </div>
+<% end %>
+
+
+<div class="actions">  
+<%= link_to_function '戻る', "history.back();return false;" %>
+</div>
+
+

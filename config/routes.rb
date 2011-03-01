@@ -57,7 +57,13 @@ Cms::Application.routes.draw do
 
 #  match 'pages/:site/:page' => 'pages#show#:site#:page'
   match ':site/pages/:page' => 'pages#show#:site#:page'
+
+  match ':site/blogs/:id' => 'blogs#show#:site#:id'
+  match ':site/blogs/month/:month' => 'blogs#month#:site#:month'
+
+  # 公開 - サイトの root
   match ':site/' => 'pages#show#:site'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
