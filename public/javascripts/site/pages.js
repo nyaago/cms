@@ -1,3 +1,5 @@
+// === 一覧ページ の関数 ===
+
 // 月でのフィルタリング.
 // #filtered_monthフィールドに月を設定してsubmit
 function filterByMonth() {
@@ -57,3 +59,68 @@ function reverseDisplayingUpload() {
 function checkAll(check) {
   $('.check_for_batch').attr( { checked: check ? "checked" : ""} );
 }
+
+// === 編集ページ の関数 ===
+
+// 
+// 公開開始日の入力divを表示
+function showPublishedFrom() {
+  $("div#published_from").css("display", "block");
+}
+
+// 公開/下書き切り替えの入力divを表示
+function showPublished() {
+  $("div#published").css("display", "block");
+}
+
+// 公開開始日の入力のcancel.値を元の値に戻して入力部分のdivを非表示にする
+function cancelPublishedFrom() {
+  $("#published_from_select_date").val($("#published_from_date").val());
+  $("#published_from_select_hour").val($("#published_from_hour").val());
+  $("#published_from_select_minute").val($("#published_from_minute").val());
+  $("div#published_from").css("display", "none");
+}
+
+// 公開/下書き切り替えの入力のcancel.値を元の値に戻して入力部分のdivを非表示にする
+function cancelPublished() {
+  $("#article_published_select").attr('selected', $("#page_article_published").attr('selected'));
+  $("div#published").css("display", "none");
+}
+
+// 公開開始日の入力の確定.
+// 1.値をサーバーでの登録対象となるフォームのhiddenフィールドに設定. 
+// 2.ステータス表示部分のテキストの更新
+// 3.入力部分のdivを非表示にする
+function okPublishedFrom() {
+  $("#published_from_date").val($("#published_from_select_date").val());
+  $("#published_from_hour").val($("#published_from_select_hour").val());
+  $("#published_from_minute").val($("#published_from_select_minute").val());
+  var dt = new Date($("#published_from_date").val() +  " " +
+  $("#published_from_hour").val()  + ":"+ $("#published_from_minute").val() + ":00" );
+  $("div#published_from").css("display", "none");
+  $('#published_from_status').text(dt.toJapaneseString());
+}
+
+// 公開/下書きの入力の確定.
+// 1.値をサーバーでの登録対象となるフォームのhiddenフィールドに設定. 
+// 2.ステータス表示部分のテキストの更新
+// 3.入力部分のdivを非表示にする
+function okPublished() {
+    $("#page_article_published").val($("#article_published_select").val());
+    $("div#published").css("display", "none");
+    if($("#page_article_published").val()) {
+      $('#published_status').text('公開済み');
+    }
+    else {
+      $('#published_status').text('下書き');
+    }
+}
+
+// 公開予定日入力のフォーム要素の内容をクリア
+function clearPublishedFrom() {
+  $("#published_from_select_date").val('');
+  $("#published_from_select_hour").val( '00');
+  $("#published_from_select_minute").val( '00');
+  
+}
+
