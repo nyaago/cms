@@ -5,8 +5,9 @@
   </li>
   <% @blog_months.each do |month| %>
   <li>
-    <%= link_to month.to_s("%Y年%m月"), :controller => "blogs", :action => :month, 
-                              :month => month.to_s("%Y%m") %>
+    <%= link_to localize_month(month.datetime), 
+                :controller => "blogs", :action => :month,  
+                :month => month.to_s("%Y%m") %>
   </li>
   <% end %>
 </ul>

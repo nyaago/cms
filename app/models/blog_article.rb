@@ -17,6 +17,11 @@ class BlogArticle < Article
     def to_s(format = nil)
       @datetime.strftime(format)
     end
+    
+    def datetime
+      @datetime
+    end
+    
   end
   
   # 年月での絞り込み

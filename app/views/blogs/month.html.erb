@@ -1,5 +1,5 @@
 <h1>
-<%= @month.strftime('%Y年%-m月') %>の<%= BlogArticle.human_name %>
+<%= localize_month(@month) %>の<%= BlogArticle.human_name %>
 </h1>
 <% if @articles.size > 0 %>
 

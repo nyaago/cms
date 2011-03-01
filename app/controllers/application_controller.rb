@@ -19,6 +19,15 @@ class ApplicationController < ActionController::Base
     # self.allow_forgery_protection = false
   #end
   
+  # ページタイトルを返す.
+  # 各具象controllerで定義することにより、出力するtitleタグへの反映を行う.
+  # 返り値のオブジェクトでtitleメソッドが実装されていれば、それを採用.
+  # そうでなければ,to_sの値を参照.
+  def page_title
+    nil
+  end
+    
+    
   protected 
   
   # siteモデルをロード

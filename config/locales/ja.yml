@@ -16,6 +16,20 @@ ja:
       - :year
       - :month
       - :day
+    
+  month:
+    time:
+      formats:
+        default: "%Y年%-m月"    
+        short: "%Y/%m"
+        long: "%Y年%m月"
+
+    date:
+      formats:
+        default: "%Y年%-m月"    
+        short: "%Y/%m"
+        long: "%Y年%m月"
+
 
   time:
     formats:

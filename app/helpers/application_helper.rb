@@ -308,7 +308,7 @@ module ApplicationHelper
 
   end
   
-  # 日時を設定されている日付け書式を返す書式
+  # 日時を設定されている日付け書式で返す
   def format_date(time)
     return '' unless time.respond_to?(:strftime)
     if @site.site_setting.nil? || @site.site_setting.date_format.nil?
@@ -318,7 +318,7 @@ module ApplicationHelper
     end
   end
 
-  # 日時を設定されている時刻け書式を返す書式
+  # 日時を設定されている日付け書式で返す
   def format_time(time)
     return '' unless time.respond_to?(:strftime)
     if @site.site_setting.nil? || @site.site_setting.time_format.nil?
@@ -326,6 +326,15 @@ module ApplicationHelper
     else
       time.strftime(@site.site_setting.time_format)
     end
+  end
+  
+  # 日時を設定されている月の書式 で返す
+  # see config/locales/<lang>.yml の <lang>.month.<time|date>.formats.<format>
+  # == parameter
+  # * time 時間or日付け(Time or Date オブジェクト)
+  # * format フォーマット . :default | :short | :long
+  def localize_month(time, format = :default)
+    I18n.localize(time, :format => format, :scope => [:month])
   end
   
   # アクセス解析のjavascriptを挿入する
