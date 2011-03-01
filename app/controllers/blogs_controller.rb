@@ -38,21 +38,46 @@ class BlogsController < ApplicationController
   # * :month  - <yyyymm>書式の年月
   def month
     cur_month = if params[:month] then params[:month] else nil end
-    @articles = @site.blogs.filter_by_updated_month(cur_month).
-                        order("updated_at desc").
-                        paginate(
-                              :page => 
-                                if !params[:page].blank? && params[:page].to_i >= 1 
-                                  params[:page].to_i
-                                else 
-                                  1 
-                                end, 
-                              :per_page => 
-                              unless @site.view_setting.nil? 
-                                @site.view_setting.article_count_per_page
-                              else
-                                PER_PAGE
-                              end )
+    begin 
+      @articles = @site.blogs.where("published = true").
+                          filter_by_updated_month(cur_month).
+                          order("updated_at desc").
+                          paginate(
+                                :page => 
+                                  if !params[:page].blank? && params[:page].to_i >= 1 
+                                    params[:page].to_i
+                                  else 
+                                    1 
+                                  end, 
+                                :per_page => 
+                                unless @site.view_setting.nil? 
+                                  @site.view_setting.article_count_per_page
+                                else
+                                  PER_PAGE
+                                end )
+
+      @month = Time.new(cur_month[0..3], cur_month[4..5])
+    rescue
+      respond_to do |format|
+         format.html { 
+           render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", 
+            :status => :not_found 
+          }
+         format.xml  { render :status => :not_found }
+       end
+       return
+    end
+    if @month.nil?
+      respond_to do |format|
+         format.html { 
+           render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", 
+            :status => :not_found 
+          }
+         format.xml  { render :status => :not_found }
+       end
+       return
+    end
+    
     respond_to do |format|
       format.html do
         render :layout =>  @site.site_layout.theme_layout_path_for_rendering

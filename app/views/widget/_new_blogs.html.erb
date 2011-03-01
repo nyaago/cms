@@ -1,0 +1,13 @@
+<div class="widget">
+<ul id="new_blogs">
+  <li class="widget_header">
+    最近の投稿
+  </li>
+  <% @new_blogs.each do |article| %>
+  <li>
+    <%= link_to article.title, :controller => "blogs", :action => :show, 
+                              :id => article.id %>
+  </li>
+  <% end %>
+</ul>
+</div>
