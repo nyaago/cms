@@ -87,6 +87,24 @@ class BlogsController < ApplicationController
     end
     
   end
+  
+  protected 
+  
+  # ページタイトルを返す.
+  # 月がパラメータとしてわたされた場合,その月を文字列値をタイトルとして返す.
+  # それ以外は、defaultの動作(Articleのtitleをタイトルとする)となるよう、nilを返す.
+  def page_title
+    unless params[:month].blank?
+      begin
+        month = Time.new(params[:month][0..3], params[:month][4..5])
+        I18n.localize(month, :format => :default, :scope => [:month])
+      rescue
+        nil
+      end
+    else
+      nil     # default の挙動
+    end
+  end
 
 end
 

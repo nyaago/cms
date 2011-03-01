@@ -1,5 +1,5 @@
 <h1>
-  画像情報変更
+  <%= Image.human_name %>情報変更
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 
@@ -21,34 +21,32 @@
     
   <% end %>
 
-  <div class="field">
-    <%= label :image, :title %><br />
-    <%= text_field :image, :title %>
+  <div class="field" id="title_field">
+    <%= f.label  :title %><br />
+    <%= f.text_field :title %>
   </div>
   
-  <div class="field">
-    <%= label :image, :alternative %><br />
-    <%= text_field :image, :alternative %>
+  <div class="field" id="alternative_field">
+    <%= f.label:alternative %><br />
+    <%= f.text_field :alternative %>
   </div>
 
-  <div class="field">
-    <%= label :image, :url %><br />
+  <div class="field" id="url_field">
+    <%= f.label :url %><br />
     <%= link_to(image_url(@image),image_url(@image), :target => '_blank')  %>
   </div>
 
-  <div class="field">
-    <%= label :image, :caption %><br />
-    <%= text_field :image, :caption %>
+  <div class="field" id="caption_field">
+    <%= f.label :caption %><br />
+    <%= f.text_field :caption %>
   </div>
   
-  </div class="field">
-    <%= label :image, :description %><br />
-    <%= text_area :image, :description %>
+  <div class="field" id="description_field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
   </div>
   
-
-
-  <div>
+  <div class="field" id="image_filed">
     <%= user_image_tag(@image) %>
   </div>
 

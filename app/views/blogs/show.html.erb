@@ -2,7 +2,7 @@
   <%= @article.title %>
 </h1>
 <div class="date" id="updated_at">
-  <span class="label">投稿更新日:</span>
+  <span class="label"><%= BlogArticle.human_attribute_name(:updated_at) %>:</span>
   <span class="value"><%= format_date(@article.updated_at) %></span>
 </div>
 <p id="notice"><%= notice %></p>
@@ -15,7 +15,7 @@
 
 <% else %>  
   <p class='not_found'>
-    指定された記事はみつかりません
+    指定された<%= BlogArticle.human_name %>はみつかりません
   </p>
 <% end %>
 

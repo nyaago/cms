@@ -66,6 +66,23 @@ ja:
       site_layout:
         background_repeat: "背景画像の繰り返し"
         background_color: "背景色"
+        eye_catch_type: "アイキャッチタイプ"
+        theme: "テーマ"
+        skin_color: "スキンカラー"
+        font_size: "フォントサイズ"
+        layout_type: "レイアウトタイプ"
+        header_image_url: "ヘッダー画像URL"
+        footer_image_url: "フッター画像URL"
+        logo_image_url: "ロゴ画像URL"
+        background_image_url: "背景画像URL"
+        created_at: "アップロード日時"
+        updated_at: "更新日時"
+        global_navigation: "グローバルナビゲーション"
+        column_layout: "カラムレイアウト"
+        header_image: "ヘッダー画像URL"
+        footer_image: "フッター画像URL"
+        logo_image: "ロゴ画像URL"
+        background_image: "背景画像URL"
         
 
       site_setting:
@@ -100,6 +117,8 @@ ja:
         created_at: "作成日時"
         alternative: "代替テキスト"
         url: "画像url"
+        caption: "キャプション"
+        description: "説明"
                 
       layout_image: 
         image_file_name: "ファイル名"

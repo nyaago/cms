@@ -63,7 +63,7 @@
 
 <%= stylesheet_link_tag "site/images" %>
 <h1>
-  画像の選択
+  <%= Image.human_name %>の選択
 </h1>
 
 <p id="notice"><%= flash[:notice] %></p>
@@ -72,7 +72,7 @@
 
 <div>
 <h2>
-  画像一覧
+  <%= Image.human_name %>一覧
 </h2>
 <%= form_tag({:action => :index},
                {:id => 'filteting_by_month', :method => 'get'}) do -%>
@@ -83,7 +83,7 @@
              
 <div id="settings_for_images">              
   <h3>
-    使用する画像の設定
+    使用する<%= Image.human_name %>の設定
   </h3>
   <div class="inputs">
     <div class="field" id="image_size_field">
@@ -139,14 +139,14 @@
 
 <table id="images">
   <tr>
-    <th>
+    <th class="check_for_batch">
       <%= check_box_tag("check_all",1, false, 
       {:class => 'check_all'}) %>
     </th>
-    <th>
+    <th class="image_entry">
       タイトル
     </th>
-    <th>
+    <th class="created_at">
       作成日時
     </th>
   </tr>
@@ -154,7 +154,7 @@
     <tr>
     </tr>
     <tr class="image_entry_row, <%= if i % 2 == 0 then 'even' else 'odd' end %>" >
-      <td>
+      <td class="check_for_batch">
         <%= check_box_tag("images[checked][#{image.id}]",image.id, false, 
         {:class => 'check_for_batch'}) %>
       </td>
@@ -181,7 +181,7 @@
         <%= hidden_field_tag 'image_' + image.id.to_s + '_small', image_url(image, :small) %>
         <%= hidden_field_tag 'image_' + image.id.to_s + '_thumb', image_url(image, :thumb) %>
       </td>
-      <td>
+      <td class="created_at">
         <%= I18n.l(image.created_at, :format => :short) %>
       </td>
     </tr>

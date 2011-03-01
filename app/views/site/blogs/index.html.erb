@@ -9,7 +9,7 @@
              {:id => 'process_with_batch', :method => 'get', :name => 'blogs'}) do -%>
 
 <p id="notice"><%= flash[:notice] %></p>
-<div>
+<div id="batch_and_filtering">
   チェックされたものの
   <%= select_tag('blogs[processing_method]',
   options_for_select([['削除', 'destroy']]),
@@ -29,10 +29,10 @@
     <%= button_to_function('フィルター', 'return filterByMonth();') %>
 </div>
 
-<div class="artcies_div" id="articles">
+<div class="table_div" id="articles">
 <table>
   <tr>
-    <th>
+    <th class="check_for_batch">
       <%= check_box_tag("check_all",1, false, 
       {:class => 'check_all'}) %>
     </th>
@@ -58,7 +58,7 @@
 
 <% @articles.each do |article| %>
   <tr>
-    <td>
+    <td class="check_for_batch">
       <%= check_box_tag("blogs[checked][#{article.id}]",article.id, false, 
       {:class => 'check_for_batch'}) %>
     </td>
@@ -68,10 +68,10 @@
     <td class="published">
       <%= article.published_name %>
     </td>
-    <td >
+    <td class="created_at">
       <%= I18n.l article.created_at, :format => :short %>
     </td>
-    <td >
+    <td class="updated_at">
       <%= I18n.l article.updated_at, :format => :short %>
     </td>
     <td class="edit"><%= link_to '編集', 

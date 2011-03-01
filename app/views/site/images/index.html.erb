@@ -24,7 +24,7 @@
 
 <%= stylesheet_link_tag "site/images" %>
 <h1>
-  画像一覧とアップロード
+  <%= Image.human_name %>一覧とアップロード
 </h1>
 
 <p id="notice"><%= flash[:notice] %></p>
@@ -52,32 +52,32 @@
 </div>
 <div id="upload">
   <h2>
-    画像アップロード
+    <%= Image.human_name %>アップロード
   </h2>
   
   <%= hidden_field_tag :display_upload, 
     if params[:display_upload].nil? then 0  else params[:display_upload] end %>
-  <div class="field">
+  <div class="field" id="image_field">
     <%= f.label :image, "ファイルを選択" %><br />
     <%= f.file_field :image%>
   </div>
 
-  <div class="field">
+  <div class="field" id="title_field">
     <%= label :image, :title %><br />
     <%= text_field :image_additional, :title %>
   </div>
   
-  <div class="field">
+  <div class="field" id="alternative_field">
     <%= label :image, :alternative %><br />
     <%= text_field :image_additional, :alternative %>
   </div>
   
-  <div class="field">
+  <div class="field" id="caption_field">
     <%= label :image, :caption %><br />
     <%= text_field :image_additional, :caption %>
   </div>
   
-  <div class="field">
+  <div class="field" id="description_filed">
     <%= label :image, :description %><br />
     <%= text_area :image_additional, :description %>
   </div>
@@ -104,7 +104,7 @@
 <% end %>
 <%= form_tag({:action => :process_with_batch},
              {:id => 'process_with_batch', :method => 'get', :name => 'images'}) do -%>
-<div>
+<div id="batch_and_filtering">
   チェックされたものの
   <%= select_tag('images[processing_method]',
   options_for_select([['削除', 'destroy']]),
@@ -131,15 +131,15 @@
 
 <table id="images">
   <tr>
-    <th>
+    <th class="check_for_batch">
       <%= check_box_tag("check_all",1, false, 
       {:class => 'check_all'}) %>
     </th>
-    <th>
-      タイトル
+    <th class="image_entry">
+      <%= Image.human_attribute_name(:title) %>
     </th>
-    <th>
-      作成日時
+    <th class="created_at">
+      <%= Image.human_attribute_name(:created_at) %>
     </th>
   </tr>
   <% @images.each_with_index do |image, i| %>
@@ -169,7 +169,7 @@
           </div> 
         </div>
       </td>
-      <td>
+      <td class="created_at">
         <%= I18n.l(image.created_at, :format => :short) %>
       </td>
     </tr>

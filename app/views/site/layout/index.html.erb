@@ -41,7 +41,7 @@
 </script>
   
 <h1>
-  レイアウトの設定
+  <%= SiteLayout.human_name %>
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 
@@ -56,7 +56,7 @@
     @logo_image.errors.any? ||
     @background_image.errors.any?  %>
     <div id="error_explanation">
-      <h2>レイアウト設定に関して
+      <h2><%= SiteLayout.human_name %>に関して
       <%= pluralize(@site_layout.errors.count, "error") %> エラーが発生しました:</h2>
       <ul>
       <% @site_layout.errors.full_messages.each do |msg| %>
@@ -107,7 +107,7 @@
   
 <div class="inputs">
 <h2>
-  アイキャッチレイアウト
+  <%= SiteLayout.human_attribute_name(:eye_catch_type) %>
 </h2>
 <div id="eye_catch_types">
   <% @layout_defs.eye_catch_types.each do |eye_catch_type| %>
@@ -129,21 +129,11 @@
 </div>
 </div>
 
-<div class="inputs">
-<h2>
-  タイトルタグ
-</h2>
-<div id="title_tag">
-  <%= f.select(:title_tag, 
-      @layout_defs.title_tags.collect { |tag| [tag.human_name, tag.name] }  ) %>
-</div>
-</div>
-
 
 
 <div class="inputs">
 <h2>
-  グローバルナビゲーション
+  <%= SiteLayout.human_attribute_name(:global_navigation) %>
 </h2>
 <div id="global_navigation">
   <%= f.select(:global_navigation, 
@@ -153,7 +143,7 @@
 
 <div class="inputs">
 <h2>
-  カラムレイアウト
+  <%= SiteLayout.human_attribute_name(:column_layout) %>
 </h2>
 <div id="column_layout">
   <% @layout_defs.column_layouts.each do |column_layout| %>
@@ -179,7 +169,7 @@
 
 <div class="inputs">
 <h2>
-  スキンカラー
+  <%= SiteLayout.human_attribute_name(:skin_color) %>
 </h2>
 <div id="skin_color">
   <% @layout_defs.skin_colors.each do |skin_color| %>
@@ -204,7 +194,7 @@
 
 <div class="inputs">
 <h2>
-  フォントサイズ
+  <%= SiteLayout.human_attribute_name(:font_size) %>
 </h2>
 <div id="font_size">
   <% @layout_defs.font_sizes.each do |font_size| %>

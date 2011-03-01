@@ -19,7 +19,7 @@
 
 <% else %>  
   <p class='not_found'>
-    指定された記事はみつかりません
+    指定された月には<%= BlogArticle.human_name %>がみつかりません
   </p>
 <% end %>
 
@@ -28,7 +28,6 @@
     <%= will_paginate @articles, :prev_label => '<=', :next_label => '=>' %>
   </div>
 <% end %>
-
 
 <div class="actions">  
 <%= link_to_function '戻る', "history.back();return false;" %>

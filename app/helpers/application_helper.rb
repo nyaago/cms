@@ -26,22 +26,6 @@ module ApplicationHelper
   end
   
 
-  # site_layoutモデルに定義されているタイトルタグフォーマットより、タイトルに表示する値を得る
-  # ==　置換される文字
-  # * %site_title%, %blog_title% -> サイトタイトル
-  # *　%page_title%, %article_title% -> ページタイトル
-  # == params
-  # * default_article_title  - 記事のインスタンス(@article)がない場合にページタイトル使用される文字列値
-  # * article - 記事オブジェクト, title属性,それがなければto_sの値を参照
-  def title_tag_text(default_article_title = nil)
-    return '' if !self.instance_variable_defined?(:@site)
-    if self.instance_variable_defined?(:@article)
-      @site.site_layout.title_tag_text(@article)
-    else
-      @site.site_layout.title_tag_text(default_article_title.to_s)
-    end
-  end
-
   # 指定したareaにeye_catchをrenderingすべきであるか?
   # site_layoutモデルを参照して判定する
   # == parameters
@@ -181,10 +165,14 @@ module ApplicationHelper
   # title タグを返す
   def title_tag
     controller = params[:controller]
-    article = if @article.nil?
-      ''
+    article = if instance_variable_defined?(:@page_title) && !@page_title.nil?
+      @page_title
     else
-      @article
+      if @article.nil?
+        ''
+      else
+        @article
+      end
     end
     return '<title></title>' if @site.nil? || @site.search_engine_optimization.nil?
     ("<title>" +

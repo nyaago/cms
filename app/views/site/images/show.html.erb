@@ -6,10 +6,10 @@
     <%= user_image_tag(@image) %>
   </div>
   <% end %>
-  <table class="list">
+  <table class="detail" id="image_detail">
     <tr class="title">
       <th>
-        タイトル
+        <%= Image.human_attribute_name(:title) %>
       </th>
       <td>
         <%= @image.title %>
@@ -17,7 +17,7 @@
     </tr>
     <tr class="caption">
       <th>
-        キャプション
+        <%= Image.human_attribute_name(:caption) %>
       </th>
       <td>
         <%= @image.alternative %>
@@ -25,7 +25,7 @@
     </tr>
     <tr class="description">
       <th>
-        説明
+        <%= Image.human_attribute_name(:description) %>
       </th>
       <td>
         <%= simple_format(@image.description) %>
@@ -33,7 +33,7 @@
     </tr>
     <tr class="alternative">
       <th>
-        代替テキスト
+        <%= Image.human_attribute_name(:alternative) %>
       </th>
       <td>
         <%= @image.alternative %>
@@ -42,7 +42,7 @@
 
     <tr class="url">
       <th>
-        URL
+        <%= Image.human_attribute_name(:url) %>
       </th>
       <td>
         <%= link_to(image_url(@image),image_url(@image), :target => '_blank')  %>

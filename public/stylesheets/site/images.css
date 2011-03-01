@@ -41,8 +41,18 @@ div.pagination {
     background-color: #dddddd;
 }
 
+th.image_entry {
+  /*
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  */
+  width: 600px;
+}
 
-.image_entry {
+
+td.image_entry {
   /*
   margin-left: 1em;
   margin-right: 1em;
