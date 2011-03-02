@@ -45,8 +45,11 @@ eRuby は HTML や XML に限らず、任意のテキストファイルの出力
 (以上、http://jp.rubyist.net/magazine/?0017-BundledLibraries　より引用)
 
 
+= 各ファイルの共通事項
+キャラクターセット : utf-8
+行末 : LF のみ 
 
-=テーマのhtmlテンプレートの構成/公開ファイルの構成
+= テーマのhtmlテンプレートの構成/公開ファイルの構成
 == テーマ毎htmlテンプレート
 各テーマは、各テーマのテンプレートディレクトリ（<application>/app/views/layouts/<theme>）に
 メインのhtmlテンプレートであるapplication.html.erb と　それにインクルードされる部分テンプレートで構成される。
@@ -62,9 +65,9 @@ eRuby は HTML や XML に限らず、任意のテキストファイルの出力
 
 == それ以外の部分template
 
-* app/views/widget/_blog_months.html.erb
+* <application>/app/views/widget/_blog_months.html.erb
      月別お知らせへのリンク一覧
-* app/views/widget/_new_blogs.html.erb
+* <application>/app/views/widget/_new_blogs.html.erb
      新着お知らせ一覧
 
 以上のtemplateは、テーマのテンプレートより、render 以下の例のように、メソッドを使って組み込む
@@ -129,7 +132,7 @@ http(s)://<base>/site/<機能グループ>/<アクション>
 
 == （主に公開ページで使用する）アプリケーション固有のメソッド
 
-[<アプリケーション>/rdoc/ApplicationHelper.html] を参照
+[<アプリケーション>/rdoc/classes/ApplicationHelper.html] を参照
 
 == ヘッダー部分で共通で埋め込んでいる.Ruby On Rails のヘルパーメソッド
 
