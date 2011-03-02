@@ -47,13 +47,31 @@ eRuby は HTML や XML に限らず、任意のテキストファイルの出力
 
 
 =テーマのhtmlテンプレートの構成/公開ファイルの構成
-== htmlテンプレート
+== テーマ毎htmlテンプレート
 各テーマは、各テーマのテンプレートディレクトリ（<application>/app/views/layouts/<theme>）に
 メインのhtmlテンプレートであるapplication.html.erb と　それにインクルードされる部分テンプレートで構成される。
 部分テンプレートは、以下のようなものを含む
-_header.html.erb
-_footer.html.erb
-_eye_catch_type.html.erb
+* _side.html.erb
+    サイドバー部分
+* _header.html.erb
+    ヘッダー部分
+* _footer.html.erb
+    フッター部分
+* _eye_catch_type.html.erb
+    アイキャッチ部分
+
+== それ以外の部分template
+
+* app/views/widget/_blog_months.html.erb
+     月別お知らせへのリンク一覧
+* app/views/widget/_new_blogs.html.erb
+     新着お知らせ一覧
+
+以上のtemplateは、テーマのテンプレートより、render 以下の例のように、メソッドを使って組み込む
+(ファイル名の前の'_', 拡張子が不要)
+
+<%= render '/widget/blog_months' %>
+
 
 ==theme,layout設定以外のstylesheets
 [<application>/public/stylesheets/common.css ]を公開ページの共通stylesheetsとして参照.
@@ -85,11 +103,33 @@ theme_and_layout.txt を参照
 - ruby on rails が使用するscript - <application>/public/javascripts/rails.js
 - その他jqueryなどOpensourceライブラリーが[<application>/public/javascripts]に配置されている
 
+
+= サイト管理の構成
+
+== htmlテンプレート
+=== 共通メインテンプレート
+- <application>/app/views/layouts/site.html.erb - 通常ページのテンプレート
+- <application>/app/views/layouts/site_no_navi.html.erb  
+    別windowで表示されるページなどの簡易レイアウトのテンプレート
+
+=== 部分テンプレート
+- <application>/app/views/layouts/site/_header.html.erb
+- <application>/app/views/layouts/site/_footer.html.erb
+- <application>/app/views/layouts/site/_side.html.erb
+
+==== 個別ページのテンプレート
+個別ページは、[<application>/app/views/<機能グループ>/<アクション>.html.erb]
+という命名規則のファイルとなる。
+上記のファイル名は、基本的には、以下のurlに対応することになる。
+http(s)://<base>/site/<機能グループ>/<アクション>
+(ただし、アクションは一部で相違することがある)
+
+
 = テンプレートで出力用に埋め込むrubyのコード
 
 == （主に公開ページで使用する）アプリケーション固有のメソッド
 
-[<アプリケーション>/rdoc/doc/ApplicationHelper.html] を参照
+[<アプリケーション>/rdoc/ApplicationHelper.html] を参照
 
 == ヘッダー部分で共通で埋め込んでいる.Ruby On Rails のヘルパーメソッド
 
@@ -112,6 +152,7 @@ render <名前>
       render '/layout/hoge'
       =>
       <application>/app/views/layout/_hoge.html.erb
+      
       render 'hoge'
       =>
       <読み込みもとのテンプレートの場所>/_hoge.html.erb
