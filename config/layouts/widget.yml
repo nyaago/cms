@@ -1,0 +1,7 @@
+widgets:
+  - name: "text_widget"
+    description: "任意のテキストと HTML"
+  - name: "company_profile_widget"
+    description: "会社の基本情報"
+    
+  

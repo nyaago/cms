@@ -21,29 +21,32 @@ require 'email_validator'
   validates_with Validator::Site::ReservedName
   validates_presence_of :title
 
-  #
+  # ユーザとの関連
+  has_many  :users, :dependent => :destroy
+
+  # 記事、画像との関連
   has_many  :articles, :dependent => :destroy
   has_many  :pages, 
             :class_name => 'PageArticle'
   has_many  :blogs, 
             :class_name => 'BlogArticle'
-  has_many  :users, :dependent => :destroy
+  has_many  :images
+
+  # レイアウト、設定関連
   has_one   :site_layout,   :dependent => :destroy
   has_one   :site_setting,  :dependent => :destroy
   has_one   :search_engine_optimization,  :dependent => :destroy
   has_one   :post_setting,  :dependent => :destroy
   has_one   :view_setting,  :dependent => :destroy
-  has_many  :images
   has_many  :layout_images
 
   # widget関係
   has_many  :site_widgets
-  has_many  :text_widgets, :through => :site_widgets,
-            :source => :widget, :source_type => 'TextWidget',
-            :dependent => :destroy
-  has_many  :company_profile_widgets, :through => :site_widgets,
-            :source => :widget, :source_type => 'CompanyProfileWidget',
-            :dependent => :destroy
+  Layout::Widget.load.each do |widget|
+    has_many  widget.name.pluralize.to_sym, :through => :site_widgets,
+              :source => :widget, :source_type => widget.class_name,
+              :dependent => :destroy
+  end
   
   protected
   

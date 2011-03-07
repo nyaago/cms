@@ -40,7 +40,9 @@ Cms::Application.routes.draw do
     match 'post_setting/:action' => 'post_setting#:action'
     # View setting
     match 'view_setting/:action' => 'view_setting#:action'
-    
+    # Widgets setting
+    match 'widgets/:action' => 'widgets#:action'
+    match 'widgets/:action/:id' => 'widgets#:action#:id'
     
     # Images
     match 'images/:action/:id' => 'images#:action#:id'

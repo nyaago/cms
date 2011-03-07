@@ -1,0 +1,2 @@
+module Site::WidgetsHelper
+end
