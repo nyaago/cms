@@ -36,7 +36,14 @@ require 'email_validator'
   has_many  :images
   has_many  :layout_images
 
-
+  # widget関係
+  has_many  :site_widgets
+  has_many  :text_widgets, :through => :site_widgets,
+            :source => :widget, :source_type => 'TextWidget',
+            :dependent => :destroy
+  has_many  :company_profile_widgets, :through => :site_widgets,
+            :source => :widget, :source_type => 'CompanyProfileWidget',
+            :dependent => :destroy
   
   protected
   
