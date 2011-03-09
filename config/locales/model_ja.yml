@@ -155,6 +155,7 @@ ja:
         
       text_widget:
         content: "内容"
+        title: "タイトル"
         
       company_profile_widget:
         name: "会社名"

@@ -43,7 +43,9 @@ Cms::Application.routes.draw do
     # Widgets setting
     match 'widgets/:action' => 'widgets#:action'
     match 'widgets/:action/:id' => 'widgets#:action#:id'
-    
+
+    match 'text_widget/:action/:id' => 'text_widget#:action#:id'
+    match 'company_profile_widget/:action/:id' => 'company_profile_widget#:action#:id'
     # Images
     match 'images/:action/:id' => 'images#:action#:id'
     match 'images/:action' => 'images#:action'

@@ -6,3 +6,10 @@ Date.prototype.toJapaneseString = function() {
   return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日" +
                                 this.getHours() + "時" + this.getMinutes() + "分" + this.getSeconds() + "秒";
 };
+
+// camel => underscore
+String.prototype.underscore = function() {
+  return this.split(/(?![a-z])(?=[A-Z])/).map( function(word) { 
+                                        return word.toLowerCase(); } ).
+                                        join('_');
+};

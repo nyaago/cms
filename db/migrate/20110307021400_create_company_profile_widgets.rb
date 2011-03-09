@@ -1,7 +1,7 @@
 class CreateCompanyProfileWidgets < ActiveRecord::Migration
   def self.up
     create_table :company_profile_widgets do |t|
-      t.string  :name,      :string,  :limit => 256, :null => false
+      t.string  :name,      :string,  :limit => 256
       t.string  :address,   :string,  :limit => 256
       t.string  :zip_code,  :string,  :limit => 20
       t.string  :tel_no,    :string,  :limit => 20
