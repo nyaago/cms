@@ -6,6 +6,7 @@
   <% @new_blogs.each do |article| %>
   <li>
     <%= link_to article.title, :controller => "blogs", :action => :show, 
+                              :site => @site.name,
                               :id => article.id %>
   </li>
   <% end %>

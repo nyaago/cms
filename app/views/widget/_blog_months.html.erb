@@ -7,6 +7,7 @@
   <li>
     <%= link_to localize_month(month.datetime), 
                 :controller => "blogs", :action => :month,  
+                :site => @site.name,
                 :month => month.to_s("%Y%m") %>
   </li>
   <% end %>

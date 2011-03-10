@@ -1,6 +1,6 @@
 Cms::Application.routes.draw do
 
-  resources :pages
+#  resources :pages
 
   namespace :admin do 
 
