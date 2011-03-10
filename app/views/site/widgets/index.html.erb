@@ -8,8 +8,16 @@
     editor.urlForAdd('<%= url_for(:controller => :widgets, :action => :create)  %>');
     editor.urlForSort('<%= url_for(:controller => :widgets, :action => :sort)  %>');
     editor.urlBaseForEdit("/site/");
+    editor.updateButtonText("保存");
     editor.dialogWidth(450);
+    
+    editor.msgFailedInConnection("サーバー接続中にエラーが発生しました.");
+    editor.msgFailedInDeleting("削除に失敗しました."),
+    editor.msgErrorCount("件のエラーがあります"),
+    editor.msgNotExists("操作対象のデータが存在しません.");
     editor.editButtonText("編集");
+    editor.deleteButtonText("削除");
+    editor.closeButtonText("閉じる");
   });
 
 
