@@ -342,5 +342,35 @@ module ApplicationHelper
       @site.post_setting.editor_row_count
     end
   end
+
+  # widget の rendering
+  # templateとして /widget/_<モデルクラス名をunderscore形式に変換したもの>　が読み込まれる.
+  # そのtemplate内では、変数名 @widget でレコードを参照できる.
+  # == parameters
+  # * widget - widget モデルレコード
+  def render_widget(widget)
+    @widget = widget
+    render "/widget/#{@widget.class.name.underscore.sub(/_widget$/, '')}"
+  end
+  
+  # side の widget の 配列を返す
+  def side_widgets
+    @side_widgets
+  end
+  
+  # footer の widget の 配列を返す
+  def footer_widgets
+    @footer_widgets
+  end
+  
+  # 各widgetの　rendering
+  # == parameters
+  # * widgets - widget モデルレコードの array
+#  def render_widgets(widgets)
+#    widgets.each do |widget|
+#      render_widget widget
+#    end
+#  end
+
   
 end

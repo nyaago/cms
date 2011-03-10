@@ -21,6 +21,16 @@ class ApplicationController < ActionController::Base
   # actionの前処理
   # ページタイトルを格納する変数(@page_title)を生成  
   before_filter          :set_page_title_var
+
+  # actionの前処理
+  # sideのwidgetを格納する配列変数(@side_widgets)を生成  
+  before_filter          :side_widgets
+  
+  # actionの前処理
+  # footerのwidgetを格納する配列変数(@side_widgets)を生成  
+  before_filter          :footer_widgets
+  
+
   
   # 表示対象のサイト (Site モデルのレコード)
   attr_reader  :site
@@ -73,6 +83,32 @@ class ApplicationController < ActionController::Base
   # ページタイトルを格納する変数(@page_title)を生成
   def set_page_title_var
     @page_title = self.page_title
+  end
+  
+  # sideのwidgetを格納する配列変数(@side_widgets)を生成  
+  def side_widgets
+    @side_widgets = []
+    site_widgets = @site.site_widgets.
+                                      where("area = :area", :area => 'side').
+                                      order('position').each do |site_widget|
+      unless site_widget.widget.nil?
+        @side_widgets << site_widget.widget
+      end
+    end
+    @side_widgets
+  end
+
+  # footerのwidgetを格納する配列変数(@side_widgets)を生成  
+  def footer_widgets
+    @footer_widgets = []
+    site_widgets = @site.site_widgets.
+                                      where("area = :area", :area => 'footer').
+                                      order('position').each do |site_widget|
+      unless site_widget.widget.nil?
+        @footer_widgets << site_widget.widget
+      end
+    end
+    @footer_widgets
   end
   
   # ページタイトルを返す.

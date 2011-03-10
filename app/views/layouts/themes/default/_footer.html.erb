@@ -1,4 +1,7 @@
 <p>
   フッター
+  <% footer_widgets.each do |widget| %>
+  <%= render_widget widget %>
+  <% end %>
   <%= footer_image_tag %>
 </p>

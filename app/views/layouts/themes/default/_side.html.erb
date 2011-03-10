@@ -3,3 +3,6 @@
 </p>
 <%= render '/widget/new_blogs' %>
 <%= render '/widget/blog_months' %>
+<% side_widgets.each do |widget| %>
+<%= render_widget widget %>
+<% end %>
