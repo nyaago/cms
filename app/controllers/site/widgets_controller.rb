@@ -43,7 +43,7 @@ class Site::WidgetsController < Site::BaseController
     
     if clazz.nil? || area.nil? # error
       respond_to do |format|
-        format.json  { render :json => 'failed in creating widget' }
+        format.json  { render :json => { :status => NG } }
         format.xml  { render :xml => 'failed in creating widget' }
         format.html  { render :html => 'failed in creating widget' }
       end
@@ -74,11 +74,56 @@ class Site::WidgetsController < Site::BaseController
       end
     rescue      # error
       respond_to do |format|
-        format.json  { render :json => 'failed in creating widget' }
+        format.json  { render :json => { :status => NG } }
         format.xml  { render :xml => 'failed in creating widget' }
         format.html  { render :html => 'failed in creating widget' }
       end
     end
+  end
+  
+  # 並び変え操作
+  # == 以下のリクエストパラメータが送信されることを期待する
+  # * area - Widget のエリア. side | footer
+  # * order - 更新すべき並び順に格納されている site_widget の id のcsv文字列.
+  def sort
+    area = unless params[:area].blank? 
+      params[:area] 
+    else 
+      nil 
+    end
+    ordered = unless params[:order].blank?
+      params[:order].split(/,/).collect do |v|
+        v.to_i
+      end
+    else
+      nil
+    end
+    if area.nil? || ordered.nil?
+      respond_to do |format|
+        format.json  { render :json => { :status => 'NG' } }
+        format.xml  { render :xml => 'NG' }
+        format.html  { render :html => 'NG' }
+      end
+      return 
+    end
+    
+    begin
+      ActiveRecord::Base.transaction do
+        SiteWidget.sort_with_ordered(@site, area, ordered)
+        respond_to do |format|
+          format.json  { render :json => { :status => 'OK' } }
+          format.xml  { render :xml => 'OK' }
+          format.html  { render :html => 'OK' }
+        end
+      end
+    rescue => e
+      respond_to do |format|
+        format.json  { render :json => { :status => 'NG' } }
+        format.xml  { render :xml => 'NG' }
+        format.html  { render :html => 'NG' }
+      end
+    end
+
   end
   
 end

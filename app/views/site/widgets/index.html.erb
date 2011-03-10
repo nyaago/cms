@@ -3,10 +3,12 @@
     
   // ページload時,
   $(document).ready( function(){
+    // widget編集のためのobjectを生成.
     var editor = widgetEditor();
     editor.urlForAdd('<%= url_for(:controller => :widgets, :action => :create)  %>');
+    editor.urlForSort('<%= url_for(:controller => :widgets, :action => :sort)  %>');
     editor.urlBaseForEdit("/site/");
-    editor.dialogWidth(300);
+    editor.dialogWidth(450);
     editor.editButtonText("編集");
   });
 
@@ -29,7 +31,7 @@
 <% @widgets.each_with_index do |widget, i| %>
 <div class="widget" id="<%= widget.name %>">
   <div class="widget_title">
-  <h4><%= widget.human_name %></h4>
+  <h4 class="widget_human_name"><%= widget.human_name %></h4>
   <%= hidden_field_tag "widget_type[#{i}]", widget.class_name, :class => 'widget_type' %>
   </div>
   <%= form_tag({}, {:method => :post} ) do  %>
@@ -57,7 +59,7 @@
     <div class="widget_area_contents"  id="side_widget_area_contents">
       <% @widgets_on_side.each do |site_widget| %>
         <div class="widget_title">
-        <h4><%= site_widget.widget.class.human_name %></h4>
+        <h4 class="widget_human_name"><%= site_widget.widget.class.human_name %></h4>
         <%= hidden_field_tag "widget_position[#{site_widget.id}]", 
         site_widget.position, :class => 'widget_position'  %>
         <%= hidden_field_tag "widget_id[#{site_widget.id}]", 
@@ -78,13 +80,16 @@
     </div>
     <div class="widget_area_contents" id="footer_widget_area_contents">
       <% @widgets_on_footer.each do |site_widget| %>
-        <div class="widget_title">
-        <h4><%= site_widget.widget.class.human_name %></h4>
-        <%= hidden_field_tag "footer_widget_position[#{site_widget.id}]", 
-        site_widget.position, :class => 'widget_position'  %>
-        <%= hidden_field_tag "footer_widget_id[#{site_widget.id}]", 
-        site_widget.id, :class => 'widget_id'  %>
-        </div>
+      <div class="widget_title">
+      <h4 class="widget_human_name"><%= site_widget.widget.class.human_name %></h4>
+      <%= hidden_field_tag "widget_position[#{site_widget.id}]", 
+      site_widget.position, :class => 'widget_position'  %>
+      <%= hidden_field_tag "widget_id[#{site_widget.id}]", 
+      site_widget.id, :class => 'widget_id'  %>
+      <%= hidden_field_tag "widget_type[#{site_widget.id}]", 
+      site_widget.widget.class.name, :class => 'widget_type' %>
+      <%= button_to_function "編集" %>
+      </div>
       <% end %>
     </div>
   </div>

@@ -37,4 +37,19 @@ class SiteWidget < ActiveRecord::Base
     end
   end
   
+  # Widget の 並び変え
+  # == parameters
+  # * site - サイトモデルのレコード
+  # * area - Widget のエリア. side | footer
+  # * ordered - 更新すべき並び順に格納されている site_widget の id の配列.
+  def self.sort_with_ordered(site, area, ordered)
+    site.site_widgets.select('id, position').
+        where("area = :area", :area => area).each do |site_widget|
+      if ordered.include?(site_widget.id)
+        site_widget.position = ordered.index(site_widget.id) + 1
+        site_widget.save!(:validate => false)
+      end
+    end
+  end
+  
 end

@@ -1,20 +1,11 @@
 <div class="edit_widget" id="edit_widget_<%= @widget.id %>" style="display:none;">
 <%= form_for(@widget, :url => url_for(:action => :update)) do |f| %>
-  <% if @widget.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= (@widget.errors.count).to_s %> のエラーが発生しました</h2>
+  <div id="error_explanation" style="display:none;">
+    <h2 id="error_count"></h2>
+    <ul>
+    </ul>
+  </div>
 
-      <ul>
-      <% @widget.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <h2 id="widget_heading">
-    テキストウィジット
-  </h2>
   <div class="inputs" id="widget_fields">
     <div class="field" id="title_filed">
       <%= f.label :title %>

@@ -1,0 +1,57 @@
+<div class="edit_widget" id="edit_widget_<%= @widget.id %>" style="display:none;">
+<%= form_for(@widget, :url => url_for(:action => :update)) do |f| %>
+  <div id="error_explanation" style="display:none;">
+    <h2 id="error_count"></h2>
+    <ul>
+    </ul>
+  </div>
+
+  <div class="inputs" id="widget_fields">
+    <div class="field" id="name_filed">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class="field" id="address_filed">
+      <%= f.label :address %>
+      <%= f.text_field :address %>
+    </div>
+    <div class="field" id="zip_code_filed">
+      <%= f.label :zip_code %>
+      <%= f.text_field :zip_code %>
+    </div>
+    <div class="field" id="tel_no_filed">
+      <%= f.label :tel_no %>
+      <%= f.text_field :tel_no %>
+    </div>
+    <div class="field" id="business_hours_filed">
+      <%= f.label :business_hours %>
+      <%= f.text_field :business_hours %>
+    </div>
+    <div class="field" id="regular_holidays_filed">
+      <%= f.label :regular_holidays %>
+      <%= f.text_field :regular_holidays %>
+    </div>
+    <div class="field" id="email_filed">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field" id="link_url1_filed">
+      <%= f.label :link_url1 %>
+      <%= f.text_field :link_url1 %><br/>
+      <%= f.label :link_title1 %>
+      <%= f.text_field :link_title1 %>
+    </div>
+    <div class="field" id="link_url2_filed">
+      <%= f.label :link_url2 %>
+      <%= f.text_field :link_url2 %><br/>
+      <%= f.label :link_title2 %>
+      <%= f.text_field :link_title2 %>
+    </div>
+    
+
+  </div>
+  
+  
+<% end %>
+  
+</div>

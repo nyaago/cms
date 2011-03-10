@@ -1,5 +1,5 @@
-
-// 
+// Widget 編集 (drag してのwidget の追加、 widget のdialogでの内容編集, dragでの並び変え)
+// jquery UI の うち, draggable, droppable, sortable, dialogを使用する。
 var widgetEditor = function(attributes) {
 
   var that = {};
@@ -34,6 +34,13 @@ var widgetEditor = function(attributes) {
         openDialog($(widget));
         });
     } );
+    // widget - sort
+    $('.widget_area_contents').sortable(
+      {update: function(event, ui) {
+        updatePositionOnDB(this);
+      }
+      });
+    $('.widget_area_contents').disableSelection();
 
   };
 
@@ -47,6 +54,11 @@ var widgetEditor = function(attributes) {
   // Widget追加リクエストのUR
   that.urlForAdd = function(value) {
     return that.attribute('urlForAdd',value);
+  };
+
+  // Widget並び変えリクエストのUR
+  that.urlForSort = function(value) {
+    return that.attribute('urlForSort',value);
   };
 
   // Widget追加リクエストのUR
@@ -101,7 +113,8 @@ var widgetEditor = function(attributes) {
   
 
   // widget を サーバーのdb上に登録する.
-  // widget - widget の dom 要素(jquery). widget_type　要素を含み,data として position が設定されている必要がある
+  // widget - widget の dom 要素(jquery). widget_type　要素を含み,
+  //          data として position が設定されている必要がある
   // area - widget 表示 area (side | footer)
   createWidgetOnDB = function(widget, area) {
     var position = widget.data('position');
@@ -129,7 +142,7 @@ var widgetEditor = function(attributes) {
         $("<input type='hidden' class='widget_id' name='" + 
         tagName + "' id='" + tagId + "' value='" + id + "' />"  ).
           appendTo(widget);
-        $("<input type='button' value='" +   that.editButtonText + "' />"  ).
+        $("<input type='button' value='" +   that.editButtonText() + "' />"  ).
           appendTo(widget).
           click( function() {
             openDialog($(widget));
@@ -148,7 +161,8 @@ var widgetEditor = function(attributes) {
   // Widget 編集 dialog を表示
   openDialog = function(widget) {
     var id = $('.widget_id', widget).val();
-    var url = that.urlBaseForEdit() + $('.widget_type', widget).val().underscore() + '/edit/' + id;
+    var url = that.urlBaseForEdit() + $('.widget_type', widget).val().underscore() + 
+                                        '/edit/' + id;
     $.ajax( {
       type: "GET",
       url: url,
@@ -167,30 +181,111 @@ var widgetEditor = function(attributes) {
             autoOpen: true,
             width: that.dialogWidth(),
             modal: false,
+            title: $('.widget_human_name', widget).text(),
             buttons: {
-                '更新': function() {
-                  url = that.urlBaseForEdit() + $('.widget_type', widget).val().underscore() + '/update/' + id;
-                  $.ajax( {
-                    type: "POST",
-                    url: url,
-                    dataType: 'json',
-                    data: $('form', dialogSelector).serialize(),
-                    success: function(data, dataType) {
-                      if(data.widget_id) {
-                        dialogSelector.dialog('close');
-                      }
-                      // TODO error 
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                      // エラー時. 挿入されたwidgetを削除
-                      alert('サーバーと接続中にエラーが発生しました');
+              '更新': function() {
+                url = that.urlBaseForEdit() + $('.widget_type', widget).val().underscore() + 
+                                              '/update/' + id;
+                $.ajax( {
+                  type: "POST",
+                  url: url,
+                  dataType: 'json',
+                  data: $('form', dialogSelector).serialize(),
+                  success: function(data, dataType) {
+                    if(data.widget_id) {
+                      dialogSelector.dialog('close');
                     }
-                  });
-                  
-                  
-                }
+                    // error がある場合
+                    else {
+                      if($("#error_explanation")) {
+                        $("#error_explanation").css("display", "block");
+                        $('ul li', "#error_explanation" ).remove();
+                        for(var i in data){
+                          $('ul', "#error_explanation" ).append("<li>" + data[i] + "</li>");
+                        }
+                        if($('#error_count', "#error_explanation")) {
+                          $('#error_count', "#error_explanation").text(
+                                      "" + data.length + "件のエラーが発生しました");
+                        }
+                      }
+                    }
+                  },
+                  error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    // エラー時. 挿入されたwidgetを削除
+                    alert('サーバーと接続中にエラーが発生しました');
+                  }
+                });
+                },
+              "削除" : function() {
+                url = that.urlBaseForEdit() + $('.widget_type', widget).val().underscore() + 
+                                              '/destroy/' + id;
+                $.ajax( {
+                  type: "POST",
+                  url: url,
+                  dataType: 'json',
+                  data: $('form', dialogSelector).serialize(),
+                  success: function(data, dataType) {
+                    if(data.widget_id) {
+                      dialogSelector.dialog('close');
+                      // widget エリアからの削除
+                      removeFromWidgetArea(widget);
+                    }
+                    // error がある場合
+                    else {
+                      if($("#error_explanation")) {
+                        $("#error_explanation").css("display", "block");
+                        $('ul li', "#error_explanation" ).remove();
+                        if($('#error_count', "#error_explanation")) {
+                          $('#error_count', "#error_explanation").text(
+                                      "削除に失敗しました");
+                        }
+                        $('ul', "#error_explanation" ).append("<li>" + "既に削除済みの可能性があります" + "</li>");
+                      }
+                    }
+                  },
+                  error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    // エラー時. 挿入されたwidgetを削除
+                    alert('サーバーと接続中にエラーが発生しました');
+                  }
+                });
+              }
+            
             } // buttons
         }); //  dialog
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        // エラー時. 挿入されたwidgetを削除
+        alert('サーバーと接続中にエラーが発生しました');
+      }
+    });
+  };
+  
+  // （選択済み)widget エリアからの削除
+  removeFromWidgetArea = function(widget) {
+    widget.remove();
+  };
+
+  // 選択済み widget エリアでの並び変え操作をサーバーへ反映させる
+  updatePositionOnDB  = function(areaElem) {
+    var matches = $(areaElem).attr('id').match(/^([a-z]+)_widget_area_contents$/);
+    if(!matches) {
+      return;
+    }
+    var area = matches[1];
+    var widgets = [];
+    $(".widget_id", areaElem).each ( function() {
+      widgets.push($(this).val());
+    }
+    );
+    $.ajax( {
+      type: "POST",
+      url: that.urlForSort(),
+      dataType: 'json',
+      data: { 
+        order: widgets.join(','),
+        area: area
+      },
+      success: function(data, dataType) {
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         // エラー時. 挿入されたwidgetを削除
@@ -200,11 +295,11 @@ var widgetEditor = function(attributes) {
   }
   
   
-  
   // widget を sort 可能にする
   sortableWidget = function(widget) {
     
   };
+
 
   init();
   return that;
