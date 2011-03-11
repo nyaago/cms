@@ -58,3 +58,6 @@ ja:
       view_setting:
         updated: "設定が更新されました"
       
+      users:
+        updated: "ユーザが更新されました"
+        created: "ユーザが作成されました"

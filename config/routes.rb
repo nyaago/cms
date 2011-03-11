@@ -26,7 +26,7 @@ Cms::Application.routes.draw do
     match 'blogs/:action/:id' => 'blogs#:action#:id'
     match 'blogs/:action' => 'blogs#:action'
     # Users
-    match 'users/update/:id' => 'users#update#:id'
+    match 'users/:action/:id' => 'users#action#:id'
     match 'users/:action' => 'users#:action'
     # Theme
     match 'theme/:action' => 'theme#:action'
@@ -41,8 +41,8 @@ Cms::Application.routes.draw do
     # View setting
     match 'view_setting/:action' => 'view_setting#:action'
     # Widgets setting
-    match 'widgets/:action' => 'widgets#:action'
     match 'widgets/:action/:id' => 'widgets#:action#:id'
+    match 'widgets/:action' => 'widgets#:action'
 
     match 'text_widget/:action/:id' => 'text_widget#:action#:id'
     match 'company_profile_widget/:action/:id' => 'company_profile_widget#:action#:id'

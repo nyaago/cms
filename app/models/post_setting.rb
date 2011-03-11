@@ -57,9 +57,7 @@ class PostSetting < ActiveRecord::Base
     self.pop3_crypted_password =  
         encrypt(@pop3_password, @@password_for_cipher,password_salt).
         unpack("H*").join.force_encoding("UTF-8")
-    
-    p "password = #{self.pop3_crypted_password}"
-    
+        
   end
 
 

@@ -57,9 +57,12 @@
     <%=link_to "投稿設定", :controller => "site/post_setting", :action => :index %>
   </li>
   <li>
-    <%=link_to "表示設定", :controller => "site/view_setting", :action => :index %>
+    <%=link_to "#{ViewSetting.human_name}", :controller => "site/view_setting", :action => :index %>
   </li>
   <li>
-    <%=link_to "SEO設定", :controller => "site/optimization", :action => :index %>
+    <%=link_to "#{SearchEngineOptimization.human_name}", :controller => "site/optimization", :action => :index %>
+  </li>
+  <li>
+    <%=link_to "#{User.human_name}管理", :controller => "site/users", :action => :index %>
   </li>
 </ul>

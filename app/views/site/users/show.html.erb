@@ -1,4 +1,33 @@
+<h1><%= User.human_name %>情報表示</h1>
+
 <p id="notice"><%= notice %></p>
 
+<% if @user %>
+<div class="user">
 
-<%= link_to 'Back', users_path %>
+
+<p class="login">
+  <b><%= User.human_attribute_name(:login) %>:</b>
+  <%= @user.login %>
+</p>
+
+<p class="email">
+  <b><%= User.human_attribute_name(:email) %>:</b>
+  <%= @user.email %>
+</p>
+
+<p class="is_admin">
+  <b><%= User.human_attribute_name(:is_admin) %>:</b>
+  <% if @user.is_admin  %>
+    はい
+  <% else %>
+    いいえ
+  <% end %>
+</p>
+
+</div>
+<% else %>
+  
+<% end %>
+
+<%= link_to '戻る', url_for(:action => :index, :id => nil) %>

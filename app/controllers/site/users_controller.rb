@@ -1,10 +1,16 @@
-# 
-#
+# = Site::UserController 
+# サイトユーザの管理
 class Site::UsersController < Site::BaseController
-  # GET /admin/users
-  # GET /admin/users.xml
+  
+  # 翻訳リソースのスコープ
+  TRANSLATION_SCOPE = ["messages", "site", "users"].freeze
+  
+  # 
+  # GET /site/users
+  # GET /site/users.xml
   def index
-    @users = User.find_all_by_site_id(current_user.site_id)
+    @users = @site.users.select("id, login, email, is_admin").
+                          order("is_admin desc, last_request_at desc, updated_at desc")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -12,19 +18,22 @@ class Site::UsersController < Site::BaseController
     end
   end
 
-  # GET /admin/users/1
-  # GET /admin/users/1.xml
+  # GET /site/users/1
+  # GET /site/users/1.xml
   def show
-    @user = User.find(params[:id])
-
+    @user = User.find_by_id(params[:id])
+    if @user.nil?
+      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", :layout => false
+      return
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
     end
   end
 
-  # GET /admin/users/new
-  # GET /admin/users/new.xml
+  # GET /site/users/new
+  # GET /site/users/new.xml
   def new
     @user = User.new
 
@@ -34,13 +43,17 @@ class Site::UsersController < Site::BaseController
     end
   end
 
-  # GET /admin/users/1/edit
+  # GET /site/users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
+    if @user.nil?
+      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", :layout => false
+      return
+    end
   end
 
-  # POST /admin/users
-  # POST /admin/users.xml
+  # POST /site/users
+  # POST /site/users.xml
   def create
     @user = User.new(:login => params[:user][:login], 
                     :password => params[:user][:password],
@@ -50,7 +63,7 @@ class Site::UsersController < Site::BaseController
     @user.site_id = current_user.site_id
     respond_to do |format|
       if @user.save
-        flash[:notice] = 'created'
+        flash[:notice] = I18n.t :created, :scope => TRANSLATION_SCOPE
         format.html { redirect_to(:action => :index)}
       else
         format.html { render  :action => "new" }
@@ -60,13 +73,13 @@ class Site::UsersController < Site::BaseController
     end
   end
 
-  # PUT /admin/users/1
-  # PUT /admin/users/1.xml
+  # PUT /site/users/1
+  # PUT /site/users/1.xml
   def update
     @user = User.find(params[:id])
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        flash[:notice] = 'updated'
+        flash[:notice] = I18n.t :updated, :scope => TRANSLATION_SCOPE
         format.html { redirect_to(:action => :index) }
         format.xml  { head :ok }
       else
@@ -76,12 +89,13 @@ class Site::UsersController < Site::BaseController
     end
   end
 
-  # DELETE /admin/users/1
-  # DELETE /admin/users/1.xml
+  # DELETE /site/users/1
+  # DELETE /site/users/1.xml
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-
+    if @user
+      @user.destroy
+    end
     respond_to do |format|
       format.html { redirect_to(:action => :index) }
       format.xml  { head :ok }

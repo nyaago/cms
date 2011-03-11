@@ -1,24 +1,29 @@
-<h1>Listing admin_users</h1>
+<h1><%= User.human_name %>一覧</h1>
 
+<div class="table_div" id="users">
 <table>
   <tr>
-    <th>Login</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th class="login"><%= User.human_attribute_name(:login) %></th>
+    <th class="email"><%= User.human_attribute_name(:email) %></th>
+    <th class="is_admin"><%= User.human_attribute_name(:is_admin) %></th>
+    <th class="actions"></th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= h(user.login) %></td>
-    <td><%= link_to 'Show', { :action => :show, :id => user.id } %></td>
-    <td><%= link_to 'Edit', { :action => :edit, :id => user.id } %></td>
-    <td><%= link_to 'Destroy', { :action => :destroy, :id => user.id }, 
-    :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="login"><%= user.login %></td>
+    <td class="email"><%= user.email %></td>
+    <td class="is_admin"><% if user.is_admin %>○<% end %></td>
+    <td class="actions"><%= link_to '表示', { :action => :show, :id => user.id } %>
+      <%= link_to '変更', { :action => :edit, :id => user.id } %>
+      <%= link_to '削除', { :action => :destroy, :id => user.id }, 
+      :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
+    </td>
   </tr>
 <% end %>
 </table>
+</div>
 
 <br />
 
-<%= link_to 'New User', { :action => :new } %>
+<%= link_to 'ユーザ作成', { :action => :new } %>
