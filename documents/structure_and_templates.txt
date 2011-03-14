@@ -61,7 +61,8 @@ eRuby は HTML や XML に限らず、任意のテキストファイルの出力
 * _footer.html.erb
     フッター部分
 * _eye_catch_type.html.erb
-    アイキャッチ部分
+    アイキャッチ部分.
+    optional.なければデフォルトのテンプレート(/layouts/public/eye_catch.html.erb)が使用される.
 
 == それ以外の部分template
 

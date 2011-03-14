@@ -163,7 +163,7 @@ ja:
       less_than_or_equal_to: "は%{count}以下の値にしてください。"
       odd: "は奇数にしてください。"
       even: "は偶数にしてください。"
-      taken: "はすでに存在します。 ...."
+      taken: "はすでに存在します。"
 
 # extract from activerecord
   # Attributes names common to most models

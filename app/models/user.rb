@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   belongs_to :site
   
-  # 名前がサイト内でUniquであるのValidation  
+  # 管理が少なくとも１人存在するかの検証
   validates_with Validator::User::AdminExist
   
 

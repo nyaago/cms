@@ -24,7 +24,8 @@ app/views/layouts/themes/<theme>/_side.html.erb
 app/views/layouts/themes/<theme>/_footer.html.erb
     footter部分のテンプレート
 app/views/layouts/themes/<theme>/_eye_catch.html.erb
-    eye_catch部分のテンプレート
+    eye_catch部分のテンプレート.
+    optional.なければデフォルトのテンプレート(/layouts/public/eye_catch.html.erb)が使用される.
 
 === 公開フォルダの素材ファイル
 
