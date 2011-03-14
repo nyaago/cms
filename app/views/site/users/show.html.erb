@@ -17,8 +17,8 @@
 </p>
 
 <p class="is_admin">
-  <b><%= User.human_attribute_name(:is_admin) %>:</b>
-  <% if @user.is_admin  %>
+  <b><%= User.human_attribute_name(:is_site_admin) %>:</b>
+  <% if @user.is_site_admin  %>
     はい
   <% else %>
     いいえ

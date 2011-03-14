@@ -31,7 +31,7 @@ class Site::PostSettingController < Site::BaseController
       # 属性設定
   #    @site.user_id = current_user.id
       @post_setting.attributes = params[:post_setting]
-      p @post_setting.inspect
+      @post_setting.user = current_user
       respond_to do |format|
         # post_settingモデルの登録
         if @post_setting.save(:validate => true) 

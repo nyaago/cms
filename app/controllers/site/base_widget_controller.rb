@@ -1,7 +1,9 @@
 # = Site::BaseWidgetController
-#
+# Widget 編集 の Base Controller
 class Site::BaseWidgetController < Site::BaseController
   
+  # 編集ページを表示
+  # /site/<widget_type.underscore>/edit/<id> でリクエストされる.
   def edit
     
     site_widget = @site.site_widgets.where("id = :id", :id => params[:id]).first
@@ -19,6 +21,8 @@ class Site::BaseWidgetController < Site::BaseController
     
   end
   
+  # 編集ページを表示
+  # /site/<widget_type.underscore>/update/<id> でPostリクエストされる.
   def update
     site_widget = @site.site_widgets.where('id = :id', :id => params[:id]).first;
     if site_widget.nil? || site_widget.widget.nil?
@@ -32,6 +36,7 @@ class Site::BaseWidgetController < Site::BaseController
     widget = site_widget.widget
 
     widget.attributes = params[record_parameter_name.to_sym]
+    widget.user = current_user
     begin
       ActiveRecord::Base.transaction do
         widget.save!(:validate => true)
@@ -41,8 +46,6 @@ class Site::BaseWidgetController < Site::BaseController
       end
     rescue
       respond_to do |format|
-        p "==== errors json ======"
-        p widget.errors.full_messages.to_json
         format.json { render :json => widget.errors.full_messages }
       end
     end
@@ -82,6 +85,8 @@ class Site::BaseWidgetController < Site::BaseController
   
   protected
   
+  # 更新リクエストでのデータを格納するパラメータ名をを返す.
+  # 各継承クラスでオーバーライドする.
   def record_parameter_name
     :widget
   end

@@ -19,6 +19,7 @@ class PostSetting < ActiveRecord::Base
   
   # サイトへの所属関連
   belongs_to :site
+  belongs_to :user, :readonly => true, :foreign_key => :updated_by
 
   # validator
   validates :pop3_host, :domain => true, 

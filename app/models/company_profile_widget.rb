@@ -5,6 +5,7 @@ class CompanyProfileWidget < ActiveRecord::Base
   require 'email_validator' 
   require 'http_url_validator' 
 
+  belongs_to :user, :readonly => true, :foreign_key => :updated_by
   has_one   :site_widget,     :as => :widget, :dependent => :destroy
 
   validates :email, :email => true

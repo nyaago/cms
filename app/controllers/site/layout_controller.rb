@@ -39,7 +39,7 @@ class Site::LayoutController < Site::BaseController
     # 属性設定
 #    @site.user_id = current_user.id
     @site_layout.attributes = params[:site_layout]
-    
+    @site_layout.user = current_user
 
     respond_to do |format|
       # 画像登録 + site_layoutモデルの登録

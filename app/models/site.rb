@@ -39,6 +39,7 @@ require 'email_validator'
   has_one   :post_setting,  :dependent => :destroy
   has_one   :view_setting,  :dependent => :destroy
   has_many  :layout_images
+  belongs_to :user, :readonly => true, :foreign_key => :updated_by
 
   # widget関係
   has_many  :site_widgets

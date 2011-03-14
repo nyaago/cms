@@ -94,7 +94,7 @@ class Site::PagesController < Site::ArticlesController
   def create
     @article = self.class.model.new(params[:page_article])
     @article.site_id = current_user.site_id
-    @article.user_id = current_user.id
+    @article.user = current_user
 
     # 公開開始日
     @article.published_from = date_from_partial(params[:published_from])
@@ -130,7 +130,7 @@ class Site::PagesController < Site::ArticlesController
     article_before_update = @article.clone
     article_before_update.id = @article.id
     # 属性設定
-    @article.user_id = current_user.id
+    @article.user = current_user
     @article.attributes = if params[:is_history]
       params[:page_article_history]
     else

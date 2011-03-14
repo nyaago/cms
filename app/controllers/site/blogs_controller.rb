@@ -28,7 +28,7 @@ class Site::BlogsController < Site::ArticlesController
   def create
     @article = self.class.model.new(params[:blog_article])
     @article.site_id = current_user.site_id
-    @article.user_id = current_user.id
+    @article.user = current_user
 
     # 公開開始日
     @article.published_from = date_from_partial(params[:published_from])

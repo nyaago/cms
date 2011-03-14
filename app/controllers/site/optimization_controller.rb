@@ -31,6 +31,7 @@ class Site::OptimizationController < Site::BaseController
     # 属性設定
 #    @site.user_id = current_user.id
     @optimization.attributes = params[:search_engine_optimization]
+    @optimization.user = current_user
     respond_to do |format|
       # search_engine_optimization モデルの登録
       if @optimization.save(:validate => true) 

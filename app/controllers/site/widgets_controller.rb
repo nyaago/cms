@@ -49,7 +49,7 @@ class Site::WidgetsController < Site::BaseController
       end
       return
     end
-    widget = clazz.new
+    widget = clazz.new(:user => current_user)
     
     begin
       ActiveRecord::Base.transaction do
@@ -57,7 +57,9 @@ class Site::WidgetsController < Site::BaseController
         site_widget = SiteWidget.create!(:site => @site,  
                                         :area => area, 
                                         :widget => widget, 
-                                        :position => position) 
+                                        :position => position,
+                                        :user => current_user
+                                        ) 
         site_widget.adjust_positions
           
         respond_to do |format|

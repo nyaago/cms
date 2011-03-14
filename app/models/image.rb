@@ -7,6 +7,7 @@
 class Image < ActiveRecord::Base
 
   belongs_to :site
+  belongs_to :user, :readonly => true, :foreign_key => :updated_by
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["errors", "image", "messages"].freeze

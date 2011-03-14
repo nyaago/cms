@@ -7,6 +7,7 @@ class ViewSetting < ActiveRecord::Base
   
   # サイトへの所属関連
   belongs_to :site
+  belongs_to :user, :readonly => true, :foreign_key => :updated_by
   
   # validates
   validates_numericality_of :title_count_in_home, 

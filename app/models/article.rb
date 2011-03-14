@@ -22,7 +22,7 @@ class Article < ActiveRecord::Base
   
 
   belongs_to :site, :readonly => true
-  belongs_to :user, :readonly => true
+  belongs_to :user, :readonly => true, :foreign_key => :updated_by
   has_many   :article_histories
     
   validates_presence_of :title

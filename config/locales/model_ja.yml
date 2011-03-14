@@ -22,6 +22,7 @@ ja:
         password: "パスワード"  
         password_confirmation: 'パスワード確認'
         is_admin: "管理ユーザ"
+        is_site_admin: "サイト管理ユーザ"
 
       user_session:
         login: "アカウント"
@@ -218,7 +219,7 @@ ja:
 
     user:
       messages:
-        admin_exist: "少なくとも１人の管理ユーザを指定する必要があります"
+        site_admin_exist: "少なくとも１人の管理ユーザを指定する必要があります"
         email: "はEmailアドレスとして不正なフォーマットです。"
         
   authlogic:

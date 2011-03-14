@@ -6,6 +6,7 @@ class SearchEngineOptimization < ActiveRecord::Base
   include Category::ReplacedVariable
   
   belongs_to :site
+  belongs_to :user, :readonly => true, :foreign_key => :updated_by
   
   # record生成時のfilter.
   # default値の設定を行う.

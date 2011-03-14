@@ -61,6 +61,7 @@ class Site::UsersController < Site::BaseController
                     :email => params[:user][:email]
                     )
     @user.site_id = current_user.site_id
+    @user.updated_by = current_user
     respond_to do |format|
       if @user.save
         flash[:notice] = I18n.t :created, :scope => TRANSLATION_SCOPE
@@ -77,6 +78,7 @@ class Site::UsersController < Site::BaseController
   # PUT /site/users/1.xml
   def update
     @user = User.find(params[:id])
+    @user.updated_by = current_user
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = I18n.t :updated, :scope => TRANSLATION_SCOPE

@@ -31,6 +31,7 @@ class Site::ViewSettingController < Site::BaseController
       # 属性設定
   #    @site.user_id = current_user.id
       @view_setting.attributes = params[:view_setting]
+      @view_setting.user = current_user
       respond_to do |format|
         # view_settingモデルの登録
         if @view_setting.save(:validate => true) 

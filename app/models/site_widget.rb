@@ -4,6 +4,7 @@ class SiteWidget < ActiveRecord::Base
   
   # 
   belongs_to :site
+  belongs_to :user, :readonly => true, :foreign_key => :updated_by
   
   # タイプ別のwidgetへの関連
   belongs_to :widget, :polymorphic => true

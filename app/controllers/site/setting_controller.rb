@@ -32,17 +32,21 @@ class Site::SettingController < Site::BaseController
     site = Site.find_by_id(@site.id)
     site.site_setting.attributes = params[:site_setting]
     site.attributes = params[:site]
+    site.user = current_user
+    site.site_setting.user = current_user
     
-    respond_to do |format|
-      # 画像登録 + site_layoutモデルの登録
-#      if  site.save(:validate => true)
-#        if  @site_setting.save(:validate => true)
-      if site.site_setting.save(:validate => true) &&
-          site.save(:validate => true)
-        format.html { redirect_to(index_url, 
-          :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
-        format.xml  { head :ok }
-      else
+    begin
+      ActiveRecord::Base.transaction do
+        site.site_setting.save!(:validate => true) &&
+        site.save!(:validate => true)
+        respond_to do |format|
+          format.html { redirect_to(index_url, 
+            :notice => I18n.t("updated", :scope => TRANSLATION_SCOPE))}
+          format.xml  { head :ok }
+        end
+      end
+    rescue
+      respond_to do |format|
         @site = site
         @site_setting = site_setting
         format.html { render :action => "index" }

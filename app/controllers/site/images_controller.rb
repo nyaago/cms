@@ -95,6 +95,7 @@ class Site::ImagesController < Site::BaseController
     @image.site_id = current_user.site_id
     flash[:notice] = ''
     additional_attrs = {:site_id => current_user.site_id,
+                        :user => current_user,
       #                :user_id => current_user.id,
       }
     respond_to do |format|
@@ -151,6 +152,7 @@ class Site::ImagesController < Site::BaseController
       return
     end
     
+    @image.user = current_user
     respond_to do |format|
       if @image.update_attributes(params[:image])
         format.html do 

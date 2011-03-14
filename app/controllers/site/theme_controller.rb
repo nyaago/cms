@@ -32,6 +32,7 @@ class Site::ThemeController < Site::BaseController
     # 属性設定
 #    @site.user_id = current_user.id
     @site.site_layout.attributes = params[:site_layout]
+    @site.user = current_user
 
     respond_to do |format|
       # 変更されていれば、履歴を作成
