@@ -38,13 +38,21 @@ module ApplicationHelper
 
   # 指定したareaにeye_catchをrenderingすべきであればrenderingする.
   # site_layoutモデルを参照して判定する
+  # themeとして、eye_catch のテンプレート(eye_catch.html.erb)が含まれて入ればrendering,
+  # なければ、defaultのテンプレート(/layouts/public/eye_catch.html.erb)をrendeting
   # == parameters
   # * area - :header / :container /  :contents
   def render_eye_catch_if_required(area)
     if !@site.nil? && !@site.site_layout.nil?
       unless  @site.site_layout.eye_catch_type_location.nil?
         if area.to_sym == @site.site_layout.eye_catch_type_location.to_sym
-          render "/layouts/public/eye_catch"
+          if theme_partial_exist?(:eye_catch)
+            p "111111"
+            render_theme_partial :eye_catch
+          else
+            p "222222"
+            render "/layouts/public/eye_catch"
+          end
         end
       end
     end
@@ -55,6 +63,15 @@ module ApplicationHelper
   # * template - テンプレート名. :header/:footer/:site ..
   def render_theme_partial(template)
     render @site.site_layout.theme_partial_path_for_rendering(template)
+  end
+  
+  # partial なテンプレートが存在するかの確認
+  # == parameters
+  # * template - テンプレート名. :header/:footer/:site ..
+  def theme_partial_exist?(template)
+    File.exist?(File.join(::Rails.root.to_s,
+        "app/views",
+        @site.site_layout.theme_partial_path_for_rendering("_#{template.to_s}.html.erb")))
   end
   
   # header 画像のhtmlタグを返す

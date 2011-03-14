@@ -51,6 +51,10 @@
   background-color: #cccccc;
 }
 
+.widget_area_contents {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
 
 .widget_area_title h4{
@@ -60,9 +64,6 @@
   overflow:hidden;
   white-space:nowrap;
 }
-
-
-
 
 .widget_area_content {
   height: 100%;
