@@ -1,0 +1,2 @@
+module Site::RadioInquiryItemHelper
+end

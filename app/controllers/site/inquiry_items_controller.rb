@@ -1,37 +1,28 @@
-# = Site::WidgetsController
-# 表示設定
-class Site::WidgetsController < Site::BaseController
+# = Site::InquiryItemsController
+# 
+class Site::InquiryItemsController < Site::BaseController
   
   def index
-    @widgets = Layout::Widget.load
-    @widgets_on_side = @site.site_widgets.where('area = :area', :area => 'side').
-                                        order('position')
-    @widgets_on_footer = @site.site_widgets.where('area = :area', :area => 'footer').
-                                        order('position')
+    @inquiry_items = Layout::InquiryItem.load
+    @selected_items = @site.site_inquiry_items.order('position')
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @selected_widget }
+      format.xml  { render :xml => @selected_items }
     end
     
   end
-
-  # サイトにWidgetを追加する
+  
+  # サイトにInquiry Item(問い合わせ項目)を追加する
   # リクエストパラメーターとして以下のものが送信されてくることを期待している.
-  # * widget_type - widget のタイプ. widgetのモデルクラス名と等しい値.
-  # * widget_area - Widgetを入りするarea. side | footer
+  # * inquiry_item_type - inquiry item のタイプ. inquiry itemのモデルクラス名と等しい値.
   # * position - 並び順
   def create
-    clazz = unless params[:widget_type].blank?
+    clazz = unless params[:inquiry_item_type].blank?
       begin
-        params[:widget_type].split(/::/).inject(Object) {|c,name| c.const_get(name) }
+        params[:inquiry_item_type].split(/::/).inject(Object) {|c,name| c.const_get(name) }
       rescue
         nil
       end
-    else
-      nil
-    end
-    area = unless params[:widget_area].blank?
-      params[:widget_area]
     else
       nil
     end
@@ -41,58 +32,53 @@ class Site::WidgetsController < Site::BaseController
       0
     end
     
-    if clazz.nil? || area.nil? # error
+    if clazz.nil?  # error
       respond_to do |format|
         format.json  { render :json => { :status => "NG" } }
-        format.xml  { render :xml => 'failed in creating widget' }
-        format.html  { render :html => 'failed in creating widget' }
+        format.xml  { render :xml => 'failed in creating inquiry item' }
+        format.html  { render :html => 'failed in creating inquiry item' }
       end
       return
     end
-    widget = clazz.new(:user => current_user)
+    inquiry_item = clazz.new(:user => current_user)
     
     begin
       ActiveRecord::Base.transaction do
-        widget.save!(:validate => false) && 
-        site_widget = SiteWidget.create!(:site => @site,  
-                                        :area => area, 
-                                        :widget => widget, 
+        inquiry_item.save!(:validate => false) && 
+        site_inquiry_item = SiteInquiryItem.create!(:site => @site,  
+                                        :inquiry_item => inquiry_item, 
                                         :position => position,
                                         :user => current_user
                                         ) 
-        site_widget.adjust_positions
-          
+        site_inquiry_item.adjust_positions
         respond_to do |format|
           format.json do
-            render :text => {:widget => widget.attributes, :site_widget => site_widget.attributes}.to_json
+            render :text => {:inquiry_item => inquiry_item.attributes, 
+                            :site_inquiry_item => site_inquiry_item.attributes}.to_json
           end
           format.xml do
-            render :xml => [widget.attributes, site_widget.attributes]
+            render :xml => [inquiry_item.attributes, site_inquiry_item.attributes]
           end
           format.html do
-            render :text => '<p>widget created</p>'
+            render :text => '<p>inquiry item created</p>'
           end
         end
       end
-    rescue      # error
+    rescue => ex      # error
+      p ex.backtrace
+      p ex.message
       respond_to do |format|
         format.json  { render :json => { :status => "NG" } }
-        format.xml  { render :xml => 'failed in creating widget' }
-        format.html  { render :html => 'failed in creating widget' }
+        format.xml  { render :xml => 'failed in creating inquiry item' }
+        format.html  { render :html => 'failed in creating inquiry item' }
       end
     end
   end
   
   # 並び変え操作
   # == 以下のリクエストパラメータが送信されることを期待する
-  # * area - Widget のエリア. side | footer
   # * order - 更新すべき並び順に格納されている site_widget の id のcsv文字列.
   def sort
-    area = unless params[:area].blank? 
-      params[:area] 
-    else 
-      nil 
-    end
     ordered = unless params[:order].blank?
       params[:order].split(/,/).collect do |v|
         v.to_i
@@ -100,7 +86,7 @@ class Site::WidgetsController < Site::BaseController
     else
       nil
     end
-    if area.nil? || ordered.nil?
+    if ordered.nil?
       respond_to do |format|
         format.json  { render :json => { :status => 'NG' } }
         format.xml  { render :xml => 'NG' }
@@ -111,7 +97,7 @@ class Site::WidgetsController < Site::BaseController
     
     begin
       ActiveRecord::Base.transaction do
-        SiteWidget.sort_with_ordered(@site, area, ordered)
+        SiteInquiryItem.sort_with_ordered(@site, ordered)
         respond_to do |format|
           format.json  { render :json => { :status => 'OK' } }
           format.xml  { render :xml => 'OK' }

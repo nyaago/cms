@@ -52,7 +52,7 @@ class Site::BaseWidgetController < Site::BaseController
     
   end
   
-  # widget を　削除
+  # 編集内容での更新を行う
   # /site/<widget_type.underscore>/destroy/<id> でリクエストされる.
   def destroy
     site_widget = @site.site_widgets.where('id = :id', :id => params[:id]).first;

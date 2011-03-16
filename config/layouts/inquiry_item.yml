@@ -1,0 +1,12 @@
+inquiry_items:
+  - name: "text_inquiry_item"
+    description: "任意のテキスト"
+  - name: "radio_inquiry_item"
+    description: "ラジオボックスからの選択"
+  - name: "checkbox_inquiry_item"
+    description: "チェックボックスの選択"
+  - name: "checkbox_inquiry_item"
+    description: "チェックボックスの選択"
+  - name: "email_inquiry_item"
+    description: "EMailアドレス"
+    

@@ -46,6 +46,17 @@ Cms::Application.routes.draw do
 
     match 'text_widget/:action/:id' => 'text_widget#:action#:id'
     match 'company_profile_widget/:action/:id' => 'company_profile_widget#:action#:id'
+
+    # Inquiry Item setting
+    match 'inquiry_items/:action/:id' => 'inquiry_items#:action#:id'
+    match 'inquiry_items/:action' => 'inquiry_items#:action'
+    
+    match 'text_inquiry_item/:action/:id' => 'text_inquiry_item#:action#:id'
+    match 'radio_inquiry_item/:action/:id' => 'radio_inquiry_item#:action#:id'
+    match 'checkbox_inquiry_item/:action/:id' => 'checkbox_inquiry_item#:action#:id'
+    match 'email_inquiry_item/:action/:id' => 'email_inquiry_item#:action#:id'
+
+
     # Images
     match 'images/:action/:id' => 'images#:action#:id'
     match 'images/:action' => 'images#:action'

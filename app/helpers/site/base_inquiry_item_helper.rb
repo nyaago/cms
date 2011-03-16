@@ -1,0 +1,2 @@
+module Site::BaseInquiryItemHelper
+end

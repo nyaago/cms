@@ -14,6 +14,11 @@ ja:
       view_setting: "表示設定"
       text_widget: "テキスト"
       company_profile_widget: "会社プロフィール"
+      site_inquiry_item: "問い合わせ項目設定"
+      text_inquiry_item: "任意のテキスト"
+      radio_inquiry_item: "ラジオボタン"
+      checkbox_inquiry_item: "チェックボックス"
+      email_inquiry_item: "EMailアドレス"
 
     attributes: 
       user: 
@@ -171,6 +176,34 @@ ja:
         link_title1: "参考先1"
         link_url2: "参考先リンクURL2"
         link_title2: "参考先2"
+        
+      site_inquiry_item:
+        posision: "並び順"
+        required: "必須項目"
+        displyed: "表示"
+        
+      text_inquiry_item:
+        title: "タイトル"
+        multi_rows: "複数行入力か"
+        rows_count: "行数"
+        
+      radio_inquiry_item:
+        title: "タイトル"
+        value1: "選択値のタイトル1"
+        value2: "選択値のタイトル1"
+        value3: "選択値のタイトル1"
+        value4: "選択値のタイトル1"
+        value5: "選択値のタイトル1"
+        value6: "選択値のタイトル1"
+        value7: "選択値のタイトル1"
+        default_index: "初期選択値"
+      
+      checkbox_inquiry_item:
+        title: "タイトル"
+        default_status: "初期選択状態"
+      
+      email_inquiry_item:
+        title: "タイトル"
         
   categories:
     published:

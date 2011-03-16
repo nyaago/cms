@@ -1,0 +1,85 @@
+<script type="text/javascript">
+//<![CDATA[
+// ページload時,
+$(document).ready( function(){
+  // inquiry item編集のためのobjectを生成.
+  var editor = inquiryItemEditor();
+  editor.urlForAdd('<%= url_for(:controller => :inquiry_items, :action => :create)  %>');
+  editor.urlForSort('<%= url_for(:controller => :inquiry_items, :action => :sort)  %>');
+  editor.urlBaseForEdit("/site/");
+  editor.updateButtonText("保存");
+  editor.dialogWidth(450);
+  
+  editor.msgFailedInConnection("サーバー接続中にエラーが発生しました.");
+  editor.msgFailedInDeleting("削除に失敗しました."),
+  editor.msgErrorCount("件のエラーがあります"),
+  editor.msgNotExists("操作対象のデータが存在しません.");
+  editor.editButtonText("編集");
+  editor.deleteButtonText("削除");
+  editor.closeButtonText("閉じる");
+});
+    
+  
+//]]>
+</script>
+
+
+<h1>
+  問い合わせ項目編集
+</h1>
+
+<script type="text/javascript" charset="utf-8">
+</script>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div id="inquiry_items" >
+
+<% @inquiry_items.each_with_index do |inquiry_item, i| %>
+<div class="inquiry_item" id="<%= inquiry_item.name %>">
+  <div class="inquiry_item_title">
+  <h4 class="inquiry_item_human_name"><%= inquiry_item.human_name %></h4>
+  <%= hidden_field_tag "inquiry_item_type[#{i}]", inquiry_item.class_name, 
+  :class => 'inquiry_item_type' %>
+  </div>
+  <%= form_tag({}, {:method => :post} ) do  %>
+  <div class="inquiry_item_content"> 
+    
+  </div>
+  <% end %>
+  <div class="inquiry_item_description"> 
+  <%= inquiry_item.description %>
+	</div>
+</div>
+<% end %>
+  
+</div>
+
+
+<div class="selected_inquiry_items" id="selected_inquiry_items">
+  <div class="selected_inquiry_items_title">
+    <h4>
+      選択された項目
+    </h4>
+  </div>
+  <div class="selected_inquiry_items_contents" >
+    <% @selected_items.each do |item| %>
+      <div class="inquiry_item_title">
+      <h4 class="inquiry_item_human_name">
+        <%= item.inquiry_item.class.human_name %>
+      </h4>
+      <%= hidden_field_tag "inquiry_item_position[#{item.id}]", 
+      item.position, :class => 'inquiry_item_position'  %>
+      <%= hidden_field_tag "inquiry_item_id[#{item.id}]", 
+      item.id, :class => 'inquiry_item_id'  %>
+      <%= hidden_field_tag "inquiry_item_type[#{item.id}]", 
+      item.inquiry_item.class.name, :class => 'inquiry_item_type' %>
+      <%= button_to_function "編集" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+<div style="clear: both;">
+</div>

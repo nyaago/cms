@@ -49,6 +49,13 @@ require 'email_validator'
               :dependent => :destroy
   end
   
+  has_many :site_inquiry_items
+  Layout::InquiryItem.load.each do |item|
+    has_many  item.name.pluralize.to_sym, :through => :site_inquiry_items,
+              :source => :inquiry_item, :source_type => item.class_name,
+              :dependent => :destroy
+  end
+  
   protected
   
   # default値の設定
