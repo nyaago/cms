@@ -6,8 +6,8 @@ class Site::BaseInquiryItemController < Site::BaseController
   # /site/<inquiry_item_type.underscore>/edit/<id> でリクエストされる.
   def edit
     
-    site_inquiry_item = @site.site_inquiry_items.where("id = :id", :id => params[:id]).first
-    @inquiry_item = site_inquiry_item.inquiry_item unless site_inquiry_item.nil?
+    @site_inquiry_item = @site.site_inquiry_items.where("id = :id", :id => params[:id]).first
+    @inquiry_item = @site_inquiry_item.inquiry_item unless @site_inquiry_item.nil?
     if @inquiry_item.nil?
       render :text => ''
       return
@@ -36,12 +36,14 @@ class Site::BaseInquiryItemController < Site::BaseController
     inquiry_item = site_inquiry_item.inquiry_item
 
     inquiry_item.attributes = params[record_parameter_name.to_sym]
+    site_inquiry_item.attributes = params[:site_inquiry_item]
     inquiry_item.user = current_user
     begin
       ActiveRecord::Base.transaction do
         inquiry_item.save!(:validate => true)
+        site_inquiry_item.save!(:validate => true)
         respond_to do |format|
-          format.json { render :text => { 'inquiry_item_id' => inquiry_item.id }.to_json }
+          format.json { render :text => { 'inquiry_item' => inquiry_item.attributes }.to_json }
         end
       end
     rescue
@@ -68,7 +70,6 @@ class Site::BaseInquiryItemController < Site::BaseController
     begin
       ActiveRecord::Base.transaction do
         if !inquiry_item.destroy
-          p "raise ..."
           raises ActiveResource::ResourceInvalid, "failed in destroing"
         end
         respond_to do |format|

@@ -180,23 +180,23 @@ ja:
       site_inquiry_item:
         posision: "並び順"
         required: "必須項目"
-        displyed: "表示"
+        displayed: "表示"
         
       text_inquiry_item:
         title: "タイトル"
         multi_rows: "複数行入力か"
-        rows_count: "行数"
+        row_count: "行数"
         
       radio_inquiry_item:
         title: "タイトル"
-        value1: "選択値のタイトル1"
-        value2: "選択値のタイトル1"
-        value3: "選択値のタイトル1"
-        value4: "選択値のタイトル1"
-        value5: "選択値のタイトル1"
-        value6: "選択値のタイトル1"
-        value7: "選択値のタイトル1"
-        default_index: "初期選択値"
+        value1: "選択値1"
+        value2: "選択値2"
+        value3: "選択値3"
+        value4: "選択値4"
+        value5: "選択値5"
+        value6: "選択値6"
+        value7: "選択値7"
+        default_index: "初期選択"
       
       checkbox_inquiry_item:
         title: "タイトル"
@@ -204,6 +204,7 @@ ja:
       
       email_inquiry_item:
         title: "タイトル"
+        confirmation_required: "確認入力を要求する"
         
   categories:
     published:
@@ -254,6 +255,14 @@ ja:
       messages:
         site_admin_exist: "少なくとも１人の管理ユーザを指定する必要があります"
         email: "はEmailアドレスとして不正なフォーマットです。"
+        
+  activemodel:         
+    attribute:
+      site_inquiry_item:
+        posision: "並び順"
+        required: "必須項目"
+        displayed: "表示"
+      
         
   authlogic:
     error_messages:

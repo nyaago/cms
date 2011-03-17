@@ -5,8 +5,6 @@ inquiry_items:
     description: "ラジオボックスからの選択"
   - name: "checkbox_inquiry_item"
     description: "チェックボックスの選択"
-  - name: "checkbox_inquiry_item"
-    description: "チェックボックスの選択"
   - name: "email_inquiry_item"
     description: "EMailアドレス"
     

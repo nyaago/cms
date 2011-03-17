@@ -1,4 +1,24 @@
-<div class="edit_inquiry_item" 
+<!-- text inquiry item -->
+<script type="text/javascript">
+//<![CDATA[
+// ページload時,
+$(document).ready( function(){
+
+  $('#multi_rows_field :checkbox').click( function() {
+    if($(this).attr('checked') ) {
+      $('#row_count_field', $(this).parent().parent()).css('display', 'block');
+    }  
+    else {
+      $('#row_count_field', $(this).parent().parent()).css('display', 'none');
+    }
+  } );
+});
+    
+  
+//]]>
+</script>
+
+<div class="edit_inquiry_item edit_text_inquiry_item" 
 id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
 <%= form_for(@inquiry_item, :url => url_for(:action => :update)) do |f| %>
   <div id="error_explanation" style="display:none;">
@@ -8,9 +28,32 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
   </div>
 
   <div class="inputs" id="inquiry_item_fields">
-    <div class="field" id="title_filed">
+    <div class="field" id="title_field">
       <%= f.label :title %>
       <%= f.text_field :title %>
+    </div>
+    <div class="field" id="multi_rows_field">
+      <%= f.label :multi_rows %>
+      <%= f.check_box :multi_rows %>
+    </div>
+    <div class="field" id="row_count_field" 
+    <%= unless @inquiry_item.multi_rows then "style='display: none'" end %>
+    >
+      <%= f.label :row_count %>
+      <%= f.select :row_count, 
+      (2..20).collect { |i| [i, i]}
+       %>
+    </div>
+
+    <div class="field" id="displayed_field">
+      <%= label :site_inquiry_item, :displayed,
+       SiteInquiryItem.human_attribute_name(:displayed) %>
+      <%= check_box :site_inquiry_item, :displayed %>
+    </div>
+    <div class="field" id="required_field">
+      <%= label :site_inquiry_item, :required,
+      SiteInquiryItem.human_attribute_name(:required) %>
+      <%= check_box :site_inquiry_item, :required %>
     </div>
   </div>
   

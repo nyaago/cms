@@ -1,4 +1,5 @@
-<div class="edit_inquiry_item" 
+<!-- checkbox inquiry item -->
+<div class="edit_inquiry_item edit_checkbox_inquiry_item" 
 id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
 <%= form_for(@inquiry_item, :url => url_for(:action => :update)) do |f| %>
   <div id="error_explanation" style="display:none;">
@@ -12,6 +13,20 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
       <%= f.label :title %>
       <%= f.text_field :title %>
     </div>
+    <div class="field" id="default_status_filed">
+      <%= f.label :default_status %>
+      <%= f.check_box :default_status %>
+    </div>
+    
+    <div class="field" id="displayed_filed">
+      <%= label :site_inquiry_item, :displayed,
+       SiteInquiryItem.human_attribute_name(:displayed) %>
+      <%= check_box :site_inquiry_item, :displayed %>
+    </div>
+    <div class="field" id="required_filed">
+      <%= hidden_field :site_inquiry_item, :required, :value => false %>
+    </div>
+    
   </div>
   
   

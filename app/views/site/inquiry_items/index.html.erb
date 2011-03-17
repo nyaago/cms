@@ -65,7 +65,7 @@ $(document).ready( function(){
     <% @selected_items.each do |item| %>
       <div class="inquiry_item_title">
       <h4 class="inquiry_item_human_name">
-        <%= item.inquiry_item.class.human_name %>
+        <%= item.inquiry_item.title || item.inquiry_item.class.human_name %>
       </h4>
       <%= hidden_field_tag "inquiry_item_position[#{item.id}]", 
       item.position, :class => 'inquiry_item_position'  %>

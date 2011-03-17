@@ -1,4 +1,63 @@
-<div class="edit_inquiry_item" 
+<script type="text/javascript">
+//<![CDATA[
+// ページload時,
+// 選択肢のクリア
+// => 1.値のクリア, 2.フィールドを隠す 3.radio buttonがチェックされている場合、1つめ選択肢をチェックする.
+function clearValueField(field) {
+  $(':text', field).val('');
+  if($(':radio', field).attr('checked') ) {
+    $('#value1_filed :radio', field.parent()).attr('checked', true);
+  }
+  
+  $(field).css('display', "none");
+}
+
+// 選択肢追加
+// 表示されていない,選択肢入力フィールドのうち、一番上のものを表示させる
+function addValueField(context) {
+  var f = false;
+  $('.radio_inquiry_item_value_field', context).each( function() {
+    if($(this).css('display') == 'none') {
+     $(this).css('display', 'block');
+     f = true;
+     return false;  // = each からbreak
+    }
+  //  $(':button', this).css('display', 'none');
+    } );
+  if(f == false) {
+    alert('選択肢の最大に達しています。');
+    return;
+  }
+  var value = '';
+  var nextValue = '';
+  $('.radio_inquiry_item_value_field', context).reverse().each( function() {
+    if($(this).css('display') != 'none') {
+      nextValue = $(':text',this).val();
+      $(':text',this).val(value);
+      value = nextValue;
+    }
+  } );
+  
+}
+
+$(document).ready( function(){
+ $('#add_radio_inquiry_item_value').click( function() {
+   addValueField($(this).parent());
+  } );
+  $('.radio_inquiry_item_value_field').each( function() {
+    $(':button', this).click(function() {
+      clearValueField($(this).parent());
+    });
+  });
+
+});
+    
+  
+//]]>
+</script>
+
+<!-- radio button inquiry item -->
+<div class="edit_inquiry_item edit_radio_inquiry_item" 
 id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
 <%= form_for(@inquiry_item, :url => url_for(:action => :update)) do |f| %>
   <div id="error_explanation" style="display:none;">
@@ -6,12 +65,40 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
     <ul>
     </ul>
   </div>
-
+  
   <div class="inputs" id="inquiry_item_fields">
     <div class="field" id="title_filed">
       <%= f.label :title %>
       <%= f.text_field :title %>
     </div>
+    
+    <%= button_to_function "選択肢追加", "", :id => 'add_radio_inquiry_item_value' %>
+    
+    
+    <% (1..7).each do |i| %>
+    <div class="field radio_inquiry_item_value_field" id="value<%= i %>_filed"
+    <%= if @inquiry_item.send("value#{i}").blank? && i >= 2 then "style='display: none;'" end  %>
+    >
+      <%= f.label "value#{i}" %>
+      <%= f.text_field "value#{i}", :class => "radio_inquiry_item_value_text" %>
+      <%= f.label :default_index %>
+      <%= f.radio_button :default_index, i.to_s %>
+      <% if i >= 2 %>
+      <%= button_to_function "クリア", "",
+      :id =>  "clear_value#{i}" , :class => 'clear_value'%>
+      <% end %>
+    </div>
+    <% end %>
+    
+    <div class="field" id="displayed_filed">
+      <%= label :site_inquiry_item, :displayed,
+       SiteInquiryItem.human_attribute_name(:displayed) %>
+      <%= check_box :site_inquiry_item, :displayed %>
+    </div>
+    <div class="field" id="required_filed">
+      <%= hidden_field :site_inquiry_item, :required, :value => false %>
+    </div>
+    
   </div>
   
   

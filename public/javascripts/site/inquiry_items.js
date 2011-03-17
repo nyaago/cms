@@ -99,7 +99,7 @@
 // // ページload時,
 //$(document).ready( function(){
 //  // inquiry_item編集のためのobjectを生成.
-//  var editor = inquiry_itemEditor();
+//  var editor = inquiryItemEditor();
 //  editor.urlForAdd('/site/inquiry_items/create');
 //  editor.urlForSort('/site/inquiry_items/sort');
 //  editor.urlBaseForEdit("/site/");
@@ -368,6 +368,9 @@ var inquiryItemEditor = function(attributes) {
             width: that.dialogWidth(),
             modal: false,
             title: $('.inquiry_item_human_name', inquiryItem).text(),
+            close: function(){
+            		$(this).dialog("destroy");
+            	},
             buttons: [
               {
                 text : that.updateButtonText(),
@@ -380,8 +383,9 @@ var inquiryItemEditor = function(attributes) {
                     dataType: 'json',
                     data: $('form', dialogSelector).serialize(),
                     success: function(data, dataType) {
-                      if(data.inquiry_item_id) {
+                      if(data.inquiry_item) {
                         dialogSelector.dialog('close');
+                        $('.inquiry_item_human_name', inquiryItem).text(data.inquiry_item.title);
                       }
                       // error がある場合
                       else {
@@ -452,7 +456,7 @@ var inquiryItemEditor = function(attributes) {
               }  // close button
             ] // buttons
         }); //  dialog
-        
+      
         
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
