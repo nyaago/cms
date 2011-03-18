@@ -256,13 +256,23 @@ ja:
         site_admin_exist: "少なくとも１人の管理ユーザを指定する必要があります"
         email: "はEmailアドレスとして不正なフォーマットです。"
         
+    form:
+      inquiry:
+        messages:
+          invalid_email_address: "はEmailアドレスとして不正なフォーマットです。"
+          required: "の入力が必須となっています。"
+          invalid_confirmation: "が確認入力の値と異なっています。"
+        
   activemodel:         
     attribute:
       site_inquiry_item:
         posision: "並び順"
         required: "必須項目"
         displayed: "表示"
-      
+    form:
+      attributes:
+        inquiry:
+          confirmation: "確認入力"
         
   authlogic:
     error_messages:

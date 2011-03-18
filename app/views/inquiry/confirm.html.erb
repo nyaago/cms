@@ -1,0 +1,32 @@
+<h1>
+  お問い合わせ確認
+</h1>
+
+<div id="inquiry_confirm">
+<%= form_for(:form, :url => url_for(:action => :complete)) do |f| %>
+  <% @form.ordered_attribute_names.each do |attribute_name| %>
+    <div class="inquiry_item_confirmation">
+      <span class="inquiry_item_name">
+        <%= Form::Inquiry.human_attribute_name(attribute_name) %>
+      </span>
+      <span class="inquiry_item_value">
+        <%= simple_format(@form[attribute_name]) %>
+      </span>
+      <%= f.hidden_field(attribute_name) %>
+    </div>
+  
+  <% end %>
+  <div class="actions">
+    <%= f.submit '送信'%>
+    <%= button_to_function '一覧へ戻る', "$('form').last().submit();" %>
+  </div>
+<% end %>
+
+
+<%= form_for(:form, :url => url_for(:action => :index)) do |f| %>
+<% @form.ordered_attribute_names(true).each do |attribute_name| %>
+<%= f.hidden_field(attribute_name, :id => "back_form_#{attribute_name}") %>
+<% end %>
+<% end %>
+
+</div>

@@ -5,9 +5,9 @@
 // => 1.値のクリア, 2.フィールドを隠す 3.radio buttonがチェックされている場合、1つめ選択肢をチェックする.
 function clearValueField(field) {
   $(':text', field).val('');
-  if($(':radio', field).attr('checked') ) {
-    $('#value1_filed :radio', field.parent()).attr('checked', true);
-  }
+//  if($(':radio', field).attr('checked') ) {
+//    $('#value1_filed :radio', field.parent()).attr('checked', true);
+//  }
   
   $(field).css('display', "none");
 }
@@ -95,8 +95,10 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
        SiteInquiryItem.human_attribute_name(:displayed) %>
       <%= check_box :site_inquiry_item, :displayed %>
     </div>
-    <div class="field" id="required_filed">
-      <%= hidden_field :site_inquiry_item, :required, :value => false %>
+    <div class="field" id="required_field">
+      <%= label :site_inquiry_item, :required,
+      SiteInquiryItem.human_attribute_name(:required) %>
+      <%= check_box :site_inquiry_item, :required %>
     </div>
     
   </div>

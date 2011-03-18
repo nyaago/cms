@@ -1,0 +1,79 @@
+<h1>
+  お問い合わせ
+</h1>
+
+<div id="inquiry_items">
+<span class="notice">
+  ※のついたものは必須入力です
+</span>
+<%= form_for(:form, :url => url_for(:action => :confirm)) do |f| %>
+<% if @form.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= (@form.errors.count).to_s %> のエラーが発生しました</h2>
+
+    <ul>
+    <% @form.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% confirmation_flag = false %>
+<% @site_inquiry_items.each  do |site_inquiry_item| %>
+<% inquiry_item = site_inquiry_item.inquiry_item %>  
+  <div class='inquiry_item  <%= "#{inquiry_item.class.name.underscore}" %>'>
+  <span class="inquiry_item_title">
+    <%= label_tag inquiry_item.title + 
+        if confirmation_flag 
+          I18n.t :confirmation, :scope => Form::Inquiry::TRANSLATION_SCOPE
+        else
+          ''
+        end
+     %>
+    <% if  site_inquiry_item.required then %>
+      ※
+    <% end %>
+  </span>
+  <span class="inquiry_item_value">
+  <% case inquiry_item.class.name %>
+    <% when 'TextInquiryItem' %>
+      <% if inquiry_item.multi_rows %>
+        <%= f.text_area( "item_#{site_inquiry_item.id}", :rows => inquiry_item.row_count) %>
+      <% else %>
+        <%= f.text_field("item_#{site_inquiry_item.id}") %>
+      <% end %>
+    <% when 'EmailInquiryItem' %>
+      <%  if site_inquiry_item.inquiry_item.confirmation_required %>
+        <%  if  confirmation_flag == true %>
+          <%= f.text_field("item_#{site_inquiry_item.id}_confirmation") %>
+          <%  confirmation_flag = false
+          %>
+        <%  else %>
+          <%= f.text_field("item_#{site_inquiry_item.id}") %>
+          <%  confirmation_flag = true %>
+        <% end %>
+      <% else %>
+        <%= f.text_field("item_#{site_inquiry_item.id}") %>
+      <% end %>
+    <% when 'CheckboxInquiryItem' %>
+      <%= f.check_box("item_#{site_inquiry_item.id}") %>
+    <% when 'RadioInquiryItem' %>
+      <% (1..7).each do |i| %>
+      <% unless inquiry_item.send("value#{i}").blank? %>
+        <%= f.radio_button("item_#{site_inquiry_item.id}",  inquiry_item.send("value#{i}"),
+        :id => "inquiry_item_#{site_inquiry_item.id}_#{i}") +
+#        :checked => if i == inquiry_item.default_index then true end) +
+        inquiry_item.send("value#{i}") %>
+      <% end %>
+    <% end %>
+  <% end #end case %>
+  </span>
+</div> <!-- inquiry_item -->
+<% redo if confirmation_flag # 次は入力確認  %>
+<% end # end each  %>
+<div class="actions">
+  <%= submit_tag("確認") %>
+</div>  <!-- actions -->
+<% end # end form_for %>
+</div>  <!-- inquiry_items -->

@@ -76,6 +76,8 @@ Cms::Application.routes.draw do
   match ':site/blogs/:id' => 'blogs#show#:site#:id'
   match ':site/blogs/month/:month' => 'blogs#month#:site#:month'
 
+  match ':site/inquiry/:action' => 'inquiry#:action#:site'
+
   # 公開 - サイトの root
   match ':site/' => 'pages#show#:site'
 

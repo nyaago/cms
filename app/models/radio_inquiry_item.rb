@@ -11,15 +11,26 @@ class RadioInquiryItem < ActiveRecord::Base
   before_create :set_default
   # 保存前のfilter
   # 未入力の選択肢の値があれば、詰めて登録
-  before_save :omit_empty_value
+  before_update :omit_empty_value
   
+  # この問い合わせ項目のdefault の値を返す.
+  # 値として defaultの選択肢の値を返す
+  def default_value
+    method = "value#{default_index}".to_sym
+    if self.respond_to?(method)
+      self.send(method)
+    else
+      ''
+    end
+  end
+
   protected
   
   # default 値を設定
   # * 初期選択を1つめの選択肢にする.
   def set_default
     unless self.default_index
-      self.default_index = 1
+      self.default_index = 0
     end
   end
   
