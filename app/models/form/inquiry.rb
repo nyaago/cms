@@ -99,6 +99,22 @@ module Form
       names
     end
     
+    def confirm_to_addresses
+      addresses = []
+      @inquiry_items.each do |inquiry_item|
+        attribute_name = "item_#{inquiry_item.id}"
+        if inquiry_item.inquiry_item.respond_to?(:confirm_to)
+          if inquiry_item.inquiry_item.send(:confirm_to)
+            unless @attributes[attribute_name].blank?
+              addresses << @attributes[attribute_name]
+            end
+          end
+        end
+      end
+      p "=========addresses"
+      p addresses
+      addresses
+    end
   
     # 
     # item_<site inquiry item id> の形式の属性名に対する read/write のメソッド送信に応答.

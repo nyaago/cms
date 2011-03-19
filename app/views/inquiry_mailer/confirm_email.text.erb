@@ -1,0 +1,10 @@
+お問い合わせを受付けました。
+誠に有難うございました。
+
+注)このメールは自動返信にてお送りしています。
+
+<% @form.ordered_attribute_names.each do |attribute_name| %>
+<%= Form::Inquiry.human_attribute_name(attribute_name) %>:
+<%= @form[attribute_name] %>
+
+<% end %>

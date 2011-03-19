@@ -9,20 +9,24 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
   </div>
 
   <div class="inputs" id="inquiry_item_fields">
-    <div class="field" id="title_filed">
+    <div class="field" id="title_field">
       <%= f.label :title %>
       <%= f.text_field :title %>
     </div>
-    <div class="field" id="confirmation_required_filed">
+    <div class="field" id="confirmation_required_field">
       <%= f.label :confirmation_required %>
       <%= f.check_box :confirmation_required %>
     </div>
-    <div class="field" id="displayed_filed">
+    <div class="field" id="confirm_to_field">
+      <%= f.label :confirm_to %>
+      <%= f.check_box :confirm_to %>
+    </div>
+    <div class="field" id="displayed_field">
       <%= label :site_inquiry_item, :displayed,
        SiteInquiryItem.human_attribute_name(:displayed) %>
       <%= check_box :site_inquiry_item, :displayed %>
     </div>
-    <div class="field" id="required_filed">
+    <div class="field" id="required_field">
       <%= label :site_inquiry_item, :required,
       SiteInquiryItem.human_attribute_name(:required) %>
       <%= check_box :site_inquiry_item, :required %>

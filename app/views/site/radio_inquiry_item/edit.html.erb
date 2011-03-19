@@ -6,7 +6,7 @@
 function clearValueField(field) {
   $(':text', field).val('');
 //  if($(':radio', field).attr('checked') ) {
-//    $('#value1_filed :radio', field.parent()).attr('checked', true);
+//    $('#value1_field :radio', field.parent()).attr('checked', true);
 //  }
   
   $(field).css('display', "none");
@@ -67,7 +67,7 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
   </div>
   
   <div class="inputs" id="inquiry_item_fields">
-    <div class="field" id="title_filed">
+    <div class="field" id="title_field">
       <%= f.label :title %>
       <%= f.text_field :title %>
     </div>
@@ -76,7 +76,7 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
     
     
     <% (1..7).each do |i| %>
-    <div class="field radio_inquiry_item_value_field" id="value<%= i %>_filed"
+    <div class="field radio_inquiry_item_value_field" id="value<%= i %>_field"
     <%= if @inquiry_item.send("value#{i}").blank? && i >= 2 then "style='display: none;'" end  %>
     >
       <%= f.label "value#{i}" %>
@@ -90,7 +90,7 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
     </div>
     <% end %>
     
-    <div class="field" id="displayed_filed">
+    <div class="field" id="displayed_field">
       <%= label :site_inquiry_item, :displayed,
        SiteInquiryItem.human_attribute_name(:displayed) %>
       <%= check_box :site_inquiry_item, :displayed %>

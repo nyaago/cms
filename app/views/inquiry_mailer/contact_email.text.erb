@@ -1,0 +1,8 @@
+フォームよりお客様のお問い合わせを受け付けました。
+返信をお願いします。
+
+<% @form.ordered_attribute_names.each do |attribute_name| %>
+<%= Form::Inquiry.human_attribute_name(attribute_name) %>:
+<%= @form[attribute_name] %>
+
+<% end %>

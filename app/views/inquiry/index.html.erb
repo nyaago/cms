@@ -57,7 +57,7 @@
         <%= f.text_field("item_#{site_inquiry_item.id}") %>
       <% end %>
     <% when 'CheckboxInquiryItem' %>
-      <%= f.check_box("item_#{site_inquiry_item.id}") %>
+      <%= f.check_box("item_#{site_inquiry_item.id}", {}, "yes", "no") %>
     <% when 'RadioInquiryItem' %>
       <% (1..7).each do |i| %>
       <% unless inquiry_item.send("value#{i}").blank? %>
