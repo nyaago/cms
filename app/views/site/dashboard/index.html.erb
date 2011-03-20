@@ -1,0 +1,63 @@
+<h1>
+  ダッシュボード
+</h1>
+
+<script type="text/javascript" charset="utf-8">
+</script>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div id="dashboard" >
+
+  <div id="informations">
+    
+    <h2>
+      管理者からのお知らせ
+    </h2>
+
+    <ul >
+      <% @informations.each do |information| %>
+        <%= link_to(information.title, 
+        url_for(:controller => :informations, :action => :show, :id => information.id)) %>
+      <% end %>
+    </ul>
+
+  </div>
+
+  <div id="status">
+
+    <h2>
+      現在の状況
+    </h2>
+
+    <div class="field" id="blog_count">
+      <span class="field_name">お知らせ</span>
+      <span  class="field_value"><%= @blog_count %> 件</span>
+    </div>
+    <div class="field" id="page_count">
+      <span class="field_name">ページ</span>
+      <span  class="field_value"><%= @page_count %> 件</span>
+    </div>
+    <div class="field" id="theme">
+      <span class="field_name">テーマ</span>
+      <span  class="field_value"><%= @theme %></span>
+    </div>
+    <div class="field" id="widget_count">
+      <span class="field_name">ウィジット</span>
+      <span  class="field_value"><%= @widget_count %> 件</span>
+    </div>
+    <div class="field" id="widget_count">
+      <span class="field_name">ファイル容量の使用状況</span>
+      <span  class="field_value">
+        最大50MBのうち
+        <% if @capacity > 1024 * 1024 %>
+        <%= @capacity / 1024 / 1024 %>MB
+        <% else @capacity > 1024  %>
+        <%= @capacity / 1024 %>KB
+        <% end %>使用中
+    </span>
+    </div>
+  
+
+  </div>
+
+</div>

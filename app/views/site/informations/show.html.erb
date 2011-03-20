@@ -1,0 +1,24 @@
+<h1>
+  <%= @information.title %>
+</h1>
+
+<p id="notice"><%= notice %></p>
+
+<% if @information %>
+<div class="information">
+
+
+<p class="content">
+  <%= @information.content.html_safe %>
+</p>
+
+</div>
+<% else %>  
+  <p class='not_found'>
+    指定された記事はみつかりません
+  </p>
+<% end %>
+  
+<div class="actions">
+<%= link_to '戻る', url_for(:back) %>
+</div>

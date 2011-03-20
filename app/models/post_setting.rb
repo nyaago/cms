@@ -67,6 +67,7 @@ class PostSetting < ActiveRecord::Base
   # default 値の設定
   def set_default
     self.editor_row_count = 10
+    self.pop3_port = 110
   end
 
   def crypt_password

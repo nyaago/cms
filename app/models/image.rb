@@ -24,7 +24,7 @@ class Image < ActiveRecord::Base
 #  require 'RMagick'
 
   # 更新後フィルター.画像のトータルサイズと画像区分フラグを計算して保存
-  after_update :set_calculated_attributes
+  before_update :set_calculated_attributes
 
   # Returns the public URL of the attachment, with a given style. Note that
   # this does not necessarily need to point to a file that your web server
