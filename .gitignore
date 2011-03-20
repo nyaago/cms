@@ -10,4 +10,5 @@ vendor/**/.DS_Store
 app/**/.DS_Store
 rdoc
 documents/private/*
+config/email.yml
 

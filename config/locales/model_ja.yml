@@ -19,6 +19,7 @@ ja:
       radio_inquiry_item: "ラジオボタン"
       checkbox_inquiry_item: "チェックボックス"
       email_inquiry_item: "EMailアドレス"
+      information: "お知らせ"
 
     attributes: 
       user: 
@@ -208,6 +209,9 @@ ja:
         title: "タイトル"
         confirmation_required: "確認入力を要求する"
         send_to: "確認メイル送信先である"
+      information:
+        title: "タイトル"
+        content: "内容"
         
   categories:
     published:

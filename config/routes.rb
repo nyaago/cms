@@ -61,6 +61,14 @@ Cms::Application.routes.draw do
     match 'images/:action/:id' => 'images#:action#:id'
     match 'images/:action' => 'images#:action'
     
+    # Informations
+    match 'informations/:action/:id' => 'informations#:action#:id'
+    
+    # dashboard
+    match 'dashboard/:action' => 'dashboard#:action'
+    
+    match '/' => 'dashboard#index'
+    
     resource :user_session
     resources :users
   end
