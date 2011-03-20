@@ -106,6 +106,8 @@ ja:
         pop3_crypted_password: "パスワード(暗号化)"
         pop3_password_salt: "パスワード暗号化ソルト"
         pop3_password: "パスワード"
+        pop3_port: "ポート番号"
+        pop3_ssl: "SSLを使用する"
 
       view_setting:
         title_count_in_home: "トップページに表示するタイトル数"
@@ -205,6 +207,7 @@ ja:
       email_inquiry_item:
         title: "タイトル"
         confirmation_required: "確認入力を要求する"
+        send_to: "確認メイル送信先である"
         
   categories:
     published:
