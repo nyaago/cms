@@ -2,6 +2,8 @@
 # Ariticle(記事)モデル
 class Article < ActiveRecord::Base
 
+  require "nokogiri"
+
   # 保存前のcallback
   # 記事ががhome(top)ページに指定された場合,他の記事のhome設定を解除
   before_save :cancel_is_home_except_self
@@ -37,6 +39,14 @@ class Article < ActiveRecord::Base
   # 公開ページ記事数制限のValidation
   validates_with Validator::Article::PageLimit
   
+  # 記事内容をテキストにする
+  def content_text
+    if content
+      Nokogiri::HTML(content).text
+    else
+      ''
+    end
+  end
   
   # 記事モデルに対する公開状態の表示名を返す.
   def published_name

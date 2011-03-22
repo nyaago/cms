@@ -10,6 +10,7 @@ gem 'rails', '3.0.3'
 gem "mysql2"
 
 # additional gem
+gem "nokogiri"
 gem "authlogic"
 #gem "will_paginate"
 gem 'will_paginate','3.0.pre'

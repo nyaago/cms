@@ -379,6 +379,62 @@ module ApplicationHelper
   def footer_widgets
     @footer_widgets
   end
+
+  # （対応している）ブラウザのアドレスバーにrssのリンクが表示されるようにするための
+  # linkタグを返す
+  # 例.
+  # rss_link_for_addressbar =>
+  # <link rel='alternate' type='application/rss+xml' title='RSS'  href='http://<host>/<site>/articles/index.rss' />
+  def rss_link_for_addressbar
+    
+    format = if @site.view_setting && @site.view_setting.rss_type == "atom"
+      "atom"
+    else
+      "rss"
+    end
+    
+    "<link rel='alternate' type='application/rss+xml' title='RSS' " +
+    " href='#{request.protocol}#{request.host_with_port}" + 
+    "#{url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format)}' />".
+    html_safe
+    
+  end
+
+  # rss へのlinkタグを表示
+  # option tag には以下のものを指定可能
+  # * :image => アイコン画像へのパス
+  # * :text => テキスト, または atlテキスト
+  # 例
+  # rss_link :image => '/rss.png' :text => 'RSS表示'
+  #   => <a href="http://<host>/<site>/articles/index.rss"><img alt="RSS表示" src="/rss.png" /></a>
+  # rss_link :text => "RSS表示"
+  #   => <a href="http://<host>/<site>/articles/index.atom">RSS表示</a>
+  def rss_link(options)
+    format = if @site.view_setting && @site.view_setting.rss_type == "atom"
+      "atom"
+    else
+      "rss"
+    end
+
+    link_to(
+    if options[:image]  
+      image_tag(options[:image], 
+      :alt => if options[:text]  
+                options[:text] 
+              else 
+                'RSS' 
+              end )
+    else  
+      if options[:text]  
+        options[:text] 
+      else 
+        'RSS' 
+      end
+    end,
+    request.protocol + request.host_with_port + 
+    url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format)
+    )
+  end
   
   # 各widgetの　rendering
   # == parameters
