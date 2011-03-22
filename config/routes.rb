@@ -73,7 +73,7 @@ Cms::Application.routes.draw do
     resources :users
   end
 
-  resources :articles
+#  resources :articles
   
 #  root :to => 'home#show'
   
@@ -83,6 +83,12 @@ Cms::Application.routes.draw do
 
   match ':site/blogs/:id' => 'blogs#show#:site#:id'
   match ':site/blogs/month/:month' => 'blogs#month#:site#:month'
+
+  match ':site/articles/index.:format' => 'articles#index#:format#:site'
+  match ':site/articles/index' => 'articles#index'
+
+#  match ':site/articles/index.:format' => 'articles#index.:format#:site'
+
 
   match ':site/inquiry/:action' => 'inquiry#:action#:site'
 

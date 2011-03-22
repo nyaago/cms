@@ -1,0 +1,31 @@
+atom_feed(:language => 'ja-JP',
+        :root_url => request.protocol + request.host_with_port + 
+                  url_for(:site => "moomin", :controller => :pages, :action => :show)
+        ) do |feed|
+  feed.title    @site.title
+  feed.subtitle @site.description
+  feed.updated  Time.now
+#  feed.author{|author| author.name(@author) }
+ 
+  @articles.each do |article|
+    feed.entry(article,
+               :url       => if article.type == "PageArticle"
+                            request.protocol + request.host_with_port +
+                                     url_for(:controller => 'pages', :action => 'show', :name => article.name )
+                          else
+                            request.protocol + request.host_with_port +
+                                     url_for(:controller => 'blogs', :action => 'show', :id => article.id )
+                          end,
+               :id        => article.id,
+               :published => article.created_at,
+               :updated   => article.updated_at) do |item|
+      item.title(article.title)
+      if @site.view_setting &&  @site.view_setting.view_whole_in_rss == false
+        item.content(article.content_text[0..50])
+      else
+        item.content(article.content, :type => 'html')
+      end
+#      item.author{|author| author.name(@author) }
+    end
+  end
+end

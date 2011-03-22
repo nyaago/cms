@@ -1,0 +1,40 @@
+xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8"
+xml.rss('version' => '2.0') do
+  xml.channel do
+    xml.title @site.title
+    xml.link request.protocol + request.host_with_port + 
+              url_for(:site => "moomin", :controller => :pages, :action => :show)
+    xml.description(@site.description)
+    # オリジナルは "en-us"
+    xml.language "ja"
+    xml.ttl "40"
+    # RFC-822 datetime example: Tue, 10 Jun 2003 04:00:00 GMT
+    xml.pubDate(Time.now.strftime("%a, %d %b %Y %H:%M:%S %Z"))
+    @articles.each do |article|
+      xml.item do
+        xml.title(article.title)
+        if article.type == "PageArticle"
+          xml.link(request.protocol + request.host_with_port +
+                   url_for(:controller => 'pages', :action => 'show', :name => article.name ))
+        else
+          xml.link(request.protocol + request.host_with_port +
+                   url_for(:controller => 'blogs', :action => 'show', :id => article.id))
+        end
+        xml.description(
+          if @site.view_setting &&  @site.view_setting.view_whole_in_rss == false
+            article.content_text[1..50]
+          else
+            article.content
+          end
+        )
+        if article.type == "PageArticle"
+          xml.buid(request.protocol + request.host_with_port +
+                   url_for(:controller => 'pages', :action => 'show', :name => article.name ))
+        else
+          xml.buid(request.protocol + request.host_with_port +
+                   url_for(:controller => 'blogs', :action => 'show', :id => article.id))
+        end
+      end
+    end
+  end
+end
