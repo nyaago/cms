@@ -15,8 +15,8 @@ gem "authlogic"
 gem 'will_paginate','3.0.pre'
 gem 'jquery-rails'
 gem 'paperclip'
-gem "rmagick",'2.13.1'
-gem 'tmail'
+#gem "rmagick",'2.13.1'
+#gem 'tmail'
 gem 'mail'
 #
 gem 'rspec'
