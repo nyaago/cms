@@ -436,6 +436,36 @@ module ApplicationHelper
     )
   end
   
+  #  問い合わせページへのリンク
+  # option tag には以下のものを指定可能
+  # * :image => アイコン画像へのパス
+  # * :text => テキスト, または atlテキスト
+  # 例
+  # inquiry_link :image => '/inquiry.png' :text => '問い合わせ'
+  #   => <a href="http://<host>/<site>/inquiry/index"><img alt="問い合わせ" src="/inquiry.png" /></a>
+  # inquiry_link :text => "問い合わせ"
+  #   => <a href="http://<host>/<site>/inquiry/index">問い合わせ</a>
+  def inquiry_link
+    link_to(
+    if options[:image]  
+      image_tag(options[:image], 
+      :alt => if options[:text]  
+                options[:text] 
+              else 
+                'Inquiry' 
+              end )
+    else  
+      if options[:text]  
+        options[:text] 
+      else 
+        'Inquiry' 
+      end
+    end,
+    request.protocol + request.host_with_port + 
+    url_for(:controller => 'inquiry', :action => 'index', :site => @site.name)
+    )
+  end
+  
   # 各widgetの　rendering
   # == parameters
   # * widgets - widget モデルレコードの array
