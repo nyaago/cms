@@ -3,7 +3,7 @@
     ダッシュボード
   </li>
   <li>
-    <%=link_to "ダッシュボード", "/site" %>
+    <%=link_to "ダッシュボード", "/site/#{@site.name}" %>
   </li>
 </ul>
 
@@ -13,10 +13,10 @@
     お知らせ
   </li>
   <li>
-    <%=link_to "お知らせ一覧", :controller => "site/blogs", :action => :index %>
+    <%=link_to "お知らせ一覧", :controller => "site/blogs", :action => :index, :site => @site.name %>
   </li>
   <li>
-    <%=link_to "お知らせ作成", :controller => "site/blogs", :action => :new %>
+    <%=link_to "お知らせ作成", :controller => "site/blogs", :action => :new, :site => @site.name %>
   </li>
 </ul>
 
@@ -26,7 +26,7 @@
     画像・ファイル
   </li>
   <li>
-    <%=link_to "画像一覧", :controller => "site/images", :action => :index %>
+    <%=link_to "画像一覧", :controller => "site/images", :action => :index, :site => @site.name %>
   </li>
 </ul>
 
@@ -36,7 +36,7 @@
     ページ
   </li>
   <li>
-    <%=link_to "ページ一覧", :controller => "site/pages", :action => :index %>
+    <%=link_to "ページ一覧", :controller => "site/pages", :action => :index, :site => @site.name %>
   </li>
 </ul>
 
@@ -45,13 +45,13 @@
     デザイン
   </li>
   <li>
-    <%=link_to "テーマ", :controller => "site/theme", :action => :index %>
+    <%=link_to "テーマ", :controller => "site/theme", :action => :index, :site => @site.name %>
   </li>
   <li>
-    <%=link_to "デザイン", :controller => "site/layout", :action => :index %>
+    <%=link_to "デザイン", :controller => "site/layout", :action => :index, :site => @site.name %>
   </li>
   <li>
-    <%=link_to "ウィジット", :controller => "site/widgets", :action => :index %>
+    <%=link_to "ウィジット", :controller => "site/widgets", :action => :index, :site => @site.name %>
   </li>
 </ul>
 
@@ -61,21 +61,21 @@
     設定
   </li>
   <li>
-    <%=link_to "一般設定", :controller => "site/setting", :action => :index %>
+    <%=link_to "一般設定", :controller => "site/setting", :action => :index, :site => @site.name  %>
   </li>
   <li>
-    <%=link_to "投稿設定", :controller => "site/post_setting", :action => :index %>
+    <%=link_to "投稿設定", :controller => "site/post_setting", :action => :index, :site => @site.name  %>
   </li>
   <li>
-    <%=link_to "#{ViewSetting.human_name}", :controller => "site/view_setting", :action => :index %>
+    <%=link_to "#{ViewSetting.human_name}", :controller => "site/view_setting", :action => :index , :site => @site.name %>
   </li>
   <li>
-    <%=link_to "#{SearchEngineOptimization.human_name}", :controller => "site/optimization", :action => :index %>
+    <%=link_to "#{SearchEngineOptimization.human_name}", :controller => "site/optimization", :action => :index, :site => @site.name  %>
   </li>
   <li>
-    <%=link_to "問い合わせ項目設定", :controller => "site/inquiry_items", :action => :index %>
+    <%=link_to "問い合わせ項目設定", :controller => "site/inquiry_items", :action => :index , :site => @site.name %>
   </li>
   <li>
-    <%=link_to "#{User.human_name}管理", :controller => "site/users", :action => :index %>
+    <%=link_to "#{User.human_name}管理", :controller => "site/users", :action => :index, :site => @site.name  %>
   </li>
 </ul>

@@ -17,57 +17,57 @@ Cms::Application.routes.draw do
     # User Sessions
     match 'user_sessions/:action' => 'user_sessions#:action'
     # Articles
-    match 'articles/:action/:id' => 'articles#:action#:id'
-    match 'articles/:action' => 'articles#:action'
+    match ':site/articles/:action/:id' => 'articles#:action#:id#:site'
+    match ':site/articles/:action' => 'articles#:action#:site'
     # Pages
-    match 'pages/:action/:id' => 'pages#:action#:id'
-    match 'pages/:action' => 'pages#:action'
+    match ':site/pages/:action/:id' => 'pages#:action#:id#:site'
+    match ':site/pages/:action' => 'pages#:action#:site'
     # Blogs
-    match 'blogs/:action/:id' => 'blogs#:action#:id'
-    match 'blogs/:action' => 'blogs#:action'
+    match ':site/blogs/:action/:id' => 'blogs#:action#:id#:site'
+    match ':site/blogs/:action' => 'blogs#:action#:site'
     # Users
-    match 'users/:action/:id' => 'users#action#:id'
-    match 'users/:action' => 'users#:action'
+    match ':site/users/:action/:id' => 'users#action#:id#:site'
+    match ':site/users/:action' => 'users#:action#:site'
     # Theme
-    match 'theme/:action' => 'theme#:action'
+    match ':site/theme/:action' => 'theme#:action#:site'
     # Layout
-    match 'layout/:action' => 'layout#:action'
+    match ':site/layout/:action' => 'layout#:action#:site'
     # Setting
-    match 'setting/:action' => 'setting#:action'
+    match ':site/setting/:action' => 'setting#:action#:site'
     # Optimization
-    match 'optimization/:action' => 'optimization#:action'
+    match ':site/optimization/:action' => 'optimization#:action#:site'
     # Post setting
-    match 'post_setting/:action' => 'post_setting#:action'
+    match ':site/post_setting/:action' => 'post_setting#:action#:site'
     # View setting
-    match 'view_setting/:action' => 'view_setting#:action'
+    match ':site/view_setting/:action' => 'view_setting#:action#:site'
     # Widgets setting
-    match 'widgets/:action/:id' => 'widgets#:action#:id'
-    match 'widgets/:action' => 'widgets#:action'
+    match ':site/widgets/:action/:id' => 'widgets#:action#:id#:site'
+    match ':site/widgets/:action' => 'widgets#:action#:site'
 
-    match 'text_widget/:action/:id' => 'text_widget#:action#:id'
-    match 'company_profile_widget/:action/:id' => 'company_profile_widget#:action#:id'
+    match ':site/text_widget/:action/:id' => 'text_widget#:action#:id#:site'
+    match ':site/company_profile_widget/:action/:id' => 'company_profile_widget#:action#:id#:site'
 
     # Inquiry Item setting
-    match 'inquiry_items/:action/:id' => 'inquiry_items#:action#:id'
-    match 'inquiry_items/:action' => 'inquiry_items#:action'
+    match ':site/inquiry_items/:action/:id' => 'inquiry_items#:action#:id#:site'
+    match ':site/inquiry_items/:action' => 'inquiry_items#:action#:site'
     
-    match 'text_inquiry_item/:action/:id' => 'text_inquiry_item#:action#:id'
-    match 'radio_inquiry_item/:action/:id' => 'radio_inquiry_item#:action#:id'
-    match 'checkbox_inquiry_item/:action/:id' => 'checkbox_inquiry_item#:action#:id'
-    match 'email_inquiry_item/:action/:id' => 'email_inquiry_item#:action#:id'
+    match ':site/text_inquiry_item/:action/:id' => 'text_inquiry_item#:action#:id#:site'
+    match ':site/radio_inquiry_item/:action/:id' => 'radio_inquiry_item#:action#:id#:site'
+    match ':site/checkbox_inquiry_item/:action/:id' => 'checkbox_inquiry_item#:action#:id#:site'
+    match ':site/email_inquiry_item/:action/:id' => 'email_inquiry_item#:action#:id#:site'
 
 
     # Images
-    match 'images/:action/:id' => 'images#:action#:id'
-    match 'images/:action' => 'images#:action'
+    match ':site/images/:action/:id' => 'images#:action#:id#:site'
+    match ':site/images/:action' => 'images#:action#:site'
     
     # Informations
-    match 'informations/:action/:id' => 'informations#:action#:id'
+    match ':site/informations/:action/:id' => 'informations#:action#:id#:site'
     
     # dashboard
-    match 'dashboard/:action' => 'dashboard#:action'
+    match ':site/dashboard/:action' => 'dashboard#:action#:site'
     
-    match '/' => 'dashboard#index'
+    match ':site' => 'dashboard#index#:site'
     
     resource :user_session
     resources :users

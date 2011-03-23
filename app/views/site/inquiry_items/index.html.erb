@@ -4,8 +4,8 @@
 $(document).ready( function(){
   // inquiry item編集のためのobjectを生成.
   var editor = inquiryItemEditor();
-  editor.urlForAdd('<%= url_for(:controller => :inquiry_items, :action => :create)  %>');
-  editor.urlForSort('<%= url_for(:controller => :inquiry_items, :action => :sort)  %>');
+  editor.urlForAdd('<%= url_for(:controller => :inquiry_items, :action => :create, :site => @site.name)  %>');
+  editor.urlForSort('<%= url_for(:controller => :inquiry_items, :action => :sort, :site => @site.name)  %>');
   editor.urlBaseForEdit("/site/");
   editor.updateButtonText("保存");
   editor.dialogWidth(450);
@@ -17,6 +17,7 @@ $(document).ready( function(){
   editor.editButtonText("編集");
   editor.deleteButtonText("削除");
   editor.closeButtonText("閉じる");
+  editor.siteName("<%= @site.name %>");
 });
     
   

@@ -5,8 +5,8 @@
   $(document).ready( function(){
     // widget編集のためのobjectを生成.
     var editor = widgetEditor();
-    editor.urlForAdd('<%= url_for(:controller => :widgets, :action => :create)  %>');
-    editor.urlForSort('<%= url_for(:controller => :widgets, :action => :sort)  %>');
+    editor.urlForAdd('<%= url_for(:controller => :widgets, :action => :create, :site => @site.name)  %>');
+    editor.urlForSort('<%= url_for(:controller => :widgets, :action => :sort, :site => @site.name)  %>');
     editor.urlBaseForEdit("/site/");
     editor.updateButtonText("保存");
     editor.dialogWidth(450);
@@ -18,6 +18,8 @@
     editor.editButtonText("編集");
     editor.deleteButtonText("削除");
     editor.closeButtonText("閉じる");
+    
+    editor.siteName("<%= @site.name %>");
   });
 
 
