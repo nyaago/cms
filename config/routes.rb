@@ -77,6 +77,8 @@ Cms::Application.routes.draw do
   
 #  root :to => 'home#show'
   
+  match 'sitemap.:format' => 'sitemap#index#:format'
+  
 
 #  match 'pages/:site/:page' => 'pages#show#:site#:page'
   match ':site/pages/:page' => 'pages#show#:site#:page'
@@ -92,8 +94,13 @@ Cms::Application.routes.draw do
 
   match ':site/inquiry/:action' => 'inquiry#:action#:site'
 
+
   # 公開 - サイトの root
   match ':site/' => 'pages#show#:site'
+
+  
+
+
 
 
   # The priority is based upon order of creation:
