@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
   # Blog Archive選択のための月の一覧を生成
   # 要素として datetime(Datetimeオブジェクト), to_s を属性として含む配列 @blog_monthsが生成される.
   def blog_months
-    @blog_months = BlogArticle.updated_months
+    @blog_months = BlogArticle.updated_months(@site)
   end
   
   # ページタイトルを格納する変数(@page_title)を生成

@@ -68,7 +68,8 @@
 // </div>
 //
 // == Option 属性 
-//
+//// 以下の属性の設定が必須
+// siteName: サイト名 (サーバーのSiteモデルのname属性)
 // 以下の属性が設定可能 (属性名: 説明 デフォルト)
 // urlForAdd:  追加リクエストのurl  "/site/inquiry_items/create",
 // urlForSort: 並ぶ替えリクエストのurl  "/site/inquiry_items/sort",
@@ -261,6 +262,10 @@ var inquiryItemEditor = function(attributes) {
     return that.attribute('idForErrorCount',value);
   };
 
+  that.siteName = function(value) {
+    return that.attribute('siteName',value);
+  };
+
 
 
   // InquiryItem area に InquiryItemを挿入
@@ -345,7 +350,7 @@ var inquiryItemEditor = function(attributes) {
   // InquiryItem 編集 dialog を表示
   openDialog = function(inquiryItem) {
     var id = $('.inquiry_item_id', inquiryItem).val();
-    var url = that.urlBaseForEdit() + $('.inquiry_item_type', inquiryItem).val().underscore() + 
+    var url = that.urlBaseForEdit() + that.siteName() + '/'+ $('.inquiry_item_type', inquiryItem).val().underscore() + 
                                         '/edit/' + id;
     $.ajax( {
       type: "GET",
@@ -375,7 +380,7 @@ var inquiryItemEditor = function(attributes) {
               {
                 text : that.updateButtonText(),
                 click: function() {
-                  url = that.urlBaseForEdit() + $('.inquiry_item_type', inquiryItem).val().underscore() + 
+                  url = that.urlBaseForEdit() + that.siteName() + '/'+ $('.inquiry_item_type', inquiryItem).val().underscore() + 
                                                 '/update/' + id;
                   $.ajax( {
                     type: "POST",
@@ -414,7 +419,7 @@ var inquiryItemEditor = function(attributes) {
               {
                 text : that.deleteButtonText(),
                 click : function() {
-                  url = that.urlBaseForEdit() + $('.inquiry_item_type', inquiryItem).val().underscore() + 
+                  url = that.urlBaseForEdit() + that.siteName() + '/'+ $('.inquiry_item_type', inquiryItem).val().underscore() + 
                                                 '/destroy/' + id;
                   $.ajax( {
                     type: "POST",

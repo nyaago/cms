@@ -1,0 +1,23 @@
+xml.instruct! :xml, :version=> '1.0', :encoding => 'UTF-8'
+xml.urlset( :xmlns => 'http://www.google.com/schemas/sitemap/0.84')  {
+  xml.url {
+    xml.loc(request.protocol + request.host_with_port)
+    xml.changefreq('daily')
+    xml.priority('0.9')
+  }
+  @articles.each do |article|
+    xml.url {
+      if article.type == "PageArticle"
+        xml.loc(request.protocol + request.host_with_port +
+                 url_for(:controller => 'pages', :action => 'show', :page => article.name, 
+                          :site => article.site.id))
+      else
+        xml.loc(request.protocol + request.host_with_port +
+                 url_for(:controller => 'blogs', :action => 'show', :id => article.id,
+                          :site => article.site.id))
+      end
+      xml.changefreq('weekly')
+      xml.priority('0.5')
+    }
+  end
+}

@@ -29,11 +29,13 @@ class Site::BaseController < ActionController::Base
   # 認証の確認.
   # 認証されていなければ、ログインページへのリダイレクト
   def authenticate
-    unless current_user
+    if current_user.nil? || current_user.site.name != params[:site]
       store_location
       flash[:notice] = I18n.t :need_to_login, 
                               :scope => TRANSLATION_SCOPE + [:user_sessions]
-      redirect_to :controller => :user_sessions, :action => :new
+      redirect_to :controller => :user_sessions, :action => :new,
+                  :back_controller => params[:controller],
+                  :site => params[:site]
       return false
     end
     @site = current_user.site
@@ -47,8 +49,17 @@ class Site::BaseController < ActionController::Base
   end
 
   # セッションに保存されている戻り先,またはデフォルトのuriへのリダイレクト
-  def redirect_back_or_default(default)
-    redirect_to(session[:return_to] || default)
+  def redirect_back_or_default(default_controller, default_site = nil)
+    redirect_to(:controller =>  if params[:back_controller].blank? 
+                                  default_controller
+                                else
+                                  params[:back_controller]
+                                end,
+                :action => :index,
+                :site => if params[:site].blank? then  default_site else params[:site] end
+                  )
+    
+#    redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
   

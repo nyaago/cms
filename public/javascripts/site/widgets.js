@@ -68,7 +68,8 @@
 // </div>
 //
 // == Option 属性 
-//
+// 以下の属性の設定が必須
+// siteName: サイト名 (サーバーのSiteモデルのname属性)
 // 以下の属性が設定可能 (属性名: 説明 デフォルト)
 // urlForAdd:  追加リクエストのurl  "/site/widgets/create",
 // urlForSort: 並ぶ替えリクエストのurl  "/site/widgets/sort",
@@ -265,6 +266,10 @@ var widgetEditor = function(attributes) {
     return that.attribute('idForErrorCount',value);
   };
 
+  that.siteName = function(value) {
+    return that.attribute('siteName',value);
+  };
+
 
 
   // Widget area に Widgetを挿入
@@ -349,7 +354,7 @@ var widgetEditor = function(attributes) {
   // Widget 編集 dialog を表示
   openDialog = function(widget) {
     var id = $('.widget_id', widget).val();
-    var url = that.urlBaseForEdit() + $('.widget_type', widget).val().underscore() + 
+    var url = that.urlBaseForEdit()  + that.siteName() + '/'+ $('.widget_type', widget).val().underscore() + 
                                         '/edit/' + id;
     $.ajax( {
       type: "GET",
@@ -376,7 +381,7 @@ var widgetEditor = function(attributes) {
               {
                 text : that.updateButtonText(),
                 click: function() {
-                  url = that.urlBaseForEdit() + $('.widget_type', widget).val().underscore() + 
+                  url = that.urlBaseForEdit()  + that.siteName() + '/' + $('.widget_type', widget).val().underscore() + 
                                                 '/update/' + id;
                   $.ajax( {
                     type: "POST",
@@ -414,7 +419,7 @@ var widgetEditor = function(attributes) {
               {
                 text : that.deleteButtonText(),
                 click : function() {
-                  url = that.urlBaseForEdit() + $('.widget_type', widget).val().underscore() + 
+                  url = that.urlBaseForEdit()  + that.siteName()+ '/' + $('.widget_type', widget).val().underscore() + 
                                                 '/destroy/' + id;
                   $.ajax( {
                     type: "POST",

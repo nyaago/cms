@@ -61,7 +61,7 @@ class Site::BlogsController < Site::ArticlesController
       end
     end
     # 属性設定
-    @article.user_id = current_user.id
+    @article.user = current_user
     @article.attributes = params[:blog_article]
     # 公開開始日
     @article.published_from = date_from_partial(params[:published_from])

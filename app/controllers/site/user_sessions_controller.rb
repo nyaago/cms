@@ -9,7 +9,13 @@ class Site::UserSessionsController  < Site::BaseController
   # ログインページを表示.
   def new
     @user_session = UserSession.new
+    render :layout => 'site_no_navi'
   end
+
+  def index
+    redirect_to :action => :new
+  end
+
   
   # ログインのための情報（ログイン,パスワード）をリクエストパラメーターから得て,
   # ユーザーセッションを生成,保存.
@@ -17,7 +23,7 @@ class Site::UserSessionsController  < Site::BaseController
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      redirect_back_or_default '/site/user_sessions/new'
+      redirect_back_or_default :dashboard, @user_session.user.site.name
     else
       render :action => :new
     end
@@ -26,8 +32,10 @@ class Site::UserSessionsController  < Site::BaseController
   # ログアウト.
   # ユーザセッションを削除.ログインページを表示.
   def destroy
-    current_user_session.destroy
-    redirect_back_or_default '/site/user_sessions/new'
+    if current_user_session
+      current_user_session.destroy
+    end
+    redirect_to :controller => :user_sessions, :action => :new
   end
   
 end
