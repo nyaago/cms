@@ -38,4 +38,6 @@ class Site::UserSessionsController  < Site::BaseController
     redirect_to :controller => :user_sessions, :action => :new
   end
   
+  
+  
 end

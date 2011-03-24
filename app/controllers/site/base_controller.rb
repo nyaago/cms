@@ -39,6 +39,7 @@ class Site::BaseController < ActionController::Base
       return false
     end
     @site = current_user.site
+    @current_user = current_user
     return true
   end
   

@@ -1,0 +1,7 @@
+<h1><%= User.human_attribute_name(:password) %>再発行完了</h1>
+
+<p id="notice"><%= flash[:notice] %></p>
+
+<div class="actions">
+  <%= link_to "ログイン", :controller => :user_sessions, :action => :new %>
+</div>

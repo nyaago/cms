@@ -78,4 +78,9 @@
   <li>
     <%=link_to "#{User.human_name}管理", :controller => "site/users", :action => :index, :site => @site.name  %>
   </li>
+  <li>
+    <%=link_to "#{User.human_attribute_name(:password)}変更", 
+    :controller => "site/password", :action => :edit, 
+    :site => @site.name, :id => @current_user.id  %>
+  </li>
 </ul>
