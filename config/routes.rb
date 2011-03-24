@@ -13,6 +13,9 @@ Cms::Application.routes.draw do
 #      match 'articles/:action/:id' => ':action#:id'
 #      match 'articles/:action' => ':action'
 #    end
+    
+    match ':site/common/:action' => 'common#:action#:site'
+    match 'common/:action' => 'common#:action'
 
     # password reissue
     match 'password_reissue/:action/:id' => 'password_reissue#:action#:id'
@@ -75,7 +78,6 @@ Cms::Application.routes.draw do
     match ':site/password/:action/:id' => 'password#:action#:id#:site'
     match ':site/password/:action' => 'password#:action#:site'
 
-    match ':site/common/:action' => 'common#:action#:site'
     
     # default - dashboard
     match ':site' => 'dashboard#index#:site'

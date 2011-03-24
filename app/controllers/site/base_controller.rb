@@ -31,7 +31,8 @@ class Site::BaseController < ActionController::Base
   # 認証されていなければ、ログインページへのリダイレクト.
   # また、権限がなければ、権限エラーのページへリダイレクト.
   def authenticate
-    if current_user.nil? || current_user.site.name != params[:site]
+    if (current_user.nil? || current_user.site.name != params[:site])  &&
+        !accessible_unless_login
       store_location
       flash[:notice] = I18n.t :need_to_login, 
                               :scope => TRANSLATION_SCOPE + [:user_sessions]
@@ -44,6 +45,14 @@ class Site::BaseController < ActionController::Base
     @current_user = current_user
     unless accessible_for?(@current_user)
       redirect_to :controller => :common, :action => :inaccessible
+      return false
+    end
+    if @site.canceled && !accessible_unless_login
+      redirect_to :controller => :common, :action => :canceled
+      return false
+    end
+    if @site.suspended && !accessible_unless_login
+      redirect_to :controller => :common, :action => :suspended
       return false
     end
     return true
@@ -78,6 +87,14 @@ class Site::BaseController < ActionController::Base
   # 可能な権限を変更する場合は、継承先でオーバーライドする
   def accessible_for?(user)
     user.is_admin || user.is_site_admin
+  end
+  
+  # login していないときにアクセス可能かどうかを返す.
+  # ここでは、常に不可とする.
+  # 動作を変更する場合は、継承先でオーバーライドする.
+  def accessible_unless_login
+    p "accessible_unless_login - #{false}"
+    false
   end
   
 end

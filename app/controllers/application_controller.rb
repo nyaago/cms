@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     if !site_name.blank?
       @site = Site.find_by_name(site_name)
     end
-    if @site.nil?
+    if @site.nil? || !@site.published || @site.suspended || @site.canceled
       respond_to do |format|
          format.html { 
            render :file => "#{::Rails.root.to_s}/public/404.html", 
@@ -69,9 +69,6 @@ class ApplicationController < ActionController::Base
     @new_blogs = @site.blogs.where("published = true").
                         order("updated_at desc").
                         limit(@site.view_setting.title_count_in_home)
-
-    
-    
   end
   
   # Blog Archive選択のための月の一覧を生成
