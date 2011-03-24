@@ -30,7 +30,6 @@
   </li>
 </ul>
 
-
 <ul class="menu_group">
   <li class="menu_group_header">
     ページ
@@ -39,6 +38,8 @@
     <%=link_to "ページ一覧", :controller => "site/pages", :action => :index, :site => @site.name %>
   </li>
 </ul>
+
+<% if @current_user.is_admin || @current_user.is_site_admin %>
 
 <ul class="menu_group">
   <li class="menu_group_header">
@@ -77,6 +78,14 @@
   </li>
   <li>
     <%=link_to "#{User.human_name}管理", :controller => "site/users", :action => :index, :site => @site.name  %>
+  </li>
+</ul>
+
+<% end %>
+
+<ul class="menu_group">
+  <li class="menu_group_header">
+    パスワード変更
   </li>
   <li>
     <%=link_to "#{User.human_attribute_name(:password)}変更", 

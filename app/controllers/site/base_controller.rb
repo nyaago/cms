@@ -12,6 +12,7 @@ class Site::BaseController < ActionController::Base
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = [:messages, :site].freeze
+
   
   protected
 
@@ -27,7 +28,8 @@ class Site::BaseController < ActionController::Base
   end
   
   # 認証の確認.
-  # 認証されていなければ、ログインページへのリダイレクト
+  # 認証されていなければ、ログインページへのリダイレクト.
+  # また、権限がなければ、権限エラーのページへリダイレクト.
   def authenticate
     if current_user.nil? || current_user.site.name != params[:site]
       store_location
@@ -40,6 +42,10 @@ class Site::BaseController < ActionController::Base
     end
     @site = current_user.site
     @current_user = current_user
+    unless accessible_for?(@current_user)
+      redirect_to :controller => :common, :action => :inaccessible
+      return false
+    end
     return true
   end
   
@@ -49,7 +55,8 @@ class Site::BaseController < ActionController::Base
     session[:return_to] = request.request_uri
   end
 
-  # セッションに保存されている戻り先,またはデフォルトのuriへのリダイレクト
+  # back_controller で指定されているcontroller の index,
+  # またはデフォルトのuriへのリダイレクト
   def redirect_back_or_default(default_controller, default_site = nil)
     redirect_to(:controller =>  if params[:back_controller].blank? 
                                   default_controller
@@ -62,6 +69,15 @@ class Site::BaseController < ActionController::Base
     
 #    redirect_to(session[:return_to] || default)
     session[:return_to] = nil
+  end
+  
+  protected
+  
+  # ユーザがこのcontroller の機能を使用可能かどうかを返す.
+  # ここでは、管理者とサイト内管理者のみが使用可能とする。
+  # 可能な権限を変更する場合は、継承先でオーバーライドする
+  def accessible_for?(user)
+    user.is_admin || user.is_site_admin
   end
   
 end

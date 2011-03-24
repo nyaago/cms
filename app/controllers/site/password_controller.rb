@@ -68,4 +68,13 @@ class Site::PasswordController < Site::BaseController
   def completed
   end
 
+  protected
+  
+  # ユーザがこのcontroller の機能を使用可能かどうかを返す.
+  # userがnilでなければOKにする.
+  def accessible_for?(user)
+    !!user
+  end
+
+
 end

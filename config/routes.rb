@@ -75,6 +75,7 @@ Cms::Application.routes.draw do
     match ':site/password/:action/:id' => 'password#:action#:id#:site'
     match ':site/password/:action' => 'password#:action#:site'
 
+    match ':site/common/:action' => 'common#:action#:site'
     
     # default - dashboard
     match ':site' => 'dashboard#index#:site'

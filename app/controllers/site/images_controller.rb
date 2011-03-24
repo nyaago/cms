@@ -273,4 +273,13 @@ class Site::ImagesController < Site::BaseController
     Image.delete(id)
   end
   
+  protected
+  
+  # ユーザがこのcontroller の機能を使用可能かどうかを返す.
+  # userがnilでなければOKにする.
+  def accessible_for?(user)
+    !!user
+  end
+
+
 end
