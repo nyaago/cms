@@ -39,7 +39,7 @@
     </div>
     <div class="field" id="theme">
       <span class="field_name">テーマ</span>
-      <span  class="field_value"><%= @theme %></span>
+      <span  class="field_value"><%= @theme.human_name %></span>
     </div>
     <div class="field" id="widget_count">
       <span class="field_name">ウィジット</span>
@@ -48,7 +48,7 @@
     <div class="field" id="widget_count">
       <span class="field_name">ファイル容量の使用状況</span>
       <span  class="field_value">
-        最大50MBのうち
+        最大<%= @site.max_mbyte %>MBのうち
         <% if @capacity > 1024 * 1024 %>
         <%= @capacity / 1024 / 1024 %>MB
         <% else @capacity > 1024  %>
