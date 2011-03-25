@@ -25,6 +25,14 @@ div.field, div.actions {
   color: green;
 }
 
+#warning {
+  color: magenta;
+}
+
+#error {
+  color: red;
+}
+
 .field_with_errors {
   padding: 2px;
   background-color: red;
@@ -57,10 +65,19 @@ div.field, div.actions {
 }
 
 
-
+/* ******** */
 
 .actions {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
   clear: both;
+  text-align: center;
+}
+
+.pagination {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
 }
 
 
