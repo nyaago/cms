@@ -20,7 +20,7 @@ jQuery(function($){
 // * align - 画像の横方向のalign (left | rigjt | center | none )
 function insertImages(images, align) {
 
-  var editor = CKEDITOR.instances.article_content;
+  var editor = CKEDITOR.instances.page_article_content;
   var alignStyle = align == "none" ? "" : "align-text: " + align + ";";
   $.each(images, function(i) {
     var p;
@@ -48,7 +48,8 @@ function insertImages(images, align) {
 }
 
 CKEDITOR.config.height =  '<%= (editor_row_count * 1.25).to_i %>'  + "em";
-CKEDITOR.config.imageSelctorUrl = '<%= url_for(:controller => :images, :action => :selection_list) %>';
+CKEDITOR.config.imageSelctorUrl = 
+'<%= url_for(:controller => :images, :action => :selection_list, :site => @site.name) %>';
 
 
 </script>

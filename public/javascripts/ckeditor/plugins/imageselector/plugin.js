@@ -1,11 +1,9 @@
-
 // 画像選択のページを別Windowで表示
 function selectImages() {
   window.open('<%= url_for(:controller => :images, :action => :selection_list) %>', 
   '_blank', 'width=' + (window.outerWidth > 400 ? window.outerWidth - 200 : 200) + 
           ', height=' + (window.outerHeight > 300 ?   window.outerHeight - 100 : 200) + 
           ', menubar=no, toolbar=no, scrollbars=yes');
-//  alert("aaa");
 }
 
 
@@ -46,4 +44,4 @@ CKEDITOR.plugins.imageSelector =
 };
 
 
-CKEDITOR.config.imageSelctorUrl = '/site/images/selection_list';
+// CKEDITOR.config.imageSelctorUrl = '/site/images/selection_list';

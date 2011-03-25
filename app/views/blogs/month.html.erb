@@ -11,22 +11,20 @@
 
     <p id="notice"><%= notice %></p>
 
-    <p id="content">
+    <p id="content" class="article">
       <%= article.content.html_safe %>
     </p>
 
   <% end %>
 
 <% else %>  
-  <p class='not_found'>
+  <p class='not_found warning'>
     指定された月には<%= BlogArticle.human_name %>がみつかりません
   </p>
 <% end %>
 
 <% if @articles.size > 0 %>
-  <div>
-    <%= will_paginate @articles, :prev_label => '<=', :next_label => '=>' %>
-  </div>
+  <%= will_paginate @articles, :prev_label => '<=', :next_label => '=>' %>
 <% end %>
 
 <div class="actions">  

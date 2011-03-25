@@ -17,4 +17,13 @@ class Site::InformationsController < Site::BaseController
     end
   end
   
+  protected
+  
+  # ユーザがこのcontroller の機能を使用可能かどうかを返す.
+  # userがnilでなければOKにする.
+  def accessible_for?(user)
+    !!user
+  end
+  
+  
 end

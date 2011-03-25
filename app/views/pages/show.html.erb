@@ -5,13 +5,13 @@
 <p id="notice"><%= notice %></p>
 
 <% if @article %>
-<p id="content">
+<p id="content" class="article">
   <%= @article.content.html_safe %>
 </p>
 
 
 <% else %>  
-  <p class='not_found'>
+  <p class='not_found warning'>
     指定された<%= PageArticle.human_name %>はみつかりません
   </p>
 <% end %>

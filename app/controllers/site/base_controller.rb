@@ -12,6 +12,7 @@ class Site::BaseController < ActionController::Base
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = [:messages, :site].freeze
+
   
   protected
 
@@ -27,9 +28,11 @@ class Site::BaseController < ActionController::Base
   end
   
   # 認証の確認.
-  # 認証されていなければ、ログインページへのリダイレクト
+  # 認証されていなければ、ログインページへのリダイレクト.
+  # また、権限がなければ、権限エラーのページへリダイレクト.
   def authenticate
-    if current_user.nil? || current_user.site.name != params[:site]
+    if (current_user.nil? || current_user.site.name != params[:site])  &&
+        !accessible_unless_login
       store_location
       flash[:notice] = I18n.t :need_to_login, 
                               :scope => TRANSLATION_SCOPE + [:user_sessions]
@@ -39,6 +42,19 @@ class Site::BaseController < ActionController::Base
       return false
     end
     @site = current_user.site
+    @current_user = current_user
+    unless accessible_for?(@current_user)
+      redirect_to :controller => :common, :action => :inaccessible
+      return false
+    end
+    if @site.canceled && !accessible_unless_login
+      redirect_to :controller => :common, :action => :canceled
+      return false
+    end
+    if @site.suspended && !accessible_unless_login
+      redirect_to :controller => :common, :action => :suspended
+      return false
+    end
     return true
   end
   
@@ -48,7 +64,8 @@ class Site::BaseController < ActionController::Base
     session[:return_to] = request.request_uri
   end
 
-  # セッションに保存されている戻り先,またはデフォルトのuriへのリダイレクト
+  # back_controller で指定されているcontroller の index,
+  # またはデフォルトのuriへのリダイレクト
   def redirect_back_or_default(default_controller, default_site = nil)
     redirect_to(:controller =>  if params[:back_controller].blank? 
                                   default_controller
@@ -61,6 +78,23 @@ class Site::BaseController < ActionController::Base
     
 #    redirect_to(session[:return_to] || default)
     session[:return_to] = nil
+  end
+  
+  protected
+  
+  # ユーザがこのcontroller の機能を使用可能かどうかを返す.
+  # ここでは、管理者とサイト内管理者のみが使用可能とする。
+  # 可能な権限を変更する場合は、継承先でオーバーライドする
+  def accessible_for?(user)
+    user.is_admin || user.is_site_admin
+  end
+  
+  # login していないときにアクセス可能かどうかを返す.
+  # ここでは、常に不可とする.
+  # 動作を変更する場合は、継承先でオーバーライドする.
+  def accessible_unless_login
+    p "accessible_unless_login - #{false}"
+    false
   end
   
 end

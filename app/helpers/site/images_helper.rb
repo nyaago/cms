@@ -65,8 +65,9 @@ module Site::ImagesHelper
   end
   
   def image_url(image, style = nil)
-    'http://' + request.env['HTTP_HOST'] + request.env['REQUEST_PATH'] +  
-      image.url(style)[1..image.url(style).size + 1]
+#    'http://' + request.env['HTTP_HOST'] + request.env['REQUEST_PATH'] +  
+#      image.url(style)[1..image.url(style).size + 1]
+      "/" + image.url(style)[1..image.url(style).size + 1]
   end
   
 end

@@ -1,0 +1,32 @@
+<h1><%= User.human_attribute_name(:password) %>再発行</h1>
+
+<p id="error"><%= flash[:error] %></p>
+
+<% if @user && @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= (@user.errors.count).to_s %> のエラーが発生しました</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(:user, :url => url_for(:action => :ask)) do |f| %>
+
+<div class="inputs" id="password_reissue_fields">
+  <div class="field" id="login_field">
+    <%= f.label t :login,:scope => [:activerecord, :attributes, :user] %><br />
+    <%= f.text_field :login %>
+  </div>
+  <div class="actions">
+    <%= f.submit '続ける' %>
+  </div>
+  
+</div>
+
+<% end %>
+
+

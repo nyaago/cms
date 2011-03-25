@@ -16,4 +16,22 @@ class User < ActiveRecord::Base
     config.crypto_provider = Authlogic::CryptoProviders::MD5
   end
 
+  # パスワード再発行用パスワードの生成
+  def generate_reissue_password
+    src_str = ('a'..'z').to_a + ('A'..'Z').to_a + (0..9).to_a
+
+    password = nil
+    begin
+      password = String.new
+      30.times {
+      	random_num = rand(src_str.length)
+      	password += src_str[random_num].chr
+      }
+    end while User.select('id').
+    where("reissue_password = :reissue_password", :reissue_password => password).size > 0
+    self.reissue_password = password
+  end
+
 end
+
+

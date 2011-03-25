@@ -1,0 +1,34 @@
+<h1><%= User.human_attribute_name(:password) %>変更</h1>
+
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= (@user.errors.count).to_s %> のエラーが発生しました</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@user, :url => url_for(:action => :update)) do |f| %>
+
+<div class="inputs" id="password_fields">
+  <div class="field" id="password_field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="field" id="password_confirmation_field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'パスワード変更' %>
+  </div>
+  
+</div>
+
+<% end %>
+
+
