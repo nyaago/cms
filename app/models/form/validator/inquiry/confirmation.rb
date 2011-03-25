@@ -13,7 +13,7 @@ module Form
      
           record.inquiry_items.each do |site_inquiry_item|
             inquiry_item = site_inquiry_item.inquiry_item
-            return inquiry_item.nil?
+            return if inquiry_item.nil?
             if inquiry_item.respond_to?(:comfirmation_required)
               if inquiry_item.send(:comfirmation_required)
                 attribute = "item_#{site_inquiry_item.id}"
@@ -22,6 +22,7 @@ module Form
                   :scope => TRANSLATION_SCOPE)
                 end
               end
+            end
           end
         end # def
 
