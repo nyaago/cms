@@ -70,7 +70,7 @@ CKEDITOR.config.imageSelctorUrl =
   <h2 id="article_heading">
     記事入力
   </h2>
-  <div class="inputs" id="article_fields">
+  <div class="inputs fields" id="article_fields">
     <div id="updated_at_info">
     <% if @article.updated_at %>
      最終<%= BlogArticle.human_attribute_name(:updated_at) %>:
@@ -96,7 +96,7 @@ CKEDITOR.config.imageSelctorUrl =
   <h2 id="published_heading">
     公開
   </h2>
-  <div class="inputs" id="published_fields">
+  <div class="inputs fields" id="published_fields">
     <div class="" id="published_status_info">
       <span id="published_status_info">
         ステータス:
@@ -213,7 +213,7 @@ CKEDITOR.config.imageSelctorUrl =
   <h2 id="seo_heading">
     SEO
   </h2>
-  <div class="inputs" id="seo">
+  <div class="inputs fields" id="seo_fields">
     <div class="field" id="meta_keywords_filed">
       <%= f.label :meta_keywords %>
       <%= f.text_field :meta_keywords %>

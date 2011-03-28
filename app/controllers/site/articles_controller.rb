@@ -38,6 +38,9 @@ class Site::ArticlesController < Site::BaseController
                               :per_page => PER_PAGR)
 
     #p "total -- " + @articles.total_entries.to_s
+    if @articles.size == 0
+      flash[:notice] = I18n.t("none", :scope => self.class.translation_scope)
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @articles }
@@ -69,6 +72,9 @@ class Site::ArticlesController < Site::BaseController
       article
     else 
       articles.where("id = :id", :id => params[:id]).first
+    end
+    if @article.nil?
+      flash[:notice] = I18n.t("not_found", :scope => self.class.translation_scope)
     end
   end
 

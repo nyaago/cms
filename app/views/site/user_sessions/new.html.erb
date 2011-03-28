@@ -9,11 +9,11 @@
       :url => { :action => "create"} )   do |f|   %>
 
 
-    <div class="field">
+    <div class="field" id="login">
       <%= f.label t :login,:scope => [:activerecord, :attributes, :user]  %><br />
       <%= f.text_field :login %>
     </div>
-    <div class="field">
+    <div class="field" id="password">
       <%= f.label t :password,:scope => [:activerecord, :attributes, :user] %><br />
       <%= f.password_field :password %>
     </div>

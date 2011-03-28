@@ -23,6 +23,9 @@ class Site::PagesController < Site::ArticlesController
     else
       nil
     end
+    if @article.nil?
+      flash[:notice] = I18n.t("not_found", TRANSLATION_SCOPE)
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @article }

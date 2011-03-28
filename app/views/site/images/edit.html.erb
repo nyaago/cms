@@ -21,6 +21,7 @@
     
   <% end %>
 
+<div class="fileds">
   <div class="field" id="title_field">
     <%= f.label  :title %><br />
     <%= f.text_field :title %>
@@ -50,11 +51,13 @@
     <%= user_image_tag(@image) %>
   </div>
 
+</div>
   
-  <div class="actions">
-    <%= link_to_function '戻る', 'history.back();' %>
-   <%= f.submit :value => "更新" %>
-  </div>
+<div class="actions">
+  <%= link_to_function '戻る', 'history.back();' %>
+ <%= f.submit :value => "更新" %>
+</div>
+
   <!--
   <iframe id='frame' name="frame"></iframe> 
   -->

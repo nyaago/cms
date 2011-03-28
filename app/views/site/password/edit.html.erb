@@ -1,5 +1,6 @@
 <h1><%= User.human_attribute_name(:password) %>変更</h1>
 
+<p id="notice"><%= flash[:notice] %></p>
 <% if @user.errors.any? %>
   <div id="error_explanation">
     <h2><%= (@user.errors.count).to_s %> のエラーが発生しました</h2>
@@ -14,7 +15,7 @@
 
 <%= form_for(@user, :url => url_for(:action => :update)) do |f| %>
 
-<div class="inputs" id="password_fields">
+<div class="inputs fields" id="password_fields">
   <div class="field" id="password_field">
     <%= f.label :password %><br />
     <%= f.password_field :password %>

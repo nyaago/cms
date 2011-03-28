@@ -23,8 +23,7 @@ class Site::UsersController < Site::BaseController
   def show
     @user = User.find_by_id(params[:id])
     if @user.nil?
-      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", :layout => false
-      return
+      flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
     end
     respond_to do |format|
       format.html # show.html.erb
@@ -47,8 +46,11 @@ class Site::UsersController < Site::BaseController
   def edit
     @user = User.find_by_id(params[:id])
     if @user.nil?
-      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", :layout => false
-      return
+      flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
+    end
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @user }
     end
   end
 

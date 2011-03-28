@@ -60,8 +60,8 @@
       <%= link_to Article.human_attribute_name(:updated_at), 
         site_pages_path(:sort => 'updated_at') %>
     </th>
-    <th></th>
-    <th></th>
+    <th class="edit action"></th>
+    <th class="destroy action"></th>
   </tr>
 
 <% @articles.each do |article| %>
@@ -88,9 +88,9 @@
     <td class="updated_at">
       <%= I18n.l article.updated_at, :format => :short %>
     </td>
-    <td class="edit"><%= link_to '編集', 
+    <td class="edit action"><%= link_to '編集', 
         site_page_path(article, :action => :edit) %></td>
-    <td class="destroy"><%= link_to '削除', 
+    <td class="destroy action"><%= link_to '削除', 
         site_page_path(article, :action => :destroy) ,
                 :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
   </tr>

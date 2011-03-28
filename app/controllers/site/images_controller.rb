@@ -42,6 +42,10 @@ class Site::ImagesController < Site::BaseController
                               1 
                             end, 
                           :per_page => PER_PAGR)
+    if @images.size == 0
+      flash[:notice] = I18n.t("none", :scope => TRANSLATION_SCOPE)
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @images }
@@ -71,6 +75,10 @@ class Site::ImagesController < Site::BaseController
                               1 
                             end, 
                           :per_page => PER_PAGR)
+    if @images.size == 0
+      flash[:notice] = I18n.t("none", :scope => TRANSLATION_SCOPE)
+    end
+    
     respond_to do |format|
       format.html { render :layout => 'site_no_navi' }
       format.xml  { render :xml => @images }
@@ -134,8 +142,12 @@ class Site::ImagesController < Site::BaseController
         format.xml  { render :xml => @image.errors, 
           :status => :unprocessable_entity }
       end
+      return
     end
-    return
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @image }
+    end
   end
   
   # UPDATE /images/1
@@ -204,6 +216,7 @@ class Site::ImagesController < Site::BaseController
         format.xml  { render :xml => @image.errors, 
           :status => :unprocessable_entity }
       end
+      return
     end
   end
   

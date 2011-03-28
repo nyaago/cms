@@ -8,6 +8,9 @@ ja:
         created: "記事が作成されました"
         destroyed: "記事が削除されました"
         not_found: "記事がみつかりませんでした"
+        not_implemented_batch: "操作が定義されていません"
+        complete_destroy_batch: "%{count}件の削除を行いました"
+        none: "記事が登録されていません。"
 
       theme:
         updated: "テーマが更新されました"
@@ -22,6 +25,7 @@ ja:
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
         not_found: "画像がみつかりませんでした"
+        none: "該当する画像はありません。"
 
       images:
         created: "ファイルをアップロードしました"
@@ -30,12 +34,6 @@ ja:
         not_found: "画像がみつかりませんでした"
 
       pages:
-        updated: "ページが更新されました"
-        created: "ページが作成されました"
-        destroyed: "ページが削除されました"
-        destroyed: "削除されました"
-        not_implemented_batch: "操作が定義されていません"
-        complete_destroy_batch: "%{count}件の削除を行いました"
           
       blogs:
         updated: "記事が更新されました"
@@ -44,7 +42,8 @@ ja:
         destroyed: "削除されました"
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
-
+        not_found: "画像がみつかりませんでした"
+        none: "該当する記事はありません。"
   
       setting:
         updated: "設定が更新されました"
@@ -61,7 +60,9 @@ ja:
       users:
         updated: "ユーザが更新されました"
         created: "ユーザが作成されました"
-
+        not_found: "選択されたされたユーザは存在しません"
+        none: "ユーザが登録されていません。"
+        
       password:
         password_changed: "パスワードが変更されました"
 
@@ -71,7 +72,17 @@ ja:
         unknown_account: "入力されたアカウントは登録されていません"
         invalid_reissue_access: "パスワード再発行の期限が切れたか、URLが適切ではありません"
         password_reissued: "パスワードが再発行されました"
-        
+      
+      informations:
+        not_found: "記事がみつかりませんでした"
+    
+    pages:
+      not_found: "記事がみつかりませんでした"
+      
+    blogs:
+      not_found: "記事がみつかりませんでした"
+  
+  
   mailer:
     inquiry:
       contact: 

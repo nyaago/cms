@@ -1,10 +1,10 @@
 <div class="widget company_profile_widget">
-  <h4 class="widget_title company_profile_widget_title">
+  <h4 class="widget_header company_profile_widget_header">
   <%= CompanyProfileWidget.human_name %>
   </h4>
   
   <% unless @widget.name.blank? %>
-  <p class="name">
+  <p class="name_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:name) %>:
     </span>
@@ -15,7 +15,7 @@
   <% end %>
   
   <% unless @widget.address.blank? %>
-  <p class="address">
+  <p class="address_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:address) %>:
     </span>
@@ -26,7 +26,7 @@
   <% end %>
 
   <% unless @widget.zip_code.blank? %>
-  <p class="zip_code">
+  <p class="zip_code_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:zip_code) %>:
     </span>
@@ -37,7 +37,7 @@
   <% end %>
 
   <% unless @widget.tel_no.blank? %>
-  <p class="tel_no">
+  <p class="tel_no_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:tel_no) %>:
     </span>
@@ -48,7 +48,7 @@
   <% end %>
 
   <% unless @widget.business_hours.blank? %>
-  <p class="business_hours">
+  <p class="business_hours_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:business_hours) %>:
     </span>
@@ -59,7 +59,7 @@
   <% end %>
 
   <% unless @widget.regular_holidays.blank? %>
-  <p class="regular_holidays">
+  <p class="regular_holidays_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:regular_holidays) %>:
     </span>
@@ -70,7 +70,7 @@
   <% end %>
 
   <% unless @widget.email.blank? %>
-  <p class="email">
+  <p class="email_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:email) %>:
     </span>
@@ -81,7 +81,7 @@
   <% end %>
 
   <% unless @widget.link_url1.blank? && @widget.link_title1.blank?  %>
-  <p class="link_url1">
+  <p class="link_url1_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:link_url1) %>:
     </span>
@@ -102,7 +102,7 @@
   <% end %>
 
   <% unless @widget.link_url2.blank? && @widget.link_title2.blank?  %>
-  <p class="link_url2">
+  <p class="link_url2_field widget_field">
     <span class="widget_field_name">
     <%= CompanyProfileWidget.human_attribute_name(:link_url2) %>:
     </span>

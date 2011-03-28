@@ -1,6 +1,7 @@
 <p id="notice"><%= flash[:notice] %></p>
 
 <div>
+  <% if @image %>
   <% if @image.image_content_type? %>
   <div>
     <%= user_image_tag(@image) %>
@@ -50,7 +51,7 @@
     </tr>
 
   </table>
-  
+  <% end %>
 </div>
 
 <div class="actions">

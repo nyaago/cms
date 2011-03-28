@@ -1,4 +1,5 @@
-<div class="edit_widget" id="edit_widget_<%= @widget.id %>" style="display:none;">
+<div class="edit_widget edit_company_profile_widget" 
+id="edit_widget_<%= @widget.id %>" style="display:none;">
 <%= form_for(@widget, :url => url_for(:action => :update)) do |f| %>
   <div id="error_explanation" style="display:none;">
     <h2 id="error_count"></h2>
