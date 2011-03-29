@@ -9,6 +9,7 @@ module Validator
       TRANSLATION_SCOPE = [:errors, :user, :messages]
     
       def validate(record)
+        return if record.is_admin
         return if record.is_site_admin
         cnt_record = ::User.select("count(*) as cnt").
                               where("is_site_admin = true ").

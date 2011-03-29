@@ -9,3 +9,7 @@ user = User.new(:login => 'wasabi', :email => 'miki@wasabi3.com')
 user.password = user.password_confirmation = 'wasabi'
 user.site = site
 user.save!
+
+
+
+user = User.new(:login => 'admin', :password => 'admin', :password_confirmation => 'admin', :email => 'nyaago@bf.wakwak.com', :is_admin => true)
