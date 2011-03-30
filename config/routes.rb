@@ -3,7 +3,6 @@ Cms::Application.routes.draw do
 #  resources :pages
 
   namespace :admin do 
-
   end
 
   # User Sessions
@@ -12,6 +11,7 @@ Cms::Application.routes.draw do
   namespace :admin, :path => "admin" do 
     match 'sites/:action/:id' => 'sites#:action#:id'
     match 'sites/:action' => 'sites#:action'
+    match '' => 'sites#index'
   end
 
   namespace :site, :path => "site" do 

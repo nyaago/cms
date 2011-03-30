@@ -8,7 +8,6 @@ class Site::LayoutController < Site::BaseController
   # indexページ
   # 各レイアウト設定を行うページを表示
   def index
-    @site = current_user.site
     @site_layout = @site.site_layout
     @footer_image = LayoutImage.new
     @header_image = LayoutImage.new

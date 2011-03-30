@@ -30,7 +30,7 @@ class Site::BlogsController < Site::ArticlesController
   # POST /articles.xml
   def create
     @article = self.class.model.new(params[:blog_article])
-    @article.site_id = current_user.site_id
+    @article.site_id =  @site.id
     @article.user = current_user
 
     # 公開開始日
@@ -53,7 +53,7 @@ class Site::BlogsController < Site::ArticlesController
   # PUT /articles/1
   # PUT /articles/1.xml
   def update
-    @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @article = Article.find_by_id_and_site_id(params[:id], @site.id)
     if @article.nil?
       respond_to do |format|
         flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)

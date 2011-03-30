@@ -1,1 +1,70 @@
-<h1><%= Site.human_name%>一覧<h1>
+<h1><%= Site.human_name%>一覧</h1>
+  
+<p id="notice"><%= flash[:notice] %></p>
+<div class="table_div" id="users">
+<table>
+  <tr>
+    <th class="name">
+      <%= link_to Site.human_attribute_name(:name), admin_sites_path(:sort => 'name') %>
+    </th>
+    <th class="title">
+      <%= link_to Site.human_attribute_name(:title),  admin_sites_path(:sort => 'title') %>
+    </th>
+    <th class="email">
+      <%= link_to Site.human_attribute_name(:email),  
+      admin_sites_path(:sort => 'email') %>
+    </th>
+    <th class="published">
+      <%= link_to Site.human_attribute_name(:published),
+      admin_sites_path(:sort => 'published') %>
+    </th>
+    <th class="suspended">
+      <%= link_to Site.human_attribute_name(:suspended),
+      admin_sites_path(:sort => 'suspended') %>
+    </th>
+    <th class="canceled">
+      <%= link_to Site.human_attribute_name(:canceled),
+      admin_sites_path(:sort => 'canceled') %>
+    </th>
+    <th class="created_at">
+      <%= link_to Site.human_attribute_name(:created_at),
+      admin_sites_path(:sort => 'created_at') %>
+    </th>
+    <th class="actions"></th>
+  </tr>
+
+<% @sites.each do |site| %>
+  <tr>
+    <td class="name"><%= site.name %></td>
+    <td class="title"><%= site.title %></td>
+    <td class="email"><%= site.email %></td>
+    <td class="published"><%= if site.published then 'はい' end %></td>
+    <td class="suspended"><%= if site.suspended then 'はい' end %></td>
+    <td class="canceled"><%= if site.canceled then 'はい' end %></td>
+    <td class="created_at"><%= I18n.l site.created_at %></td>
+
+    <td class="actions">
+      <%= link_to 'サイト変更', :controller => '/site/dashboard', :action => :index, :site => site.name %>
+      <%= link_to '基本機能変更',admin_site_path(site, :action => :edit) %>
+      <%= link_to '削除',admin_site_path(site, :action => :destroy) ,
+      :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
+    </td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+<br />
+
+<% if @sites.size > 0 %>
+  <div>
+    <%= will_paginate @sites, :prev_label => '<=', :next_label => '=>' %>
+
+    </div>
+<% end %>
+
+<br />
+
+<div class="actions">
+<%= link_to '新規サイト', { :action => :new } %>
+</div>

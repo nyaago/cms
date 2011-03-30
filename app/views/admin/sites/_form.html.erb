@@ -1,0 +1,57 @@
+<script type="text/javascript" charset="utf-8">
+
+jQuery(function($){
+});
+
+
+</script>
+
+<div id="edit_site">
+<%= form_for(@site, :url => admin_site_path(@site)) do |f| %>
+  <% if @site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= (@site.errors.count).to_s %> のエラーが発生しました</h2>
+
+      <ul>
+      <% @site.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inputs fields" id="site_fields">
+    <div class="field" id="name_field">
+      <%= f.label :name %><br />
+      <% if @site.new_record? %>
+        <%= f.text_field :name %>
+      <% else %>
+        <span><%= @site.name %></span>
+      <% end %>
+    </div>
+    <div class="field" id="title_field">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field" id="email_field">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>
+    <div class="field" id="published_field">
+      <%= f.label :published %><br />
+      <%= f.check_box :published %>
+    </div>
+    <div class="field" id="suspended_field">
+      <%= f.label :suspended %><br />
+      <%= f.check_box :suspended %>
+    </div>
+    <div class="field" id="canceled_field">
+      <%= f.label :canceled %><br />
+      <%= f.check_box :canceled %>
+    </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>  
+<% end %>
+</div>

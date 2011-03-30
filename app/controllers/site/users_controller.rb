@@ -80,6 +80,11 @@ class Site::UsersController < Site::BaseController
   # PUT /site/users/1.xml
   def update
     @user = User.find(params[:id])
+    if @user.nil?
+      format.html { render :action => "edit" }
+      format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      return 
+    end
     @user.updated_by = current_user
     respond_to do |format|
       if @user.update_attributes(params[:user])

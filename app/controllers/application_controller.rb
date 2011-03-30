@@ -2,6 +2,10 @@
 # 公開ページ共通のController
 class ApplicationController < ActionController::Base
   protect_from_forgery # :except => :hoge
+
+  # action  の after filter. 
+  # flash のクリア
+  after_filter :clear_flash
   
   NEW_BLOGS_MAX = 5
   
@@ -114,6 +118,13 @@ class ApplicationController < ActionController::Base
   # そうでなければ,to_sの値を参照.
   def page_title
     nil
+  end
+
+  # flash のクリア
+  def clear_flash
+   flash[:notice]=nil
+   flash[:error]=nil
+   flash[:worn]=nil
   end
   
 end

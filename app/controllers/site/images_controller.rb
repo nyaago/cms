@@ -28,10 +28,10 @@ class Site::ImagesController < Site::BaseController
   # * images[month] - 年月(yyyymm 書式)
   def index
     @image = Image.new
-    @months = Image.created_months(current_user.site_id)
+    @months = Image.created_months(@site.id)
     cur_month = if params[:month] then params[:month] else nil end
     @images = Image.where("site_id = :site_id ",
-                          :site_id => current_user.site_id).
+                          :site_id => @site.id).
                         filter_by_month(cur_month).
                         order(order_by).
                         paginate(
@@ -43,7 +43,7 @@ class Site::ImagesController < Site::BaseController
                             end, 
                           :per_page => PER_PAGR)
     if @images.size == 0
-      flash[:notice] = I18n.t("none", :scope => TRANSLATION_SCOPE)
+      flash[:notice] = I18n.t(:none, :scope => TRANSLATION_SCOPE)
     end
 
     respond_to do |format|

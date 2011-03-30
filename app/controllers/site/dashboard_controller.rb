@@ -15,7 +15,7 @@ class Site::DashboardController < Site::BaseController
     @capacity = @site.images.sum("total_size")
     @widget_count = @site.site_widgets.count 
 #    @theme = @site.site_layout.theme
-    @site = current_user.site
+#    @site = current_user.site
     @themes = Layout::Theme.load
     @theme = @themes.find_by_name(@site.site_layout.theme)
     

@@ -2,8 +2,10 @@ ja:
   messages:
     user_sessions:
       need_to_login: "ログインしてください"
-    
     site:
+      user_sessions:
+        need_to_login: "ログインしてください"
+      
       pages:
         updated: "記事が更新されました"
         created: "記事が作成されました"
@@ -26,21 +28,12 @@ ja:
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
         not_found: "画像がみつかりませんでした"
-        none: "該当する画像はありません。"
-
-      images:
-        created: "ファイルをアップロードしました"
-        updated: "更新しました"
-        destroyed: "削除されました"
-        not_found: "画像がみつかりませんでした"
-
-      pages:
+        none: "画像が1件もありません。"
           
       blogs:
         updated: "記事が更新されました"
         created: "記事が作成されました"
         destroyed: "記事が削除されました"
-        destroyed: "削除されました"
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
         not_found: "画像がみつかりませんでした"
@@ -76,6 +69,16 @@ ja:
       
       informations:
         not_found: "記事がみつかりませんでした"
+    
+    admin:
+      user_sessions:
+        need_to_login: "ログインしてください"
+      
+      sites:
+        none: "１件も登録されていません"
+        not_found: "サイトがみつかりませんでした"
+        destroyed: "サイトが削除されました"
+    
     
     pages:
       not_found: "記事がみつかりませんでした"

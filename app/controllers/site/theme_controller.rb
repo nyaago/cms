@@ -6,7 +6,6 @@ class Site::ThemeController < Site::BaseController
   TRANSLATION_SCOPE = ["messages", "site", "theme"].freeze
   
   def index
-    @site = current_user.site
     @themes = Layout::Theme.load
     @selected_theme = @themes.find_by_name(@site.site_layout.theme)
     #@site.theme = 'default'

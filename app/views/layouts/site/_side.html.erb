@@ -83,6 +83,7 @@
 
 <% end %>
 
+<% unless @current_user.is_admin %>
 <ul class="menu_group">
   <li class="menu_group_header">
     パスワード変更
@@ -93,3 +94,16 @@
     :site => @site.name, :id => @current_user.id  %>
   </li>
 </ul>
+<% end %>
+
+
+<% if @current_user.is_admin %>
+<ul class="menu_group">
+  <li class="menu_group_header">
+    管理者用
+  </li>
+  <li>
+    <%=link_to "サイト一覧", :controller => "admin/sites", :action => :index  %>
+  </li>
+</ul>
+<% end %>

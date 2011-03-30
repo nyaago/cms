@@ -10,6 +10,10 @@ class Admin::BaseController < ActionController::Base
     # 認証確認
     before_filter :authenticate
 
+    # action  の after filter. 
+    # flash のクリア
+    after_filter :clear_flash
+
     # 翻訳リソースのスコープ
     TRANSLATION_SCOPE = [:messages, :admin].freeze
 
@@ -35,7 +39,7 @@ class Admin::BaseController < ActionController::Base
           !accessible_unless_login
         flash[:notice] = I18n.t :need_to_login, 
                                 :scope => TRANSLATION_SCOPE + [:user_sessions]
-        redirect_to :controller => :user_sessions, :action => :new,
+        redirect_to :controller => '/user_sessions', :action => :new,
                     :back_controller => params[:controller],
                     :site => params[:site]
         return false
@@ -80,5 +84,13 @@ class Admin::BaseController < ActionController::Base
       p "accessible_unless_login - #{false}"
       false
     end
+
+    # flash のクリア
+    def clear_flash
+     flash[:notice]=nil
+     flash[:error]=nil
+     flash[:worn]=nil
+    end
+
   
 end
