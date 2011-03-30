@@ -24,7 +24,7 @@ class Site::ArticlesController < Site::BaseController
   # GET /articles.xml
   # 記事一覧の表示
   def index
-    @months = self.class.model.updated_months(current_user.site_id)
+    @months = self.class.model.updated_months(@site.id)
     cur_month = if params[:month] then params[:month] else nil end
     @articles = articles.filter_by_updated_month(cur_month).
                         order(order_by).
@@ -65,7 +65,7 @@ class Site::ArticlesController < Site::BaseController
     if params[:is_history]
       article = PageArticleHistory.find_by_id_and_site_id(
         params[:id] ,
-        current_user.site_id)
+        @site.id)
       if !article.nil?
         article.id = article.article_id
       end

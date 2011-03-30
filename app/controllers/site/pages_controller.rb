@@ -56,7 +56,7 @@ class Site::PagesController < Site::ArticlesController
   # 記事のメニュー表示位置を１つ前に移動するアクション
   # Ajaxでの実行となり.モデル更新後,viewの一覧テーブル部分のみをreplaceする
   def previous_order
-    @article = PageArticle.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @article = PageArticle.find_by_id_and_site_id(params[:id], @site.id)
     if @article.nil?
       @articles = @site.pages.order('menu_order')
       render :action => :table_for_placing
@@ -75,10 +75,10 @@ class Site::PagesController < Site::ArticlesController
   # Ajaxでの実行となり.モデル更新後,viewの一覧テーブル部分のみをreplaceする
   def next_order
     flash[:notice] = ''
-    @article = PageArticle.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @article = PageArticle.find_by_id_and_site_id(params[:id], @site.id)
     if @article.nil?
       @articles = PageArticle.where("site_id = :site_id", 
-                                :site_id => current_user.site_id).
+                                :site_id => @site.id).
                                 order('menu_order')
       render :action => :table_for_placing
       return

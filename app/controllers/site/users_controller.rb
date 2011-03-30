@@ -21,7 +21,7 @@ class Site::UsersController < Site::BaseController
   # GET /site/users/1
   # GET /site/users/1.xml
   def show
-    @user = User.find_by_id(params[:id])
+    @user = @site.users.where("id = :id", :id => params[:id]).first
     if @user.nil?
       flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
     end
@@ -44,7 +44,7 @@ class Site::UsersController < Site::BaseController
 
   # GET /site/users/1/edit
   def edit
-    @user = User.find_by_id(params[:id])
+    @user = @site.users.where("id = :id", :id => params[:id]).first
     if @user.nil?
       flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
     end
@@ -62,7 +62,7 @@ class Site::UsersController < Site::BaseController
                     :password_confirmation => params[:user][:password_confirmation],
                     :email => params[:user][:email]
                     )
-    @user.site_id = current_user.site_id
+    @user.site_id = @site.id
     @user.updated_by = current_user
     respond_to do |format|
       if @user.save
@@ -79,7 +79,7 @@ class Site::UsersController < Site::BaseController
   # PUT /site/users/1
   # PUT /site/users/1.xml
   def update
-    @user = User.find(params[:id])
+    @user = @site.users.where("id = :id", :id => params[:id]).first
     if @user.nil?
       format.html { render :action => "edit" }
       format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
@@ -101,7 +101,7 @@ class Site::UsersController < Site::BaseController
   # DELETE /site/users/1
   # DELETE /site/users/1.xml
   def destroy
-    @user = User.find(params[:id])
+    @user = @site.users.where("id = :id", :id => params[:id]).first
     if @user
       @user.destroy
     end

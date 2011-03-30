@@ -14,7 +14,7 @@ class Site::ThemeController < Site::BaseController
   # PUT /theme/1
   # PUT /theme/1.xml
   def update
-    @site = Site.find_by_id( current_user.site_id)
+    @site = Site.find_by_id( @site.id)
     if @site.nil? || @site.site_layout.nil?
       respond_to do |format|
         @themes = Layout::Theme.load

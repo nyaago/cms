@@ -61,10 +61,10 @@ class Site::ImagesController < Site::BaseController
   # * images[month] - 年月(yyyymm 書式)
   def selection_list
     @image = Image.new
-    @months = Image.created_months(current_user.site_id)
+    @months = Image.created_months(@site.id)
     cur_month = if params[:month] then params[:month] else nil end
     @images = Image.where("site_id = :site_id ",
-                          :site_id => current_user.site_id).
+                          :site_id => @site.id).
                         filter_by_month(cur_month).
                         order(order_by).
                         paginate(
@@ -100,9 +100,9 @@ class Site::ImagesController < Site::BaseController
                                     nil
                                   end
                                     )
-    @image.site_id = current_user.site_id
+    @image.site_id = @site.id
     flash[:notice] = ''
-    additional_attrs = {:site_id => current_user.site_id,
+    additional_attrs = {:site_id => @site.id,
                         :user => current_user,
       #                :user_id => current_user.id,
       }
@@ -134,7 +134,7 @@ class Site::ImagesController < Site::BaseController
   # EDIT /images/1
   # EDIT /images/1.xml
   def edit
-    @image = Image.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @image = Image.find_by_id_and_site_id(params[:id], @site.id)
     if @image.nil?
       respond_to do |format|
         format.html { redirect_to(index_url, 
@@ -153,7 +153,7 @@ class Site::ImagesController < Site::BaseController
   # UPDATE /images/1
   # UPDATE /images/1.xml
   def update
-    @image = Image.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @image = Image.find_by_id_and_site_id(params[:id], @site.id)
     if @image.nil?
       respond_to do |format|
         format.html { redirect_to(index_url, 
@@ -184,7 +184,7 @@ class Site::ImagesController < Site::BaseController
   # DELETE /images/1
   # DELETE /images/1.xml
   def destroy
-    @image = Image.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @image = Image.find_by_id_and_site_id(params[:id], @site.id)
     if @image.nil?
       respond_to do |format|
         format.html { redirect_to(index_url, 
@@ -208,7 +208,7 @@ class Site::ImagesController < Site::BaseController
   # SHOW /images/1.xml
   # 画像情報の表示
   def show
-    @image = Image.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @image = Image.find_by_id_and_site_id(params[:id], @site.id)
     if @image.nil?
       respond_to do |format|
         format.html { redirect_to(index_url, 
