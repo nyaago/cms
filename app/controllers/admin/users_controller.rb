@@ -1,16 +1,17 @@
 # = Site::UserController 
 # サイトユーザの管理
-class Site::UsersController < Site::BaseController
+class Admin::UsersController < Admin::BaseController
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "users"].freeze
+  TRANSLATION_SCOPE = ["messages", "admin", "users"].freeze
   
   # 
   # GET /site/users
   # GET /site/users.xml
   def index
-    @users = @site.users.select("id, login, email, is_admin").
-                          order("is_admin desc, last_request_at desc, updated_at desc")
+    @users = User.select("id, login, email, is_admin").
+                      where("is_admin = true").
+                      order("is_admin desc, last_request_at desc, updated_at desc")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,7 +22,9 @@ class Site::UsersController < Site::BaseController
   # GET /site/users/1
   # GET /site/users/1.xml
   def show
-    @user = @site.users.where("id = :id", :id => params[:id]).first
+    @user = User.where("id = :id", :id => params[:id]).
+                where('is_admin = true').
+                first
     if @user.nil?
       flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
     end
@@ -44,7 +47,9 @@ class Site::UsersController < Site::BaseController
 
   # GET /site/users/1/edit
   def edit
-    @user = @site.users.where("id = :id", :id => params[:id]).first
+    @user = User.where("id = :id", :id => params[:id]).
+                where('is_admin = true').
+                first
     if @user.nil?
       flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
     end
@@ -61,9 +66,8 @@ class Site::UsersController < Site::BaseController
                     :password => params[:user][:password],
                     :password_confirmation => params[:user][:password_confirmation],
                     :email => params[:user][:email],
-                    :is_site_admin => params[:user][:is_site_admin]
+                    :is_admin => true
                     )
-    @user.site_id = @site.id
     @user.updated_by = current_user
     respond_to do |format|
       if @user.save
@@ -80,7 +84,9 @@ class Site::UsersController < Site::BaseController
   # PUT /site/users/1
   # PUT /site/users/1.xml
   def update
-    @user = @site.users.where("id = :id", :id => params[:id]).first
+    @user = User.where("id = :id", :id => params[:id]).
+                where('is_admin = true').
+                first
     if @user.nil?
       format.html { render :action => "edit" }
       format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
@@ -102,22 +108,25 @@ class Site::UsersController < Site::BaseController
   # DELETE /site/users/1
   # DELETE /site/users/1.xml
   def destroy
-    @user = @site.users.where("id = :id", :id => params[:id]).first
     status = :ok
+    @user = User.where("id = :id", :id => params[:id]).
+                where('is_admin = true').
+                first
     if @user
-      if @user.only_site_admin?
-        flash[:notice] = I18n.t :only_site_admin, :scope => TRANSLATION_SCOPE
+      if @user.only_admin?
+        flash[:notice] = I18n.t :only_admin, :scope => TRANSLATION_SCOPE
+        status = :ng
       elsif @user == current_user
         flash[:notice] = I18n.t :current_user, :scope => TRANSLATION_SCOPE
+        status = :ng
       else
         @user.destroy
       end
     end
     respond_to do |format|
       format.html { redirect_to(:action => :index) }
-      format.xml  { head :ok }
+      format.xml  { render status }
     end
-    
   end
   
 end

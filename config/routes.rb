@@ -11,6 +11,10 @@ Cms::Application.routes.draw do
   namespace :admin, :path => "admin" do 
     match 'sites/:action/:id' => 'sites#:action#:id'
     match 'sites/:action' => 'sites#:action'
+
+    match 'users/:action/:id' => 'users#:action#:id'
+    match 'users/:action' => 'users#:action'
+
     match '' => 'sites#index'
   end
 

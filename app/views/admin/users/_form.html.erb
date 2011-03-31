@@ -1,0 +1,36 @@
+<%= form_for(@user, :url => site_user_path) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= (@user.errors.count).to_s %> のエラーが発生しました</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inputs fields" id="user_fields">
+    <div class="field" id="login_field">
+      <%= f.label :login %><br />
+      <%= f.text_field :login %>
+    </div>
+    <div class="field" id="password_field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password %>
+    </div>
+    <div class="field" id="password_confirmation_field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div class="field" id="email_field">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>
+    
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>

@@ -1,4 +1,4 @@
-<h1><%= User.human_name %>一覧</h1>
+<h1>管理者ユーザ一覧</h1>
 
 <p id="notice"><%= flash[:notice] %></p>
 <div class="table_div" id="users">
@@ -6,7 +6,6 @@
   <tr>
     <th class="login"><%= User.human_attribute_name(:login) %></th>
     <th class="email"><%= User.human_attribute_name(:email) %></th>
-    <th class="is_site_admin"><%= User.human_attribute_name(:is_site_admin) %></th>
     <th class="actions"></th>
   </tr>
 
@@ -14,7 +13,6 @@
   <tr>
     <td class="login"><%= user.login %></td>
     <td class="email"><%= user.email %></td>
-    <td class="is_site_admin"><% if user.is_site_admin %>○<% end %></td>
     <td class="actions"><%= link_to '表示', { :action => :show, :id => user.id } %>
       <%= link_to '変更', { :action => :edit, :id => user.id } %>
       <%= link_to '削除', { :action => :destroy, :id => user.id }, 

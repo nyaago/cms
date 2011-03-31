@@ -12,7 +12,7 @@ class Site::BaseController < ActionController::Base
   
   # action  の after filter. 
   # flash のクリア
-  after_filter :clear_flash
+  #after_filter :clear_flash
 
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = [:messages, :site].freeze

@@ -1,7 +1,7 @@
 ja: 
   activerecord: 
     models: 
-      user: "会員"  
+      user: "ユーザ"  
       article: "記事"
       article_history: "記事"
       page_article: "ページ"

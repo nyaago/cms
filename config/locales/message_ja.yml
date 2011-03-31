@@ -56,6 +56,8 @@ ja:
         created: "ユーザが作成されました"
         not_found: "選択されたされたユーザは存在しません"
         none: "ユーザが登録されていません。"
+        only_site_user: "唯一の管理者なので削除できません"
+        current_user: "自分のアカウントを削除することはできません"
         
       password:
         password_changed: "パスワードが変更されました"
@@ -78,7 +80,13 @@ ja:
         none: "１件も登録されていません"
         not_found: "サイトがみつかりませんでした"
         destroyed: "サイトが削除されました"
-    
+      users:
+        updated: "ユーザが更新されました"
+        created: "ユーザが作成されました"
+        not_found: "選択されたされたユーザは存在しません"
+        none: "ユーザが登録されていません。"
+        only_site_user: "唯一の管理者なので削除できません"
+        current_user: "自分のアカウントを削除することはできません"
     
     pages:
       not_found: "記事がみつかりませんでした"

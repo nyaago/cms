@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   # action  の after filter. 
   # flash のクリア
-  after_filter :clear_flash
+  #after_filter :clear_flash
   
   NEW_BLOGS_MAX = 5
   
