@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   
   # 管理が少なくとも１人存在するかの検証
   validates_with Validator::User::SiteAdminExist
-  
+  validates_uniqueness_of :name
+  validates_uniqueness_of :email
 
   # 認証を行うモデルとしての拡張
   acts_as_authentic do |config|

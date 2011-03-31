@@ -51,6 +51,7 @@ class Admin::SitesController < Admin::BaseController
   def edit
     flash[:notice] = ''
     @site = Site.find_by_id(params[:id])
+    @user = User.new
     if @site.nil?
       flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
     end
@@ -67,7 +68,7 @@ class Admin::SitesController < Admin::BaseController
     if @site.nil?
       flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
       respond_to do |format|
-        format.html
+        format.html { render :action => :edit}
         format.xml { render :xml => :NG }
       end
       return
@@ -80,8 +81,9 @@ class Admin::SitesController < Admin::BaseController
         format.xml { render :xml => :ok }
       end
     else
+      @user = User.new
       respond_to do |format|
-        format.html
+        format.html { render :action => :edit}
         format.xml { render :xml => :NG }
       end
     end
@@ -116,6 +118,7 @@ class Admin::SitesController < Admin::BaseController
   # GET /admin/site/new
   def new
     @site = Site.new
+    @user = User.new
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @sites }
@@ -126,18 +129,23 @@ class Admin::SitesController < Admin::BaseController
   # PUT /admin/site/create
   def create
     @site = Site.new(params[:site])
-    if @site.save(:validate => true)
-        respond_to do |format|
-          format.html do 
-            redirect_to(index_url)
-          end
-          format.xml { render :xml => :ok }
+    @user = User.new(params[:user])
+    @user.is_site_admin = true
+    begin
+      @site.save!(:validate => true)
+      @user.site = @site
+      @user.save!(:validate => true)
+      respond_to do |format|
+        format.html do 
+          redirect_to(index_url)
         end
-      else
-        respond_to do |format|
-          format.html { render :action => :new }
-          format.xml { render :xml => :NG }
-        end
+        format.xml { render :xml => :ok }
+      end
+    rescue
+      respond_to do |format|
+        format.html { render :action => :new }
+        format.xml { render :xml => :NG }
+      end
     end
   end
   

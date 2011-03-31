@@ -20,6 +20,7 @@ require 'email_validator'
   validates_with Validator::Alphanumeric, :attribute => :name
   validates_with Validator::Site::ReservedName
   validates_presence_of :title
+  validates_uniqueness_of :name
 
   # ユーザとの関連
   has_many  :users, :dependent => :destroy

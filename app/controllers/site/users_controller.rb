@@ -9,7 +9,7 @@ class Site::UsersController < Site::BaseController
   # GET /site/users
   # GET /site/users.xml
   def index
-    @users = @site.users.select("id, login, email, is_admin").
+    @users = @site.users.select("id, login, email, is_admin, is_site_admin").
                           order("is_admin desc, last_request_at desc, updated_at desc")
 
     respond_to do |format|
