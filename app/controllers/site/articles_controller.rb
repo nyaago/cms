@@ -24,7 +24,7 @@ class Site::ArticlesController < Site::BaseController
   # GET /articles.xml
   # 記事一覧の表示
   def index
-    @months = self.class.model.updated_months(current_user.site_id)
+    @months = self.class.model.updated_months(@site.id)
     cur_month = if params[:month] then params[:month] else nil end
     @articles = articles.filter_by_updated_month(cur_month).
                         order(order_by).
@@ -38,6 +38,9 @@ class Site::ArticlesController < Site::BaseController
                               :per_page => PER_PAGR)
 
     #p "total -- " + @articles.total_entries.to_s
+    if @articles.size == 0
+      flash[:notice] = I18n.t("none", :scope => self.class.translation_scope)
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @articles }
@@ -62,13 +65,16 @@ class Site::ArticlesController < Site::BaseController
     if params[:is_history]
       article = PageArticleHistory.find_by_id_and_site_id(
         params[:id] ,
-        current_user.site_id)
+        @site.id)
       if !article.nil?
         article.id = article.article_id
       end
       article
     else 
       articles.where("id = :id", :id => params[:id]).first
+    end
+    if @article.nil?
+      flash[:notice] = I18n.t("not_found", :scope => self.class.translation_scope)
     end
   end
 

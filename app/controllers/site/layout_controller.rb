@@ -8,7 +8,6 @@ class Site::LayoutController < Site::BaseController
   # indexページ
   # 各レイアウト設定を行うページを表示
   def index
-    @site = current_user.site
     @site_layout = @site.site_layout
     @footer_image = LayoutImage.new
     @header_image = LayoutImage.new
@@ -21,7 +20,6 @@ class Site::LayoutController < Site::BaseController
   # layout/update/1.xml
   # レイアウトフォームの内容でlayout モデル更新.
   def update
-    @site = Site.find_by_id( current_user.site_id)
     if @site.nil? || @site.site_layout.nil?
       # site not found
       respond_to do |format|
@@ -180,7 +178,7 @@ class Site::LayoutController < Site::BaseController
     # （フォームで指定されなかったための）未登録、及びエラーの場合は　falseを返す
     def create
       return false if @file_params.nil?
-      additional_attrs = {:site_id => @current_user.site_id, :location_type => @type}
+      additional_attrs = {:site_id => @site.id, :location_type => @type}
       @image = LayoutImage.new( additional_attrs.merge @file_params )
       
       @image.save(:validate => true)

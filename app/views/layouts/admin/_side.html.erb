@@ -1,0 +1,17 @@
+<ul class="menu_group">
+  <li class="menu_group_header">
+    機能管理
+  </li>
+  <li>
+    <%=link_to "#{Site.human_name}管理", 
+    :controller => :sites, :action => :index %>
+    
+  </li>
+  <li>
+    <%=link_to "管理者ユーザ管理", 
+    :controller => :users, :action => :index %>
+    
+  </li>
+</ul>
+
+

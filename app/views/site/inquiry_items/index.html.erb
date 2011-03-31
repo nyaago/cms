@@ -33,7 +33,7 @@ $(document).ready( function(){
 </script>
 
 <p id="notice"><%= flash[:notice] %></p>
-<div id="inquiry_items" >
+<div id="inquiry_items" class="selectable" >
 
 <% @inquiry_items.each_with_index do |inquiry_item, i| %>
 <div class="inquiry_item" id="<%= inquiry_item.name %>">
@@ -56,7 +56,7 @@ $(document).ready( function(){
 </div>
 
 
-<div class="selected_inquiry_items" id="selected_inquiry_items">
+<div class="selected_inquiry_items selected_area" id="selected_inquiry_items">
   <div class="selected_inquiry_items_title">
     <h4>
       選択された項目

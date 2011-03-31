@@ -1,10 +1,10 @@
-<div class="widget" id="new_blogs">
+<div class="widget new_blogs" id="new_blogs">
 <ul >
   <li class="widget_header">  
     最近の投稿
   </li>
   <% @new_blogs.each do |article| %>
-  <li>
+  <li class="widget_field new_blog">
     <%= link_to article.title, :controller => "blogs", :action => :show, 
                               :site => @site.name,
                               :id => article.id %>

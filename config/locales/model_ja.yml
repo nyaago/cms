@@ -1,12 +1,13 @@
 ja: 
   activerecord: 
     models: 
-      user: "会員"  
+      user: "ユーザ"  
       article: "記事"
       article_history: "記事"
       page_article: "ページ"
       blog_article: "お知らせ"
       image: "画像"
+      site: "サイト"
       site_layout: "レイアウトデザイン設定"
       site_setting: "サイト一般設定"
       search_engine_optimization: "SEO設定"

@@ -23,6 +23,9 @@ class Site::PagesController < Site::ArticlesController
     else
       nil
     end
+    if @article.nil?
+      flash[:notice] = I18n.t("not_found", TRANSLATION_SCOPE)
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @article }
@@ -53,7 +56,7 @@ class Site::PagesController < Site::ArticlesController
   # 記事のメニュー表示位置を１つ前に移動するアクション
   # Ajaxでの実行となり.モデル更新後,viewの一覧テーブル部分のみをreplaceする
   def previous_order
-    @article = PageArticle.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @article = PageArticle.find_by_id_and_site_id(params[:id], @site.id)
     if @article.nil?
       @articles = @site.pages.order('menu_order')
       render :action => :table_for_placing
@@ -72,10 +75,10 @@ class Site::PagesController < Site::ArticlesController
   # Ajaxでの実行となり.モデル更新後,viewの一覧テーブル部分のみをreplaceする
   def next_order
     flash[:notice] = ''
-    @article = PageArticle.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @article = PageArticle.find_by_id_and_site_id(params[:id], @site.id)
     if @article.nil?
       @articles = PageArticle.where("site_id = :site_id", 
-                                :site_id => current_user.site_id).
+                                :site_id => @site.id).
                                 order('menu_order')
       render :action => :table_for_placing
       return
@@ -93,7 +96,7 @@ class Site::PagesController < Site::ArticlesController
   # POST /articles.xml
   def create
     @article = self.class.model.new(params[:page_article])
-    @article.site_id = current_user.site_id
+    @article.site_id =  @site.id
     @article.user = current_user
 
     # 公開開始日
@@ -116,7 +119,7 @@ class Site::PagesController < Site::ArticlesController
   # PUT /articles/1
   # PUT /articles/1.xml
   def update
-    @article = Article.find_by_id_and_site_id(params[:id], current_user.site_id)
+    @article = Article.find_by_id_and_site_id(params[:id], @site.id)
     if @article.nil?
       respond_to do |format|
         flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)

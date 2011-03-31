@@ -1,0 +1,25 @@
+<h1>管理者ユーザ情報表示</h1>
+
+<p id="notice"><%= notice %></p>
+
+<% if @user %>
+<div class="user">
+
+
+<p class="login">
+  <b><%= User.human_attribute_name(:login) %>:</b>
+  <%= @user.login %>
+</p>
+
+<p class="email">
+  <b><%= User.human_attribute_name(:email) %>:</b>
+  <%= @user.email %>
+</p>
+
+
+</div>
+<% else %>
+  
+<% end %>
+
+<%= link_to '戻る', url_for(:action => :index, :id => nil) %>

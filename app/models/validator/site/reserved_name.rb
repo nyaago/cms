@@ -6,7 +6,7 @@ module Validator
     # 投稿設定 - pop3設定の整合性のValidator
     class ReservedName
 
-      @@reserved = ['site', 'admin', 'pages', 'blogs', 'users']
+      @@reserved = ['site', 'admin', 'pages', 'blogs', 'users', 'inquiry', 'articles', 'index']
     
       TRANSLATION_SCOPE = [:errors, :site,:messages]
     

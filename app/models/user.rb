@@ -1,5 +1,5 @@
 # = User
-# サイトユーザのモデル
+# ユーザのモデル
 class User < ActiveRecord::Base
 
   belongs_to :site
@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   
   # 管理が少なくとも１人存在するかの検証
   validates_with Validator::User::SiteAdminExist
-  
+  validates_uniqueness_of :name
+  validates_uniqueness_of :email
 
   # 認証を行うモデルとしての拡張
   acts_as_authentic do |config|
@@ -30,6 +31,19 @@ class User < ActiveRecord::Base
     end while User.select('id').
     where("reissue_password = :reissue_password", :reissue_password => password).size > 0
     self.reissue_password = password
+  end
+  
+  # 唯一の管理者ユーザであるか?
+  def only_admin?
+    self.is_admin && User.where("is_admin = true").where("id <> :id", :id => self.id).count == 0
+  end
+
+  # 唯一のサイト管理者ユーザであるか?
+  def only_site_admin?
+    self.is_site_admin && 
+      User.where("is_site_admin = true").
+      where("site = :site", :site => self.site_id).
+      where("id <> :id", :id => self.id).count == 0
   end
 
 end

@@ -1,0 +1,82 @@
+<script type="text/javascript" charset="utf-8">
+
+jQuery(function($){
+});
+
+
+</script>
+
+<div id="edit_site">
+<%= form_for(@site, :url => admin_site_path(@site)) do |f| %>
+  <% if @site.errors.any? || @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= (@site.errors.count + @user.errors.count).to_s %> のエラーが発生しました</h2>
+      <% @site.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inputs fields" id="site_fields">
+    <div class="field" id="name_field">
+      <%= f.label :name %><br />
+      <% if @site.new_record? %>
+        <%= f.text_field :name %>
+      <% else %>
+        <span><%= @site.name %></span>
+      <% end %>
+    </div>
+    <div class="field" id="title_field">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field" id="email_field">
+      <%= f.label :email %><br />
+      <%= f.text_field :email %>
+    </div>
+    <div class="field" id="published_field">
+      <%= f.label :published %><br />
+      <%= f.check_box :published %>
+    </div>
+    <div class="field" id="suspended_field">
+      <%= f.label :suspended %><br />
+      <%= f.check_box :suspended %>
+    </div>
+    <div class="field" id="canceled_field">
+      <%= f.label :canceled %><br />
+      <%= f.check_box :canceled %>
+    </div>
+  </div>
+
+  <% if params[:action] == 'new' || params[:action] == 'create' # 新規 %>
+  <div class="inputs fields" id="user_fields">
+    <h2><%= User.human_name %>情報</h2>
+    <div class="field" id="login_field">
+      <%= label :user, :login %><br />
+      <%= text_field :user, :login %>
+    </div>
+    <div class="field" id="password_field">
+      <%= label :user, :password %><br />
+      <%= password_field :user, :password %>
+    </div>
+    <div class="field" id="password_confirmation_field">
+      <%= label :user, :password_confirmation %><br />
+      <%= password_field :user, :password_confirmation %>
+    </div>
+    <div class="field" id="email_field">
+      <%= label :user, :email %><br />
+      <%= text_field :user, :email %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+</div>

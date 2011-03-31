@@ -9,7 +9,7 @@ class Site::UsersController < Site::BaseController
   # GET /site/users
   # GET /site/users.xml
   def index
-    @users = @site.users.select("id, login, email, is_admin").
+    @users = @site.users.select("id, login, email, is_admin, is_site_admin").
                           order("is_admin desc, last_request_at desc, updated_at desc")
 
     respond_to do |format|
@@ -21,10 +21,9 @@ class Site::UsersController < Site::BaseController
   # GET /site/users/1
   # GET /site/users/1.xml
   def show
-    @user = User.find_by_id(params[:id])
+    @user = @site.users.where("id = :id", :id => params[:id]).first
     if @user.nil?
-      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", :layout => false
-      return
+      flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
     end
     respond_to do |format|
       format.html # show.html.erb
@@ -45,10 +44,13 @@ class Site::UsersController < Site::BaseController
 
   # GET /site/users/1/edit
   def edit
-    @user = User.find_by_id(params[:id])
+    @user = @site.users.where("id = :id", :id => params[:id]).first
     if @user.nil?
-      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", :layout => false
-      return
+      flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
+    end
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @user }
     end
   end
 
@@ -58,9 +60,10 @@ class Site::UsersController < Site::BaseController
     @user = User.new(:login => params[:user][:login], 
                     :password => params[:user][:password],
                     :password_confirmation => params[:user][:password_confirmation],
-                    :email => params[:user][:email]
+                    :email => params[:user][:email],
+                    :is_site_admin => params[:user][:is_site_admin]
                     )
-    @user.site_id = current_user.site_id
+    @user.site_id = @site.id
     @user.updated_by = current_user
     respond_to do |format|
       if @user.save
@@ -77,7 +80,12 @@ class Site::UsersController < Site::BaseController
   # PUT /site/users/1
   # PUT /site/users/1.xml
   def update
-    @user = User.find(params[:id])
+    @user = @site.users.where("id = :id", :id => params[:id]).first
+    if @user.nil?
+      format.html { render :action => "edit" }
+      format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      return 
+    end
     @user.updated_by = current_user
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -94,14 +102,22 @@ class Site::UsersController < Site::BaseController
   # DELETE /site/users/1
   # DELETE /site/users/1.xml
   def destroy
-    @user = User.find(params[:id])
+    @user = @site.users.where("id = :id", :id => params[:id]).first
+    status = :ok
     if @user
-      @user.destroy
+      if @user.only_site_admin?
+        flash[:notice] = I18n.t :only_site_admin, :scope => TRANSLATION_SCOPE
+      elsif @user == current_user
+        flash[:notice] = I18n.t :current_user, :scope => TRANSLATION_SCOPE
+      else
+        @user.destroy
+      end
     end
     respond_to do |format|
       format.html { redirect_to(:action => :index) }
       format.xml  { head :ok }
     end
+    
   end
   
 end

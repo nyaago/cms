@@ -1,0 +1,28 @@
+<h1>管理者ユーザ一覧</h1>
+
+<p id="notice"><%= flash[:notice] %></p>
+<div class="table_div" id="users">
+<table>
+  <tr>
+    <th class="login"><%= User.human_attribute_name(:login) %></th>
+    <th class="email"><%= User.human_attribute_name(:email) %></th>
+    <th class="actions"></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td class="login"><%= user.login %></td>
+    <td class="email"><%= user.email %></td>
+    <td class="actions"><%= link_to '表示', { :action => :show, :id => user.id } %>
+      <%= link_to '変更', { :action => :edit, :id => user.id } %>
+      <%= link_to '削除', { :action => :destroy, :id => user.id }, 
+      :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
+    </td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+<br />
+
+<%= link_to 'ユーザ作成', { :action => :new } %>

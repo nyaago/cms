@@ -39,7 +39,7 @@
 <div id="widgets" >
 
 <% @widgets.each_with_index do |widget, i| %>
-<div class="widget" id="<%= widget.name %>">
+<div class="widget selectable" id="<%= widget.name %>">
   <div class="widget_title">
   <h4 class="widget_human_name"><%= widget.human_name %></h4>
   <%= hidden_field_tag "widget_type[#{i}]", widget.class_name, :class => 'widget_type' %>
@@ -60,7 +60,7 @@
 
 <div id="widget_areas">
 
-  <div class="widget_area" id="side_widget_area">
+  <div class="widget_area selected_area" id="side_widget_area">
     <div class="widget_area_title">
       <h4>
         サイドバーエリア
@@ -82,7 +82,7 @@
     </div>
   </div>
 
-  <div class="widget_area"  id="footer_widget_area">
+  <div class="widget_area selected_area"  id="footer_widget_area">
     <div class="widget_area_title">
       <h4>
         フッターーエリア

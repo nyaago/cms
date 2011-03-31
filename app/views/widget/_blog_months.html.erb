@@ -1,10 +1,10 @@
-<div class="widget" id="blog_months">
+<div class="widget blog_month" id="blog_months">
 <ul >
   <li class="widget_header">
-    最近の投稿
+    アーカイブ
   </li>
   <% @blog_months.each do |month| %>
-  <li>
+  <li class="widget_field blog_month">
     <%= link_to localize_month(month.datetime), 
                 :controller => "blogs", :action => :month,  
                 :site => @site.name,

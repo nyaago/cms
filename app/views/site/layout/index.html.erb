@@ -2,7 +2,8 @@
 <%= stylesheet_link_tag "colorpicker/colorpicker" %>
 
 <style type="text/css">
-	#picker {width:20px; 
+  <!-- カラー選択 -->
+	#background_color_picker {width:20px; 
 	  height:20px;
 	  background:<%= @site_layout.background_color %>;
 	  border:2px 
@@ -20,16 +21,16 @@
     selectRadio('column_layout',  '<%= @site.site_layout.column_layout %>');
     
     $("#site_layout_background_color").change(function () {
-      $("#picker").css("background", $(this).val() );
+      $("#background_color_picker").css("background", $(this).val() );
     });
 
   } );
   
 	$(function(){
-		$("#site_layout_background_color,#picker").ColorPicker({
+		$("#site_layout_background_color,#background_color_picker").ColorPicker({
 			color : "<%= @site.site_layout.background_color %>",
 			onChange : function( hsb, hex, rgb ){
-				$("#picker").css("background", "#"+ hex);
+				$("#background_color_picker").css("background", "#"+ hex);
 				$("#site_layout_background_color").val("#" + hex);
 			},
       onBeforeShow: function () {
@@ -105,7 +106,7 @@
 
 
   
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   <%= SiteLayout.human_attribute_name(:eye_catch_type) %>
 </h2>
@@ -131,7 +132,7 @@
 
 
 
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   <%= SiteLayout.human_attribute_name(:global_navigation) %>
 </h2>
@@ -141,7 +142,7 @@
 </div>
 </div>
 
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   <%= SiteLayout.human_attribute_name(:column_layout) %>
 </h2>
@@ -167,7 +168,7 @@
 
 </div>
 
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   <%= SiteLayout.human_attribute_name(:skin_color) %>
 </h2>
@@ -192,7 +193,7 @@
 
 </div>
 
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   <%= SiteLayout.human_attribute_name(:font_size) %>
 </h2>
@@ -213,7 +214,7 @@
 
 </div>
 
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   ヘッダー画像
 </h2>
@@ -227,7 +228,7 @@
 </div>
 </div>
 
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   フッター画像
 </h2>
@@ -241,7 +242,7 @@
 </div>
 </div>
 
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   背景
 </h2>
@@ -254,7 +255,7 @@
   <div class="field">
     <%= f.label :background_color %>:
     <%= f.text_field :background_color  %>
-    <input type="button" id="picker"></input>
+    <input type="button" id="background_color_picker"></input>
   </div>
   <div class="field">
     <%= f.label :background_repeat %>:
@@ -267,7 +268,7 @@
 </div>
 </div>
 
-<div class="inputs">
+<div class="inputs fields">
 <h2>
   ロゴ
 </h2>

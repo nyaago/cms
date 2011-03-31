@@ -1,9 +1,9 @@
 <div class="widget text_widget">
-  <h4 class="widget_title text_widget_title">
+  <h4 class="widget_header text_widget_header">
   <%= @widget.title %>
   </h4>
   
-  <p class="content">
+  <p class="content_field  widget_field">
     <%= if @widget.content.nil? then '' else @widget.content.html_safe end %>
   </p>
 </div>

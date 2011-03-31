@@ -1,5 +1,6 @@
 <h1><%= User.human_name %>作成</h1>
 
+<p id="notice"><%= flash[:notice] %></p>
 <%= render 'form' %>
 
 <%= link_to '戻る', url_for(:action => :index) %>

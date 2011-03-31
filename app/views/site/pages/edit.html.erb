@@ -1,13 +1,10 @@
 <h1>
   <%= PageArticle.human_name %>の編集
 </h1>
-
+<p id="notice"><%= flash[:notice] %></p>
 <% if @article %>
 <%= render 'form' %>
 <% else %>  
-  <p class='not_found'>
-    指定された<%= PageArticle.human_name %>はみつかりません
-  </p>
 <% end %>
 
 <div class="actions" id="back_action">

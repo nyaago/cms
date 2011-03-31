@@ -11,6 +11,9 @@ class Site::InformationsController < Site::BaseController
   def show
     flash[:notice] = ''
     @information = Information.where("id = :id", :id => params[:id]).first
+    if @information.nil?
+      flash[:notice] = I18n.t :not_found, :scape => TRANSLATION_SCOPE
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @information }

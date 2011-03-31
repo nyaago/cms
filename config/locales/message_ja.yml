@@ -1,13 +1,19 @@
 ja:
   messages:
+    user_sessions:
+      need_to_login: "ログインしてください"
     site:
       user_sessions:
         need_to_login: "ログインしてください"
+      
       pages:
         updated: "記事が更新されました"
         created: "記事が作成されました"
         destroyed: "記事が削除されました"
         not_found: "記事がみつかりませんでした"
+        not_implemented_batch: "操作が定義されていません"
+        complete_destroy_batch: "%{count}件の削除を行いました"
+        none: "記事が登録されていません。"
 
       theme:
         updated: "テーマが更新されました"
@@ -22,29 +28,16 @@ ja:
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
         not_found: "画像がみつかりませんでした"
-
-      images:
-        created: "ファイルをアップロードしました"
-        updated: "更新しました"
-        destroyed: "削除されました"
-        not_found: "画像がみつかりませんでした"
-
-      pages:
-        updated: "ページが更新されました"
-        created: "ページが作成されました"
-        destroyed: "ページが削除されました"
-        destroyed: "削除されました"
-        not_implemented_batch: "操作が定義されていません"
-        complete_destroy_batch: "%{count}件の削除を行いました"
+        none: "画像が1件もありません。"
           
       blogs:
         updated: "記事が更新されました"
         created: "記事が作成されました"
         destroyed: "記事が削除されました"
-        destroyed: "削除されました"
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
-
+        not_found: "画像がみつかりませんでした"
+        none: "該当する記事はありません。"
   
       setting:
         updated: "設定が更新されました"
@@ -61,7 +54,11 @@ ja:
       users:
         updated: "ユーザが更新されました"
         created: "ユーザが作成されました"
-
+        not_found: "選択されたされたユーザは存在しません"
+        none: "ユーザが登録されていません。"
+        only_site_user: "唯一の管理者なので削除できません"
+        current_user: "自分のアカウントを削除することはできません"
+        
       password:
         password_changed: "パスワードが変更されました"
 
@@ -71,7 +68,33 @@ ja:
         unknown_account: "入力されたアカウントは登録されていません"
         invalid_reissue_access: "パスワード再発行の期限が切れたか、URLが適切ではありません"
         password_reissued: "パスワードが再発行されました"
-        
+      
+      informations:
+        not_found: "記事がみつかりませんでした"
+    
+    admin:
+      user_sessions:
+        need_to_login: "ログインしてください"
+      
+      sites:
+        none: "１件も登録されていません"
+        not_found: "サイトがみつかりませんでした"
+        destroyed: "サイトが削除されました"
+      users:
+        updated: "ユーザが更新されました"
+        created: "ユーザが作成されました"
+        not_found: "選択されたされたユーザは存在しません"
+        none: "ユーザが登録されていません。"
+        only_site_user: "唯一の管理者なので削除できません"
+        current_user: "自分のアカウントを削除することはできません"
+    
+    pages:
+      not_found: "記事がみつかりませんでした"
+      
+    blogs:
+      not_found: "記事がみつかりませんでした"
+  
+  
   mailer:
     inquiry:
       contact: 

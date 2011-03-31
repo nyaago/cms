@@ -10,6 +10,10 @@ class Site::BaseController < ActionController::Base
   # 認証確認
   before_filter :authenticate
   
+  # action  の after filter. 
+  # flash のクリア
+  #after_filter :clear_flash
+
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = [:messages, :site].freeze
 
@@ -31,17 +35,27 @@ class Site::BaseController < ActionController::Base
   # 認証されていなければ、ログインページへのリダイレクト.
   # また、権限がなければ、権限エラーのページへリダイレクト.
   def authenticate
-    if (current_user.nil? || current_user.site.name != params[:site])  &&
+    if !current_user.is_admin &&
+        (current_user.nil? || current_user.site.name != params[:site])  &&
         !accessible_unless_login
       store_location
       flash[:notice] = I18n.t :need_to_login, 
-                              :scope => TRANSLATION_SCOPE + [:user_sessions]
-      redirect_to :controller => :user_sessions, :action => :new,
+                              :scope => [:user_sessions]
+      redirect_to :controller => '/user_sessions', :action => :new,
                   :back_controller => params[:controller],
                   :site => params[:site]
       return false
     end
-    @site = current_user.site
+    @site = if current_user.is_admin
+      Site.find_by_name(params[:site])
+    else
+      current_user.site 
+    end
+    if @site.nil?
+      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb"      
+      return false
+    end
+    
     @current_user = current_user
     unless accessible_for?(@current_user)
       redirect_to :controller => :common, :action => :inaccessible
@@ -96,5 +110,13 @@ class Site::BaseController < ActionController::Base
     p "accessible_unless_login - #{false}"
     false
   end
+
+  # flash のクリア
+  def clear_flash
+   flash[:notice]=nil
+   flash[:error]=nil
+   flash[:worn]=nil
+  end
+  
   
 end
