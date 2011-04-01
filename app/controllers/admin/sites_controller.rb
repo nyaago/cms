@@ -19,16 +19,23 @@ class Admin::SitesController < Admin::BaseController
   # * sort => ソートカラム名
   # * direction => ソートの方向(asc | desc)
   def index
-    @sites = Site.select('id,name,title,published,suspended,canceled,email,created_at,updated_at').
-                            order(order_by).
-                            paginate(
-                                  :page => 
-                                    if !params[:page].blank? && params[:page].to_i >= 1 
-                                      params[:page].to_i
-                                    else 
-                                      1 
-                                    end, 
-                                  :per_page => PER_PAGR)
+    
+    @sites = Site.select('id,name,title,published,suspended,canceled,email,created_at,updated_at')
+    if params[:conditions] && params[:conditions][:words]
+      params[:conditions][:words].split(/\s+/).each do |word|
+        @sites = @sites.where("(name like :word or title like :word or email like :word)",
+                      :word => "%#{word}%")
+      end
+    end
+    @sites = @sites.order(order_by).
+    paginate(
+          :page => 
+            if !params[:page].blank? && params[:page].to_i >= 1 
+              params[:page].to_i
+            else 
+              1 
+            end, 
+          :per_page => PER_PAGR)
     # 最終ページより後になっている場合は、1ページ目へ
     if @sites.size == 0 && params[:page].to_i > 1 then  
       params[:page] =  1

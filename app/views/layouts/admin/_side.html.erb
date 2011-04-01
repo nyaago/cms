@@ -14,4 +14,16 @@
   </li>
 </ul>
 
+<ul class="menu_group">
+  <li class="menu_group_header">
+    パスワード変更
+  </li>
+  <li>
+    <%=link_to "#{User.human_attribute_name(:password)}変更", 
+    :controller => "password", :action => :edit, 
+    :id => @current_user.id  %>
+  </li>
+</ul>
+
+
 
