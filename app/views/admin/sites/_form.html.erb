@@ -1,6 +1,18 @@
 <script type="text/javascript" charset="utf-8">
 
 jQuery(function($){
+    $("#cancellation_reserved_at_select_date").datepicker();
+    $("#cancellation_reserved_at_select_date").datepicker("option", 
+    {dateFormat: 'yy/mm/dd'
+    });
+//    $("div#cancellation_reserved_at").css("display", "none");
+//    $("div#canceled_at").css("display", "none");    
+    $('form').first().submit( function() {
+        fixCancellationReservedAt();
+        return true;
+      });
+      $("#cancellation_reserved_at_select_date").val(
+        $("#cancellation_reserved_at_date").val());
 });
 
 
@@ -50,6 +62,69 @@ jQuery(function($){
       <%= f.label :canceled %><br />
       <%= f.check_box :canceled %>
     </div>
+    <div class="field" id="cancellation_reserved_at_field">
+      <%= label_tag 'site_cancellation_reserved_at', 
+          I18n.t(:cancellation_reserved_at, 
+          :scope => [:activerecord, :attributes, :site])  %><br />
+      <%= text_field 'cancellation_reserved_at_select' , 'date', 
+        :value => if @site.cancellation_reserved_at.blank?  
+                    '' 
+                  else 
+                    @site.cancellation_reserved_at.strftime('%Y/%m/%d') 
+                  end
+          %>日
+      <%= select 'cancellation_reserved_at_select',  'hour' ,
+        (0..23).collect {|h|  sprintf("%02d", h) },
+        {:selected => if @site.cancellation_reserved_at.blank?  
+                    '00'
+                  else
+                    @site.cancellation_reserved_at.strftime('%H') 
+                  end}
+      %>:
+      <%= select 'cancellation_reserved_at_select',  'minute' ,
+        [0,5,10,15,20,25,30,35,40,45,50,55].collect {|m|  sprintf("%02d", m) },
+        {:selected => if @site.cancellation_reserved_at.blank?  
+                    '00'
+                  else
+                    @site.cancellation_reserved_at.strftime('%M') 
+                  end}
+          
+        
+      %>
+      <%=
+        button_to_function "クリア", "clearCancellationReservedAt();" 
+      %>
+      <%=
+        button_to_function "元に戻す", "cancelCancellationReservedAt();" 
+      %>
+      
+      <!-- 解約日時の確定値を格納するhiddenフィールド達 -->
+      <%= hidden_field_tag 'cancellation_reserved_at[date]' , 
+                if @site.cancellation_reserved_at.blank?  
+                  '' 
+                else 
+                  @site.cancellation_reserved_at.strftime('%Y/%m/%d') 
+                end,
+                {:id => "cancellation_reserved_at_date"}
+      %>
+      <%= hidden_field_tag 'cancellation_reserved_at[hour]' , 
+                if @site.cancellation_reserved_at.blank?  
+                  '00' 
+                else 
+                  @site.cancellation_reserved_at.strftime('%H') 
+                end,
+                {:id => "cancellation_reserved_at_hour"}
+      %>
+      <%= hidden_field_tag 'cancellation_reserved_at[minute]' , 
+                if @site.cancellation_reserved_at.blank?  
+                  '00' 
+                else 
+                  @site.cancellation_reserved_at.strftime('%M') 
+                end,
+                {:id => "cancellation_reserved_at_minute"}
+      %>
+      <!-- hiddenフィールド終わり -->
+    
   </div>
 
   <% if params[:action] == 'new' || params[:action] == 'create' # 新規 %>
