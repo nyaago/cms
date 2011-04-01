@@ -73,7 +73,9 @@ class Admin::SitesController < Admin::BaseController
       end
       return
     end
-    if @site.update_attributes(params[:site])
+    @site.attributes = params[:site]
+    @site.cancellation_reserved_at = date_from_partial(params[:cancellation_reserved_at])
+    if @site.save(:validate => true)
       respond_to do |format|
         format.html do 
           redirect_to(index_url)
@@ -130,6 +132,7 @@ class Admin::SitesController < Admin::BaseController
   def create
     @site = Site.new(params[:site])
     @user = User.new(params[:user])
+    @site.cancellation_reserved_at = date_from_partial(params[:cancellation_reserved_at])
     @user.is_site_admin = true
     begin
       @site.save!(:validate => true)
@@ -184,6 +187,35 @@ protected
       :sort => if !params[:sort].blank? then params[:sort] else nil end,
       :direction => if !params[:direction].blank? then params[:direction] else nil end
       )
+  end
+
+private
+
+  def date_from_partial(date_params)
+  
+    begin
+      require 'time'
+      if date_params.include?(:date) && !date_params[:date].blank?  && 
+          date_params.include?(:hour) && date_params.include?(:minute)  
+        Time.parse("#{date_params[:date]} #{date_params[:hour]}:#{date_params[:minute]}:0")
+      elsif date_params.include?(:date) && !date_params[:date].blank?
+        Time.parse("#{date_params[:date]}")
+      else
+        nil
+      end
+    rescue 
+      require 'parsedate'
+      if date_params.include?(:date) && !date_params[:date].blank?  && 
+          date_params.include?(:hour) && date_params.include?(:minute)  
+        ParseDate::parsedate("#{date_params[:date]} #{date_params[:hour]}:#{date_params[:minute]}:0")
+        Time::local(*ary[0..-3])
+      elsif date_params.include?(:date) && !date_params[:date].blank?
+        ParseDate::parsedate("#{date_params[:date]}")
+        Time::local(*ary[0..-3])
+      else
+        nil
+      end
+    end
   end
 
   

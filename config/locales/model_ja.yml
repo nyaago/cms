@@ -70,9 +70,10 @@ ja:
         email: "連絡先メイルアドレス"
         updated_at: "更新日時"
         created_at: "作成日時"
-        published: "公開状態"
-        suspended: "停止状態"
-        canceled: "解約状態"
+        published: "公開"
+        suspended: "一時停止"
+        canceled: "解約"
+        cancellation_reserved_at: "解約予約"
       
       site_layout:
         background_repeat: "背景画像の繰り返し"
@@ -240,7 +241,8 @@ ja:
     
     site:
       messages:
-        reserved_name: "サイト名には、予約済みのキーワード(site/admin/pages/blogs/users)以外を入力してください"
+        reserved_name: "サイト名には、予約済みのキーワード(site/admin/pages/blogs/users/articles)以外を入力してください"
+        cancellation_reserved_future: "解約予約日時は将来日時を入力してください"
     article:
       messages:
         page_limit: "公開済み記事/公開予約済み記事数が制限を超えています"

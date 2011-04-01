@@ -9,9 +9,12 @@ require 'email_validator'
   before_create :set_default
   # 作成時のFilter. 依存する子のモデルを生成
   after_create  :create_dependance
-  # 更新前のFilter. (存在しなければ)依存する子のモデルを生成
+  # 更新後のFilter. (存在しなければ)依存する子のモデルを生成
   after_update  :create_dependance
-
+  # 更新前のFilter. cancel予約されている日時が過ぎていれば, cancelする.
+  #before_update :cancel_if_reserved_before
+  # 更新前のFilter . cancelされたなら、cancel日時を設定
+  before_update :set_canceled_at_if_canceled
 
   # validator
   validates_presence_of :email
@@ -19,6 +22,7 @@ require 'email_validator'
   validates_presence_of :name
   validates_with Validator::Alphanumeric, :attribute => :name
   validates_with Validator::Site::ReservedName
+  validates_with Validator::Site::CancellationReservedFuture
   validates_presence_of :title
   validates_uniqueness_of :name
 
@@ -57,10 +61,30 @@ require 'email_validator'
               :dependent => :destroy
   end
   
+  # cancel予約されている日時が過ぎていれば, cancelする.
+  # ここでは、属性変更だけで、永続化はしない
+  def cancel_if_reserved_before
+    return false if cancellation_reserved_at.nil?
+    return false if canceled
+    if cancellation_reserved_at < Time.now
+      self.canceled = true
+      return true
+    else
+      return false
+    end
+  end
+  
   protected
   
   # default値の設定
   def set_default
+  end
+  
+  # cancelされたなら、cancel日時を設定
+  def set_canceled_at_if_canceled
+    if self.canceled_at.nil? && self.canceled
+      self.canceled_at = Time.now
+    end
   end
   
   # 依存する子のモデルを生成

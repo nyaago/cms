@@ -15,6 +15,10 @@ class Article < ActiveRecord::Base
   # 新規作成前のcallback
   # menu order をサイトでの最大値とする
   before_create :set_max_menu_order
+
+  # 更新前のFilter
+  # 公開予約日が過ぎていれば, 公開Onにする
+  # before_update :published_if_require_before
   
   TRANSLATION_SCOPE = [:errors, :messages]
   
@@ -63,6 +67,18 @@ class Article < ActiveRecord::Base
   # Key が表示名,Valueがモデルへの登録値となる.
   def self.map_for_published_selection
     Category::Published.map_for_selection
+  end
+
+  # 公開予約日が過ぎていれば, 公開する
+  def published_if_require_before
+    return false if published_from.nil?
+    return false if published
+    if published_from < Time.now
+      self.published = true
+      return true
+    else
+      return false
+    end
   end
 
   protected

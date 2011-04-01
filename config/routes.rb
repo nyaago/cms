@@ -15,6 +15,8 @@ Cms::Application.routes.draw do
     match 'users/:action/:id' => 'users#:action#:id'
     match 'users/:action' => 'users#:action'
 
+    match 'common/:action' => 'common#:action'
+
     match '' => 'sites#index'
   end
 
