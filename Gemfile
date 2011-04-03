@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.3'
-
+require 'csv'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -10,6 +10,7 @@ gem 'rails', '3.0.3'
 gem "mysql2"
 
 # additional gem
+# gem "fastercsv"
 gem "nokogiri"
 gem "authlogic"
 #gem "will_paginate"

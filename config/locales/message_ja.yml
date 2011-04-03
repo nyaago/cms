@@ -87,6 +87,9 @@ ja:
         none: "ユーザが登録されていません。"
         only_site_user: "唯一の管理者なので削除できません"
         current_user: "自分のアカウントを削除することはできません"
+      password:
+        password_changed: "パスワードが変更されました"
+    
     
     pages:
       not_found: "記事がみつかりませんでした"

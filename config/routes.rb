@@ -17,6 +17,13 @@ Cms::Application.routes.draw do
 
     match 'common/:action' => 'common#:action'
 
+    # password
+    match 'password/:action/:id' => 'password#:action#:id'
+    match 'password/:action' => 'password#:action'
+    
+    # 
+    match 'sites/:action/:format' => 'sites#index#:format'
+
     match '' => 'sites#index'
   end
 

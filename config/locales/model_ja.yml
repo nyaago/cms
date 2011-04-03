@@ -241,7 +241,7 @@ ja:
     
     site:
       messages:
-        reserved_name: "サイト名には、予約済みのキーワード(site/admin/pages/blogs/users/articles)以外を入力してください"
+        reserved_name: "サイト名には、予約済みのキーワード(site/admin/pages/blogs/inquiry/users/articles/password)以外を入力してください"
         cancellation_reserved_future: "解約予約日時は将来日時を入力してください"
     article:
       messages:

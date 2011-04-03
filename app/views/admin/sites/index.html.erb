@@ -1,7 +1,21 @@
 <h1><%= Site.human_name%>一覧</h1>
   
 <p id="notice"><%= flash[:notice] %></p>
+
+<%= form_tag({:action => :index}, {:method => :get}) do %>
+  <div id="filtering">
+      <%= label_tag(Site.human_attribute_name(:name) + 
+      "/" +  Site.human_attribute_name(:title) + "/" + 
+      Site.human_attribute_name(:email)) %>
+      <%= text_field(:conditions, :words, 
+      :value => if params[:conditions] then params[:conditions][:words] end) %>
+      <%= submit_tag('フィルター') %>
+  </div>
+
+<% end %>
+
 <div class="table_div" id="users">
+
 <table>
   <tr>
     <th class="name">
@@ -68,4 +82,5 @@
 
 <div class="actions">
 <%= link_to '新規サイト', { :action => :new } %>
+<%= link_to 'エクスポート', { :action => :list, :format => :csv } %>
 </div>
