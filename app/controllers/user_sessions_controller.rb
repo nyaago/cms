@@ -30,7 +30,7 @@ class UserSessionsController  < ActionController::Base
         redirect_back_or_default 'site/dashboard', @user_session.user.site.name
       end
     else
-      render :action => :new
+      render :action => :new, :layout => 'no_login'
     end
   end
   
