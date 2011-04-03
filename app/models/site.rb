@@ -74,6 +74,39 @@ require 'email_validator'
     end
   end
   
+  # recordを１行のcsvに変換
+  def to_csv
+    CSV.generate do |csv|
+      csv << [self.id, self.name, self.title, self.email,
+        if self.published then "yes" else "no" end,
+        if self.suspended then "yes" else "no" end,
+        if self.canceled  then "yes" else "no" end,
+        I18n.l(self.created_at, :format => :long),
+        I18n.l(self.updated_at, :format => :long) ]
+    end
+  end
+  
+  # 属性名のcsvを返す
+  def self.attributes_csv
+    attribute_names = ["id", "name", "title", "email", 
+        "published", "suspended", "canceled", 
+        "created_at", "updated_at"].collect do |attribute|
+        Site.human_attribute_name(attribute)
+    end
+    CSV.generate do |csv|
+      csv << attribute_names
+    end
+  end
+  
+  # レコード配列のcsvを返す
+  def self.generate_csv(records)
+    s = self.attributes_csv
+    records.each do |record|
+      s << record.to_csv
+    end
+    s
+  end
+  
   protected
   
   # default値の設定

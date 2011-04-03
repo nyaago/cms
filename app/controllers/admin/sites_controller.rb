@@ -47,10 +47,27 @@ class Admin::SitesController < Admin::BaseController
     end
     respond_to do |format|
       format.html # index.html.erb
+      format.csv do
+        send_data @sites.to_csv
+      end
       format.xml  { render :xml => @sites }
     end
     
   end
+  
+  # 一覧の生成
+  # GET admin/site/list.csv
+  def list
+    @sites = Site.select('id,name,title,published,suspended,canceled,email,created_at,updated_at')
+    @sites = @sites.order(order_by)
+    respond_to do |format|
+      format.csv do
+        send_data Site.generate_csv(@sites), :type => "text/csv", 
+                                              :filename => "sites#{Time.now.strftime('%Y%m%d')}.csv"
+      end
+    end
+  end
+
 
   # Site編集ページの表示
   # GET admin/site/edit/<id>

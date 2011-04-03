@@ -20,7 +20,9 @@ Cms::Application.routes.draw do
     # password
     match 'password/:action/:id' => 'password#:action#:id'
     match 'password/:action' => 'password#:action'
-
+    
+    # 
+    match 'sites/:action/:format' => 'sites#index#:format'
 
     match '' => 'sites#index'
   end
