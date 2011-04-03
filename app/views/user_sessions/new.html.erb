@@ -1,6 +1,18 @@
-<div>
+<p id="notice">
   <%= flash[:notice] %>
-</div>
+</p>
+<% if @user_session.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= (@user_session.errors.count).to_s %> のエラーが発生しました</h2>
+
+    <ul>
+    <% @user_session.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 
 <fieldset>
   <legend>ログイン</legend>
