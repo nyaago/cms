@@ -445,7 +445,7 @@ module ApplicationHelper
   #   => <a href="http://<host>/<site>/inquiry/index"><img alt="問い合わせ" src="/inquiry.png" /></a>
   # inquiry_link :text => "問い合わせ"
   #   => <a href="http://<host>/<site>/inquiry/index">問い合わせ</a>
-  def inquiry_link
+  def inquiry_link(options = {})
     link_to(
     if options[:image]  
       image_tag(options[:image], 
@@ -463,7 +463,7 @@ module ApplicationHelper
     end,
     request.protocol + request.host_with_port + 
     url_for(:controller => 'inquiry', :action => 'index', :site => @site.name)
-    )
+    ) 
   end
   
   # 各widgetの　rendering
