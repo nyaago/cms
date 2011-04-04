@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+source 'http://gemcutter.org'
 
 gem 'rails', '3.0.3'
 require 'csv'
@@ -25,6 +26,8 @@ gem 'rspec'
 gem 'rspec-rails'
 gem 'autotest'
 gem 'autotest-rails'
+
+gem 'machinist'
 
 # Use unicorn as the web server
 # gem 'unicorn'

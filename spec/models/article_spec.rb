@@ -5,29 +5,31 @@ SITE_ID = 1
 describe Article do
 
   before  do 
-    @site = Site.create(:name => 'moomin', :title => 'moomin')
+    @site = Site.new(:name => 'moomin', :title => 'moomin')
     @user = User.new(:login => 'moomin', :email => 'nyaago69@gmail.com')
     @user.password = @user.password_confirmation = 'moomin'
+    @user.is_site_admin = true
     @user.site = @site
     @user.save!
+    @site.save!
     Article.create!(
       :name => 'testa', :title => 'test1', :content => '<p>content</p>',
-      :article_type => 1,
+      :type => "BlogArticle",
       :site => @site, :user => @user
     )
     Article.create!(
       :name => 'testb', :title => 'test2', :content => '<p>content</p>',
-      :article_type => 1,
+      :type => "BlogArticle",
       :site => @site, :user => @user
     )
     Article.create!(
       :name => 'testc', :title => 'test3', :content => '<p>content</p>',
-      :article_type => 1,
+      :type => "BlogArticle",
       :site => @site, :user => @user
     )
     Article.create!(
       :name => 'testd', :title => 'test4', :content => '<p>content</p>',
-      :article_type => 1,
+      :type => "BlogArticle",
       :site => @site, :user => @user
     )
   end
