@@ -6,18 +6,22 @@ Cms::Application.routes.draw do
   end
 
   # User Sessions
+  match 'user_sessions' => 'user_sessions#action'
   match 'user_sessions/:action' => 'user_sessions#:action'
 
   namespace :admin, :path => "admin" do 
+    match 'sites' => 'sites#index'
     match 'sites/:action/:id' => 'sites#:action#:id'
     match 'sites/:action' => 'sites#:action'
 
+    match 'users' => 'users#index'
     match 'users/:action/:id' => 'users#:action#:id'
     match 'users/:action' => 'users#:action'
 
     match 'common/:action' => 'common#:action'
 
     # password
+    match 'password' => 'password#index'
     match 'password/:action/:id' => 'password#:action#:id'
     match 'password/:action' => 'password#:action'
     
@@ -39,6 +43,7 @@ Cms::Application.routes.draw do
     match 'common/:action' => 'common#:action'
 
     # password reissue
+    match 'password_reissue' => 'password_reissue#index'
     match 'password_reissue/:action/:id' => 'password_reissue#:action#:id'
     match 'password_reissue/:action' => 'password_reissue#:action'
 
@@ -46,27 +51,42 @@ Cms::Application.routes.draw do
     match ':site/articles/:action/:id' => 'articles#:action#:id#:site'
     match ':site/articles/:action' => 'articles#:action#:site'
     # Pages
+    match ':site/pages' => 'pages#index#:site'
     match ':site/pages/:action/:id' => 'pages#:action#:id#:site'
     match ':site/pages/:action' => 'pages#:action#:site'
+    
     # Blogs
+    match ':site/blogs' => 'blogs#index#:site'
     match ':site/blogs/:action/:id' => 'blogs#:action#:id#:site'
     match ':site/blogs/:action' => 'blogs#:action#:site'
+    
     # Users
+    match ':site/users' => 'users#index#:site'
     match ':site/users/:action/:id' => 'users#action#:id#:site'
     match ':site/users/:action' => 'users#:action#:site'
+    
     # Theme
+    match ':site/theme' => 'theme#index#:site'
     match ':site/theme/:action' => 'theme#:action#:site'
+    
     # Layout
+    match ':site/layout' => 'layout#index#:site'
     match ':site/layout/:action' => 'layout#:action#:site'
+    
     # Setting
+    match ':site/setting' => 'setting#index#:site'
     match ':site/setting/:action' => 'setting#:action#:site'
     # Optimization
+    match ':site/optimization' => 'optimization#index#:site'
     match ':site/optimization/:action' => 'optimization#:action#:site'
     # Post setting
+    match ':site/post_setting' => 'post_setting#index#:site'
     match ':site/post_setting/:action' => 'post_setting#:action#:site'
     # View setting
+    match ':site/view_setting' => 'view_setting#index#:site'
     match ':site/view_setting/:action' => 'view_setting#:action#:site'
     # Widgets setting
+    match ':site/widgets' => 'widgets#index#:site'
     match ':site/widgets/:action/:id' => 'widgets#:action#:id#:site'
     match ':site/widgets/:action' => 'widgets#:action#:site'
 
@@ -84,6 +104,7 @@ Cms::Application.routes.draw do
 
 
     # Images
+    match ':site/images' => 'images#index#:site'
     match ':site/images/:action/:id' => 'images#:action#:id#:site'
     match ':site/images/:action' => 'images#:action#:site'
     
@@ -92,14 +113,17 @@ Cms::Application.routes.draw do
     
     # dashboard
     match ':site/dashboard/:action' => 'dashboard#:action#:site'
+    match ':site/dashboard' => 'dashboard#index#:site'
 
     # password
+    match ':site/password' => 'password#index#:site'
     match ':site/password/:action/:id' => 'password#:action#:id#:site'
     match ':site/password/:action' => 'password#:action#:site'
 
     
     # default - dashboard
     match ':site' => 'dashboard#index#:site'
+    match '/' => 'dashboard#index'
     
     resources :users
   end
@@ -122,7 +146,7 @@ Cms::Application.routes.draw do
 
 #  match ':site/articles/index.:format' => 'articles#index.:format#:site'
 
-
+  match ':site/inquiry' => 'inquiry#index#:site'
   match ':site/inquiry/:action' => 'inquiry#:action#:site'
 
 

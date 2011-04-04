@@ -35,12 +35,10 @@ class Site::BaseController < ActionController::Base
   # 認証されていなければ、ログインページへのリダイレクト.
   # また、権限がなければ、権限エラーのページへリダイレクト.
   def authenticate
-    if !current_user.is_admin &&
-        (current_user.nil? || current_user.site.name != params[:site])  &&
-        !accessible_unless_login
+    if !authenticated? && !accessible_unless_login?
       store_location
       flash[:notice] = I18n.t :need_to_login, 
-                              :scope => [:user_sessions]
+                              :scope => [:messages, :user_sessions]
       redirect_to :controller => '/user_sessions', :action => :new,
                   :back_controller => params[:controller],
                   :site => params[:site]
@@ -61,11 +59,11 @@ class Site::BaseController < ActionController::Base
       redirect_to :controller => :common, :action => :inaccessible
       return false
     end
-    if @site.canceled && !accessible_unless_login
+    if @site.canceled && !accessible_unless_login?
       redirect_to :controller => :common, :action => :canceled
       return false
     end
-    if @site.suspended && !accessible_unless_login
+    if @site.suspended && !accessible_unless_login?
       redirect_to :controller => :common, :action => :suspended
       return false
     end
@@ -106,7 +104,7 @@ class Site::BaseController < ActionController::Base
   # login していないときにアクセス可能かどうかを返す.
   # ここでは、常に不可とする.
   # 動作を変更する場合は、継承先でオーバーライドする.
-  def accessible_unless_login
+  def accessible_unless_login?
     p "accessible_unless_login - #{false}"
     false
   end
@@ -117,6 +115,11 @@ class Site::BaseController < ActionController::Base
    flash[:error]=nil
    flash[:worn]=nil
   end
-  
+
+  def authenticated?
+    current_user &&
+    (current_user.is_admin ||
+    current_user.site.name == params[:site]  )
+  end
   
 end
