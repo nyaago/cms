@@ -31,16 +31,16 @@ class InquiryMailer < ActionMailer::Base
   
 
   
-  config = load_config
+  @@config = load_config
   ActionMailer::Base.smtp_settings = {
-    :from =>  config['from'],
-    :port => config['port'],
-    :address => config['address'],
-    :domain => config['domain'],
-    :user_name => config['user_name'],
-    :password => config['password'],
-    :authentication => config['authentication'],
-    :enable_starttls_auto => config['tls'] == "true"
+    :from =>  @@config['from'],
+    :port => @@config['port'],
+    :address => @@config['address'],
+    :domain => @@config['domain'],
+    :user_name => @@config['user_name'],
+    :password => @@config['password'],
+    :authentication => @@config['authentication'],
+    :enable_starttls_auto => @@config['tls'] == "true"
   }
   @@default_charset = 'iso-2022-jp'
   default :charset => 'iso-2022-jp'
@@ -53,13 +53,8 @@ class InquiryMailer < ActionMailer::Base
     #subject = ('=?ISO-2022-JP?B?' + subject.split(//,1).pack('m').chomp + '?=')
     
     mail(:to => site.email,
-#      :subject => subject.tojis.force_encoding(__ENCODING__)) do |format|
-      :subject => subject) do |format|        
-#        :port => config['port'],
-#        :address => config['address'],
-#        :domain => config['domain'],
-#        :user_name => config['user_name'],
-#        :authentication => config['authentication'] )do |format|
+          :from => @@config['rom']
+          :subject => subject) do |format|        
       format.text
     end  
   end
