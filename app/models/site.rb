@@ -28,7 +28,7 @@ require 'email_validator'
   validates_numericality_of :max_mbyte, 
                             :only_integer => true,
                             :less_than_or_equal_to => 1000,
-                            :greater_than_or_equal_to => 10
+                            :greater_than_or_equal_to => 1
 
   # ユーザとの関連
   has_many  :users, :dependent => :destroy

@@ -148,7 +148,7 @@ class Image < ActiveRecord::Base
 
   # ファイルサイズ制限
   validates_attachment_size :image,
-    :less_than => 2.megabytes,
+    :less_than => 3.megabytes,
     :message => I18n.t(:attachment_size, :scope => TRANSLATION_SCOPE)
 
   # ファイルの合計サイズを返す

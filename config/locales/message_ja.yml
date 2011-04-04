@@ -29,6 +29,7 @@ ja:
         complete_destroy_batch: "%{count}件の削除を行いました"
         not_found: "画像がみつかりませんでした"
         none: "画像が1件もありません。"
+        excess_capacity: "利用容量限度を超えるため保存できません"
           
       blogs:
         updated: "記事が更新されました"
