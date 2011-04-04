@@ -36,7 +36,7 @@ ja:
         destroyed: "記事が削除されました"
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
-        not_found: "画像がみつかりませんでした"
+        not_found: "記事がみつかりませんでした"
         none: "該当する記事はありません。"
   
       setting:

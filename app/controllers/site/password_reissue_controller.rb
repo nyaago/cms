@@ -2,6 +2,8 @@
 # パスワード再発行
 class Site::PasswordReissueController < ActionController::Base
   
+  layout 'site_no_login'
+  
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "password_reissue"].freeze
   
@@ -21,7 +23,12 @@ class Site::PasswordReissueController < ActionController::Base
   def ask
     @user = User.where("login = :login", :login => params[:user][:login]).first
     if @user.nil?
-      flash[:error] = I18n.t :unknown_user, :scope => TRANSLATION_SCOPE
+      flash[:error] = I18n.t :unknown_account, :scope => TRANSLATION_SCOPE
+      respond_to do |format|
+        format.html do 
+          render :action => :index
+        end
+      end
       return
     end
     @user.generate_reissue_password 
@@ -35,11 +42,13 @@ class Site::PasswordReissueController < ActionController::Base
           redirect_to :action => :accept
         end
       end
-    rescue
+    rescue => ex
+      p ex.message
+      p ex.backtrace
       respond_to do |format|
         format.html do 
           flash[:notice] = I18n.t :failed_in_sending, :scope => TRANSLATION_SCOPE
-          render :action => :ask
+          render :action => :index
         end
       end
     end
