@@ -53,7 +53,7 @@ class InquiryMailer < ActionMailer::Base
     #subject = ('=?ISO-2022-JP?B?' + subject.split(//,1).pack('m').chomp + '?=')
     
     mail(:to => site.email,
-          :from => @@config['rom']
+          :from => @@config['rom'],
           :subject => subject) do |format|        
       format.text
     end  
