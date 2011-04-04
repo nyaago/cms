@@ -25,6 +25,10 @@ require 'email_validator'
   validates_with Validator::Site::CancellationReservedFuture
   validates_presence_of :title
   validates_uniqueness_of :name
+  validates_numericality_of :max_mbyte, 
+                            :only_integer => true,
+                            :less_than_or_equal_to => 1000,
+                            :greater_than_or_equal_to => 10
 
   # ユーザとの関連
   has_many  :users, :dependent => :destroy
