@@ -28,26 +28,9 @@ class Site::ImagesController < Site::BaseController
   # * images[month] - 年月(yyyymm 書式)
   def index
     @image = Image.new
-    @months = Image.created_months(@site.id)
-    cur_month = if params[:month] then params[:month] else nil end
-    @images = Image.where("site_id = :site_id ",
-                          :site_id => @site.id).
-                        filter_by_month(cur_month).
-                        order(order_by).
-                        paginate(
-                          :page => 
-                            if !params[:page].blank? && params[:page].to_i >= 1 
-                              params[:page].to_i
-                            else 
-                              1 
-                            end, 
-                          :per_page => PER_PAGR)
-    if @images.size == 0
-      flash[:notice] = I18n.t(:none, :scope => TRANSLATION_SCOPE)
-    end
-
+    get_list
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :action => :index }
       format.xml  { render :xml => @images }
     end
   end
@@ -92,7 +75,9 @@ class Site::ImagesController < Site::BaseController
   end
   
   # CREATE /images
-  # 画像を新規にアップロード
+  # 画像を新規にアップロード. その後、一覧を再表示.
+  # 検証(画像サイズ超過など)に失敗した場合は、　エラーとする。
+  # 登録後,最大容量を超えた場合は、削除する。
   def create
     @image = Image.new(:title =>  if params[:image] then 
                                     params[:image][:title]
@@ -106,27 +91,49 @@ class Site::ImagesController < Site::BaseController
                         :user => current_user,
       #                :user_id => current_user.id,
       }
-    respond_to do |format|
-      begin
-        if @image = Image.create( additional_attrs.merge params[:image] )
-          format.html do 
-            @image.update_attributes(params[:image_additional])
-            redirect_to(url_for(:action => :index, :display_upload => 1), 
-            :notice => I18n.t("created", :scope => TRANSLATION_SCOPE)) 
-          end
-          format.xml  { render :xml => @image, :status => :created, 
-            :location => @image }
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @image.errors, 
-            :status => :unprocessable_entity }
+
+    begin
+      @image = Image.new( additional_attrs.merge params[:image] )
+      @image.save!(:validates => true)
+      @image.attributes = params[:image_additional]
+      @image.save!(:validates => true)
+        # OK
+    rescue => ex
+      p ex.message
+      logger.error("error!", ex)
+      respond_to do |format|
+        format.html do  
+          get_list
+          render :action => :index
         end
-      rescue => ex
-        logger.error("error!", ex)
-        format.html { render :action => "new" }
         format.xml  { render :xml => @image.errors, 
           :status => :unprocessable_entity }
       end
+      return
+    end
+    # 容量が超えていないか? - 超えていれば削除.
+    if @site.images.sum("total_size")  > @site.max_mbyte * 1024 * 1024
+      @image.destroy
+      flash[:notice] = I18n.t :excess_capacity, :scope =>  TRANSLATION_SCOPE
+      respond_to do |format|
+        format.html do  
+          get_list
+          render :action => :index
+        end
+        format.xml  { render :xml => @image.errors, 
+          :status => :unprocessable_entity }
+      end
+      return
+    end
+    
+    respond_to do |format|
+      format.html do 
+        redirect_to(url_for(:action => :index, :display_upload => 1), 
+        :notice => I18n.t("created", :scope => TRANSLATION_SCOPE)) 
+      end
+      format.xml  { render :xml => @image, :status => :created, 
+        :location => @image }
+    
     end
     
   end
@@ -294,5 +301,25 @@ class Site::ImagesController < Site::BaseController
     !!user
   end
 
+  def get_list
+
+    @months = Image.created_months(@site.id)
+    cur_month = if params[:month] then params[:month] else nil end
+    @images = Image.where("site_id = :site_id ",
+                          :site_id => @site.id).
+                        filter_by_month(cur_month).
+                        order(order_by).
+                        paginate(
+                          :page => 
+                            if !params[:page].blank? && params[:page].to_i >= 1 
+                              params[:page].to_i
+                            else 
+                              1 
+                            end, 
+                          :per_page => PER_PAGR)
+    if @images.size == 0
+      flash[:notice] = I18n.t(:none, :scope => TRANSLATION_SCOPE)
+    end
+  end
 
 end
