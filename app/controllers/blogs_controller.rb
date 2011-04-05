@@ -5,12 +5,17 @@ class BlogsController < ApplicationController
   # 記事一覧の１ページの件数
   PER_PAGR = 3
 
+  # 翻訳リソースのスコープ
+  TRANSLATION_SCOPE = ["messages", "blogs"].freeze
+
   # GET /blogs/show/1
   # GET /blogs/shouw/1.xml
   # 指定されたidの記事を表示
   def show
     @article = @site.blogs.where("id = :id and published = true", 
-                                  :id => params[:id]).first
+                                  :id => params[:id]).
+                                  where("is_temporary <> true or is_temporary is null").
+                                  first
 
     if @article.nil?
       respond_to do |format|
@@ -40,6 +45,7 @@ class BlogsController < ApplicationController
     cur_month = if params[:month] then params[:month] else nil end
     begin 
       @articles = @site.blogs.where("published = true").
+                          where("is_temporary <> true or is_temporary is null").
                           filter_by_updated_month(cur_month).
                           order("updated_at desc").
                           paginate(
@@ -86,6 +92,37 @@ class BlogsController < ApplicationController
       format.xml  { render :xml => @articles }
     end
     
+  end
+  
+  
+  # GET /blogs/preview/1
+  # 記事プレビュー
+  def preview
+    flash[:notice] = ''
+    @site = Site.find_by_name(params[:site])
+    unless current_user && current_user.site.name == @site.name
+      respond_to do |format|
+         format.html { 
+           render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", 
+            :status => :not_found 
+          }
+         format.xml  { render :status => :not_found }
+       end
+       return
+    end
+    @article = @site.articles.where("parent_id = :id", :id => params[:id]).
+                        order('updated_at desc').
+                        first
+    if @article.nil?
+      flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
+    end
+    respond_to do |format|
+      format.html do  
+        render :action => :show,
+              :layout =>  @site.site_layout.theme_layout_path_for_rendering 
+      end
+      format.xml  { render :xml => @article }
+    end
   end
   
   protected 

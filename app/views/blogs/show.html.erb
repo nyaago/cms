@@ -1,5 +1,9 @@
 <h1>
+  <% if @article %>
   <%= @article.title %>
+  <% else %>
+  <%= BlogArticle.model_name.human %>
+  <% end %>
 </h1>
 <div class="date" id="updated_at">
   <span class="label"><%= BlogArticle.human_attribute_name(:updated_at) %>:</span>

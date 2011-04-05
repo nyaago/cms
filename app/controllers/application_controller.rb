@@ -45,6 +45,18 @@ class ApplicationController < ActionController::Base
   
   protected 
   
+  # 現在ログインしているユーザセッション情報を得る
+  def current_user_session
+    @current_user_session ||= UserSession.find
+  end
+  
+  # 現在ログインしているユーザの情報(User)を得る
+  # 
+  def current_user
+    @current_user ||= current_user_session && current_user_session.user
+  end
+  
+  
   # siteモデルをロード
   # サイトがなければ, 404リダイレクト
   def load_site
@@ -71,6 +83,7 @@ class ApplicationController < ActionController::Base
   # 新着blogの配列変数(@new_blogs)を生成
   def new_blogs
     @new_blogs = @site.blogs.where("published = true").
+                        where("is_temporary <> true or is_temporary is null").
                         order("updated_at desc").
                         limit(@site.view_setting.title_count_in_home)
   end
