@@ -1,109 +1,122 @@
-<ul class="menu_group">
-  <li class="menu_group_header">
-    ダッシュボード
-  </li>
-  <li>
-    <%=link_to "ダッシュボード", "/site/#{@site.name}" %>
-  </li>
+<script type="text/javascript">
+//<![CDATA[
+  
+  $(document).ready( function(){
+    $("#side_menu").accordion({});
+  });
+  
+//]]>
+</script>
+<div id="side_menu">
+
+<h2 class="menu_group_header"><a href="#">
+  ダッシュボード
+</a></h2>
+
+<ul class="menu_group" id="dashboard_menu_group">
+<li>
+  <%=link_to "ダッシュボード", "/site/#{@site.name}" %>
+</li>
 </ul>
 
 
-<ul class="menu_group">
-  <li class="menu_group_header">
-    お知らせ
-  </li>
-  <li>
-    <%=link_to "お知らせ一覧", :controller => "site/blogs", :action => :index, :site => @site.name %>
-  </li>
-  <li>
-    <%=link_to "お知らせ作成", :controller => "site/blogs", :action => :new, :site => @site.name %>
-  </li>
+<h2 class="menu_group_header"><a href="#">
+  お知らせ
+</a></h2>
+<ul class="menu_group"  id="blogs_menu_group">
+<li>
+  <%=link_to "お知らせ一覧", :controller => "site/blogs", :action => :index, :site => @site.name %>
+</li>
+<li>
+  <%=link_to "お知らせ作成", :controller => "site/blogs", :action => :new, :site => @site.name %>
+</li>
 </ul>
 
 
-<ul class="menu_group">
-  <li class="menu_group_header">
-    画像・ファイル
-  </li>
-  <li>
-    <%=link_to "画像一覧", :controller => "site/images", :action => :index, :site => @site.name %>
-  </li>
+<h2 class="menu_group_header"><a href="#">
+  画像・ファイル
+</a></h2>
+<ul class="menu_group"  id="images_menu_group">
+<li>
+  <%=link_to "画像一覧", :controller => "site/images", :action => :index, :site => @site.name %>
+</li>
 </ul>
 
-<ul class="menu_group">
-  <li class="menu_group_header">
-    ページ
-  </li>
-  <li>
-    <%=link_to "ページ一覧", :controller => "site/pages", :action => :index, :site => @site.name %>
-  </li>
+<h2 class="menu_group_header"><a href="#">
+  ページ
+</a></h2>
+<ul class="menu_group"  id="pages_menu_group">
+<li>
+  <%=link_to "ページ一覧", :controller => "site/pages", :action => :index, :site => @site.name %>
+</li>
 </ul>
 
 <% if @current_user.is_admin || @current_user.is_site_admin %>
 
-<ul class="menu_group">
-  <li class="menu_group_header">
-    デザイン
-  </li>
-  <li>
-    <%=link_to "テーマ", :controller => "site/theme", :action => :index, :site => @site.name %>
-  </li>
-  <li>
-    <%=link_to "デザイン", :controller => "site/layout", :action => :index, :site => @site.name %>
-  </li>
-  <li>
-    <%=link_to "ウィジット", :controller => "site/widgets", :action => :index, :site => @site.name %>
-  </li>
+<h2 class="menu_group_header"><a href="#">
+  デザイン
+</a></h2>
+<ul class="menu_group"  id="layout_menu_group">
+<li>
+  <%=link_to "テーマ", :controller => "site/theme", :action => :index, :site => @site.name %>
+</li>
+<li>
+  <%=link_to "デザイン", :controller => "site/layout", :action => :index, :site => @site.name %>
+</li>
+<li>
+  <%=link_to "ウィジット", :controller => "site/widgets", :action => :index, :site => @site.name %>
+</li>
 </ul>
 
 
-<ul class="menu_group">
-  <li class="menu_group_header">
-    設定
-  </li>
-  <li>
-    <%=link_to "一般設定", :controller => "site/setting", :action => :index, :site => @site.name  %>
-  </li>
-  <li>
-    <%=link_to "投稿設定", :controller => "site/post_setting", :action => :index, :site => @site.name  %>
-  </li>
-  <li>
-    <%=link_to "#{ViewSetting.human_name}", :controller => "site/view_setting", :action => :index , :site => @site.name %>
-  </li>
-  <li>
-    <%=link_to "#{SearchEngineOptimization.human_name}", :controller => "site/optimization", :action => :index, :site => @site.name  %>
-  </li>
-  <li>
-    <%=link_to "問い合わせ項目設定", :controller => "site/inquiry_items", :action => :index , :site => @site.name %>
-  </li>
-  <li>
-    <%=link_to "#{User.human_name}管理", :controller => "site/users", :action => :index, :site => @site.name  %>
-  </li>
+<h2 class="menu_group_header"><a href="#">
+  設定
+</a></h2>
+<ul class="menu_group"  id="setting_menu_group">
+<li>
+  <%=link_to "一般設定", :controller => "site/setting", :action => :index, :site => @site.name  %>
+</li>
+<li>
+  <%=link_to "投稿設定", :controller => "site/post_setting", :action => :index, :site => @site.name  %>
+</li>
+<li>
+  <%=link_to "#{ViewSetting.human_name}", :controller => "site/view_setting", :action => :index , :site => @site.name %>
+</li>
+<li>
+  <%=link_to "#{SearchEngineOptimization.human_name}", :controller => "site/optimization", :action => :index, :site => @site.name  %>
+</li>
+<li>
+  <%=link_to "問い合わせ項目設定", :controller => "site/inquiry_items", :action => :index , :site => @site.name %>
+</li>
+<li>
+  <%=link_to "#{User.human_name}管理", :controller => "site/users", :action => :index, :site => @site.name  %>
+</li>
 </ul>
 
 <% end %>
 
 <% unless @current_user.is_admin %>
-<ul class="menu_group">
-  <li class="menu_group_header">
-    パスワード変更
-  </li>
-  <li>
-    <%=link_to "#{User.human_attribute_name(:password)}変更", 
-    :controller => "site/password", :action => :edit, 
-    :site => @site.name, :id => @current_user.id  %>
-  </li>
+<h2 class="menu_group_header"><a href="#">
+  パスワード変更
+</a></h2>
+<ul class="menu_group"  id="password_menu_group">
+<li>
+  <%=link_to "#{User.human_attribute_name(:password)}変更", 
+  :controller => "site/password", :action => :edit, 
+  :site => @site.name, :id => @current_user.id  %>
+</li>
 </ul>
 <% end %>
 
 
 <% if @current_user.is_admin %>
+<h2 class="menu_group_header"><a href="#">
+  管理者用
+</a></h2>
 <ul class="menu_group">
-  <li class="menu_group_header">
-    管理者用
-  </li>
-  <li>
-    <%=link_to "サイト一覧", :controller => "admin/sites", :action => :index  %>
-  </li>
+<li>
+  <%=link_to "サイト一覧", :controller => "admin/sites", :action => :index  %>
+</li>
 </ul>
 <% end %>
+</div>
