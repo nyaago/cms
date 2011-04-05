@@ -10,8 +10,29 @@ jQuery(function($){
     });
     $("div#published_from").css("display", "none");
     $("div#published").css("display", "none");    
+
+    $('#preview_link').click( function() {
+      previewArticle();
+    } );
 });
 
+function previewArticle() {
+  $('#blog_article_content').val( CKEDITOR.instances.blog_article_content.getData());
+  $.ajax( {
+    type: "POST",
+    url: "<%= url_for(:action => :create_temp, :id => @article.id) %>",
+    data: $('.edit_blog_article').serialize(),
+    async: false,
+    dataType: 'json',
+    success: function(json){
+      /*
+       alert('/' + '<%= @site.name %>' + '/blogs/' + json.blog_article.id);
+       window.open('/' + '<%= @site.name %>' + '/blogs/' + json.blog_article.id,
+                    '_preview ');
+                    */
+     }
+  } );
+}
 
 // 画像タグを挿入
 // == parameters
@@ -230,7 +251,14 @@ CKEDITOR.config.imageSelctorUrl =
 
   <div class="actions">
     <%= f.submit %>
+    <%= link_to('プレビュー', 
+      {:controller => '/blogs', :action => :preview, :id => @article.id}, 
+      :target => '_preview', :id => :preview_link) %>
   </div>  
+<% end %>
+
+<%= form_tag(url_for(:action => :create_temp), :class=>'temp_article') do  %>
+  
 <% end %>
 </div>
 <script type="text/javascript" charset="utf-8">

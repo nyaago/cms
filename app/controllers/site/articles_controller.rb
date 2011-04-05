@@ -51,8 +51,9 @@ class Site::ArticlesController < Site::BaseController
   # GET /articles/new
   # GET /articles/new.xml
   def new
-    @article = self.class.model.new
-
+    @article = self.class.model.new(:site => @site, :title => '',
+                                    :is_temporary => true)
+    @article.save!(:validate => false)
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @article }
@@ -78,6 +79,58 @@ class Site::ArticlesController < Site::BaseController
     end
   end
 
+  # プレビュー用のtempraryを生成.
+  # POST site/<controller>/create_temp/<id>
+  def create_temp
+    # 新規または、前回Preview用に作成したrecordを得る
+    @article = if params[:id] 
+      Article.find_by_parent_id_and_site_id_and_updated_by(
+      params[:id], @site.id, current_user.id)  ||
+        self.class.model.new
+    else
+      self.class.model.new
+    end
+    # 確定されたrecordを得て、　属性copy
+    @orig_article = if params[:id] 
+      article = Article.find_by_id_and_site_id(params[:id], @site.id) 
+      if article
+        article.clone
+      else
+        nil
+      end
+    else
+      nil
+    end
+    if @orig_article
+      @article.attributes = @orig_article.attributes
+    end
+    
+    # 送信された属性値をcopy
+    @article.title = ''
+    @article.attributes = params[self.class.model.name.underscore.to_sym]
+    # 
+    @article.is_temporary = true
+    @article.updated_at = Time.now
+    @article.parent_id = params[:id]
+    @article.site = @site
+    
+    # 保存
+    if @article.save(:validate => false)
+      # p @article.to_json
+      respond_to do |format|
+        format.json do
+          render :json => @article
+        end
+      end
+    else
+      respond_to do |format|
+        format.json do
+          render :json => { :status => "NG" }
+        end
+      end
+    end
+  end
+  
 
   # DELETE /articles/1
   # DELETE /articles/1.xml

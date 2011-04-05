@@ -77,7 +77,7 @@ class Site::ImagesController < Site::BaseController
   # CREATE /images
   # 画像を新規にアップロード. その後、一覧を再表示.
   # 検証(画像サイズ超過など)に失敗した場合は、　エラーとする。
-  # 登録後,最大容量を超えた場合は、削除する。
+  # 登録後,最大容量を超えた場合は、削除
   def create
     @image = Image.new(:title =>  if params[:image] then 
                                     params[:image][:title]

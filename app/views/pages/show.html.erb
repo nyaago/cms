@@ -1,5 +1,9 @@
 <h1>
+  <% if @article %>
   <%= @article.title %>
+  <% else %>
+  <%= PageArticle.model_name.human %>
+  <% end %>
 </h1>
 
 <p id="notice"><%= notice %></p>
@@ -17,5 +21,4 @@
 <% end %>
 
 <div class="actions">  
-<%= link_to_function '戻る', "history.back();return false;" %>
 </div>

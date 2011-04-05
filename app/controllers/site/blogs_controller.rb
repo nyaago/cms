@@ -17,13 +17,15 @@ class Site::BlogsController < Site::ArticlesController
     flash[:notice] = ''
     @article = articles.where("id = :id", :id => params[:id]).first
     if @article.nil?
-      flash[:notice] = I18n.t("not_found", TRANSLATION_SCOPE)
+      flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
     end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @article }
     end
   end
+
+
 
 
   # POST /articles
