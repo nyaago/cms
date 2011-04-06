@@ -23,8 +23,8 @@ class Site::CommonController < Site::BaseController
   end
   
   # login していないときにアクセス可能かどうかを返す.
-  def accessible_unless_login
-    p "accessible ? #{!(params[:action] == 'inaccessible')}"
+  def accessible_unless_login?
+    # p "accessible ? #{!(params[:action] == 'inaccessible')}"
     !(params[:action] == 'inaccessible')
   end
   

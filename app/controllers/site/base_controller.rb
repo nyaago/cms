@@ -63,11 +63,11 @@ class Site::BaseController < ActionController::Base
       redirect_to :controller => :common, :action => :inaccessible
       return false
     end
-    if @site.canceled && !accessible_unless_login?
+    if @site.canceled && !@current_user.is_admin
       redirect_to :controller => :common, :action => :canceled
       return false
     end
-    if @site.suspended && !accessible_unless_login?
+    if @site.suspended && !@current_user.is_admin
       redirect_to :controller => :common, :action => :suspended
       return false
     end
