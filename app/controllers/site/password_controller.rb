@@ -48,7 +48,7 @@ class Site::PasswordController < Site::BaseController
     begin
       @user.password = params[:user][:password]
       @user.password_confirmation = params[:user][:password_confirmation]
-      @user.save(:validate => true)
+      @user.save!(:validate => true)
       respond_to do |format|
         format.html  do 
           flash[:notice] = I18n.t :password_changed, :scope => TRANSLATION_SCOPE
@@ -59,7 +59,7 @@ class Site::PasswordController < Site::BaseController
     rescue
       respond_to do |format|
         format.html { render :action => :edit }
-        format.xml { render :status => 'OK' }
+        format.xml { render :status => 'NG' }
       end
     end
   end
