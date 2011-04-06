@@ -42,7 +42,7 @@ class PagesController < ApplicationController
   def preview
     flash[:notice] = ''
     @site = Site.find_by_name(params[:site])
-    unless current_user && current_user.site.name == @site.name
+    unless can_preview?
       respond_to do |format|
          format.html { 
            render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", 
@@ -67,6 +67,14 @@ class PagesController < ApplicationController
     end
   end
   
+  private
+  
+  # preview の権限があるか?
+  def can_preview?
+    current_user && 
+      (current_user.site && current_user.site.name == @site.name  ||
+      current_user.is_admin)
+  end
   
   
 end
