@@ -63,7 +63,7 @@
 
 <%= stylesheet_link_tag "site/images" %>
 <h1>
-  <%= Image.human_name %>の選択
+  <%= Image.model_name.human %>の選択
 </h1>
 
 <p id="notice"><%= flash[:notice] %></p>
@@ -72,7 +72,7 @@
 
 <div>
 <h2>
-  <%= Image.human_name %>一覧
+  <%= Image.model_name.human %>一覧
 </h2>
 <%= form_tag({:action => :index},
                {:id => 'filteting_by_month', :method => 'get'}) do -%>
@@ -83,7 +83,7 @@
              
 <div id="settings_for_images">              
   <h3>
-    使用する<%= Image.human_name %>の設定
+    使用する<%= Image.model_name.human %>の設定
   </h3>
   <div class="inputs fields">
     <div class="field" id="image_size_field">

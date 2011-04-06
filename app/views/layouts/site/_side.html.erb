@@ -2,14 +2,31 @@
 //<![CDATA[
   
   $(document).ready( function(){
+    var menuGroupToControllerMap = {"dashboard_menu_header" : ["site/dashboard", ""],
+                                    "blogs_menu_header" : ["site/blogs", ""],
+                                    "pages_menu_header" : ["site/pages", ""],
+                                    "images_menu_header" : ["site/images"],
+                                    "layout_menu_header" : ["site/theme","site/layout","site/widgets"],
+                                    "setting_menu_header" :
+                                     ["site/setting","site/post_setting","site/view_setting",
+                                     "site/optimization","site/inquiry_items", "site/users"],
+                                     "password_menu_header" : ["site/users"]
+                                     };
+    var controller = '<%= params[:controller]%>';
     $("#side_menu").accordion({});
+    for(key in menuGroupToControllerMap) {
+      if(menuGroupToControllerMap[key].contains(controller)) {
+        
+        $("#side_menu").accordion("activate", "#" + key);
+      }
+    }
   });
   
 //]]>
 </script>
 <div id="side_menu">
 
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header"  id="dashboard_menu_header"><a href="#">
   ダッシュボード
 </a></h2>
 
@@ -20,10 +37,10 @@
 </ul>
 
 
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header" id="blogs_menu_header"><a href="#">
   お知らせ
 </a></h2>
-<ul class="menu_group"  id="blogs_menu_group">
+<ul class="menu_group" id="blogs_menu_group">
 <li>
   <%=link_to "お知らせ一覧", :controller => "site/blogs", :action => :index, :site => @site.name %>
 </li>
@@ -33,7 +50,7 @@
 </ul>
 
 
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header"  id="images_menu_header"><a href="#">
   画像・ファイル
 </a></h2>
 <ul class="menu_group"  id="images_menu_group">
@@ -42,7 +59,7 @@
 </li>
 </ul>
 
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header"   id="pages_menu_header"><a href="#">
   ページ
 </a></h2>
 <ul class="menu_group"  id="pages_menu_group">
@@ -53,7 +70,7 @@
 
 <% if @current_user.is_admin || @current_user.is_site_admin %>
 
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header" id="layout_menu_header"><a href="#">
   デザイン
 </a></h2>
 <ul class="menu_group"  id="layout_menu_group">
@@ -69,7 +86,7 @@
 </ul>
 
 
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header"   id="setting_menu_header"><a href="#">
   設定
 </a></h2>
 <ul class="menu_group"  id="setting_menu_group">
@@ -80,23 +97,23 @@
   <%=link_to "投稿設定", :controller => "site/post_setting", :action => :index, :site => @site.name  %>
 </li>
 <li>
-  <%=link_to "#{ViewSetting.human_name}", :controller => "site/view_setting", :action => :index , :site => @site.name %>
+  <%=link_to "#{ViewSetting.model_name.human}", :controller => "site/view_setting", :action => :index , :site => @site.name %>
 </li>
 <li>
-  <%=link_to "#{SearchEngineOptimization.human_name}", :controller => "site/optimization", :action => :index, :site => @site.name  %>
+  <%=link_to "#{SearchEngineOptimization.model_name.human}", :controller => "site/optimization", :action => :index, :site => @site.name  %>
 </li>
 <li>
   <%=link_to "問い合わせ項目設定", :controller => "site/inquiry_items", :action => :index , :site => @site.name %>
 </li>
 <li>
-  <%=link_to "#{User.human_name}管理", :controller => "site/users", :action => :index, :site => @site.name  %>
+  <%=link_to "#{User.model_name.human}管理", :controller => "site/users", :action => :index, :site => @site.name  %>
 </li>
 </ul>
 
 <% end %>
 
 <% unless @current_user.is_admin %>
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header"  id="password_menu_header"><a href="#">
   パスワード変更
 </a></h2>
 <ul class="menu_group"  id="password_menu_group">

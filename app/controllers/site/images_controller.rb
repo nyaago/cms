@@ -94,9 +94,9 @@ class Site::ImagesController < Site::BaseController
 
     begin
       @image = Image.new( additional_attrs.merge params[:image] )
-      @image.save!(:validates => true)
+      @image.save!(:validate => true)
       @image.attributes = params[:image_additional]
-      @image.save!(:validates => true)
+      @image.save!(:validate => true)
         # OK
     rescue => ex
       p ex.message

@@ -24,7 +24,7 @@
 
 <%= stylesheet_link_tag "site/images" %>
 <h1>
-  <%= Image.human_name %>一覧とアップロード
+  <%= Image.model_name.human %>一覧とアップロード
 </h1>
 
 <p id="notice"><%= flash[:notice] %></p>
@@ -52,7 +52,7 @@
 </div>
 <div class="upload image_upload" id="upload">
   <h2>
-    <%= Image.human_name %>アップロード
+    <%= Image.model_name.human %>アップロード
   </h2>
   
   <%= hidden_field_tag :display_upload, 
