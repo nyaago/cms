@@ -2,6 +2,7 @@
 //<![CDATA[
   
   $(document).ready( function(){
+    /*
     var menuGroupToControllerMap = {"dashboard_menu_header" : ["site/dashboard", ""],
                                     "blogs_menu_header" : ["site/blogs", ""],
                                     "pages_menu_header" : ["site/pages", ""],
@@ -13,13 +14,18 @@
                                      "password_menu_header" : ["site/users"]
                                      };
     var controller = '<%= params[:controller]%>';
-    $("#side_menu").accordion({});
+    */
+    $("#side_menu").accordion({autoHeight : false,
+                              navigation: true
+        });
+    /*
     for(key in menuGroupToControllerMap) {
       if(menuGroupToControllerMap[key].contains(controller)) {
         
         $("#side_menu").accordion("activate", "#" + key);
       }
     }
+    */
   });
   
 //]]>
