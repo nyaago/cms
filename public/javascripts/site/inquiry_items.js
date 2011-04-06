@@ -308,12 +308,13 @@ var inquiryItemEditor = function(attributes) {
   createInquiryItemOnDB = function(inquiryItem) {
     var position = inquiryItem.data('position');
     var inquiryItemType = $('.inquiry_item_type', inquiryItem).val();
-
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
     $.ajax( {
       type: "POST",
       url: that.urlForAdd(),
       dataType: 'json',
       data: {
+        'authenticity_token': csrfToken,
         'position': position,
         'inquiry_item_type': inquiryItemType
       },
@@ -380,13 +381,14 @@ var inquiryItemEditor = function(attributes) {
               {
                 text : that.updateButtonText(),
                 click: function() {
+                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
                   url = that.urlBaseForEdit() + that.siteName() + '/'+ $('.inquiry_item_type', inquiryItem).val().underscore() + 
                                                 '/update/' + id;
                   $.ajax( {
                     type: "POST",
                     url: url,
                     dataType: 'json',
-                    data: $('form', dialogSelector).serialize(),
+                    data: $('form', dialogSelector).serialize() + '&authenticity_token=' + csrfToken,
                     success: function(data, dataType) {
                       if(data.inquiry_item) {
                         dialogSelector.dialog('close');
@@ -419,13 +421,14 @@ var inquiryItemEditor = function(attributes) {
               {
                 text : that.deleteButtonText(),
                 click : function() {
+                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
                   url = that.urlBaseForEdit() + that.siteName() + '/'+ $('.inquiry_item_type', inquiryItem).val().underscore() + 
                                                 '/destroy/' + id;
                   $.ajax( {
                     type: "POST",
                     url: url,
                     dataType: 'json',
-                    data: $('form', dialogSelector).serialize(),
+                    data: $('form', dialogSelector).serialize() + '&authenticity_token=' + csrfToken,
                     success: function(data, dataType) {
                       if(data.inquiry_item_id) {
                         dialogSelector.dialog('close');
@@ -479,6 +482,7 @@ var inquiryItemEditor = function(attributes) {
   // 選択済み inquiry_item エリアでの並び変え操作をサーバーへ反映させる
   updatePositionOnDB  = function(areaElem) {
     var inquiryItems = [];
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
     $(".inquiry_item_id", areaElem).each ( function() {
       inquiryItems.push($(this).val());
     }
@@ -488,6 +492,7 @@ var inquiryItemEditor = function(attributes) {
       url: that.urlForSort(),
       dataType: 'json',
       data: { 
+        'authenticity_token': csrfToken,
         order: inquiryItems.join(',')
       },
       success: function(data, dataType) {

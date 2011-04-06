@@ -312,11 +312,13 @@ var widgetEditor = function(attributes) {
   createWidgetOnDB = function(widget, area) {
     var position = widget.data('position');
     var widgetType = $('.widget_type', widget).val();
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
     $.ajax( {
       type: "POST",
       url: that.urlForAdd(),
       dataType: 'json',
       data: {
+        'authenticity_token': csrfToken,
         'position': position,
         'widget_area': area,
         'widget_type': widgetType
@@ -381,13 +383,15 @@ var widgetEditor = function(attributes) {
               {
                 text : that.updateButtonText(),
                 click: function() {
+                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
                   url = that.urlBaseForEdit()  + that.siteName() + '/' + $('.widget_type', widget).val().underscore() + 
                                                 '/update/' + id;
+                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
                   $.ajax( {
                     type: "POST",
                     url: url,
                     dataType: 'json',
-                    data: $('form', dialogSelector).serialize(),
+                    data: $('form', dialogSelector).serialize() + '&authenticity_token=' + csrfToken,
                     success: function(data, dataType) {
                       if(data.widget_id) {
                         dialogSelector.dialog('close');
@@ -419,13 +423,14 @@ var widgetEditor = function(attributes) {
               {
                 text : that.deleteButtonText(),
                 click : function() {
+                  var csrfToken = $('meta[name="csrf-token"]').attr('content');
                   url = that.urlBaseForEdit()  + that.siteName()+ '/' + $('.widget_type', widget).val().underscore() + 
                                                 '/destroy/' + id;
                   $.ajax( {
                     type: "POST",
                     url: url,
                     dataType: 'json',
-                    data: $('form', dialogSelector).serialize(),
+                    data: $('form', dialogSelector).serialize() + '&authenticity_token=' + csrfToken,
                     success: function(data, dataType) {
                       if(data.widget_id) {
                         dialogSelector.dialog('close');
@@ -482,6 +487,7 @@ var widgetEditor = function(attributes) {
     if(!matches) {
       return;
     }
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
     var area = matches[1];
     var widgets = [];
     $(".widget_id", areaElem).each ( function() {
@@ -493,6 +499,7 @@ var widgetEditor = function(attributes) {
       url: that.urlForSort(),
       dataType: 'json',
       data: { 
+        'authenticity_token': csrfToken,
         order: widgets.join(','),
         area: area
       },
