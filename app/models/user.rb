@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
     #
     #
     config.crypto_provider = Authlogic::CryptoProviders::MD5
+    config.maintain_sessions = true
   end
 
   # パスワード再発行用パスワードの生成

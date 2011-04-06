@@ -30,7 +30,8 @@ ja:
         password_confirmation: 'パスワード確認'
         is_admin: "管理ユーザ"
         is_site_admin: "サイト管理ユーザ"
-
+        auto_login: "次回自動ログインする"
+        
       user_session:
         login: "アカウント"
         password: "パスワード"  
