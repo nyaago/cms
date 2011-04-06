@@ -2,22 +2,20 @@
 //<![CDATA[
   
   $(document).ready( function(){
-    /*
     var menuGroupToControllerMap = {"users_menu_header" : ["admin/users", ""],
                                     "password_menu_header" : ["admin/password", ""] };
     var controller = '<%= params[:controller]%>';
-    */
-    $("#side_menu").accordion({autoHeight : false,
-                              navigation: true
-        });
-    /*
+    var currentId = 0;
     for(key in menuGroupToControllerMap) {
       if(menuGroupToControllerMap[key].contains(controller)) {
-        
-        $("#side_menu").accordion("activate", "#" + key);
+        currentId = "#" + key;
       }
     }
-    */
+
+    $("#side_menu").accordion({autoHeight : false,
+                              navigation: true,
+                              active: currentId
+                              });
   });
   
 //]]>
