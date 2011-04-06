@@ -24,6 +24,8 @@ class UserSessionsController  < ActionController::Base
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
+      @user_session.user.auto_login = params[:user][:auto_login]
+      @user_session.user.save(:validate => false)
       if @user_session.user.is_admin
         redirect_back_or_default 'admin/sites'
       else

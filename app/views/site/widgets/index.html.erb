@@ -69,7 +69,7 @@
     <div class="widget_area_contents"  id="side_widget_area_contents">
       <% @widgets_on_side.each do |site_widget| %>
         <div class="widget_title">
-        <h4 class="widget_human_name"><%= site_widget.widget.class.human_name %></h4>
+        <h4 class="widget_human_name"><%= site_widget.widget.class.model_name.human %></h4>
         <%= hidden_field_tag "widget_position[#{site_widget.id}]", 
         site_widget.position, :class => 'widget_position'  %>
         <%= hidden_field_tag "widget_id[#{site_widget.id}]", 
@@ -91,7 +91,7 @@
     <div class="widget_area_contents" id="footer_widget_area_contents">
       <% @widgets_on_footer.each do |site_widget| %>
       <div class="widget_title">
-      <h4 class="widget_human_name"><%= site_widget.widget.class.human_name %></h4>
+      <h4 class="widget_human_name"><%= site_widget.widget.class.model_name.human %></h4>
       <%= hidden_field_tag "widget_position[#{site_widget.id}]", 
       site_widget.position, :class => 'widget_position'  %>
       <%= hidden_field_tag "widget_id[#{site_widget.id}]", 

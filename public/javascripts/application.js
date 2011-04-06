@@ -13,3 +13,13 @@ String.prototype.underscore = function() {
                                         return word.toLowerCase(); } ).
                                         join('_');
 };
+
+
+Array.prototype.contains = function(value) {
+	for(var i in this) {
+		if( this.hasOwnProperty(i) && this[i] === value) {
+			return true;
+		}
+	}
+	return false;
+}

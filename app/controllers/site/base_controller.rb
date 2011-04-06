@@ -9,6 +9,9 @@ class Site::BaseController < ActionController::Base
   # action  の before filter. 
   # 認証確認
   before_filter :authenticate
+  # action の before filter.
+  # セッションの有効期限設定 - ブラウザを落としてもLoginを保持できるようにする
+  before_filter :session_expire
   
   # action  の after filter. 
   # flash のクリア
@@ -28,6 +31,7 @@ class Site::BaseController < ActionController::Base
   # 現在ログインしているユーザの情報(User)を得る
   # 
   def current_user
+    request.session_options[:expire_after] = 1.weeks.from_now
     @current_user ||= current_user_session && current_user_session.user
   end
   
@@ -107,6 +111,15 @@ class Site::BaseController < ActionController::Base
   def accessible_unless_login?
     p "accessible_unless_login - #{false}"
     false
+  end
+
+  # セッションの有効期限設定 - ブラウザを落としてもLoginを保持できるようにする
+  def session_expire
+    if current_user.auto_login
+      request.session_options[:expire_after] = 1.weeks.from_now
+    else
+      request.session_options[:expire_after] = nil
+    end
   end
 
   # flash のクリア

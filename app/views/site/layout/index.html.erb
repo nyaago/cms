@@ -42,7 +42,7 @@
 </script>
   
 <h1>
-  <%= SiteLayout.human_name %>
+  <%= SiteLayout.model_name.human %>
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 
@@ -57,7 +57,7 @@
     @logo_image.errors.any? ||
     @background_image.errors.any?  %>
     <div id="error_explanation">
-      <h2><%= SiteLayout.human_name %>に関して
+      <h2><%= SiteLayout.model_name.human %>に関して
       <%= pluralize(@site_layout.errors.count, "error") %> エラーが発生しました:</h2>
       <ul>
       <% @site_layout.errors.full_messages.each do |msg| %>

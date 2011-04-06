@@ -1,5 +1,5 @@
 <h1>
-  <%= PageArticle.human_name %>並び替え
+  <%= PageArticle.model_name.human %>並び替え
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
 <div class="articles" id="article_ordering">
@@ -25,8 +25,11 @@
   // 選択記事のメニュー表示順を１つ前にして、記事一覧を置換
   function previousOrder(articleId){
     var url = '<%= url_for( :action => "previous_order") %>';
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
     url += '/' + articleId;
-    $('#article_ordering').load(url, function(response, status, xhr) {
+    $('#article_ordering').load(url, 
+      {'authenticity_token': csrfToken },
+      function(response, status, xhr) {
       if (status == "error") {
         alert('記事の並び替え中にエラーが発生しました'); 
        } 
@@ -36,8 +39,11 @@
   // 選択記事のメニュー表示順を１つ後ろにして、記事一覧を置換
   function nextOrder(articleId){
     var url = '<%= url_for( :action => "next_order") %>';
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
     url += '/' + articleId;
-    $('#article_ordering').load(url, function(response, status, xhr) {
+    $('#article_ordering').load(url, 
+      {'authenticity_token': csrfToken },
+      function(response, status, xhr) {
       if (status == "error") {
         alert('記事の並び替え中にエラーが発生しました'); 
        } 

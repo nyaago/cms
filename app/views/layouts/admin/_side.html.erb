@@ -2,20 +2,29 @@
 //<![CDATA[
   
   $(document).ready( function(){
+    var menuGroupToControllerMap = {"users_menu_header" : ["admin/users", ""],
+                                    "password_menu_header" : ["admin/password", ""] };
+    var controller = '<%= params[:controller]%>';
     $("#side_menu").accordion({});
+    for(key in menuGroupToControllerMap) {
+      if(menuGroupToControllerMap[key].contains(controller)) {
+        
+        $("#side_menu").accordion("activate", "#" + key);
+      }
+    }
   });
   
 //]]>
 </script>
 <div id="side_menu">
 
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header"  id="users_menu_header"><a href="#">
   機能管理
 </a></h2>
 
-<ul class="menu_group"  id="user_menu_group">
+<ul class="menu_group"  id="users_menu_group">
   <li>
-    <%=link_to "#{Site.human_name}管理", 
+    <%=link_to "#{Site.model_name.human}管理", 
     :controller => :sites, :action => :index %>
     
   </li>
@@ -26,7 +35,7 @@
   </li>
 </ul>
 
-<h2 class="menu_group_header"><a href="#">
+<h2 class="menu_group_header"  id="password_menu_header"><a href="#">
     パスワード変更
 </a></h2>
 <ul class="menu_group"  id="password_menu_group">

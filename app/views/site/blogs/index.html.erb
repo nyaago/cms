@@ -1,5 +1,5 @@
 <h1>
-  <%= BlogArticle.human_name %>一覧
+  <%= BlogArticle.model_name.human %>一覧
 </h1>
 <%= form_tag({:action => :index},
                {:id => 'filteting_by_month', :method => 'get'}) do -%>
