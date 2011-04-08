@@ -48,6 +48,7 @@ ja:
         published_from: "公開開始日時"
         meta_description: "概要"
         ignore_meta: "無効にする"
+        column_layout: "カラムレイアウト"
 
       article_history:
         name: "名前"
@@ -153,6 +154,7 @@ ja:
         published: "公開状態"
         menu_order: "メニュー表示順"
         updated_at: "更新日時"
+        column_layout: "カラムレイアウト"
         
       search_engine_optimization:
         enabled: "設定有効"

@@ -4,8 +4,8 @@ module ApplicationHelper
   
   # site 固有で必要なstylesheet tag を得る
   def site_stylesheet_link_tags(options)
+    result = []
     if !@site.nil? && !@site.site_layout.nil?
-      result = []
       # theme のcss
       result << stylesheet_link_tag(@site.site_layout.theme_stylesheet_url)
       # 各デザイン設定のcss
@@ -19,10 +19,15 @@ module ApplicationHelper
           end
         end
       end
-      result.join('').html_safe
     else
       ''
     end
+    if defined?(@article) && !@article.nil? && !@article.column_layout.blank? 
+      result << stylesheet_link_tag(@article.column_layout, options)
+    end
+
+    result.join('').html_safe
+
   end
   
 
@@ -161,11 +166,20 @@ module ApplicationHelper
   
   # head menu のhtmlを返す
   # メニューは,idをhead_menu とするul タグ. 各メニュー項目はliタグとなる
-  def head_menu_html
+  # == option　parameter
+  # * :id => ul tag のid , default は :head_menu
+  # * :class => ul tag のclass
+  def head_menu_html(options = {})
     return '' if @site.nil?
-    html = '<ul id="head_menu">'
+    tag_id = if options[:id] then options[:id] else :head_menu end
+    html = "<ul id='#{tag_id}'"
+    if options[:class]
+      html << " class='#{options[:class]}'"
+    end
+    html << ">"
     @site.pages.select("title, name, is_home").
                 where('published = 1').
+                where("is_temporary <> true or is_temporary is null").
                 order('menu_order').each do |page|
       url = url_for(:controller => :pages, 
                     :action => :show, 
@@ -182,6 +196,18 @@ module ApplicationHelper
   # title タグを返す
   def title_tag
     controller = params[:controller]
+    matched = /^([a-z]+)\/([a-z]+)$/.match(controller)
+    scope = if matched 
+      matched[1]
+    else
+      nil
+    end
+    controller = if matched 
+      matched[2]
+    else
+      controller
+    end
+    
     article = if instance_variable_defined?(:@page_title) && !@page_title.nil?
       @page_title
     else
@@ -191,17 +217,26 @@ module ApplicationHelper
         @article
       end
     end
-    return '<title></title>' if @site.nil? || @site.search_engine_optimization.nil?
-    ("<title>" +
-    case  controller
-      when 'pages'
-        @site.search_engine_optimization.page_title_text(article, @site)
-      when 'blogs'
-        @site.search_engine_optimization.blog_title_text(article, @site)
-      else
-        @site.title
-    end +
-    "</title>").html_safe
+    if !instance_variable_defined?(:@site) || @site.nil? || @site.search_engine_optimization.nil?
+      ("<title>" + 
+      I18n.t(:title, :scope => [:messages, :admin])  + "|" +
+      I18n.t(:title, :scope => [:messages, scope, controller])  + 
+      "</title>").
+      html_safe
+    else
+      ("<title>" +
+      case  controller
+        when 'pages'
+          @site.search_engine_optimization.page_title_text(article, @site)
+        when 'blogs'
+          @site.search_engine_optimization.blog_title_text(article, @site)
+        else
+          @site.search_engine_optimization.page_title_text(
+          I18n.t(:title, :scope => [:massages, controller]), @site)
+#          @site.title + "|" + I18n.t(:title, :scope => [:messages, scope, controller]) 
+      end +
+      "</title>").html_safe
+    end
   end
   
   # not found ページのタイトルタグを返す

@@ -54,6 +54,7 @@ class Site::ArticlesController < Site::BaseController
     @article = self.class.model.new(:site => @site, :title => '',
                                     :is_temporary => true)
     @article.save!(:validate => false)
+    @layout_defs = Layout::DefinitionArrays.new
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @article }
@@ -77,6 +78,7 @@ class Site::ArticlesController < Site::BaseController
     if @article.nil?
       flash[:notice] = I18n.t("not_found", :scope => self.class.translation_scope)
     end
+    @layout_defs = Layout::DefinitionArrays.new
   end
 
   # プレビュー用のtempraryを生成.

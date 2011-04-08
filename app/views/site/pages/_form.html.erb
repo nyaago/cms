@@ -259,6 +259,27 @@ CKEDITOR.config.imageSelctorUrl =
     </div>
   </div>
 
+  <div class="inputs fields">
+  <h2>
+    レイアウト
+  </h2>
+  <div id="column_layout">
+    <%= f.label :column_layout %>
+    <%= f.radio_button :column_layout, "",
+    :class => "column_layout_radio_button"  %>
+    <label for="column_layout" id="column_layout_human_name" > 
+      サイトの標準
+    </label> 
+    <% @layout_defs.column_layouts.each do |column_layout| %>
+        <%= f.radio_button :column_layout, column_layout.name,
+        :class => "column_layout_radio_button"  %>
+        <label for="column_layout" id="column_layout_human_name" > 
+          <%= column_layout.human_name %>
+        </label> 
+    <% end %>
+
+  </div>
+
   <div class="actions">
     <%= f.submit %>
     <%= link_to('プレビュー', 
