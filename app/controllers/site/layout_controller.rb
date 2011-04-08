@@ -72,24 +72,24 @@ class Site::LayoutController < Site::BaseController
   # 各画像モデルのインスタンス作成も行う.
   # 成功すればtrue, エラーがあればfalseを返す
   def create_images(site_layout)
-    header_register = ImageRegister.new(params[:header], current_user, 'header')
+    header_register = ImageRegister.new(@site, params[:header], current_user, 'header')
     if header_register.create
       site_layout.header_image_url = header_register.url
     end
     @header_image = header_register.image
-    footer_register = ImageRegister.new(params[:footer], current_user, 'footer')
+    footer_register = ImageRegister.new(@site, params[:footer], current_user, 'footer')
     if footer_register.create 
       site_layout.footer_image_url = footer_register.url
     end
     @footer_image = footer_register.image
 
-    background_register = ImageRegister.new(params[:background], current_user, 'background')
+    background_register = ImageRegister.new(@site, params[:background], current_user, 'background')
     if background_register.create 
       site_layout.background_image_url = background_register.url
     end
     @background_image = background_register.image
 
-    logo_register = ImageRegister.new(params[:logo], current_user, 'logo')
+    logo_register = ImageRegister.new(@site, params[:logo], current_user, 'logo')
     if logo_register.create 
       site_layout.logo_image_url = logo_register.url
     end
@@ -166,7 +166,8 @@ class Site::LayoutController < Site::BaseController
     # * file_params - Postされた画像情報パラメター.
     # * current_user - 現在のユーザ. Userモデルインスタンス
     # * type - location type('header','footer','logo','background',)
-    def initialize(file_params, current_user, type)
+    def initialize(site, file_params, current_user, type)
+      @site = site
       @file_params = file_params
       @current_user = current_user
       @image = LayoutImage.new
@@ -184,17 +185,17 @@ class Site::LayoutController < Site::BaseController
       @image.save(:validate => true)
     end
     
-    # 
+    # エラーがある?
     def has_error?
       !@image  || !!@image.errors.any?
     end
     
-    #
+    # image
     def image
       @image
     end
     
-    #
+    # 画像 url
     def url 
       if @image
         @image.url
