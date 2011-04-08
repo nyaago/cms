@@ -253,9 +253,18 @@
     <%= check_box 'delete_image', :background %>ファイルを削除する
   </div>
   <div class="field">
+    <% background_color = 
+        if @site_layout.background_color
+          @site_layout.background_color
+        else
+          '#ffffff'
+        end
+    %>
     <%= f.label :background_color %>:
     <%= f.text_field :background_color  %>
-    <input type="button" id="background_color_picker"></input>
+    <input type="button" id="background_color_picker" 
+          style="background-color: <%= background_color  %>">
+    </input>
   </div>
   <div class="field">
     <%= f.label :background_repeat %>:

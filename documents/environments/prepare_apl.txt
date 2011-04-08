@@ -1,12 +1,15 @@
 ○アプリケーション準備
 とりあえず、Webrickを使ってアプリケーションを起動させる。
+実際の運用には、 apache + passenger の構成を行う。
 
 
 0.前提
 -- Mysql >= 5.1
 -- Ruby 1.9.2
+-- ImageMagick
 
 1.Railsのインストール
+$gem install rails -v 3.0.3
 
 2.データベースの準備
 mysql ツールを起動して
@@ -20,7 +23,7 @@ mysql>grant ALL PRIVILEGES ON <database name>.* TO <user>@'%' IDENTIFIED BY 'pas
 3.データベースのConfiguration
 
 config/database.yml　を開いて
-development Sectionを変更
+各Section(development|test|production)を変更
 
 development:
   adapter: mysql2
@@ -48,7 +51,7 @@ tls: "<true|false>"
 
 
 
-5.必要なライブラリー
+5.必要なライブラリーのインストール
 $cd <アプリケーションのRoot>
 $bundle install
 
@@ -56,7 +59,7 @@ $bundle install
 6.railsサーバーの開始
 
 $cd <アプリケーションのRoot>
-$rails server
+$rails server -e <development|production>
 
 http://localhost:3000 にアクセスするとwelcomeのページが
 表示される。
