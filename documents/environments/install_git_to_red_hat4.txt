@@ -1,0 +1,25 @@
+○red hat 4 への git のインストール
+rvm(Ruby Version Manager)を入れるために必要なのでインストール
+ソースからビルドする。
+
+
+$wget http://kernel.org/pub/software/scm/git/git-1.7.4.tar.gz
+
+$tar xvzf git-1.7.4.tar.gz 
+
+$cd git-1.7.4
+
+$./configure
+
+$make
+
+$su 
+
+$make install
+
+ 
+
+
+
+
+

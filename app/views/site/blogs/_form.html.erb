@@ -6,7 +6,9 @@
 jQuery(function($){
     $("#published_from_select_date").datepicker();
     $("#published_from_select_date").datepicker("option", 
-    {dateFormat: 'yy/mm/dd'
+    {dateFormat: 'yy/mm/dd',
+    dayNames: ['日','月','火','水','木','金','土'],
+    minDate: new Date()
     });
     $("div#published_from").css("display", "none");
     $("div#published").css("display", "none");    

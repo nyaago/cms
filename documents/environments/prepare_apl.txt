@@ -1,0 +1,68 @@
+○アプリケーション準備
+とりあえず、Webrickを使ってアプリケーションを起動させる。
+
+
+0.前提
+-- Mysql >= 5.1
+-- Ruby 1.9.2
+
+1.Railsのインストール
+
+2.データベースの準備
+mysql ツールを起動して
+$mysql -u root -p
+
+データベースとユーザの作成
+mysql>create database <database name>
+mysql>grant ALL PRIVILEGES ON <database name>.* TO <user>@'%' IDENTIFIED BY 'password';
+
+
+3.データベースのConfiguration
+
+config/database.yml　を開いて
+development Sectionを変更
+
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: <database name>
+  username: <user name>
+  password: <password>
+  pool: 5
+  socket: /tmp/mysql.sock
+
+※socketで指定するパスは、環境によってかわる。
+
+4.EMail接続のConfiguration
+
+config/email.yml　を開いて SMTPサーバーの設定を行う
+
+address: "<サーバー名|IPアドレス>"
+port: "<25|587>"
+domain: "<適当なドメイン名>"
+user_name: "<送信アカウント>"
+password: "<送信アカウントのパスワード>"
+authentication: "<plain|login>"
+from: "<送信アドレス>"
+tls: "<true|false>"
+
+
+
+5.必要なライブラリー
+$cd <アプリケーションのRoot>
+$bundle install
+
+
+6.railsサーバーの開始
+
+$cd <アプリケーションのRoot>
+$rails server
+
+http://localhost:3000 にアクセスするとwelcomeのページが
+表示される。
+
+---
+
+参)
+http://guides.rubyonrails.org/getting_started.html
+

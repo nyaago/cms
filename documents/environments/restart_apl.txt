@@ -1,0 +1,6 @@
+○アプリケーションの再起動
+Passengerで運用している場合は、アプリケーション更新の反映には、再起動が必要なとなる。
+ApplicatonのRoot以下の tmp/restart.txtの作成、タイムスタンプ更新によって再起動が行われる。
+
+$cd <ApplicationのRoot>
+$touch tmp/restart.txt

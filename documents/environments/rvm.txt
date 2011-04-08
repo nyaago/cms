@@ -1,0 +1,54 @@
+○rvm(Ruby Version Manager) のインストール ー設定
+
+-1.目的
+-- rvm 上の ruby 1.9.2 上で Rails アプリを動かしたいので
+
+0.前提
+--Ruby 1.8.7 以上がインストールされている
+--Curt がインストールされている。
+--git-core　がインストールされている。
+
+1.rvmインストール
+To install and/or update the latest code from the github repository ( requires git ):前提としてcurlとgit-coreがはいっている。
+
+
+$ bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )
+
+
+
+
+
+2.環境変数
+シェル起動時に環境変数設定スクリプトが起動されるようにする。
+bashの場合, ~/.bashrc に以下を追加
+
+
+if [ -s $HOME/.rvm/scripts/rvm ] ; thensource $HOME/.rvm/scripts/rvm
+fi
+
+
+3.ruby のインストール
+以下で、インストール可能なrubyの一覧をえる
+$rvm list known
+
+
+インストール (例 1.9.2)
+$rvm install 1.9.2
+
+
+使用するバージョンを指定する (例 1.9.2)
+$rvm 1.9.2
+
+
+
+
+4.railsのインストール
+$gem install rails
+
+
+rvm: 複数のRubyを共存させる最新のやり方 - 床のトルストイ、ゲイとするとのこと(http://d.hatena.ne.jp/mirakui/20100502/1272849327)
+
+RVM Ruby Version Manager - Documentation
+
+(http://rvm.beginrescueend.com/)
+
