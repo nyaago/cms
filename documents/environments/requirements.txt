@@ -1,0 +1,34 @@
+○動作要件
+Ruby 1.9.2
+RubyGem
+   -- 必要なライブラリーは、/Gemfile に記述
+Ruby On Rails 3.0.3
+Mysql >= 5.1
+ImageMagick
+Git ( <= ソースのバージョン管理)
+
+○（確認実績のある）動作Webサーバー
+Apatche >= 2 
++
+Passenger >= 3.0.1
+
+
+
+○アプリケーション動作環境設定 - 手順概要
+
+1.(インストールされてなければ)Mysql5.1以上のインストール
+2.(インストールされてなければ)Ruby 1.9.2 と RubyGem のインストール.
+rvm(Ruby Version Manager上でもOK).
+3.(インストールされてなければ)ImageMagick のインストール
+3.
+4.単体(Webrick上）で動作する環境を構築.
+5.Apache + Passenger で動作する環境を構築.
+
+
+
+
+
+
+
+
+

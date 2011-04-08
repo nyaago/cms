@@ -1,0 +1,25 @@
+1.config/database.yml  - データベースのConfiguration (Rails の標準)
+
+各動作環境(development|test|production)ごとに設定がある
+
+<development|test|production>:
+  adapter: mysql2
+  encoding: utf8
+  database: <database name>
+  username: <user name>
+  password: <password>
+  pool: <connection pool数>
+  socket: <Mysqlのsocketファイル(mysql.sock)へのパス>
+
+
+2.config/email.yml　 - SmtpのConfiguration
+
+address: "<サーバー名|IPアドレス>"
+port: "<25|587>"
+domain: "<適当なドメイン名>"
+user_name: "<送信アカウント>"
+password: "<送信アカウントのパスワード>"
+authentication: "<plain|login>"
+from: "<送信アドレス>"
+tls: "<true|false>"
+

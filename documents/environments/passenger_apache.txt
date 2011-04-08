@@ -1,0 +1,179 @@
+○Apache + Passenger を使った アプリの起動設定。
+
+0.前提
+-- Apache >= 2.0
+-- Mysql 5.1 >=
+-- 今回は、rvm(Ruby Version Manager) 上での Ruby 1.9.2を使用。
+
+1.passenger gem をインストール
+
+$gem install passenger
+
+※red hat 4 の場合、最新バージョン(2011/3/25現在 3.0.5)だとmoduleのインストール(次のステップ)がエラーとなったので、
+古いバージョンをインストールし直す。
+$gem uninstall passenger
+$gem install passenger -v 3.0.1
+
+
+2.passenger-install-apache2-module
+
+
+$rvmsudo passenger-install-apache2-module
+
+..
+..
+The Apache 2 module was successfully installed.
+
+Please edit your Apache configuration file, and add these lines:
+
+
+   LoadModule passenger_module /Users/nyaago/.rvm/gems/ruby-1.9.2-p136/gems/passenger-3.0.5/ext/apache2/mod_passenger.so
+   PassengerRoot /Users/nyaago/.rvm/gems/ruby-1.9.2-p136/gems/passenger-3.0.5
+   PassengerRuby /Users/nyaago/.rvm/wrappers/ruby-1.9.2-p136/ruby
+
+
+After you restart Apache, you are ready to deploy any number of Ruby on Rails
+applications on Apache, without any further Ruby on Rails-specific
+configuration!
+
+
+Press ENTER to continue.
+..
+..
+--------------------------------------------Deploying a Ruby on Rails application: an example
+
+
+Suppose you have a Rails application in /somewhere. Add a virtual host to your
+Apache configuration file and set its DocumentRoot to /somewhere/public:
+
+
+   <VirtualHost *:80>
+      ServerName www.yourhost.com
+      DocumentRoot /somewhere/public    # <-- be sure to point to 'public'!
+
+      <Directory /somewhere/public>
+
+         AllowOverride all              # <-- relax Apache security settings
+
+         Options -MultiViews            # <-- MultiViews must be turned off
+
+      </Directory>
+
+   </VirtualHost>
+
+
+
+And that's it! You may also want to check the Users Guide for security and
+
+optimization tips, troubleshooting and other useful information:
+
+
+
+  /Users/nyaago/.rvm/gems/ruby-1.9.2-p136/gems/passenger-3.0.5/doc/Users guide Apache.html
+
+
+
+Enjoy Phusion Passenger, a product of Phusion (www.phusion.nl) :-)
+
+http://www.modrails.com/
+
+
+Phusion Passenger is a trademark of Hongli Lai & Ninh Bui.
+
+
+
+====
+
+
+
+※To install Curl development headers with SSL support:
+   Please run yum install zlib-devel e2fsprogs-devel krb5-devel libidn-devel as root.
+
+と出た場合.
+
+=>
+
+
+以下の必要なパッケージをインストール (red hat / cent os の場合の例）
+
+$yum install zlib-devel e2fsprogs-devel krb5-devel libidn-devel
+
+$yum curl-devel
+
+
+
+※アカウントにsudo権限がない場合は、完了できないのでsudo できるようにしてから行う
+
+$visudo 
+
+..
+
+..
+
+
+
+====
+
+
+
+3.apatcheの設定
+
+
+
+1)passenger-install-apache2-module のインストール中に指示された
+
+(Please edit your Apache configuration file, and add these lines:)
+
+configulation 内容を　 apatch設定に追加
+
+
+
+
+
+LoadModule passenger_module /Users/nyaago/.rvm/gems/ruby-1.9.2-p136/gems/passenger-3.0.5/ext/apache2/mod_passenger.so
+
+   PassengerRoot /Users/nyaago/.rvm/gems/ruby-1.9.2-p136/gems/passenger-3.0.5
+
+   PassengerRuby /Users/nyaago/.rvm/wrappers/ruby-1.9.2-p136/ruby
+
+
+
+
+
+
+
+2)context の追加
+
+passenger-install-apache2-module のインストール中に指示された(
+
+Apache configuration file and set its DocumentRoot to /somewhere/public:)
+
+内容を参考に、ネームベースバーチャルホストContextとして追加.
+
+appliction下 public フォルダがDocumentRoot になるように設定
+
+
+<VirtualHost *:80>   ServerName www.cms.com
+   DocumentRoot /Users/nyaago/develop/cms/public
+
+    <Directory />
+
+        Options FollowSymlinks
+
+        AllowOverride None
+
+        Order deny,allow
+
+    </Directory>
+
+</VirtualHost>
+
+
+
+
+※Mac(Snow Leopard の場合）は、
+/private/etc/apache2/extra/httpd-vhosts.conf に以上の設定を記述.
+/private/etc/apache2/http.conf で 上記ファイルをIncludeでしている部分のコメントアウトをはずす
+
+
+
