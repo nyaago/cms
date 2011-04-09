@@ -34,11 +34,14 @@ require 'email_validator'
   has_many  :users, :dependent => :destroy
 
   # 記事、画像との関連
-  has_many  :articles, :dependent => :destroy
+  has_many  :articles, :dependent => :destroy,
+              :conditions => "is_temporary is null or is_temporary = false"
   has_many  :pages, 
-            :class_name => 'PageArticle'
+            :class_name => 'PageArticle',
+            :conditions => "is_temporary is null or is_temporary = false"
   has_many  :blogs, 
-            :class_name => 'BlogArticle'
+            :class_name => 'BlogArticle',
+            :conditions => "is_temporary is null or is_temporary = false"
   has_many  :images
 
   # レイアウト、設定関連

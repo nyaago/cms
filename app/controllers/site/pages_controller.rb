@@ -169,7 +169,7 @@ class Site::PagesController < Site::ArticlesController
   
   # 記事一覧を得る
   def articles
-    @site.pages.where("is_temporary <> true or is_temporary is null")
+    @site.pages
   end
   
   # モデルクラス

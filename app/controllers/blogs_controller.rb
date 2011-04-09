@@ -14,7 +14,6 @@ class BlogsController < ApplicationController
   def show
     @article = @site.blogs.where("id = :id and published = true", 
                                   :id => params[:id]).
-                                  where("is_temporary <> true or is_temporary is null").
                                   first
 
     if @article.nil?
@@ -45,7 +44,6 @@ class BlogsController < ApplicationController
     cur_month = if params[:month] then params[:month] else nil end
     begin 
       @articles = @site.blogs.where("published = true").
-                          where("is_temporary <> true or is_temporary is null").
                           filter_by_updated_month(cur_month).
                           order("updated_at desc").
                           paginate(

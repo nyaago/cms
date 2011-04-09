@@ -14,7 +14,6 @@ class PagesController < ApplicationController
     else
       @site.pages.where("is_home = true and published = true")
     end.
-    where("is_temporary <> true or is_temporary is null").
     first
 #    @article = Article.find_by_id(params[:id]) if @article.nil? &&  !params[:id].nil?      
 
