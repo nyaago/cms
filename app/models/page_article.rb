@@ -93,6 +93,7 @@ class PageArticle < Article
     months = select("DATE_FORMAT(created_at, '%Y%m') as ym").
               where(if site_id then 'site_id = :site_id' else nil end,
               :site_id => site_id ).
+              where("is_temporary <> true or is_temporary is null").
               group('ym').
               order("ym #{direction}")
     result = []
@@ -120,6 +121,7 @@ class PageArticle < Article
     months = select("DATE_FORMAT(updated_at, '%Y%m') as ym").
                     where(if site_id then 'site_id = :site_id' else nil end,
                     :site_id => site_id ).
+                    where("is_temporary <> true or is_temporary is null").
                     group('ym').
                     order("ym #{direction}")
     result = []

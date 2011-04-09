@@ -95,7 +95,7 @@ class Site::BlogsController < Site::ArticlesController
 
   # 記事一覧を得る
   def articles
-    @site.blogs   
+    @site.blogs
   end
 
   # モデルクラス

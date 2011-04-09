@@ -95,6 +95,7 @@ class Site::PagesController < Site::ArticlesController
   # POST /articles
   # POST /articles.xml
   def create
+    @layout_defs = Layout::DefinitionArrays.new
     @article = self.class.model.new(params[:page_article])
     @article.site_id =  @site.id
     @article.user = current_user
@@ -120,6 +121,7 @@ class Site::PagesController < Site::ArticlesController
   # PUT /articles/1.xml
   def update
     @article = Article.find_by_id_and_site_id(params[:id], @site.id)
+    @layout_defs = Layout::DefinitionArrays.new
     if @article.nil?
       respond_to do |format|
         flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
@@ -167,7 +169,7 @@ class Site::PagesController < Site::ArticlesController
   
   # 記事一覧を得る
   def articles
-    @site.pages    
+    @site.pages
   end
   
   # モデルクラス

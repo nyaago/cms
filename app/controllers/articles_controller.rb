@@ -6,7 +6,6 @@ class ArticlesController < ApplicationController
   # 記事一覧の表示
   def index
     @articles = @site.articles.where("published = true").
-                        where("is_temporary <> true or is_temporary is null").
                         order("updated_at desc").
                         limit(@site.view_setting.article_count_of_rss)
 
