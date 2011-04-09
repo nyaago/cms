@@ -12,6 +12,11 @@ function clearValueField(field) {
   $(field).css('display', "none");
 }
 
+// 初期選択のradio button の選択をクリア
+function clearDefaultRadio() {
+  $(':radio:checked', '#inquiry_item_fields').attr("checked",false); 
+}
+
 // 選択肢追加
 // 表示されていない,選択肢入力フィールドのうち、一番上のものを表示させる
 function addValueField(context) {
@@ -41,6 +46,7 @@ function addValueField(context) {
 }
 
 $(document).ready( function(){
+
  $('#add_radio_inquiry_item_value').click( function() {
    addValueField($(this).parent());
   } );
@@ -49,7 +55,9 @@ $(document).ready( function(){
       clearValueField($(this).parent());
     });
   });
-
+  $('#clear_default').first().click( function () {
+    clearDefaultRadio();
+  });
 });
     
   
@@ -99,6 +107,9 @@ id="edit_inquiry_item_<%= @inquiry_item.id %>" style="display:none;">
       <%= label :site_inquiry_item, :required,
       SiteInquiryItem.human_attribute_name(:required) %>
       <%= check_box :site_inquiry_item, :required %>
+    </div>
+    <div class="actions">
+      <%= button_to_function "初期選択をクリア", :id => "clear_default" %>
     </div>
     
   </div>
