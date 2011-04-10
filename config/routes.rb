@@ -135,20 +135,24 @@ Cms::Application.routes.draw do
   match 'sitemap.:format' => 'sitemap#index#:format'
   
 
+  # pages
 #  match 'pages/:site/:page' => 'pages#show#:site#:page'
-  match ':site/pages/:page' => 'pages#show#:site#:page'
   match ':site/pages/:action/:id' => 'pages#:action#:site#:id'
+  match ':site/pages/:action' => 'pages#:action#:site'
+  match ':site/pages/:page' => 'pages#show#:site#:page'
 
+  # blogs
   match ':site/blogs/:id' => 'blogs#show#:site#:id'
   match ':site/blogs/month/:month' => 'blogs#month#:site#:month'
   match ':site/blogs/:action/:id' => 'blogs#:action#:site#:id'
 
+  # article (sitemap , rss, atom ..)
   match ':site/articles/index.:format' => 'articles#index#:format#:site'
   match ':site/articles/index' => 'articles#index'
   match ':site/articles/:action/:id' => 'articles#:action#:id#:site'
-
 #  match ':site/articles/index.:format' => 'articles#index.:format#:site'
 
+  # inquiry
   match ':site/inquiry' => 'inquiry#index#:site'
   match ':site/inquiry/:action' => 'inquiry#:action#:site'
 

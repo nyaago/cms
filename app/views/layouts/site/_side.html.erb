@@ -2,16 +2,17 @@
 //<![CDATA[
   
   $(document).ready( function(){
-    var menuGroupToControllerMap = {"dashboard_menu_header" : ["site/dashboard", ""],
-                                    "blogs_menu_header" : ["site/blogs", ""],
-                                    "pages_menu_header" : ["site/pages", ""],
-                                    "images_menu_header" : ["site/images"],
-                                    "layout_menu_header" : ["site/theme","site/layout","site/widgets"],
-                                    "setting_menu_header" :
-                                     ["site/setting","site/post_setting","site/view_setting",
-                                     "site/optimization","site/inquiry_items", "site/users"],
-                                     "password_menu_header" : ["site/users"]
-                                     };
+    var menuGroupToControllerMap =  {
+        "dashboard_menu_header" : ["site/dashboard", ""],
+        "blogs_menu_header" : ["site/blogs", ""],
+        "pages_menu_header" : ["site/pages", ""],
+        "images_menu_header" : ["site/images"],
+        "layout_menu_header" : ["site/theme","site/layout","site/widgets"],
+        "setting_menu_header" :
+         ["site/setting","site/post_setting","site/view_setting",
+         "site/optimization","site/inquiry_items", "site/users"],
+         "password_menu_header" : ["site/users"]
+     };
     var controller = '<%= params[:controller]%>';
     var currentId = 0;
     for(key in menuGroupToControllerMap) {
@@ -60,7 +61,8 @@
 </a></h2>
 <ul class="menu_group"  id="images_menu_group">
 <li>
-  <%=link_to "画像一覧", :controller => "site/images", :action => :index, :site => @site.name %>
+  <%=link_to "画像一覧", 
+  :controller => "site/images", :action => :index, :site => @site.name %>
 </li>
 </ul>
 
@@ -80,13 +82,25 @@
 </a></h2>
 <ul class="menu_group"  id="layout_menu_group">
 <li>
-  <%=link_to "テーマ", :controller => "site/theme", :action => :index, :site => @site.name %>
+  <%=link_to "テーマ", 
+  :controller => "site/theme", :action => :index, :site => @site.name 
+  %>
 </li>
 <li>
-  <%=link_to "デザイン", :controller => "site/layout", :action => :index, :site => @site.name %>
+  <%=link_to "デザイン", 
+  :controller => "site/layout", :action => :index, :site => @site.name 
+  %>
 </li>
 <li>
-  <%=link_to "ウィジット", :controller => "site/widgets", :action => :index, :site => @site.name %>
+  <%=link_to "ウィジット", 
+  :controller => "site/widgets", :action => :index, :site => @site.name 
+  %>
+</li>
+<li>
+  <%=link_to "プレビュー", 
+  {:controller => "/pages", :action => :preview, :site => @site.name},
+  {:target => "_preview"} 
+  %>
 </li>
 </ul>
 
@@ -96,22 +110,28 @@
 </a></h2>
 <ul class="menu_group"  id="setting_menu_group">
 <li>
-  <%=link_to "一般設定", :controller => "site/setting", :action => :index, :site => @site.name  %>
+  <%=link_to "一般設定", 
+  :controller => "site/setting", :action => :index, :site => @site.name  %>
 </li>
 <li>
-  <%=link_to "投稿設定", :controller => "site/post_setting", :action => :index, :site => @site.name  %>
+  <%=link_to "投稿設定", 
+  :controller => "site/post_setting", :action => :index, :site => @site.name  %>
 </li>
 <li>
-  <%=link_to "#{ViewSetting.model_name.human}", :controller => "site/view_setting", :action => :index , :site => @site.name %>
+  <%=link_to "#{ViewSetting.model_name.human}", 
+  :controller => "site/view_setting", :action => :index , :site => @site.name %>
 </li>
 <li>
-  <%=link_to "#{SearchEngineOptimization.model_name.human}", :controller => "site/optimization", :action => :index, :site => @site.name  %>
+  <%=link_to "#{SearchEngineOptimization.model_name.human}", 
+  :controller => "site/optimization", :action => :index, :site => @site.name  %>
 </li>
 <li>
-  <%=link_to "問い合わせ項目設定", :controller => "site/inquiry_items", :action => :index , :site => @site.name %>
+  <%=link_to "問い合わせ項目設定", 
+  :controller => "site/inquiry_items", :action => :index , :site => @site.name %>
 </li>
 <li>
-  <%=link_to "#{User.model_name.human}管理", :controller => "site/users", :action => :index, :site => @site.name  %>
+  <%=link_to "#{User.model_name.human}管理", 
+  :controller => "site/users", :action => :index, :site => @site.name  %>
 </li>
 </ul>
 

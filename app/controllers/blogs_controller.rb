@@ -108,9 +108,10 @@ class BlogsController < ApplicationController
        end
        return
     end
-    @article = @site.articles.where("parent_id = :id", :id => params[:id]).
-                        order('updated_at desc').
-                        first
+    @article = BlogArticle.where("site_id = :site_id", :site_id => @site.id).
+                    where("parent_id = :id", :id => params[:id]).
+                    order('updated_at desc').
+                    first
     if @article.nil?
       flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
     end

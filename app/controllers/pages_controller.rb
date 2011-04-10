@@ -15,8 +15,6 @@ class PagesController < ApplicationController
       @site.pages.where("is_home = true and published = true")
     end.
     first
-#    @article = Article.find_by_id(params[:id]) if @article.nil? &&  !params[:id].nil?      
-
     if @article.nil?
       respond_to do |format|
          format.html { 
@@ -51,11 +49,15 @@ class PagesController < ApplicationController
        end
        return
     end
-    @article = @site.articles.where("parent_id = :id", :id => params[:id]).
-                        order('updated_at desc').
-                        first
-    if @article.nil?
-      flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
+    @article = if params[:id]
+      PageArticle.where("site_id = :site_id", :site_id => @site.id).
+                      where("parent_id = :id", :id => params[:id]).
+                      order('updated_at desc').
+                      first
+    else
+      @site.articles.where("site_id = :site_id", :site_id => @site.id).
+                    where("is_home = true").
+                    first
     end
     respond_to do |format|
       format.html do  
