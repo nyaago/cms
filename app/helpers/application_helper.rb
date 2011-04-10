@@ -2,7 +2,21 @@
 # view で使用する helperメソッドを定義
 module ApplicationHelper
   
-  # site 固有で必要なstylesheet tag を得る
+  # site 固有で必要なstylesheet 各tag を得る
+  # 選択されているthemeのstylesheer、各レイアウト設定に対応するstylesheetを読み込みタグ
+  # が生成される.
+  # == parameters
+  # * options =>
+  #   :media => stylesheetを適用するmedia :all, :print, ..
+  # == 例
+  # site_stylesheet_link_tags :media => :all
+  # =>
+  # <link href="/themes/default/stylesheets/theme.css?1300957864" media="screen" rel="stylesheet" type="text/css" />
+  # <link href="/eye_catch_types/header_area_banner/eye_catch_type.css?1298381634" media="all" rel="stylesheet" type="text/css" />
+  # <link href="/column_layouts/menu_on_left/column_layout.css?1298381634" media="all" rel="stylesheet" type="text/css" />
+  # <link href="/font_sizes/small/font_size.css?1298381634" media="all" rel="stylesheet" type="text/css" />
+  # <link href="/global_navigations/home_link/global_navigation.css?1298381634" media="all" rel="stylesheet" type="text/css" />
+  # <link href="/skin_colors/green/skin_color.css?1298381634" media="all" rel="stylesheet" type="text/css" /> 
   def site_stylesheet_link_tags(options)
     result = []
     if !@site.nil? && !@site.site_layout.nil?
@@ -32,6 +46,7 @@ module ApplicationHelper
   
 
   # 指定したareaにeye_catchをrenderingすべきであるか?
+  # rendering すべきであれば true, そうでなければfalseを返す.
   # site_layoutモデルを参照して判定する
   # == parameters
   # * area - :header / :container /  :contents
@@ -71,6 +86,7 @@ module ApplicationHelper
   end
   
   # partial なテンプレートが存在するかの確認
+  # テンプレートが存在すれば true, そうでなければfalseを返す.
   # == parameters
   # * template - テンプレート名. :header/:footer/:site ..
   def theme_partial_exist?(template)
@@ -98,6 +114,7 @@ module ApplicationHelper
   end
   
   # home の urlを返す
+  # <site>/pages/<page name> の形式で返す.
   def home_url
     url = url_for(:controller => :pages, 
                   :action => :show, 
@@ -105,7 +122,7 @@ module ApplicationHelper
                   :page => nil)
   end
   
-  # footer 画像のhtmlタグを返す. ホームリンク表示が有効の場合はリンクを含める
+  # log 画像のhtmlタグを返す. ホームリンク表示が有効の場合はリンクを含める
   def logo_image_tag
     if !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.logo_image_url.blank?
       if @site.site_layout.global_navigation == 'home_link'
@@ -119,6 +136,7 @@ module ApplicationHelper
   end
   
   # homeリンク表示が指定されているか?
+  # homeリンク表示なら true, そうでなければfalseを返す.
   def home_link_required?
     !@site.nil? && !@site.site_layout.nil? && 
                   @site.site_layout.global_navigation == 'home_link'
@@ -164,12 +182,19 @@ module ApplicationHelper
     content << "}\n"
   end
   
-  # head menu のhtmlを返す
-  # メニューは,idをhead_menu とするul タグ. 各メニュー項目はliタグとなる
+  # menu のhtmlを返す
+  # メニューはulタグ. それに含まれる 各メニュー項目はliタグとなる
+  # 2011/4 現在 では、公開ページ記事へのリンクを含むものとなる.
   # == option　parameter
   # * :id => ul tag のid , default は :head_menu
   # * :class => ul tag のclass
-  def head_menu_html(options = {})
+  # == 例
+  # * menu_html :id => :header_menu, :class => :menu  =>
+  # <ul id='header_menu' class='menu'><li><a href='/moomin'>ホーム</a></li> 
+  # <li><a href='/moomin/pages/page1'>Page1</a></li> 
+  # <li><a href='/moomin/pages/page2'>Page2</a></li> 
+  # </ul>  #       
+  def menu_html(options = {})
     return '' if @site.nil?
     tag_id = if options[:id] then options[:id] else :head_menu end
     html = "<ul id='#{tag_id}'"
@@ -193,7 +218,12 @@ module ApplicationHelper
     html.html_safe
   end
   
-  # title タグを返す
+  # title タグを返す.
+  # == 値 =>
+  # 公開ページの場合は、SEO設定(search_engine_optimization)で設定された書式での
+  # 記事タイトル/サイト名を含むものとなる。
+  # サイト管理の場合は,<サイト名>|<機能名>となる。
+  # 管理ページの場合は、管理|<機能名>となる
   def title_tag
     controller = params[:controller]
     matched = /^([a-z]+)\/([a-z]+)$/.match(controller)
@@ -207,7 +237,6 @@ module ApplicationHelper
     else
       controller
     end
-    
     article = if instance_variable_defined?(:@page_title) && !@page_title.nil?
       @page_title
     else
@@ -217,6 +246,7 @@ module ApplicationHelper
         @article
       end
     end
+
     if !instance_variable_defined?(:@site) || @site.nil? || @site.search_engine_optimization.nil?
       ("<title>" + 
       I18n.t(:title, :scope => [:messages, :admin])  + "|" +
@@ -225,22 +255,28 @@ module ApplicationHelper
       html_safe
     else
       ("<title>" +
-      case  controller
-        when 'pages'
-          @site.search_engine_optimization.page_title_text(article, @site)
-        when 'blogs'
-          @site.search_engine_optimization.blog_title_text(article, @site)
-        else
-          @site.search_engine_optimization.page_title_text(
-          I18n.t(:title, :scope => [:massages, controller]), @site)
-#          @site.title + "|" + I18n.t(:title, :scope => [:messages, scope, controller]) 
+      if article.respond_to?(:title)
+        case  controller
+          when 'pages' 
+            @site.search_engine_optimization.page_title_text(article, @site)
+          when 'blogs'
+            @site.search_engine_optimization.blog_title_text(article, @site)
+          else
+            @site.search_engine_optimization.page_title_text(
+            I18n.t(:title, :scope => [:messages, scope, controller]), @site)
+        end
+      else
+        @site.search_engine_optimization.page_title_text(
+        I18n.t(:title, :scope => [:messages, scope, controller]), @site)
       end +
       "</title>").html_safe
     end
   end
   
-  # not found ページのタイトルタグを返す
-  def not_found_title_tag
+  # 公開ページのnot found ページのタイトルタグを返す
+  # == 値 =>
+  # SEO設定(search_engine_optimization)で設定された書式での
+  # 記事タイトル/サイト名を含むものとなる。  def not_found_title_tag
     ("<title>" +
     if self.instance_variable_defined?(:@site) && 
           !@site.nil? && !@site.search_engine_optimization.nil?
@@ -255,9 +291,10 @@ module ApplicationHelper
   def request_url
     request.request_uri
   end
-    
 
-  # keywords の meta タグを返す
+  # keywords の meta タグを返す.
+  # SEO設定(search_engine_optimization)に設定されているもの、
+  # 記事(articles)に設定されているものを値として含むものを返す.
   def meta_keywords_tag
     controller = params[:controller]
     article = if @article.nil?
@@ -303,6 +340,8 @@ module ApplicationHelper
   end
 
   # description の meta タグを返す
+  # SEO設定(search_engine_optimization)に設定されているもの、
+  # 記事(articles)に設定されているものを値として含むものを返す.
   def meta_description_tag
     controller = params[:controller]
     article = if @article.nil?
@@ -348,7 +387,10 @@ module ApplicationHelper
 
   end
   
-  # 日時を設定されている日付け書式で返す
+  # 日時をサイトの一般設定(site_setting)で設定されている日付け書式で返す
+  # == Example
+  # * format_date(Time.now) -> 現在日付けを設定されている書式で
+  # * format_date(@article.updated_at) -> 記事の変更日付けを設定されている書式で
   def format_date(time)
     return '' unless time.respond_to?(:strftime)
     if @site.site_setting.nil? || @site.site_setting.date_format.nil?
@@ -358,7 +400,10 @@ module ApplicationHelper
     end
   end
 
-  # 日時を設定されている日付け書式で返す
+  # 日時をサイトの一般設定(site_setting)で設定されている時間け書式で返す
+  # == Example
+  # * format_date(Time.now) -> 現在時を設定されている書式で
+  # * format_date(@article.updated_at) -> 記事の変更時間を設定されている書式で
   def format_time(time)
     return '' unless time.respond_to?(:strftime)
     if @site.site_setting.nil? || @site.site_setting.time_format.nil?
@@ -386,7 +431,7 @@ module ApplicationHelper
     end
   end
 
-  # editor の投稿欄の大きさ(行数)
+  # editor の投稿欄の大きさ(行数)を返す.
   def editor_row_count
     if @site.post_setting.nil? || @site.post_setting.editor_row_count.blank?
       10
@@ -421,7 +466,6 @@ module ApplicationHelper
   # rss_link_for_addressbar =>
   # <link rel='alternate' type='application/rss+xml' title='RSS'  href='http://<host>/<site>/articles/index.rss' />
   def rss_link_for_addressbar
-    
     format = if @site.view_setting && @site.view_setting.rss_type == "atom"
       "atom"
     else
@@ -432,18 +476,19 @@ module ApplicationHelper
     " href='#{request.protocol}#{request.host_with_port}" + 
     "#{url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format)}' />".
     html_safe
-    
   end
 
   # rss へのlinkタグを表示
-  # option tag には以下のものを指定可能
+  # option には以下のものを指定可能
   # * :image => アイコン画像へのパス
   # * :text => テキスト, または atlテキスト
-  # 例
+  # * :class => tagのclass
+  # * :id => tagのid
+  # == 例
   # rss_link :image => '/rss.png' :text => 'RSS表示'
   #   => <a href="http://<host>/<site>/articles/index.rss"><img alt="RSS表示" src="/rss.png" /></a>
-  # rss_link :text => "RSS表示"
-  #   => <a href="http://<host>/<site>/articles/index.atom">RSS表示</a>
+  # rss_link :text => "RSS表示", :class => "rss_link"
+  #   => <a href="http://<host>/<site>/articles/index.atom" class="rss_link">RSS表示</a>
   def rss_link(options)
     format = if @site.view_setting && @site.view_setting.rss_type == "atom"
       "atom"
@@ -467,19 +512,23 @@ module ApplicationHelper
       end
     end,
     request.protocol + request.host_with_port + 
-    url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format)
+    url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format),
+    :id => if options[:id] then options[:id] else nil end,
+    :class => if options[:class] then options[:class] else nil end
     )
   end
   
   #  問い合わせページへのリンク
-  # option tag には以下のものを指定可能
+  # option には以下のものを指定可能
   # * :image => アイコン画像へのパス
   # * :text => テキスト, または atlテキスト
+  # * :class => tagのclass
+  # * :id => tagのid
   # 例
   # inquiry_link :image => '/inquiry.png' :text => '問い合わせ'
   #   => <a href="http://<host>/<site>/inquiry/index"><img alt="問い合わせ" src="/inquiry.png" /></a>
-  # inquiry_link :text => "問い合わせ"
-  #   => <a href="http://<host>/<site>/inquiry/index">問い合わせ</a>
+  # inquiry_link :text => "問い合わせ", :id => 'rss_link'
+  #   => <a href="http://<host>/<site>/inquiry/index" id="rss_link">問い合わせ</a>
   def inquiry_link(options = {})
     link_to(
     if options[:image]  
@@ -497,7 +546,9 @@ module ApplicationHelper
       end
     end,
     request.protocol + request.host_with_port + 
-    url_for(:controller => 'inquiry', :action => 'index', :site => @site.name)
+    url_for(:controller => 'inquiry', :action => 'index', :site => @site.name),
+    :id => if options[:id] then options[:id] else nil end,
+    :class => if options[:class] then options[:class] else nil end
     ) 
   end
   
