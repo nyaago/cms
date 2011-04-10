@@ -277,6 +277,7 @@ module ApplicationHelper
   # == 値 =>
   # SEO設定(search_engine_optimization)で設定された書式での
   # 記事タイトル/サイト名を含むものとなる。  def not_found_title_tag
+  def not_found_title_tag
     ("<title>" +
     if self.instance_variable_defined?(:@site) && 
           !@site.nil? && !@site.search_engine_optimization.nil?
