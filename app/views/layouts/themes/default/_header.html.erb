@@ -1,8 +1,8 @@
 <p>
   ヘッダー
   <%= home_link_if_required('ホームへ') %>
-  <%= rss_link :text => 'RSS表示' %>
+  <%= rss_link :text => 'RSS表示', :class =>"rss_link" %>
   <%= logo_image_tag %>
-  <%= head_menu_html :id => :head_menu, :class => :menu %>
+  <%= menu_html :id => :header_menu, :class => :menu %>
   
 </p>

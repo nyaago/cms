@@ -137,9 +137,11 @@ Cms::Application.routes.draw do
 
   # pages
 #  match 'pages/:site/:page' => 'pages#show#:site#:page'
-  match ':site/pages/:action/:id' => 'pages#:action#:site#:id'
-  match ':site/pages/:action' => 'pages#:action#:site'
+  match ':site/pages/preview' => 'pages#preview#:site'
   match ':site/pages/:page' => 'pages#show#:site#:page'
+  match ':site/pages/:action/:id' => 'pages#:action#:site#:id'
+
+
 
   # blogs
   match ':site/blogs/:id' => 'blogs#show#:site#:id'
