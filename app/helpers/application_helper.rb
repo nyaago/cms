@@ -196,7 +196,9 @@ module ApplicationHelper
   # title タグを返す
   def title_tag
     controller = params[:controller]
+    p "==================="
     matched = /^([a-z]+)\/([a-z]+)$/.match(controller)
+    p matched
     scope = if matched 
       matched[1]
     else
@@ -207,7 +209,8 @@ module ApplicationHelper
     else
       controller
     end
-    
+    p scope
+    p controller
     article = if instance_variable_defined?(:@page_title) && !@page_title.nil?
       @page_title
     else
@@ -217,6 +220,7 @@ module ApplicationHelper
         @article
       end
     end
+    p article
     if !instance_variable_defined?(:@site) || @site.nil? || @site.search_engine_optimization.nil?
       ("<title>" + 
       I18n.t(:title, :scope => [:messages, :admin])  + "|" +
@@ -225,15 +229,20 @@ module ApplicationHelper
       html_safe
     else
       ("<title>" +
-      case  controller
-        when 'pages'
-          @site.search_engine_optimization.page_title_text(article, @site)
-        when 'blogs'
-          @site.search_engine_optimization.blog_title_text(article, @site)
-        else
-          @site.search_engine_optimization.page_title_text(
-          I18n.t(:title, :scope => [:massages, controller]), @site)
-#          @site.title + "|" + I18n.t(:title, :scope => [:messages, scope, controller]) 
+      if article.respond_to?(:title)
+        case  controller
+          when 'pages' 
+            @site.search_engine_optimization.page_title_text(article, @site)
+          when 'blogs'
+            @site.search_engine_optimization.blog_title_text(article, @site)
+          else
+            @site.search_engine_optimization.page_title_text(
+            I18n.t(:title, :scope => [:messages, scope, controller]), @site)
+  #          @site.title + "|" + I18n.t(:title, :scope => [:messages, scope, controller]) 
+        end
+      else
+        @site.search_engine_optimization.page_title_text(
+        I18n.t(:title, :scope => [:messages, scope, controller]), @site)
       end +
       "</title>").html_safe
     end
