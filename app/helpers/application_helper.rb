@@ -204,13 +204,13 @@ module ApplicationHelper
     html << ">"
     @site.pages.select("title, name, is_home").
                 where('published = 1').
-                where("is_temporary <> true or is_temporary is null").
                 order('menu_order').each do |page|
       url = url_for(:controller => :pages, 
                     :action => :show, 
                     :site => @site.name, 
                     :page => if page.is_home then nil else page.name  end)
-      html << "<li><a href='#{url}'>" <<
+      li_tag_id = "#{tag_id}_#{page.name}"
+      html << "<li id='#{li_tag_id}'><a href='#{url}'>" <<
             page.title <<
             "</a></li>\n"
     end
