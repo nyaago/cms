@@ -1,0 +1,9 @@
+<h1>お知らせ編集</h1>
+
+<p id="notice"><%= flash[:notice] %></p>
+<% if @information %>
+<%= render 'form' %>
+<% end %>
+
+<%= link_to '戻る', url_for(:action => :index) %>
+

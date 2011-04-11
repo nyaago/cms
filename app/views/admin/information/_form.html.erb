@@ -1,0 +1,28 @@
+<%= form_for(@information, :url => admin_information_path(@information)) do |f| %>
+  <% if @information.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= (@information.errors.count).to_s %> のエラーが発生しました</h2>
+
+      <ul>
+      <% @information.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="inputs fields" id="information_fields">
+    <div class="field" id="title_field">
+      <%= f.label :title %><br />
+      <%= f.text_field :title %>
+    </div>
+    <div class="field" id="content_field">
+      <%= f.label :content %><br />
+      <%= f.text_area :content, :cols => 50,:rows => 20  %>
+    </div>
+    
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>

@@ -108,6 +108,12 @@ ja:
         none: "ユーザが登録されていません。"
         only_site_user: "唯一の管理者なので削除できません"
         current_user: "自分のアカウントを削除することはできません"
+      information:
+        title: "情報"
+        not_found: "記事がみつかりませんでした"
+        updated: "お知らせが更新されました"
+        created: "お知らせが作成されました"
+        destroyed: "お知らせが削除されました"
       password:
         title: "パスワード変更"
         password_changed: "パスワードが変更されました"

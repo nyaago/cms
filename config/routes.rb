@@ -18,6 +18,10 @@ Cms::Application.routes.draw do
     match 'users/:action/:id' => 'users#:action#:id'
     match 'users/:action' => 'users#:action'
 
+    match 'information' => 'information#index'
+    match 'information/:action/:id' => 'information#:action#:id'
+    match 'information/:action' => 'information#:action'
+
     match 'common/:action' => 'common#:action'
 
     # password

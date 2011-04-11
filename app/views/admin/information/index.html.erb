@@ -1,0 +1,45 @@
+<h1>
+  お知らせ
+</h1>
+
+<script type="text/javascript" charset="utf-8">
+</script>
+
+<p id="notice"><%= flash[:notice] %></p>
+
+<div id="information">
+  
+  <table>
+    <tr>
+      <th class="title">
+        <%= Information.human_attribute_name(:title) %>
+      </th>
+      <th class="updated_at">
+        <%= Information.human_attribute_name(:updated_at) %>
+      </th>
+      <th class="actions">
+        
+      </th>
+    </tr>
+    <tr>
+    <% @information.each do |information| %>
+      <td class="title">
+        <%= information.title %>
+      </td>
+      <td class="updated_at">
+        <%= information.updated_at %>
+      </td>
+      <td class="actions">
+        <%= link_to '編集', :action => :edit, :id => information.id %>
+        <%= link_to '削除', url_for(:action => :destroy, :id => information.id),
+                          :confirm => '削除してよろしいでしょうか?'
+         %>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+  <div class="actions">
+    <%= link_to '追加', :action => :new %>
+  </div>
+</div>
+

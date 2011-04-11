@@ -16,8 +16,10 @@
 
     <ul >
       <% @informations.each do |information| %>
+        <li>
         <%= link_to(information.title, 
         url_for(:controller => :informations, :action => :show, :id => information.id)) %>
+        </li>
       <% end %>
     </ul>
 
