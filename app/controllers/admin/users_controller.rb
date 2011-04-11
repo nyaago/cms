@@ -89,7 +89,7 @@ class Admin::UsersController < Admin::BaseController
                 first
     if @user.nil?
       format.html { render :action => "edit" }
-      format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      format.xml  { render :xml => "NG", :status => :unprocessable_entity }
       return 
     end
     @user.updated_by = current_user

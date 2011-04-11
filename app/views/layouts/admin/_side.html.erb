@@ -2,8 +2,10 @@
 //<![CDATA[
   
   $(document).ready( function(){
-    var menuGroupToControllerMap = {"users_menu_header" : ["admin/users", ""],
-                                    "password_menu_header" : ["admin/password", ""] };
+    var menuGroupToControllerMap = {
+        "users_menu_header" : ["admin/users", "admin/sites", "admin/information"],
+        "password_menu_header" : ["admin/password", ""] 
+    };
     var controller = '<%= params[:controller]%>';
     var currentId = 0;
     for(key in menuGroupToControllerMap) {
@@ -23,7 +25,7 @@
 <div id="side_menu">
 
 <h2 class="menu_group_header"  id="users_menu_header"><a href="#">
-  機能管理
+  管理
 </a></h2>
 
 <ul class="menu_group"  id="users_menu_group">
@@ -35,6 +37,11 @@
   <li>
     <%=link_to "管理者ユーザ管理", 
     :controller => :users, :action => :index %>
+    
+  </li>
+  <li>
+    <%=link_to "お知らせ", 
+    :controller => :information, :action => :index %>
     
   </li>
 </ul>
