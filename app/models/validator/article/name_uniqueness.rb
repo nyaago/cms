@@ -16,7 +16,9 @@ module Validator
                                   " and id <> #{record.id}" 
                                 end,
                                 :site_id => record.site_id, 
-                                :name => record.name).count > 0
+                                :name => record.name).
+                      where("is_temporary is null or is_temporary <> true").
+                      count > 0
           record.errors[:name] << I18n.t(:uniqness_in_site, 
                                         :scope => TRANSLATION_SCOPE)
         end

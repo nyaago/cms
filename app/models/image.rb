@@ -88,7 +88,7 @@ class Image < ActiveRecord::Base
       @datetime = DateTime.new(year, month)
     end
     
-    def to_s(format = nil)
+    def to_s(format = '%Y-%m')
       @datetime.strftime(format)
     end
   end
@@ -166,6 +166,7 @@ class Image < ActiveRecord::Base
   def set_calculated_attributes
     self.total_size = self.size
     self.is_image =  self.image_content_type?
+    true
   end
 
 end

@@ -80,6 +80,16 @@ class Article < ActiveRecord::Base
       return false
     end
   end
+  
+  # 更新日時が1日以上前のtemporary record を削除
+  def self.remove_temporaries
+    Article.where("is_temporary = true").
+            where("updated_at < :yesterday", :yesterday => Time.now.yesterday).
+            each do |article|
+      article.destroy
+      # p "delete temprary id = #{article.id}"
+    end
+  end
 
   protected
   

@@ -14,6 +14,7 @@ class PageArticle < Article
             select("id, menu_order").
             where("site_id = :site_id", 
                   :site_id => self.site_id).
+            where("is_temporary <> true or is_temporary is null").
                   order('menu_order')
 
     replace_flag = false
@@ -40,6 +41,7 @@ class PageArticle < Article
             select("id, menu_order").
             where("site_id = :site_id", 
                   :site_id => self.site_id).
+            where("is_temporary <> true or is_temporary is null").
                   order('menu_order desc')
                   
     replace_flag = false
@@ -79,9 +81,18 @@ class PageArticle < Article
       @datetime = DateTime.new(year, month)
     end
     
-    def to_s(format = nil)
+    def to_s(format = '%Y-%m')
       @datetime.strftime(format)
     end
+    
+    def ==(other)
+      self.class == other.class && self.year == other.year && self.month == other.month
+    end
+    
+    def eql?(other)
+      self == other
+    end
+    
   end
   
   

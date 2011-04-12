@@ -37,3 +37,6 @@ Site.all.each do |site|
   
 end
 
+# 更新日時が1日以上前のpreview 用temporary 記事 を削除
+Article.remove_temporaries
+
