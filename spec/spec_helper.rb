@@ -2,6 +2,9 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+# machinist
+require File.expand_path(File.dirname(__FILE__) + "/blueprints")
+
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -24,4 +27,32 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+  
+  config.before(:all)    { Sham.reset(:before_all)  }
+  config.before(:each)   { Sham.reset(:before_each) }
+end
+
+
+def uploaded_file(filename, content_type)
+
+  t = Tempfile.new(filename);
+
+  t.binmode
+
+  path = RAILS_ROOT + "/spec/fixtures/images/" + filename
+
+  FileUtils.copy_file(path, t.path)
+
+  (class << t; self; end).class_eval do
+
+    alias local_path path
+
+    define_method(:original_filename) { filename }
+
+    define_method(:content_type) { content_type }
+
+  end
+
+  return t
+
 end
