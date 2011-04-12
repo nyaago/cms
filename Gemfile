@@ -18,7 +18,7 @@ gem "authlogic"
 gem 'will_paginate','3.0.pre'
 gem 'jquery-rails'
 gem 'paperclip'
-gem "rmagick",'2.13.1'
+# gem "rmagick",'2.13.1'
 gem 'tmail'
 gem 'mail'
 #
@@ -27,6 +27,7 @@ gem 'rspec-rails'
 gem 'autotest'
 gem 'autotest-rails'
 
+gem 'faker'
 gem 'machinist'
 
 # Use unicorn as the web server
