@@ -133,7 +133,7 @@ http(s)://<base>/site/<機能グループ>/<アクション>
 
 == （主に公開ページで使用する）アプリケーション固有のメソッド
 
-[<アプリケーション>/rdoc/classes/ApplicationHelper.html] を参照
+[<アプリケーションのroot>/rdoc/ApplicationHelper.html] を参照
 
 == ヘッダー部分で共通で埋め込んでいる.Ruby On Rails のヘルパーメソッド
 
