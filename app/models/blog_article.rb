@@ -14,7 +14,7 @@ class BlogArticle < Article
       @datetime = DateTime.new(year, month)
     end
     
-    def to_s(format = nil)
+    def to_s(format = '%Y-%m')
       @datetime.strftime(format)
     end
     
