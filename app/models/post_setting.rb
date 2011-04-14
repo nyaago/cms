@@ -24,9 +24,11 @@ class PostSetting < ActiveRecord::Base
   # validator
   validates :pop3_host, :domain => true, 
       :if => Proc.new { |setting| !setting.pop3_host.blank? }
-  # 名前がサイト内でUniquであるのValidation  
+  # pop3設定の整合性Validation(未入力がないか?)
   validates_with Validator::PostSetting::Pop3Consistency
   
+  validates_numericality_of :pop3_port, 
+      :unless => Proc.new { |post_setting| post_setting.pop3_port.blank? }
 
   # pop3パスワードを返す.
   # @pop3_passwordで設定されていなければ,pop3_crypted_password属性から復号化
@@ -47,6 +49,10 @@ class PostSetting < ActiveRecord::Base
   # pop3のパスワードを設定.
   # 暗号化して、pop3_crypted_password属性への設定も行う.
   def pop3_password= (password)
+    if password.blank?
+      self.pop3_crypted_password = nil
+      return password;
+    end
     @pop3_password = password
     if @pop3_password.blank? 
       self.pop3_password_salt = nil

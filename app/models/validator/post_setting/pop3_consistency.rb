@@ -10,8 +10,10 @@ module Validator
       TRANSLATION_SCOPE = [:errors, :post_setting,:messages]
     
       def validate(record)
-        if (!record.pop3_host.blank? || !record.pop3_login.blank?  || !record.pop3_password.blank?) &&
-          (record.pop3_host.blank? || record.pop3_login.blank?  || record.pop3_password.blank?)
+        if (!record.pop3_host.blank? || !record.pop3_login.blank?  || 
+          !record.pop3_password.blank? ) &&
+          (record.pop3_host.blank? || record.pop3_login.blank?  || 
+          record.pop3_password.blank? || record.pop3_port.blank?)
         
           record.errors[:base] << I18n.t(:pop3_consistency, 
                                         :scope => TRANSLATION_SCOPE)

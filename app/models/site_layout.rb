@@ -24,6 +24,7 @@ class SiteLayout < ActiveRecord::Base
   # locationに関する属性について.そのformatの属性への値設定
   before_update :set_location
   
+  # @deprecated
   # タイトルタグフォーマット属性より、タイトルに表示する値を得る
   # self::TITLE_REPLACE_MAP_FOR_ARTICLEで定義されている置換変数を引数の記事のタイトルに置換
   # self::TITLE_REPLACE_MAP_FOR_SITEで定義されている置換変数を引数のサイトのタイトルに置換
@@ -49,6 +50,7 @@ class SiteLayout < ActiveRecord::Base
   
   # theme の cssのファイルシステム上の場所を返す
   # なければnilを返す
+  # 場所は、"/public/themes/<theme>/stylesheets/theme.css" となる
   def theme_stylesheet_path
     dir = 
     if theme.nil? 
@@ -64,6 +66,7 @@ class SiteLayout < ActiveRecord::Base
   end
 
   # default の themeの場所を返す
+  # "/public/themes/default/stylesheets/theme.css"  となる
   def default_theme_stylesheet_path
     ::Rails.root.to_s + "/public/themes/default/stylesheets/theme.css" 
   end
@@ -73,7 +76,8 @@ class SiteLayout < ActiveRecord::Base
     !theme_stylesheet_path.nil?
   end
   
-  # theme の cssのurlを返す
+  # theme の cssのurlを返す.
+  # themeに対応するテーマがなければ,default の theme のurlを返す.
   def theme_stylesheet_url
     if theme_stylesheet_exists?
       "/themes/#{theme}/stylesheets/theme.css"
@@ -83,6 +87,7 @@ class SiteLayout < ActiveRecord::Base
   end
   
   # themeの layout templateのファイルシステム上の場所を返す
+  # "<Rails_Root>/app/views/layouts/themes/#{theme}/application.html.erb"　となる
   def theme_layout_path
     if theme.nil? 
       nil
@@ -154,6 +159,7 @@ class SiteLayout < ActiveRecord::Base
     self.global_navigation = 'home_link'
     self.background_repeat = 'repeat'
     self.background_color = ''
+    true
   end
 
   # formatに関する属性について.そのformatの属性への値設定
@@ -181,7 +187,7 @@ class SiteLayout < ActiveRecord::Base
       selected_attr = attr_array.find_default if selected_attr.nil? 
       self.send(attr_name + "_location=", selected_attr.location)
     end
-    
+    true
   end
 
   
