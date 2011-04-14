@@ -67,10 +67,8 @@ module ApplicationHelper
       unless  @site.site_layout.eye_catch_type_location.nil?
         if area.to_sym == @site.site_layout.eye_catch_type_location.to_sym
           if theme_partial_exist?(:eye_catch)
-            p "111111"
             render_theme_partial :eye_catch
           else
-            p "222222"
             render "/layouts/public/eye_catch"
           end
         end
@@ -255,7 +253,7 @@ module ApplicationHelper
       html_safe
     else
       ("<title>" +
-      if article.respond_to?(:title)
+      h(if article.respond_to?(:title)
         case  controller
           when 'pages' 
             @site.search_engine_optimization.page_title_text(article, @site)
@@ -268,7 +266,7 @@ module ApplicationHelper
       else
         @site.search_engine_optimization.page_title_text(
         I18n.t(:title, :scope => [:messages, scope, controller]), @site)
-      end +
+      end) +
       "</title>").html_safe
     end
   end
@@ -279,12 +277,12 @@ module ApplicationHelper
   # 記事タイトル/サイト名を含むものとなる。  def not_found_title_tag
   def not_found_title_tag
     ("<title>" +
-    if self.instance_variable_defined?(:@site) && 
+    h(if self.instance_variable_defined?(:@site) && 
           !@site.nil? && !@site.search_engine_optimization.nil?
       @site.search_engine_optimization.not_found_title_text(request)
     else
       "404 Not Found"
-    end +
+    end) +
     "</title>").html_safe
   end
 
@@ -304,8 +302,8 @@ module ApplicationHelper
       @article
     end
     return '' if @site.nil? || @site.search_engine_optimization.nil?
-    ('<meta name="keywords" content="' +
-    case  controller
+    ('<meta name="keywords" content="' + 
+    h(case  controller
       when 'pages'
         (if article.ignore_meta == false && 
               !@site.search_engine_optimization.page_keywords.blank?
@@ -336,7 +334,7 @@ module ApplicationHelper
         (if !@site.search_engine_optimization.page_keywords.blank?
           @site.search_engine_optimization.page_keywords
         end || '')
-    end + 
+    end) + 
     '"/>').html_safe
   end
 
@@ -352,7 +350,7 @@ module ApplicationHelper
     end
     return '' if @site.nil? || @site.search_engine_optimization.nil?
     ('<meta name="description" content="' +
-    case  controller
+    h(case  controller
       when 'pages'
         (if article.ignore_meta == false && 
               !@site.search_engine_optimization.page_description.blank?
@@ -383,7 +381,7 @@ module ApplicationHelper
         (if !@site.search_engine_optimization.page_keywords.blank?
           @site.search_engine_optimization.page_keywords
         end || '') 
-      end + 
+      end) + 
       '"/>').html_safe
 
   end
@@ -500,17 +498,17 @@ module ApplicationHelper
     link_to(
     if options[:image]  
       image_tag(options[:image], 
-      :alt => if options[:text]  
+      :alt => h(if options[:text]  
                 options[:text] 
               else 
                 'RSS' 
-              end )
+              end) )
     else  
-      if options[:text]  
+      h(if options[:text]  
         options[:text] 
       else 
         'RSS' 
-      end
+      end)
     end,
     request.protocol + request.host_with_port + 
     url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format),
@@ -534,17 +532,17 @@ module ApplicationHelper
     link_to(
     if options[:image]  
       image_tag(options[:image], 
-      :alt => if options[:text]  
+      :alt => h(if options[:text]  
                 options[:text] 
               else 
                 'Inquiry' 
-              end )
+              end) )
     else  
-      if options[:text]  
+      h(if options[:text]  
         options[:text] 
       else 
         'Inquiry' 
-      end
+      end)
     end,
     request.protocol + request.host_with_port + 
     url_for(:controller => 'inquiry', :action => 'index', :site => @site.name),
