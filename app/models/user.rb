@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   def only_site_admin?
     self.is_site_admin && 
       User.where("is_site_admin = true").
-      where("site = :site", :site => self.site_id).
+      where("site_id = :site", :site => self.site_id).
       where("id <> :id", :id => self.id).count == 0
   end
 
