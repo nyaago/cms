@@ -23,6 +23,15 @@ User.blueprint(:admin) do
   is_admin { true }
 end
 
+User.blueprint(:site_admin) do
+  login { 'site_admin' }
+  password { 'site_admin' }
+  password_confirmation { 'site_admin' }
+  email { 'site_admin@hoge.com' }
+  is_site_admin { true }
+end
+
+
 User.blueprint do
   login { Sham.login }
   password { 'password' }
