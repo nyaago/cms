@@ -60,7 +60,6 @@ class Site::WidgetsController < Site::BaseController
                                         :position => position,
                                         :user => current_user
                                         ) 
-        site_widget.adjust_positions
           
         respond_to do |format|
           format.json do
