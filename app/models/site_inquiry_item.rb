@@ -10,6 +10,10 @@ class SiteInquiryItem < ActiveRecord::Base
   # タイプ別のinquiry_itemへの関連
   belongs_to :inquiry_item, :polymorphic => true
   
+  # 作成後のフィルター
+  # target　レコードに設定されているposition　に併せて、他のレコードのpositionを調整する
+  after_create :adjust_positions
+  
   # 表示位置の調整
   # target　レコードに設定されているposition　に併せて、他のレコードのpositionを調整する
   def adjust_positions

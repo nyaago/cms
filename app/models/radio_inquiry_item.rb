@@ -1,6 +1,8 @@
 # = RadioInquiryItem
 # 問い合わせの項目 - ラジオボタン
 class RadioInquiryItem < ActiveRecord::Base
+  # 選択肢の数
+  VALUE_COUNT = 6
   
   # サイトとの関連
   has_one   :site_inquiry_item,     :as => :inquiry_item, :dependent => :destroy
@@ -36,17 +38,19 @@ class RadioInquiryItem < ActiveRecord::Base
   
   # 未入力の選択肢の値があれば、詰めて登録
   def omit_empty_value
-    (1..6).each do |i|
+    count = VALUE_COUNT
+    (1..(count - 1)).to_a.reverse.each do |i|
       if self.send("value#{i}").blank?
-        self.send("value#{i}=", self.send("value#{i+1}"))
-        self.send("value#{i+1}=", nil)
+        ((i+1)..count).each do |src_index|
+          self.send("value#{src_index - 1}=", self.send("value#{src_index}"))
+          self.send("value#{src_index}=", nil)
+        end
         if i < default_index
           self.default_index = self.default_index - 1
-        elsif i == default_index
+        elsif i == default_index  # 値がない選択肢がdefaultになっている.
           self.default_index = 1
         end
       end
-      
     end
   end
   

@@ -50,7 +50,6 @@ class Site::InquiryItemsController < Site::BaseController
                                         :position => position,
                                         :user => current_user
                                         ) 
-        site_inquiry_item.adjust_positions
         respond_to do |format|
           format.json do
             render :text => {:inquiry_item => inquiry_item.attributes, 
