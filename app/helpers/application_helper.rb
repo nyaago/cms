@@ -470,7 +470,7 @@ module ApplicationHelper
       "rss"
     end
     
-    "<link rel='alternate' type='application/rss+xml' title='RSS' " +
+    "<link rel='alternate' type='application/#{format}+xml' title='RSS' " +
     " href='#{request.protocol}#{request.host_with_port}" + 
     "#{url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format)}' />".
     html_safe
@@ -487,7 +487,7 @@ module ApplicationHelper
   #   => <a href="http://<host>/<site>/articles/index.rss"><img alt="RSS表示" src="/rss.png" /></a>
   # rss_link :text => "RSS表示", :class => "rss_link"
   #   => <a href="http://<host>/<site>/articles/index.atom" class="rss_link">RSS表示</a>
-  def rss_link(options)
+  def rss_link(options = {})
     format = if @site.view_setting && @site.view_setting.rss_type == "atom"
       "atom"
     else
