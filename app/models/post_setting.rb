@@ -30,6 +30,11 @@ class PostSetting < ActiveRecord::Base
   validates_numericality_of :pop3_port, 
       :unless => Proc.new { |post_setting| post_setting.pop3_port.blank? }
 
+  # 保存前のフィルター
+  # 各属性の不要な前後空白をぬく
+  before_save :strip_attributes
+
+
   # pop3パスワードを返す.
   # @pop3_passwordで設定されていなければ,pop3_crypted_password属性から復号化
   def pop3_password
@@ -53,7 +58,7 @@ class PostSetting < ActiveRecord::Base
       self.pop3_crypted_password = nil
       return password;
     end
-    @pop3_password = password
+    @pop3_password = password.strip_with_full_size_space
     if @pop3_password.blank? 
       self.pop3_password_salt = nil
       self.pop3_crypted_password = nil
@@ -77,6 +82,13 @@ class PostSetting < ActiveRecord::Base
   end
 
   def crypt_password
+  end
+
+  # 各属性の不要な前後空白をぬく
+  def strip_attributes
+    !pop3_host.nil? && pop3_host.strip_with_full_size_space!
+    !pop3_login.nil? && pop3_login.strip_with_full_size_space!
+    true
   end
   
 end

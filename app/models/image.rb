@@ -26,6 +26,10 @@ class Image < ActiveRecord::Base
   # 更新後フィルター.画像のトータルサイズと画像区分フラグを計算して保存
   before_update :set_calculated_attributes
 
+  # 保存前のcallback
+  # 各属性の不要な前後空白をぬく
+  before_save :strip_attributes
+
   # Returns the public URL of the attachment, with a given style. Note that
   # this does not necessarily need to point to a file that your web server
   # can access and can point to an action in your app, if you need fine
@@ -166,6 +170,29 @@ class Image < ActiveRecord::Base
   def set_calculated_attributes
     self.total_size = self.size
     self.is_image =  self.image_content_type?
+    true
+  end
+
+  # 各属性の不要な前後空白をぬく
+  def strip_attributes
+    begin
+      if self.respond_to?(:title) 
+        title.strip_with_full_size_space! unless title.nil?  
+      end
+    rescue
+    end
+    begin
+      if self.respond_to?(:meta_description) 
+        alternative.strip_with_full_size_space! unless alternative.nil? 
+      end
+    rescue
+    end
+    begin
+      if self.respond_to?(:meta_keywords) 
+        caption.strip_with_full_size_space! unless caption.nil?
+      end
+    rescue
+    end
     true
   end
 

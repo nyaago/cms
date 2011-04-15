@@ -89,5 +89,31 @@ describe RadioInquiryItem do
     item.default_index.should == (4-2)
   end
 
+
+  it "strip values)" do
+    item = RadioInquiryItem.new
+    item.save!(:validate => true)
+    item = RadioInquiryItem.find_by_id(item.id)
+    item.title = "ラジオ"
+    item.value1 = " 選択肢1"
+    item.value2 = "選択肢2 "
+    item.value3 = " 選択肢3 "        
+    item.value4 = "選択肢4"        
+    item.value5 = " 選択肢5"        
+    item.value6 = "選択肢6 "        
+    item.value7 = nil
+    item.default_index = 1
+    item.save!(:validate => true)
+    item.reload
+    item.value1.should == "選択肢1"
+    item.value2.should == "選択肢2"
+    item.value3.should == "選択肢3"
+    item.value4.should == "選択肢4"
+    item.value5.should == "選択肢5"
+    item.value6.should == "選択肢6"
+    item.value7.should == nil
+    item.default_index.should == 1
+  end
+
   
 end

@@ -5,5 +5,6 @@ require File.expand_path('../application', __FILE__)
 Cms::Application.initialize!
 
 
+require "string"
 
 #ret = require File.expand_path('../../lib/time', __FILE__)

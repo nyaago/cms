@@ -2,7 +2,7 @@
 # 問い合わせの項目 - ラジオボタン
 class RadioInquiryItem < ActiveRecord::Base
   # 選択肢の数
-  VALUE_COUNT = 6
+  VALUE_COUNT = 7
   
   # サイトとの関連
   has_one   :site_inquiry_item,     :as => :inquiry_item, :dependent => :destroy
@@ -14,6 +14,10 @@ class RadioInquiryItem < ActiveRecord::Base
   # 保存前のfilter
   # 未入力の選択肢の値があれば、詰めて登録
   before_update :omit_empty_value
+  # 保存前のフィルター
+  # 各属性の不要な前後空白をぬく
+  before_save :strip_attributes
+  
   
   # この問い合わせ項目のdefault の値を返す.
   # 値として defaultの選択肢の値を返す
@@ -52,6 +56,19 @@ class RadioInquiryItem < ActiveRecord::Base
         end
       end
     end
+  end
+  
+  # 各属性の不要な前後空白をぬく
+  def strip_attributes
+    !title.nil? && title.strip_with_full_size_space!
+    count = VALUE_COUNT
+    (1..count).each do |i|
+      if  self.respond_to?("value#{i}") && !self.send("value#{i}").nil?
+        value = send("value#{i}")
+        self.send("value#{i}=", value.strip_with_full_size_space)
+      end
+    end
+    true
   end
   
 end

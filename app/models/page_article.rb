@@ -11,7 +11,7 @@ class PageArticle < Article
   # Site内のPage記事全てのmenu_orderをつけなおすことにより行う.
   def to_next_menu_order
     articles = self.class.
-            select("id, menu_order").
+            select("*").
             where("site_id = :site_id", 
                   :site_id => self.site_id).
             where("is_temporary <> true or is_temporary is null").
@@ -38,7 +38,7 @@ class PageArticle < Article
   # Site内のPage記事全てのmenu_orderをつけなおすことにより行う.
   def to_previous_menu_order
     articles = self.class.
-            select("id, menu_order").
+            select("*").
             where("site_id = :site_id", 
                   :site_id => self.site_id).
             where("is_temporary <> true or is_temporary is null").

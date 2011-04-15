@@ -60,10 +60,13 @@ describe Article do
   
   it "cancel_is_home_except_self" do 
     article = @site.pages.where("name = :name", :name => "pagea").first
+    article.is_home = true
+    article.save!(:validate => false)
+    article = @site.pages.where("name = :name", :name => "pagea").first
     article.is_home.should == true
     article = @site.pages.where("name = :name", :name => "pageb").first
     article.is_home = true
-    article.save!(:validate => false)
+    article.save!(:validate => true)
     article = @site.pages.where("name = :name", :name => "pagea").first
     article.is_home.should == false
   end

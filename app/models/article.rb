@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
 
   # 保存前のcallback
   # 記事ががhome(top)ページに指定された場合,他の記事のhome設定を解除
-  before_save :cancel_is_home_except_self
+  after_save :cancel_is_home_except_self
 
   # 保存前のcallback
   # 公開開始日時が将来に設定されている場合、公開状態をoffにする
@@ -15,6 +15,10 @@ class Article < ActiveRecord::Base
   # 新規作成前のcallback
   # menu order をサイトでの最大値とする
   before_create :set_max_menu_order
+  
+  # 保存前のcallback
+  # 各属性の不要な前後空白をぬく
+  before_save :strip_attributes
 
   # 更新前のFilter
   # 公開予約日が過ぎていれば, 公開Onにする
@@ -95,10 +99,10 @@ class Article < ActiveRecord::Base
   
   # 記事ががhome(top)ページに指定された場合,他の記事のhome設定を解除
   def cancel_is_home_except_self
-    return if !self.respond_to?(:is_home)
+    return true if !self.respond_to?(:is_home)
     
     begin
-      return if !self.is_home
+      return true if !self.is_home
 
       Article.select("id, is_home").
               where("site_id = :site_id and is_home = true" +
@@ -110,6 +114,7 @@ class Article < ActiveRecord::Base
     rescue ActiveModel::MissingAttributeError => ex
       # is_home 属性が選択されていない場合の例外なので無視
     end
+    true
   end
 
   # menu order をサイトでの最大値とする
@@ -124,7 +129,7 @@ class Article < ActiveRecord::Base
       else 
         max_article.max_order + 1 
       end
-    
+    true
   end
   
   # 公開開始日時が将来に設定されている場合、公開状態をoffにする
@@ -134,6 +139,36 @@ class Article < ActiveRecord::Base
         self.published = nil
       end
     end
+    true
+  end
+
+  # 各属性の不要な前後空白をぬく
+  def strip_attributes
+    begin
+      if self.respond_to?(:name) 
+        name.strip_with_full_size_space! unless name.nil?
+      end
+    rescue
+    end
+    begin
+      if self.respond_to?(:title) 
+        title.strip_with_full_size_space! unless title.nil?  
+      end
+    rescue
+    end
+    begin
+      if self.respond_to?(:meta_description) 
+        meta_description.strip_with_full_size_space! unless meta_description.nil? 
+      end
+    rescue
+    end
+    begin
+      if self.respond_to?(:meta_keywords) 
+        meta_keywords.strip_with_full_size_space! unless meta_keywords.nil?
+      end
+    rescue
+    end
+    true
   end
     
 end

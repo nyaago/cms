@@ -12,6 +12,11 @@ class SearchEngineOptimization < ActiveRecord::Base
   # default値の設定を行う.
   before_create :set_default
   
+  # 保存前のフィルター
+  # 各属性の不要な前後空白をぬく
+  before_save :strip_attributes
+
+  
   # フォーマット属性より、ページ記事のタイトルに表示する値を得る
   # self::REPLACE_MAP_FOR_ARTICLEで定義されている置換変数を引数の記事のタイトルに置換
   # self::REPLACE_MAP_FOR_SITEで定義されている置換変数を引数のサイトのタイトルに置換
@@ -65,6 +70,17 @@ class SearchEngineOptimization < ActiveRecord::Base
                               "not found"
     self
   end
+  
+  # 各属性の不要な前後空白をぬく
+  def strip_attributes
+    !page_keywords.nil? && page_keywords.strip_with_full_size_space!
+    !blog_keywords.nil? && blog_keywords.strip_with_full_size_space!
+    !page_description.nil? && page_description.strip_with_full_size_space!
+    !blog_description.nil? && blog_description.strip_with_full_size_space!
+    true
+  end
+  
+  
 
   
 end
