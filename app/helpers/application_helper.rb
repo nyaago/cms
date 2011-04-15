@@ -52,7 +52,7 @@ module ApplicationHelper
   # * area - :header / :container /  :contents
   def eye_catch_required?(area)
     !@site.nil? && !@site.site_layout.nil? && 
-        !site.site_layout.eye_catch_type_location.nil? &&
+        !@site.site_layout.eye_catch_type_location.nil? &&
         area.to_sym == @site.site_layout.eye_catch_type_location.to_sym
   end
 
@@ -63,15 +63,11 @@ module ApplicationHelper
   # == parameters
   # * area - :header / :container /  :contents
   def render_eye_catch_if_required(area)
-    if !@site.nil? && !@site.site_layout.nil?
-      unless  @site.site_layout.eye_catch_type_location.nil?
-        if area.to_sym == @site.site_layout.eye_catch_type_location.to_sym
-          if theme_partial_exist?(:eye_catch)
-            render_theme_partial :eye_catch
-          else
-            render "/layouts/public/eye_catch"
-          end
-        end
+    if eye_catch_required?(area)
+      if theme_partial_exist?(:eye_catch)
+        render_theme_partial :eye_catch
+      else
+        render "/layouts/public/eye_catch"
       end
     end
   end
@@ -157,6 +153,7 @@ module ApplicationHelper
   end
   
   # 背景のcssを返す
+  # 
   def background_css
     return '' if @site.nil? && @site.site_layout.nil?
     content = "body { \n"
@@ -184,13 +181,13 @@ module ApplicationHelper
   # メニューはulタグ. それに含まれる 各メニュー項目はliタグとなる
   # 2011/4 現在 では、公開ページ記事へのリンクを含むものとなる.
   # == option　parameter
-  # * :id => ul tag のid , default は :head_menu
+  # * :id => ul tag のid.加えてliタグのidを<:id>_<記事名>とする. default は :head_menu, 
   # * :class => ul tag のclass
   # == 例
   # * menu_html :id => :header_menu, :class => :menu  =>
   # <ul id='header_menu' class='menu'><li><a href='/moomin'>ホーム</a></li> 
-  # <li><a href='/moomin/pages/page1'>Page1</a></li> 
-  # <li><a href='/moomin/pages/page2'>Page2</a></li> 
+  # <li id='header_menu_page1'><a href='/moomin/pages/page1'>Page1</a></li> 
+  # <li id='header_menu_page1'><a href='/moomin/pages/page2'>Page2</a></li> 
   # </ul>  #       
   def menu_html(options = {})
     return '' if @site.nil?
@@ -218,8 +215,10 @@ module ApplicationHelper
   
   # title タグを返す.
   # == 値 =>
-  # 公開ページの場合は、SEO設定(search_engine_optimization)で設定された書式での
+  # 公開ページのうちページ|お知らせの場合は、SEO設定(search_engine_optimization)で設定された書式での
   # 記事タイトル/サイト名を含むものとなる。
+  # 公開ページのうちページ|お知らせ以外は、SEO設定(search_engine_optimization)のpage_titie_format設定された書式を使い,
+  # 機能名(=記事名)/サイト名を含むものとなる。
   # サイト管理の場合は,<サイト名>|<機能名>となる。
   # 管理ページの場合は、管理|<機能名>となる
   def title_tag
@@ -247,7 +246,7 @@ module ApplicationHelper
 
     if !instance_variable_defined?(:@site) || @site.nil? || @site.search_engine_optimization.nil?
       ("<title>" + 
-      I18n.t(:title, :scope => [:messages, :admin])  + "|" +
+      I18n.t(:title, :scope => [:messages, :admin])  + " | " +
       I18n.t(:title, :scope => [:messages, scope, controller])  + 
       "</title>").
       html_safe
@@ -374,12 +373,12 @@ module ApplicationHelper
               !article.meta_description.blank? 
           ','
         end || '') +
-        (unless article.meta_keywords.blank? 
+        (unless article.meta_description.blank? 
           article.meta_description
         end || '') 
       else
-        (if !@site.search_engine_optimization.page_keywords.blank?
-          @site.search_engine_optimization.page_keywords
+        (if !@site.search_engine_optimization.page_description.blank?
+          @site.search_engine_optimization.page_description
         end || '') 
       end) + 
       '"/>').html_safe
