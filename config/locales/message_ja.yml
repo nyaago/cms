@@ -27,6 +27,9 @@ ja:
         title: "レイアウト"
         updated: "レイアウト設定が更新されました"
       
+      widgets:
+        title: "ウィジット"
+      
       images:
         title: "画像"
         created: "ファイルをアップロードしました"
@@ -64,6 +67,9 @@ ja:
         title: "表示設定"
         updated: "設定が更新されました"
       
+      inquiry_items:
+        title: "問い合わせ設定"
+        
       users:
         title: "ユーザ管理"
         updated: "ユーザが更新されました"

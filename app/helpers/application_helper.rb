@@ -222,8 +222,10 @@ module ApplicationHelper
   # サイト管理の場合は,<サイト名>|<機能名>となる。
   # 管理ページの場合は、管理|<機能名>となる
   def title_tag
+    # page title を含むオブジェクト, いずれかの変数
+    page_title_variables = [:@article ,:@month, :@page_title]
     controller = params[:controller]
-    matched = /^([a-z]+)\/([a-z]+)$/.match(controller)
+    matched = /^([a-z]+)\/([_a-z]+)$/.match(controller)
     scope = if matched 
       matched[1]
     else
@@ -234,6 +236,18 @@ module ApplicationHelper
     else
       controller
     end
+    page_title_container = nil
+    page_title_variables.each do |instance_variable|
+      if instance_variable_defined?(instance_variable) && 
+          !instance_variable_get(instance_variable).nil?
+        page_title_container =  instance_variable_get(instance_variable)
+        break
+#        if instance_variable_get(instance_variable).respond_to?(method)
+#          break instance_variable_get(instance_variable).send(method)
+#        end
+      end
+    end 
+    
     article = if instance_variable_defined?(:@page_title) && !@page_title.nil?
       @page_title
     else
@@ -252,15 +266,15 @@ module ApplicationHelper
       html_safe
     else
       ("<title>" +
-      h(if article.respond_to?(:title)
+      h(if page_title_container
         case  controller
           when 'pages' 
-            @site.search_engine_optimization.page_title_text(article, @site)
+            @site.search_engine_optimization.page_title_text(page_title_container, @site)
           when 'blogs'
-            @site.search_engine_optimization.blog_title_text(article, @site)
+            @site.search_engine_optimization.blog_title_text(page_title_container, @site)
           else
-            @site.search_engine_optimization.page_title_text(
-            I18n.t(:title, :scope => [:messages, scope, controller]), @site)
+            @site.search_engine_optimization.page_title_text(page_title_container, @site)
+#            I18n.t(:title, :scope => [:messages, scope, controller]), @site)
         end
       else
         @site.search_engine_optimization.page_title_text(

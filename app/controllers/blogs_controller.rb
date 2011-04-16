@@ -61,6 +61,9 @@ class BlogsController < ApplicationController
                                 end )
 
       @month = Time.new(cur_month[0..3], cur_month[4..5])
+      def @month.title
+        self.strftime('%Y%m')
+      end
     rescue
       respond_to do |format|
          format.html { 

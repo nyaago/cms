@@ -198,14 +198,31 @@ describe ApplicationHelper do
     
   end
 
+  it "title tag of blog months" do
+    def params
+      {:controller => 'blogs'}
+    end
+    seo = @site.search_engine_optimization
+    seo.blog_title_format = "%page_title% --- %site_title%"
+    seo.save!(:validate => false)
+    @month = Time.now
+    def @month.title
+      self.strftime('%Y%m')
+    end
+    title_tag.should == "<title>#{@month.title} --- #{@site.title}</title>"
+    
+  end
+
+
+
   it "title tag of inquiry" do
     def params
       {:controller => 'inquiry'}
     end
+    @article = nil
     seo = @site.search_engine_optimization
     seo.page_title_format = "%page_title% --- %site_title%"
     seo.save!(:validate => false)
-    @article = @bloga
     title_tag.should == 
         "<title>#{I18n.t(:title, :scope => [:messages, :inquiry])} --- #{@site.title}</title>"
     
@@ -229,11 +246,22 @@ describe ApplicationHelper do
     def params
       {:controller => 'site/setting'}
     end
-    @article = @pagea
+    @article = nil
     title_tag.should == 
         "<title>#{I18n.t(:title, :scope => [:messages, :site, :setting])} | #{@site.title}</title>"
     
   end
+
+  it "title tag of site/post_setting" do
+    def params
+      {:controller => 'site/post_setting'}
+    end
+    @article = nil
+    title_tag.should == 
+        "<title>#{I18n.t(:title, :scope => [:messages, :site, :post_setting])} | #{@site.title}</title>"
+    
+  end
+  
   
   it "title tag of admin/sites" do
     def params
