@@ -49,16 +49,30 @@ module Site::ImagesHelper
   
   def thumb_tag(image)
     if image.exist?(:thumb) 
-      "<img src='#{image.url(:thumb)}' alt='#{image.title}' />".html_safe
+      alternative = if image.alternative
+        image.alternative
+      else
+        image.title
+      end
+      "<img src='#{image.url(:thumb)}' alt='#{alternative}' />".html_safe
     else
       ""
     end
     
   end
   
+  def image_content_type?(image)
+    image.image_content_type?
+  end
+  
   def user_image_tag(image, style = nil)
-    if image.exist?(style) 
-      "<img src='#{image.url(style)}' alt='#{image.title}' />".html_safe
+    if image.exist?(style) && image.image_content_type?
+      alternative = if image.alternative
+        image.alternative
+      else
+        image.title
+      end
+      "<img src='#{image.url(style)}' alt='#{alternative}' />".html_safe
     else
       ""
     end

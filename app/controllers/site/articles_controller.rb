@@ -9,7 +9,7 @@ class Site::ArticlesController < Site::BaseController
   helper :all
 
   # 記事一覧の１ページの件数
-  PER_PAGR = 3
+  PER_PAGR = 20
   
   # 翻訳リソースのスコープ
   #self.class.translation_scope = ["messages", "site", "pages"].freeze
@@ -36,10 +36,16 @@ class Site::ArticlesController < Site::BaseController
                                   1 
                                 end, 
                               :per_page => PER_PAGR)
-
+    
     #p "total -- " + @articles.total_entries.to_s
-    if @articles.size == 0
-      flash[:notice] = I18n.t("none", :scope => self.class.translation_scope)
+    if @articles.size == 0 
+      if params[:page].to_i > 1
+        flash[:notice] = nil
+        params[:page] =  1
+        return self.index
+      else
+        flash[:notice] = I18n.t("none", :scope => self.class.translation_scope)
+      end
     end
     respond_to do |format|
       format.html # index.html.erb
@@ -173,23 +179,20 @@ class Site::ArticlesController < Site::BaseController
       :notice => I18n.t("not_implemented_batch", :scope => self.class.translation_scope)) 
     end
     if params[record_parameter_name][:checked].empty? 
-      return redirect_to(url_for(:action => :index)) 
+      return redirect_to(index_url) 
     end
     # checkされた　行ごとの処理
     params[record_parameter_name][:checked].each do |attr|
       send(processing + '_by_id', attr[1].to_i)
     end
     #
-    redirect_to(url_for(:action => :index), 
+    redirect_to(index_url, 
     :notice => I18n.t("complete_#{processing}_batch", 
       :scope => self.class.translation_scope,
       :count => params[record_parameter_name][:checked].size.to_s)) 
   end
   
-  
-  
   protected 
-  
   
   # 一覧ページへのurlを返す
   def index_url

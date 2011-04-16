@@ -7,7 +7,7 @@
 <% end %>
 <%= form_tag({:action => :process_with_batch},
              {:id => 'process_with_batch', :method => 'get', :name => 'pages'}) do -%>
-
+<%= hidden_field_tag 'page', params[:page], { :id => 'page'}  %>
 <p id="notice"><%= flash[:notice] %></p>
 <div id="batch_and_filtering">
   チェックされたものの

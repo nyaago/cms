@@ -20,11 +20,11 @@ jQuery(function($){
 });
 
 function previewArticle() {
-  $('#blog_article_content').val( CKEDITOR.instances.page_article_content.getData());
+  $('#page_article_content').val( CKEDITOR.instances.page_article_content.getData());
   $.ajax( {
     type: "POST",
     url: "<%= url_for(:action => :create_temp, :id => @article.id) %>",
-    data: $('.edit_blog_article').serialize(),
+    data: $('.edit_page_article').serialize(),
     async: false,
     dataType: 'json',
     success: function(json){
@@ -77,9 +77,8 @@ CKEDITOR.config.imageSelctorUrl =
 
 
 </script>
-
-<div id="edit_article">
 <%= form_for(@article, :url => site_page_path(@article)) do |f| %>
+<div id="edit_article">
   <% if @article.errors.any? %>
     <div id="error_explanation">
       <h2><%= (@article.errors.count).to_s %> のエラーが発生しました</h2>
@@ -280,14 +279,16 @@ CKEDITOR.config.imageSelctorUrl =
 
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-    <%= link_to('プレビュー', 
-      {:controller => '/pages', :action => :preview, :id => @article.id}, 
-      :target => '_preview', :id => :preview_link) %>
-  </div>  
-<% end %>
+
 </div>
+<div class="actions">
+  <%= f.submit %>
+  <%= link_to('プレビュー', 
+    {:controller => '/pages', :action => :preview, :id => @article.id}, 
+    :target => '_preview', :id => :preview_link) %>
+</div>  
+<% end %>
+
 <script type="text/javascript" charset="utf-8">
 /*
 if ( typeof CKEDITOR == 'undefined' )

@@ -8,7 +8,7 @@ class Site::ImagesController < Site::BaseController
   TRANSLATION_SCOPE = ["messages", "site", "images"].freeze
   
   # 記事一覧の１ページの件数
-  PER_PAGR = 8
+  PER_PAGR = 10
 
   # 
   BATCH_PROCESSING_METHODS = ['destroy']
@@ -29,6 +29,9 @@ class Site::ImagesController < Site::BaseController
   def index
     @image = Image.new
     get_list
+    if @images.size == 0
+      flash[:notice] = I18n.t("none", :scope => TRANSLATION_SCOPE)
+    end
     respond_to do |format|
       format.html { render :action => :index }
       format.xml  { render :xml => @images }
@@ -93,10 +96,12 @@ class Site::ImagesController < Site::BaseController
       }
 
     begin
-      @image = Image.new( additional_attrs.merge params[:image] )
-      @image.save!(:validate => true)
-      @image.attributes = params[:image_additional]
-      @image.save!(:validate => true)
+      ActiveRecord::Base.transaction do
+        @image = Image.new( additional_attrs.merge params[:image] )
+        @image.save!(:validate => true)
+        @image.attributes = params[:image_additional]
+        @image.save!(:validate => true)
+      end
         # OK
     rescue => ex
       p ex.message
@@ -241,14 +246,14 @@ class Site::ImagesController < Site::BaseController
       :notice => I18n.t("not_implemented_batch", :scope => TRANSLATION_SCOPE)) 
     end
     if params[:images][:checked].empty? 
-      return redirect_to(url_for(:action => :index)) 
+      return redirect_to(redirect_to(index_url)) 
     end
     # checkされた　行ごとの処理
     params[:images][:checked].each do |attr|
       send(processing + '_by_id', attr[1].to_i)
     end
     #
-    redirect_to(url_for(:action => :index), 
+    redirect_to(index_url, 
     :notice => I18n.t("complete_#{processing}_batch", 
       :scope => TRANSLATION_SCOPE,
       :count => params[:images][:checked].size.to_s)) 
@@ -317,8 +322,10 @@ class Site::ImagesController < Site::BaseController
                               1 
                             end, 
                           :per_page => PER_PAGR)
-    if @images.size == 0
-      flash[:notice] = I18n.t(:none, :scope => TRANSLATION_SCOPE)
+                          
+    if @images.size == 0 && params[:page].to_i > 1 then  
+      params[:page] =  1
+      return self.get_list
     end
   end
 

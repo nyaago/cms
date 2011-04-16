@@ -3,4 +3,6 @@
 <p id="notice"><%= flash[:notice] %></p>
 <%= render 'form' %>
 
-<%= link_to '戻る', url_for(:action => :index) %>
+<div class="back_to">
+<%= link_to '一覧へ戻る', url_for(:action => :index) %>
+</div>

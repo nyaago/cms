@@ -110,9 +110,5 @@
 <% end %>
   
 <div class="actions">
-<% if @article %>
-<%= link_to '編集', site_page_path(@article, 
-    :action => :edit, :page => params[:page]) %> |
-<% end %>
 <%= link_to '一覧へ戻る', url_for(:back) %>
 </div>

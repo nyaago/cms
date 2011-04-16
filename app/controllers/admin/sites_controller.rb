@@ -1,7 +1,7 @@
 class Admin::SitesController < Admin::BaseController
 
   # 記事一覧の１ページの件数
-  PER_PAGR = 3
+  PER_PAGR = 20
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "admin", "sites"].freeze
 
@@ -37,9 +37,12 @@ class Admin::SitesController < Admin::BaseController
             end, 
           :per_page => PER_PAGR)
     # 最終ページより後になっている場合は、1ページ目へ
-    if @sites.size == 0 && params[:page].to_i > 1 then  
-      params[:page] =  1
-      return self.index
+    if @sites.size == 0 
+      if params[:page].to_i > 1 then  
+        flash[:notice] = nil
+        params[:page] =  1
+        return self.index
+      end
     end
     
     if @sites.size == 0
@@ -159,14 +162,16 @@ class Admin::SitesController < Admin::BaseController
     @site.cancellation_reserved_at = date_from_partial(params[:cancellation_reserved_at])
     @user.is_site_admin = true
     begin
-      @site.save!(:validate => true)
-      @user.site = @site
-      @user.save!(:validate => true)
-      respond_to do |format|
-        format.html do 
-          redirect_to(index_url)
+      ActiveRecord::Base.transaction do
+        @site.save!(:validate => true)
+        @user.site = @site
+        @user.save!(:validate => true)
+        respond_to do |format|
+          format.html do 
+            redirect_to(index_url)
+          end
+          format.xml { render :xml => :ok }
         end
-        format.xml { render :xml => :ok }
       end
     rescue
       respond_to do |format|

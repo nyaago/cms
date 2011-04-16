@@ -7,7 +7,7 @@
 <% end %>
 <%= form_tag({:action => :process_with_batch},
              {:id => 'process_with_batch', :method => 'get', :name => 'blogs'}) do -%>
-
+<%= hidden_field_tag 'page', params[:page], { :id => 'page'}  %>
 <p id="notice"><%= flash[:notice] %></p>
 <div id="batch_and_filtering">
   チェックされたものの
@@ -45,7 +45,7 @@
         site_blogs_path(:sort => 'published') %>
     </th>
     <th class="created_at">
-      <%= link_to Article.human_attribute_name(:updated_at), 
+      <%= link_to Article.human_attribute_name(:created_at), 
         site_blogs_path(:sort => 'updated_at') %>
     </th>
     <th class="updated_at">
@@ -56,6 +56,7 @@
     <th class="destroy action"></th>
   </tr>
 
+<% if @articles.size > 0 %>
 <% @articles.each do |article| %>
   <tr>
     <td class="check_for_batch">
@@ -80,6 +81,7 @@
         site_blog_path(article, :action => :destroy) ,
                 :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
   </tr>
+<% end %>
 <% end %>
 </table>
 </div>
