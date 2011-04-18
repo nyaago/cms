@@ -1,6 +1,7 @@
-# = Site::BaseWidgetController
-# Widget 編集 の Base Controller
 module SiteAdmin
+
+  # = SiteAdmin::BaseWidgetController
+  # Widget 編集 の Base Controller
   class BaseWidgetController < BaseController
     
   
@@ -36,7 +37,6 @@ module SiteAdmin
         return
       end
       widget = site_widget.widget
-
       widget.attributes = params[record_parameter_name.to_sym]
       widget.user = current_user
       begin
@@ -97,12 +97,15 @@ module SiteAdmin
   
   end
 
+  # = 各Widget Controller 生成
   # 定義(config/layouts/widget.yml)を読み込み、各具象widget controller クラスを定義
   Layout::Widget.load.each do |widget|
     puts "new class - #{widget.name.capitalize.camelize}"
-    self.const_set("#{widget.name.capitalize.camelize}Controller", Class.new(BaseWidgetController) {
+    self.const_set("#{widget.name.capitalize.camelize}Controller", 
+        Class.new(BaseWidgetController) {
       def record_parameter_name
-        self.class.name.split('::').last.underscore
+        self.class.name.split('::').last[0,self.class.name.split('::').last.
+          index('Controller')].underscore
       end
     } )
   end

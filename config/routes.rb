@@ -94,18 +94,17 @@ Cms::Application.routes.draw do
     match ':site/widgets/:action/:id' => 'widgets#:action#:id#:site'
     match ':site/widgets/:action' => 'widgets#:action#:site'
 
-    match ':site/text_widget/:action/:id' => 'text_widget#:action#:id#:site'
-    match ':site/company_profile_widget/:action/:id' => 'company_profile_widget#:action#:id#:site'
+    Layout::Widget.load.each do |widget|
+      match ":site/#{widget.name}/:action/:id" => "#{widget.name}#:action#:id#:site"
+    end
 
     # Inquiry Item setting
     match ':site/inquiry_items/:action/:id' => 'inquiry_items#:action#:id#:site'
     match ':site/inquiry_items/:action' => 'inquiry_items#:action#:site'
     
-    match ':site/text_inquiry_item/:action/:id' => 'text_inquiry_item#:action#:id#:site'
-    match ':site/radio_inquiry_item/:action/:id' => 'radio_inquiry_item#:action#:id#:site'
-    match ':site/checkbox_inquiry_item/:action/:id' => 'checkbox_inquiry_item#:action#:id#:site'
-    match ':site/email_inquiry_item/:action/:id' => 'email_inquiry_item#:action#:id#:site'
-
+    Layout::InquiryItem.load.each do |item|
+      match ":site/#{item.name}/:action/:id" => "#{item.name}#:action#:id#:site"
+    end
 
     # Images
     match ':site/images' => 'images#index#:site'

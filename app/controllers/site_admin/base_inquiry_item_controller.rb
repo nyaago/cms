@@ -1,7 +1,6 @@
-# = SiteAdmin::BaseInquiryItemController
-# 各問い合わせ項目の編集を行うベース controller
 module SiteAdmin
-
+  # = SiteAdmin::BaseInquiryItemController
+  # 各問い合わせ項目の編集を行うベース controller
   class BaseInquiryItemController < BaseController
   
     # 編集ページを表示
@@ -99,15 +98,17 @@ module SiteAdmin
   
   end
 
+  # = 各 Inquiry Item Controller を生成
   # 定義(config/layouts/widget.yml)を読み込み、各具象widget controller クラスを定義
   Layout::InquiryItem.load.each do |item|
     puts "new class - #{item.name.capitalize.camelize}"
-    self.const_set("#{item.name.capitalize.camelize}Controller", Class.new(BaseInquiryItemController) {
+    self.const_set("#{item.name.capitalize.camelize}Controller", 
+        Class.new(BaseInquiryItemController) {
       def record_parameter_name
-        self.class.name.split('::').last[0,self.class.name.index('Controller')].underscore
+        self.class.name.split('::').last[0,self.class.name.split('::').last.
+          index('Controller')].underscore
       end
     } )
   end
-
 
 end
