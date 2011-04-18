@@ -29,7 +29,7 @@ class UserSessionsController  < ActionController::Base
       if @user_session.user.is_admin
         redirect_back_or_default 'admin/sites'
       else
-        redirect_back_or_default 'site/dashboard', @user_session.user.site.name
+        redirect_back_or_default 'site_admin/dashboard', @user_session.user.site.name
       end
     else
       render :action => :new, :layout => 'no_login'

@@ -100,7 +100,7 @@ module SiteAdmin
   # 定義(config/layouts/widget.yml)を読み込み、各具象widget controller クラスを定義
   Layout::Widget.load.each do |widget|
     puts "new class - #{widget.name.capitalize.camelize}"
-    self.const_set("#{widget.name.capitalize.camelize}", Class.new(BaseWidgetController) {
+    self.const_set("#{widget.name.capitalize.camelize}Controller", Class.new(BaseWidgetController) {
       def record_parameter_name
         self.class.name.split('::').last.underscore
       end

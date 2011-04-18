@@ -35,7 +35,7 @@ Cms::Application.routes.draw do
     match '' => 'sites#index'
   end
 
-  namespace :site, :path => "site" do 
+  namespace :site_admin, :path => "site" do 
 #    resources :login 
 #    resources :articles
 #    scope :controller => :articles do

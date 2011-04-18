@@ -102,9 +102,9 @@ module SiteAdmin
   # 定義(config/layouts/widget.yml)を読み込み、各具象widget controller クラスを定義
   Layout::InquiryItem.load.each do |item|
     puts "new class - #{item.name.capitalize.camelize}"
-    self.const_set("#{item.name.capitalize.camelize}", Class.new(BaseInquiryItemController) {
+    self.const_set("#{item.name.capitalize.camelize}Controller", Class.new(BaseInquiryItemController) {
       def record_parameter_name
-        self.class.name.split('::').last.underscore
+        self.class.name.split('::').last[0,self.class.name.index('Controller')].underscore
       end
     } )
   end

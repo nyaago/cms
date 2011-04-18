@@ -58,7 +58,7 @@
     <td class="created_at"><%= I18n.l site.created_at %></td>
 
     <td class="actions">
-      <%= link_to 'サイト編集', :controller => '/site/dashboard', 
+      <%= link_to 'サイト編集', :controller => '/site_admin/dashboard', 
                             :action => :index, :site => site.name %>
       <%= link_to '基本設定変更',admin_site_path(site, :action => :edit) %>
       <%= link_to '削除',admin_site_path(site, :action => :destroy) ,
