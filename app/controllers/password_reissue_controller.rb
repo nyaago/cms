@@ -1,11 +1,11 @@
-# = SiteAdmin::PasswordReissueController
+# = PasswordReissueController
 # パスワード再発行
-class SiteAdmin::PasswordReissueController < ActionController::Base
+class PasswordReissueController < ::ActionController::Base
   
   layout 'site_no_login'
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site_admin", "password_reissue"].freeze
+  TRANSLATION_SCOPE = ["messages",  "password_reissue"].freeze
   
   # パスワード再発行URLが有効な期限(分)
   PASSWORD_EXPIRATION_MINUTE = 30

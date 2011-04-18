@@ -50,11 +50,6 @@ Cms::Application.routes.draw do
     match ':site/common/:action' => 'common#:action#:site'
     match 'common/:action' => 'common#:action'
 
-    # password reissue
-    match 'password_reissue' => 'password_reissue#index'
-    match 'password_reissue/:action/:id' => 'password_reissue#:action#:id'
-    match 'password_reissue/:action' => 'password_reissue#:action'
-
     # Articles
     match ':site/articles/:action/:id' => 'articles#:action#:id#:site'
     match ':site/articles/:action' => 'articles#:action#:site'
@@ -161,6 +156,11 @@ Cms::Application.routes.draw do
   # inquiry
   match ':site/inquiry' => 'inquiry#index#:site'
   match ':site/inquiry/:action' => 'inquiry#:action#:site'
+
+  # password reissue
+  match 'password_reissue' => 'password_reissue#index'
+  match 'password_reissue/:action/:id' => 'password_reissue#:action#:id'
+  match 'password_reissue/:action' => 'password_reissue#:action'
 
 
   # 公開 - サイトの root

@@ -83,14 +83,6 @@ ja:
         title: "パスワード変更"
         password_changed: "パスワードが変更されました"
 
-      password_reissue:
-        title: "パスワード再発行"
-        accept: "登録されているメイルアドレスに再発行ページへのurlを送信しました。%{minute}分以内に操作してください。"
-        failed_in_sending: "登録されているメイルアドレスへの送信ができませんでした"
-        unknown_account: "入力されたアカウントは登録されていません"
-        invalid_reissue_access: "パスワード再発行の期限が切れたか、URLが適切ではありません"
-        password_reissued: "パスワードが再発行されました"
-      
       informations:
         title: "情報"
         not_found: "記事がみつかりませんでした"
@@ -133,6 +125,15 @@ ja:
   
     inquiry:
       title: "問い合わせ"
+
+    password_reissue:
+      title: "パスワード再発行"
+      accept: "登録されているメイルアドレスに再発行ページへのurlを送信しました。%{minute}分以内に操作してください。"
+      failed_in_sending: "登録されているメイルアドレスへの送信ができませんでした"
+      unknown_account: "入力されたアカウントは登録されていません"
+      invalid_reissue_access: "パスワード再発行の期限が切れたか、URLが適切ではありません"
+      password_reissued: "パスワードが再発行されました"
+  
   
   mailer:
     inquiry:

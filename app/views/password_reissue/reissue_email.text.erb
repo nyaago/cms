@@ -2,5 +2,5 @@
 以下のURLにアクセスしてパスワードを再発行してください。
 操作は、<%= @expiration_minute %> 分以内に完了してください。
 <%= @request.protocol + @request.host_with_port + 
-url_for(:controller => 'site_admin/password_reissue', :action => :edit, 
+url_for(:controller => 'password_reissue', :action => :edit, 
 :reissue_password => @user.reissue_password)  %>
