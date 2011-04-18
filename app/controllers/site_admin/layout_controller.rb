@@ -3,7 +3,7 @@
 class SiteAdmin::LayoutController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "layout"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "layout"].freeze
   
   # indexページ
   # 各レイアウト設定を行うページを表示

@@ -3,7 +3,7 @@
 class SiteAdmin::PostSettingController < SiteAdmin::BaseController
   
     # 翻訳リソースのスコープ
-    TRANSLATION_SCOPE = ["messages", "site", "post_setting"].freeze
+    TRANSLATION_SCOPE = ["messages", "site_admin", "post_setting"].freeze
 
     # indexページ
     # 投稿設定を行うページを表示

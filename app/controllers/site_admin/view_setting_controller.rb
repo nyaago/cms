@@ -3,7 +3,7 @@
 class SiteAdmin::ViewSettingController < SiteAdmin::BaseController
 
     # 翻訳リソースのスコープ
-    TRANSLATION_SCOPE = ["messages", "site", "view_setting"].freeze
+    TRANSLATION_SCOPE = ["messages", "site_admin", "view_setting"].freeze
 
     # indexページ
     # 表示設定を行うページを表示

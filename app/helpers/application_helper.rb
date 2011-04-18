@@ -225,7 +225,7 @@ module ApplicationHelper
     # page title を含むオブジェクト, いずれかの変数
     page_title_variables = [:@article ,:@month, :@page_title]
     controller = params[:controller]
-    matched = /^([a-z]+)\/([_a-z]+)$/.match(controller)
+    matched = /^([_a-z]+)\/([_a-z]+)$/.match(controller)
     scope = if matched 
       matched[1]
     else

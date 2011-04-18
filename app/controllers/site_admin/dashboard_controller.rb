@@ -3,7 +3,7 @@
 class SiteAdmin::DashboardController < SiteAdmin::BaseController
 
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "dashboard"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "dashboard"].freeze
 
   # GET /dashboard
   # 

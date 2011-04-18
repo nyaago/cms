@@ -42,6 +42,10 @@ Cms::Application.routes.draw do
 #      match 'articles/:action/:id' => ':action#:id'
 #      match 'articles/:action' => ':action'
 #    end
+
+    # default - dashboard
+    match ':site' => 'dashboard#index#:site'
+
     
     match ':site/common/:action' => 'common#:action#:site'
     match 'common/:action' => 'common#:action'
@@ -124,9 +128,6 @@ Cms::Application.routes.draw do
     match ':site/password/:action' => 'password#:action#:site'
 
     
-    # default - dashboard
-    match ':site' => 'dashboard#index#:site'
-    match '/' => 'dashboard#index'
     
     resources :users
   end

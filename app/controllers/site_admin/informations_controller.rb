@@ -3,7 +3,7 @@
 class SiteAdmin::InformationsController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "informations"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "informations"].freeze
 
   # GET /informations/1
   # GET /informations/1.xml

@@ -8,7 +8,7 @@ class SiteAdmin::BlogsController < SiteAdmin::ArticlesController
   LIMIT_HISTORY = 20
 
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "blogs"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "blogs"].freeze
 
   # GET /pages/1
   # GET /pages/1.xml

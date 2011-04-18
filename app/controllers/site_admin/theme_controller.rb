@@ -3,7 +3,7 @@
 class SiteAdmin::ThemeController < SiteAdmin::BaseController
 
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "theme"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "theme"].freeze
   
   def index
     @themes = Layout::Theme.load

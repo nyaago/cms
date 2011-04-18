@@ -3,7 +3,7 @@
 class SiteAdmin::OptimizationController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "optimization"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "optimization"].freeze
   
   # indexページ
   # 各SEO設定を行うページを表示

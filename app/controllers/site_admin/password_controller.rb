@@ -3,7 +3,7 @@
 class SiteAdmin::PasswordController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "password"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "password"].freeze
   
   # /password/edit/id
   # password変更ページを表示

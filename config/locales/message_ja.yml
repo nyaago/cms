@@ -3,7 +3,7 @@ ja:
     user_sessions:
       title: "ログイン"
       need_to_login: "ログインしてください"
-    site:
+    site_admin:
       user_sessions:
         title: "ログイン"
         need_to_login: "ログインしてください"

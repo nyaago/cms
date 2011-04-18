@@ -3,7 +3,7 @@
 class SiteAdmin::UsersController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "users"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "users"].freeze
   
   # 
   # GET /site/users

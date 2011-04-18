@@ -229,9 +229,9 @@ describe ApplicationHelper do
   end
 
   
-  it "title tag of site/pages" do
+  it "title tag of site_admin/pages" do
     def params
-      {:controller => 'site/pages'}
+      {:controller => 'site_admin/pages'}
     end
     @article = @blog
     seo = @site.search_engine_optimization
@@ -242,9 +242,9 @@ describe ApplicationHelper do
     
   end
   
-  it "title tag of site/setting" do
+  it "title tag of site_admin/setting" do
     def params
-      {:controller => 'site/setting'}
+      {:controller => 'site_admin/setting'}
     end
     @article = nil
     title_tag.should == 
@@ -252,9 +252,9 @@ describe ApplicationHelper do
     
   end
 
-  it "title tag of site/post_setting" do
+  it "title tag of site_admin/post_setting" do
     def params
-      {:controller => 'site/post_setting'}
+      {:controller => 'site_admin/post_setting'}
     end
     @article = nil
     title_tag.should == 

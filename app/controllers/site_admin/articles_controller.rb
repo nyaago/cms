@@ -12,7 +12,7 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
   PER_PAGR = 20
   
   # 翻訳リソースのスコープ
-  #self.class.translation_scope = ["messages", "site", "pages"].freeze
+  #self.class.translation_scope = ["messages", "site_admin", "pages"].freeze
   # @@translation_scape = nil
   # ソート可能なカラム一覧
   SORTABLE_COLUMN = 

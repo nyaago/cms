@@ -38,7 +38,7 @@
 
 <ul class="menu_group" id="dashboard_menu_group">
 <li>
-  <%=link_to "ダッシュボード", "/site_admin/#{@site.name}" %>
+  <%=link_to "ダッシュボード", :controller => "site_admin/dashboard", :action => :index, :site => @site.name  %>
 </li>
 </ul>
 

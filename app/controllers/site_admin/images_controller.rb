@@ -5,7 +5,7 @@ class SiteAdmin::ImagesController < SiteAdmin::BaseController
   include SiteAdmin::ImagesHelper
   
   # 翻訳リソースのスコープ
-  TRANSLATION_SCOPE = ["messages", "site", "images"].freeze
+  TRANSLATION_SCOPE = ["messages", "site_admin", "images"].freeze
   
   # 記事一覧の１ページの件数
   PER_PAGR = 10
