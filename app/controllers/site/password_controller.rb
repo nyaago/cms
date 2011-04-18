@@ -1,6 +1,6 @@
-# = Site::PasswordController
+# = SiteAdmin::PasswordController
 # Password変更、再発行
-class Site::PasswordController < Site::BaseController
+class SiteAdmin::PasswordController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "password"].freeze

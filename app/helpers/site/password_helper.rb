@@ -1,2 +1,2 @@
-module Site::PasswordHelper
+module SiteAdmin::PasswordHelper
 end

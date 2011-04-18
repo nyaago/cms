@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::PasswordController do
+describe SiteAdmin::PasswordController do
 
 end

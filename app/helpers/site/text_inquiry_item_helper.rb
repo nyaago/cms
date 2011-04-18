@@ -1,2 +1,2 @@
-module Site::TextInquiryItemHelper
+module SiteAdmin::TextInquiryItemHelper
 end

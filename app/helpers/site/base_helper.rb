@@ -1,2 +1,2 @@
-module Site::BaseHelper
+module SiteAdmin::BaseHelper
 end

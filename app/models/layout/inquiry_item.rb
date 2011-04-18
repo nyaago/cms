@@ -38,7 +38,7 @@ module Layout
 
     # 編集を行うcontroller クラス名
     def controller_class_name
-      "Site::#{@name.camelize}"
+      "SiteAdmin::#{@name.camelize}"
     end
     
     # 編集を行うcontroller クラスオブジェクトを返す

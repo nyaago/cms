@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::CommonController do
+describe SiteAdmin::CommonController do
 
 end

@@ -1,2 +1,2 @@
-module Site::WidgetsHelper
+module SiteAdmin::WidgetsHelper
 end

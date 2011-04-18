@@ -1,6 +1,6 @@
-# = Site::ImagesHelper
+# = SiteAdmin::ImagesHelper
 # 画像一覧、アップロードのhelper
-module Site::ImagesHelper
+module SiteAdmin::ImagesHelper
 
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

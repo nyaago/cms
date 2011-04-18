@@ -1,6 +1,6 @@
-# = Site::CheckboxInquiryItemController
+# = SiteAdmin::CheckboxInquiryItemController
 # チェックボックス問い合わせ項目の編集
-class Site::CheckboxInquiryItemController < Site::BaseInquiryItemController
+class SiteAdmin::CheckboxInquiryItemController < SiteAdmin::BaseInquiryItemController
   
   protected
   

@@ -1,2 +1,2 @@
-module Site::CheckboxInquiryItemHelper
+module SiteAdmin::CheckboxInquiryItemHelper
 end

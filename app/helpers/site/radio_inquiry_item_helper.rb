@@ -1,2 +1,2 @@
-module Site::RadioInquiryItemHelper
+module SiteAdmin::RadioInquiryItemHelper
 end

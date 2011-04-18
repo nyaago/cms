@@ -1,6 +1,6 @@
-# = Site::BlogsHelper
+# = SiteAdmin::BlogsHelper
 # サイトの記事編集のHelper
-module Site::BlogsHelper
+module SiteAdmin::BlogsHelper
   
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

@@ -1,7 +1,7 @@
-# = Site::BaseController
+# = SiteAdmin::BaseController
 # サイトユーザの操作に関わるコントローラーのベース.
 # 認証などの共通処理を定義
-class Site::BaseController < ActionController::Base
+class SiteAdmin::BaseController < ActionController::Base
   
   protect_from_forgery # :except => :hoge
   

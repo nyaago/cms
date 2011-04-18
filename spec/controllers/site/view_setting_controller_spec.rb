@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::ViewSettingController do
+describe SiteAdmin::ViewSettingController do
 
 end

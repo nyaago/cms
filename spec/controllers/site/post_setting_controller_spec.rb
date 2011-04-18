@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::PostSettingController do
+describe SiteAdmin::PostSettingController do
 
 end

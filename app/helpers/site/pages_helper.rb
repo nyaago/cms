@@ -1,6 +1,6 @@
-# = Site::ArticlesHelper
+# = SiteAdmin::ArticlesHelper
 # サイトの記事編集のHelper
-module Site::PagesHelper
+module SiteAdmin::PagesHelper
   
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

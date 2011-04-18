@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::ThemeController do
+describe SiteAdmin::ThemeController do
 
 end

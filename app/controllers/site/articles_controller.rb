@@ -1,10 +1,10 @@
-# = Site::PagesController
+# = SiteAdmin::PagesController
 # 記事作成関連のコントローラー
 # == 継承先で作成すべきmethod
 # * articles 
 # * self.model
 # * self.class.translation_scope
-class Site::ArticlesController < Site::BaseController
+class SiteAdmin::ArticlesController < SiteAdmin::BaseController
 
   helper :all
 

@@ -1,4 +1,4 @@
-# = Site::UserController 
+# = Admin::UserController 
 # サイトユーザの管理
 class Admin::UsersController < Admin::BaseController
   

@@ -1,6 +1,6 @@
-# = Site::PostSettingHelper
+# = SiteAdmin::PostSettingHelper
 # 投稿設定の view helper
-module Site::PostSettingHelper
+module SiteAdmin::PostSettingHelper
 
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

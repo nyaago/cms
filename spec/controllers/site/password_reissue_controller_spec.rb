@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::PasswordReissueController do
+describe SiteAdmin::PasswordReissueController do
 
 end

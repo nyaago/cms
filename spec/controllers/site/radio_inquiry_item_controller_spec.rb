@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::RadioInquiryItemController do
+describe SiteAdmin::RadioInquiryItemController do
 
 end

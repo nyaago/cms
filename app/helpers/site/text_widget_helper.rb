@@ -1,2 +1,2 @@
-module Site::TextWidgetHelper
+module SiteAdmin::TextWidgetHelper
 end

@@ -1,6 +1,6 @@
-# = Site::SettingController
+# = SiteAdmin::SettingController
 # サイト一般設定のcontroller
-class Site::SettingController < Site::BaseController
+class SiteAdmin::SettingController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "setting"].freeze

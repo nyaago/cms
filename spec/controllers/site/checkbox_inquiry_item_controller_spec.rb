@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::CheckboxInquiryItemController do
+describe SiteAdmin::CheckboxInquiryItemController do
 
 end

@@ -1,8 +1,8 @@
-# = Site::ImagesController
+# = SiteAdmin::ImagesController
 # 画像一覧、アップロードページのController
-class Site::ImagesController < Site::BaseController
+class SiteAdmin::ImagesController < SiteAdmin::BaseController
 
-  include Site::ImagesHelper
+  include SiteAdmin::ImagesHelper
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "images"].freeze

@@ -1,2 +1,2 @@
-module Site::BaseInquiryItemHelper
+module SiteAdmin::BaseInquiryItemHelper
 end

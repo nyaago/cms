@@ -1,6 +1,6 @@
-# = Site::InquiryItemsController
+# = SiteAdmin::InquiryItemsController
 # 
-class Site::InquiryItemsController < Site::BaseController
+class SiteAdmin::InquiryItemsController < SiteAdmin::BaseController
   
   def index
     @inquiry_items = Layout::InquiryItem.load

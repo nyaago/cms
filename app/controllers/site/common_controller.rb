@@ -1,4 +1,4 @@
-class Site::CommonController < Site::BaseController
+class SiteAdmin::CommonController < SiteAdmin::BaseController
 
   # 機能に対するアクセス不可報告ページを表示
   def inaccessible

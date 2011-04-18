@@ -1,6 +1,6 @@
-# = Site::InformationsController
+# = SiteAdmin::InformationsController
 # 管理者からのお知らせ表示の　controller
-class Site::InformationsController < Site::BaseController
+class SiteAdmin::InformationsController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "informations"].freeze

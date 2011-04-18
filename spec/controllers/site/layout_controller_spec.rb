@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::LayoutController do
+describe SiteAdmin::LayoutController do
 
 end

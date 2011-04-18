@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::OptimizationController do
+describe SiteAdmin::OptimizationController do
 
 end

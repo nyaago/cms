@@ -1,6 +1,6 @@
-# = Site::LayoutHelper
+# = SiteAdmin::LayoutHelper
 # レイアウトデザイン設定の view helper
-module Site::LayoutHelper
+module SiteAdmin::LayoutHelper
   
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

@@ -1,2 +1,2 @@
-module Site::CompanyProfileWidgetHelper
+module SiteAdmin::CompanyProfileWidgetHelper
 end

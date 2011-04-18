@@ -1,2 +1,2 @@
-module Site::InformationsHelper
+module SiteAdmin::InformationsHelper
 end

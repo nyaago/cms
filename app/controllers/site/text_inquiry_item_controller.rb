@@ -1,6 +1,6 @@
-# = Site::TextInquiryItemController
+# = SiteAdmin::TextInquiryItemController
 # Radio button問い合わせ項目の編集
-class Site::TextInquiryItemController < Site::BaseInquiryItemController
+class SiteAdmin::TextInquiryItemController < SiteAdmin::BaseInquiryItemController
   
   protected
   

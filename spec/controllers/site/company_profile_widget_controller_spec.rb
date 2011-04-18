@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::CompanyProfileWidgetController do
+describe SiteAdmin::CompanyProfileWidgetController do
 
 end

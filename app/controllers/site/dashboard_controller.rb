@@ -1,6 +1,6 @@
-# = Site::DashboardController
+# = SiteAdmin::DashboardController
 # dashboard 表示のcontroller
-class Site::DashboardController < Site::BaseController
+class SiteAdmin::DashboardController < SiteAdmin::BaseController
 
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "dashboard"].freeze

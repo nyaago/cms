@@ -1,6 +1,6 @@
-# = Site::OptimizationController
+# = SiteAdmin::OptimizationController
 # SEO設定ページのコントローラー
-class Site::OptimizationController < Site::BaseController
+class SiteAdmin::OptimizationController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "optimization"].freeze

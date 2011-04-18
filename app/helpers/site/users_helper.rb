@@ -1,6 +1,6 @@
-# Site::UsersHelper
+# SiteAdmin::UsersHelper
 # 
-module Site::UsersHelper
+module SiteAdmin::UsersHelper
 
   def site_users_path
     if params[:action] == 'new'

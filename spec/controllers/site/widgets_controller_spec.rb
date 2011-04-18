@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::WidgetsController do
+describe SiteAdmin::WidgetsController do
 
 end

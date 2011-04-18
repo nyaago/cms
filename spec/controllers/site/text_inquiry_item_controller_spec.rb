@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::TextInquiryItemController do
+describe SiteAdmin::TextInquiryItemController do
 
 end

@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::InformationsController do
+describe SiteAdmin::InformationsController do
 
 end

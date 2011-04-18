@@ -1,2 +1,2 @@
-module Site::CommonHelper
+module SiteAdmin::CommonHelper
 end

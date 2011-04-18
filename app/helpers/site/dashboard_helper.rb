@@ -1,2 +1,2 @@
-module Site::DashboardHelper
+module SiteAdmin::DashboardHelper
 end

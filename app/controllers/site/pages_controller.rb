@@ -1,6 +1,6 @@
-# = Site::PagesController
+# = SiteAdmin::PagesController
 # 記事作成関連のコントローラー
-class Site::PagesController < Site::ArticlesController
+class SiteAdmin::PagesController < SiteAdmin::ArticlesController
 
   helper :all
 

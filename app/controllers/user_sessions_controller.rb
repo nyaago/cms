@@ -1,4 +1,4 @@
-# = Site::UserSessionsController
+# = UserSessionsController
 # ユーザセッションのコントローラー.
 # ログイン、ログアウトを実装.
 class UserSessionsController  < ActionController::Base

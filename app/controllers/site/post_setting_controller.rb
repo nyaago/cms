@@ -1,6 +1,6 @@
-# = Site::PostSettingController
+# = SiteAdmin::PostSettingController
 # 投稿設定 controller
-class Site::PostSettingController < Site::BaseController
+class SiteAdmin::PostSettingController < SiteAdmin::BaseController
   
     # 翻訳リソースのスコープ
     TRANSLATION_SCOPE = ["messages", "site", "post_setting"].freeze

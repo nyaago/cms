@@ -1,6 +1,6 @@
-# = Site::ThemeHelper
+# = SiteAdmin::ThemeHelper
 # テーマ選択の view helper
-module Site::ThemeHelper
+module SiteAdmin::ThemeHelper
 
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

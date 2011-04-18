@@ -1,6 +1,6 @@
-# = Site::WidgetsController
+# = SiteAdmin::WidgetsController
 # 表示設定
-class Site::WidgetsController < Site::BaseController
+class SiteAdmin::WidgetsController < SiteAdmin::BaseController
   
   def index
     @widgets = Layout::Widget.load

@@ -1,6 +1,6 @@
-# = Site::EmailInquiryItemController
+# = SiteAdmin::EmailInquiryItemController
 #  EMail 問い合わせ項目の編集
-class Site::EmailInquiryItemController < Site::BaseInquiryItemController
+class SiteAdmin::EmailInquiryItemController < SiteAdmin::BaseInquiryItemController
   
   protected
   

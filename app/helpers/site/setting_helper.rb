@@ -1,6 +1,6 @@
-# = Site::SettingHelper
+# = SiteAdmin::SettingHelper
 # サイト一般設定の view helper
-module Site::SettingHelper
+module SiteAdmin::SettingHelper
   
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

@@ -1,6 +1,6 @@
-# = Site::PasswordReissueController
+# = SiteAdmin::PasswordReissueController
 # パスワード再発行
-class Site::PasswordReissueController < ActionController::Base
+class SiteAdmin::PasswordReissueController < ActionController::Base
   
   layout 'site_no_login'
   

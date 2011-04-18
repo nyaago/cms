@@ -1,6 +1,6 @@
-# = Site::OptimizationHelper
+# = SiteAdmin::OptimizationHelper
 # SEO設定の view helper
-module Site::OptimizationHelper
+module SiteAdmin::OptimizationHelper
   
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

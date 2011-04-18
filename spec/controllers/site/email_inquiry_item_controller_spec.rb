@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Site::EmailInquiryItemController do
+describe SiteAdmin::EmailInquiryItemController do
 
 end

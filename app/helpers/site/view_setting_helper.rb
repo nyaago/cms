@@ -1,6 +1,6 @@
-# = Site::ViewSettingHelper
+# = SiteAdmin::ViewSettingHelper
 # 表示設定の view helper
-module Site::ViewSettingHelper
+module SiteAdmin::ViewSettingHelper
 
   # urlパスを返す.
   # 以下のリクエストパラメーター(params)を参照.Urlのパラメーターに追加する.

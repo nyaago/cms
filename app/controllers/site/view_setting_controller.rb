@@ -1,6 +1,6 @@
-# = Site::ViewSettingController
+# = SiteAdmin::ViewSettingController
 # 表示設定
-class Site::ViewSettingController < Site::BaseController
+class SiteAdmin::ViewSettingController < SiteAdmin::BaseController
 
     # 翻訳リソースのスコープ
     TRANSLATION_SCOPE = ["messages", "site", "view_setting"].freeze

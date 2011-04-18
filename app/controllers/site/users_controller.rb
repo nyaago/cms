@@ -1,6 +1,6 @@
-# = Site::UserController 
+# = SiteAdmin::UserController 
 # サイトユーザの管理
-class Site::UsersController < Site::BaseController
+class SiteAdmin::UsersController < SiteAdmin::BaseController
   
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "users"].freeze

@@ -1,2 +1,2 @@
-module Site::PasswordReissueHelper
+module SiteAdmin::PasswordReissueHelper
 end

@@ -1,6 +1,6 @@
-# == Site::ThemeController
+# == SiteAdmin::ThemeController
 # レイアウトテーマの選択
-class Site::ThemeController < Site::BaseController
+class SiteAdmin::ThemeController < SiteAdmin::BaseController
 
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "site", "theme"].freeze
