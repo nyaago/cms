@@ -248,7 +248,7 @@ describe ApplicationHelper do
     end
     @article = nil
     title_tag.should == 
-        "<title>#{I18n.t(:title, :scope => [:messages, :site, :setting])} | #{@site.title}</title>"
+        "<title>#{I18n.t(:title, :scope => [:messages, :site_admin, :setting])} | #{@site.title}</title>"
     
   end
 
@@ -258,7 +258,7 @@ describe ApplicationHelper do
     end
     @article = nil
     title_tag.should == 
-        "<title>#{I18n.t(:title, :scope => [:messages, :site, :post_setting])} | #{@site.title}</title>"
+        "<title>#{I18n.t(:title, :scope => [:messages, :site_admin, :post_setting])} | #{@site.title}</title>"
     
   end
   

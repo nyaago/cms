@@ -95,7 +95,7 @@ theme_and_layout.txt を参照
 
 == stylesheets
 - サイト管理共通の共通のcss(<application>/public/stylesheets/site.css)と
-[<application>/public/stylesheets/site]以下に、機能グループごとのcssを配置.
+[<application>/public/stylesheets/site_admin]以下に、機能グループごとのcssを配置.
 機能グループごとのcssの名称は<機能グループ名>.cssとなる。
 機能グループ名は、そのページのurlのsite/に続く部分と等しい.
 - その他jqueryプラグインのテーマなどが[<application>/public/stylesheets]に配置されている
@@ -103,7 +103,7 @@ theme_and_layout.txt を参照
 
 == javascripts
 - アプリケーション共通のscript(<application>/public/javascripts/application.js)と
-[<application>/public/javascripts/site]以下に、機能グループごとのcssを配置.
+[<application>/public/javascripts/site_admin]以下に、機能グループごとのjavascriptを配置.
 - ruby on rails が使用するscript - <application>/public/javascripts/rails.js
 - その他jqueryなどOpensourceライブラリーが[<application>/public/javascripts]に配置されている
 
