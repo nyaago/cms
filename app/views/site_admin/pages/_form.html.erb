@@ -77,9 +77,11 @@ CKEDITOR.config.imageSelctorUrl =
 
 
 </script>
-<%= form_for(@article, :url => site_page_path(@article)) do |f| %>
+<%= form_for(@article, :url => site_page_path(@article), 
+:html => { :multipart => true }) do |f| %>
 <div id="edit_article">
-  <% if @article.errors.any? %>
+  <% if @article.errors.any? || 
+    @header_image.errors.any?  %>
     <div id="error_explanation">
       <h2><%= (@article.errors.count).to_s %> のエラーが発生しました</h2>
 
@@ -88,6 +90,17 @@ CKEDITOR.config.imageSelctorUrl =
         <li><%= msg %></li>
       <% end %>
       </ul>
+      <% if @header_image %>
+      <h2>ヘッダー画像に関して
+      <%= pluralize(@header_image.errors.count, "error") %> エラーが発生しました:</h2>
+      
+      <ul>
+      <% @header_image.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      <% end %>
+      
     </div>
   <% end %>
 
@@ -281,6 +294,22 @@ CKEDITOR.config.imageSelctorUrl =
 
 
 </div>
+
+<div class="inputs fields">
+<h2>
+  ヘッダー画像
+</h2>
+<div id="header_image">
+  <div class="field">
+    <%= label 'header', :image, "ファイルを選択" %><br />
+    <%= file_field 'header', :image%>
+    <%= check_box 'delete_image', :header %>ファイルを削除する
+  </div>
+  <%= layout_image_tag(@article, :header) %>
+</div>
+</div>
+
+
 <div class="actions">
   <%= f.submit %>
   <%= link_to('プレビュー', 

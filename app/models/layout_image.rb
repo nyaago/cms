@@ -18,6 +18,7 @@ class LayoutImage < ActiveRecord::Base
 #  require 'RMagick'
 
   belongs_to :site
+  belongs_to :article
   belongs_to :user, :readonly => true, :foreign_key => :updated_by
 
   # Returns the public URL of the attachment, with a given style. Note that

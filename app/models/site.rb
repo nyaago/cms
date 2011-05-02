@@ -5,6 +5,8 @@ class Site < ActiveRecord::Base
 # email の validator を読み込む
 require 'email_validator' 
 
+  include Figure::Site::Capacity
+
   # 作成時のFilter. default値の設定
   before_create :set_default
   # 作成時のFilter. 依存する子のモデルを生成

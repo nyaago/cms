@@ -43,8 +43,17 @@ class SiteAdmin::LayoutController < SiteAdmin::BaseController
       # 画像登録 + site_layoutモデルの登録
       if create_images(@site_layout) && 
         @site_layout.save(:validate => true) 
-        # 
+        # 削除チェックしている画像を削除
         remove_checked_images(@site.site_layout)
+        # 容量オーバーの場合,画像を削除
+        if cancel_uploading_images_if_over_capacity
+          @layout_defs = Layout::DefinitionArrays.new
+          flash[:warning] = I18n.t "over_capacity", :scope => TRANSLATION_SCOPE
+          format.html { render :action => "index" }
+          format.xml  { render :xml => @site.errors, 
+            :status => :unprocessable_entity }
+          return
+        end
         # 古い画像削除
         remove_previos_revison_images
         #
@@ -72,6 +81,7 @@ class SiteAdmin::LayoutController < SiteAdmin::BaseController
   # 各画像モデルのインスタンス作成も行う.
   # 成功すればtrue, エラーがあればfalseを返す
   def create_images(site_layout)
+        
     header_register = ImageRegister.new(@site, params[:header], current_user, 'header')
     if header_register.create
       site_layout.header_image_url = header_register.url
@@ -95,12 +105,34 @@ class SiteAdmin::LayoutController < SiteAdmin::BaseController
     end
     @logo_image = logo_register.image
 
-
     (!header_register.has_error? && 
     !footer_register.has_error? && 
     !background_register.has_error? &&
     !logo_register.has_error?)
   end
+  
+  # 使用容量が超えた場合は,アップロードした画像を削除
+  # 削除した場合はtrue, そうでない場合はfalseを返す.
+  def cancel_uploading_images_if_over_capacity
+    if @site.used_capacity - capacity_previos_revison_images  > 
+            @site.max_mbyte * 1024 * 1024
+      if @header_image 
+        @header_image.destroy
+      end
+      if @footer_image 
+        @footer_image.destroy
+      end
+      if @background_image
+        @background_image.destroy
+      end
+      if @logo_image 
+        @logo_image.destroy
+      end
+      true
+    end
+    false
+  end
+  
   
   # 各画像で、削除のチェックがされているものを削除
   # == parameters
@@ -135,6 +167,32 @@ class SiteAdmin::LayoutController < SiteAdmin::BaseController
     end
   end
     
+  # 最新以外の各画像の容量合計
+  def capacity_previos_revison_images
+    size = 0
+    ['header', 'footer', 'logo', 'background'].each do |loc|
+      size += capacity_previos_revison_image(loc)
+    end
+    size
+  end
+  
+  # 最新以外の画像の容量
+  # == parameters
+  # * location_type - 画像の配置タイプ('header','footer','logo','background')
+  def capacity_previos_revison_image(location_type)
+    images = @site.layout_images.
+                  where("article_id IS NOT NULL").
+                  where('location_type = :location_type', :location_type => location_type).
+                  order('updated_at desc')
+    size = 0
+    images.each_with_index do |image, index|
+      if index != 0 
+        size += image.image_file_size
+      end
+    end
+    size 
+  end
+
   
   # 最新以外の各画像の削除
   def remove_previos_revison_images
@@ -148,6 +206,7 @@ class SiteAdmin::LayoutController < SiteAdmin::BaseController
   # * location_type - 画像の配置タイプ('header','footer','logo','background')
   def remove_previos_revison_image(location_type)
     images = @site.layout_images.
+                  where("article_id IS NOT NULL").
                   where('location_type = :location_type', :location_type => location_type).
                   order('updated_at desc')
     images.each_with_index do |image, index|

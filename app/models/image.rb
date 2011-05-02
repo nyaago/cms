@@ -23,8 +23,6 @@ class Image < ActiveRecord::Base
 #  require 'rubygems'
 #  require 'RMagick'
 
-  # 更新後フィルター.画像のトータルサイズと画像区分フラグを計算して保存
-  before_update :set_calculated_attributes
 
   # 保存前のcallback
   # 各属性の不要な前後空白をぬく
@@ -164,12 +162,29 @@ class Image < ActiveRecord::Base
     s
   end
 
+#  alias_method :save_attached_files_without_calculation, :save_attached_files
+
+#  def save_attached_files
+##    save_attached_files_without_calculation
+#    set_calculated_attributes
+#    self.save!(:validate => false)
+#    false
+#  end
+  
+  # 保存後フィルター.画像のトータルサイズと画像区分フラグを計算して保存
+  # Paperclipのafter_save より後に実行される必要があるので、
+  # ここ（Paperclipをincludeするコードより後）に指定.
+  after_save :set_calculated_attributes
+
   protected
   
   # 画像のトータルサイズと画像区分フラグを計算して保存
   def set_calculated_attributes
-    self.total_size = self.size
+    return true unless self.changed?
+    return true if (size = self.size) == self.total_size
+    self.total_size = size
     self.is_image =  self.image_content_type?
+    self.save!(:validate => false)
     true
   end
 

@@ -82,6 +82,24 @@ describe ApplicationHelper do
     site_layout.theme  = 'default'
     site_layout.save!(:validate => true)
   end
+
+  it "header image tag for article" do
+    
+    site_layout = @site.site_layout
+    image = LayoutImage.create(:image => uploaded_file('header.jpg', 'image/jpg'))
+
+    @article = @pagea
+    image = LayoutImage.create(:image => uploaded_file('ごろにゃん1.png', 'image/jpg'))
+    @article.header_image_url = image.url
+    
+    site_layout.header_image_url = image.url
+    site_layout.save!(:validate => true)
+    exp = Regexp.new("^<img.+src=\"/layout\-images\/#{image.id}\/ごろにゃん1.png?.+\/>$")
+    header_image_tag.should match(exp)
+    exp = Regexp.new("^<img.+alt=\"#{@article.title}\".*\/>$")
+    header_image_tag.should match(exp)
+  end
+
   
   it "header image tag" do
     site_layout = @site.site_layout

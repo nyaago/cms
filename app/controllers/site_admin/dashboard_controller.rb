@@ -12,7 +12,7 @@ class SiteAdmin::DashboardController < SiteAdmin::BaseController
     @informations = Information.order("updated_at desc")
     @blog_count = @site.blogs.count
     @page_count = @site.pages.count
-    @capacity = @site.images.sum("total_size")
+    @capacity = @site.used_capacity
     @widget_count = @site.site_widgets.count 
     @themes = Layout::Theme.load
     @theme = @themes.find_by_name(@site.site_layout.theme)

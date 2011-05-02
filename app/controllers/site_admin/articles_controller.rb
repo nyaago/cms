@@ -57,6 +57,7 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
   # GET /articles/new
   # GET /articles/new.xml
   def new
+    @header_image = LayoutImage.new
     @article = self.class.model.new(:site => @site, :title => '',
                                     :is_temporary => true)
     @article.save!(:validate => false)
@@ -69,6 +70,7 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
 
   # GET /articles/1/edit
   def edit
+    @header_image = LayoutImage.new
     @article = 
     if params[:is_history]
       article = PageArticleHistory.find_by_id_and_site_id(

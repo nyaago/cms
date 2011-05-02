@@ -117,7 +117,7 @@ class SiteAdmin::ImagesController < SiteAdmin::BaseController
       return
     end
     # 容量が超えていないか? - 超えていれば削除.
-    if @site.images.sum("total_size")  > @site.max_mbyte * 1024 * 1024
+    if @site.used_capacity > @site.max_mbyte * 1024 * 1024
       @image.destroy
       flash[:notice] = I18n.t :excess_capacity, :scope =>  TRANSLATION_SCOPE
       respond_to do |format|

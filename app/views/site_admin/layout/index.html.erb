@@ -45,6 +45,7 @@
   <%= SiteLayout.model_name.human %>
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
+<p id="warning"><%= flash[:warning] %></p>
 
 
 <%= form_for(@site.site_layout, :url => site_layout_path(:action => 'update'),

@@ -75,4 +75,18 @@ module SiteAdmin::PagesHelper
     Category::Published.name_with_bool(article.published)
   end
   
+  def layout_image_tag(article, location_type)
+    if article.respond_to?("#{location_type}_image_url".to_sym)
+      url = article.send("#{location_type}_image_url".to_sym)
+      unless url.nil?
+        image_tag(url)
+      else
+        ''
+      end
+    else
+      ''
+    end
+  end
+  
+  
 end

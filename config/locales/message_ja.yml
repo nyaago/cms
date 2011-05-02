@@ -18,13 +18,15 @@ ja:
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
         none: "記事が登録されていません。"
-
+        over_capacity: "画像の容量がが使用容量に達しています"
+        
       theme:
         title: "テーマ"
         updated: "テーマが更新されました"
 
       layout:
         title: "レイアウト"
+        over_capacity: "画像の容量がが使用容量に達しています"
         updated: "レイアウト設定が更新されました"
       
       widgets:
