@@ -12,7 +12,9 @@ class UserSessionsController  < ActionController::Base
     @user_session = UserSession.new
     render :layout => 'no_login'
   end
-
+  
+  # index action
+  # ログインページへの(new action)リダイレクト
   def index
     redirect_to :action => :new
   end
@@ -47,7 +49,7 @@ class UserSessionsController  < ActionController::Base
   
 protected 
 
-  # back_controller で指定されているcontroller の index,
+  # request parameter のback_controller で指定されているcontroller の redirect,
   # またはデフォルトのuriへのリダイレクト
   def redirect_back_or_default(default_controller, default_site = nil)
     redirect_to(:controller =>  if params[:back_controller].blank? 
@@ -58,9 +60,6 @@ protected
                 :action => :index,
                 :site => if params[:site].blank? then  default_site else params[:site] end
                   )
-
-#    redirect_to(session[:return_to] || default)
-    session[:return_to] = nil
   end
 
   # 現在ログインしているユーザセッション情報を得る
@@ -73,6 +72,5 @@ protected
   def current_user
     @current_user ||= current_user_session && current_user_session.user
   end
-  
   
 end

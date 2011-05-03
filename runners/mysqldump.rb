@@ -1,5 +1,6 @@
 # mysqldump でのバックアップを実行
-# 
+# 指定したpathに<database名>_<曜日(0-6)>.dump の名前で出力する.
+# 実行方法 =>
 # ruby <this script> <user> <password> <database> <output path>
 # 
   

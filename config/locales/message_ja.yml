@@ -100,6 +100,8 @@ ja:
         none: "１件も登録されていません"
         not_found: "サイトがみつかりませんでした"
         destroyed: "サイトが削除されました"
+        updated: "サイトの基本情報を更新しました"
+        created: "サイトを作成しました"
       users:
         title: "ユーザ管理"
         updated: "ユーザが更新されました"

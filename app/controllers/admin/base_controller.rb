@@ -20,7 +20,6 @@ class Admin::BaseController < ActionController::Base
     # 翻訳リソースのスコープ
     TRANSLATION_SCOPE = [:messages, :admin].freeze
 
-
     protected
 
     # 現在ログインしているユーザセッション情報を得る
@@ -55,7 +54,7 @@ class Admin::BaseController < ActionController::Base
       return true
     end
 
-    # back_controller で指定されているcontroller の index,
+    # request parameter の back_controller で指定されているcontroller への redirect,
     # またはデフォルトのuriへのリダイレクト
     def redirect_back_or_default(default_controller, default_site = nil)
       redirect_to(:controller =>  if params[:back_controller].blank? 
@@ -66,9 +65,6 @@ class Admin::BaseController < ActionController::Base
                   :action => :index,
                   :site => if params[:site].blank? then  default_site else params[:site] end
                     )
-
-  #    redirect_to(session[:return_to] || default)
-      session[:return_to] = nil
     end
 
     protected
@@ -84,7 +80,6 @@ class Admin::BaseController < ActionController::Base
     # ここでは、常に不可とする.
     # 動作を変更する場合は、継承先でオーバーライドする.
     def accessible_unless_login
-      p "accessible_unless_login - #{false}"
       false
     end
 
@@ -103,6 +98,5 @@ class Admin::BaseController < ActionController::Base
      flash[:error]=nil
      flash[:worn]=nil
     end
-
   
 end

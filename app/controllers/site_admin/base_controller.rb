@@ -19,7 +19,6 @@ class SiteAdmin::BaseController < ActionController::Base
 
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = [:messages, :site].freeze
-
   
   protected
 
@@ -53,20 +52,27 @@ class SiteAdmin::BaseController < ActionController::Base
     else
       current_user.site 
     end
-    if @site.nil?
+    if @site.nil? || @site.name != params[:site]
       render :file => "#{::Rails.root.to_s}/app/views/404.html.erb"      
       return false
     end
     
     @current_user = current_user
+    # 要求されているのが、login せずともアクセス可のページならそれを表示
+    if accessible_unless_login?
+      return false
+    end
+    # ユーザに対してアクセス不可のページ?
     unless accessible_for?(@current_user)
       redirect_to :controller => :common, :action => :inaccessible
       return false
     end
+    # サイトがキャンセルされているなら解約済み報告ページへ
     if @site.canceled && !@current_user.is_admin
       redirect_to :controller => :common, :action => :canceled
       return false
     end
+    # サイトが使用停止にされているならされているなら使用停止報告ページへ
     if @site.suspended && !@current_user.is_admin
       redirect_to :controller => :common, :action => :suspended
       return false
@@ -109,7 +115,6 @@ class SiteAdmin::BaseController < ActionController::Base
   # ここでは、常に不可とする.
   # 動作を変更する場合は、継承先でオーバーライドする.
   def accessible_unless_login?
-    p "accessible_unless_login - #{false}"
     false
   end
 
@@ -130,9 +135,7 @@ class SiteAdmin::BaseController < ActionController::Base
   end
 
   def authenticated?
-    current_user &&
-    (current_user.is_admin ||
-    current_user.site.name == params[:site]  )
+    !!current_user 
   end
   
 end

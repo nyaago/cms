@@ -1,3 +1,5 @@
+# = Admin::SitesController
+# サイト一覧、サイト作成 controller
 class Admin::SitesController < Admin::BaseController
 
   # 記事一覧の１ページの件数
@@ -103,6 +105,7 @@ class Admin::SitesController < Admin::BaseController
     @site.attributes = params[:site]
     @site.cancellation_reserved_at = date_from_partial(params[:cancellation_reserved_at])
     if @site.save(:validate => true)
+      flash[:notice] = I18n.t :updated, :scope => TRANSLATION_SCOPE
       respond_to do |format|
         format.html do 
           redirect_to(index_url)
@@ -154,7 +157,7 @@ class Admin::SitesController < Admin::BaseController
     end
   end
     
-  # Site の新規登録
+  # Site の新規登録.サイトとその管理ユーザを新規作成する.
   # PUT /admin/site/create
   def create
     @site = Site.new(params[:site])
@@ -166,6 +169,7 @@ class Admin::SitesController < Admin::BaseController
         @site.save!(:validate => true)
         @user.site = @site
         @user.save!(:validate => true)
+        flash[:notice] = I18n.t :created, :scope => TRANSLATION_SCOPE
         respond_to do |format|
           format.html do 
             redirect_to(index_url)

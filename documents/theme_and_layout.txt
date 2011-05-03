@@ -16,7 +16,8 @@ themes:
 === html 出力の テンプレート (erbを使用)
 
 app/views/layouts/themes/<theme>/application.html.erb
-    メインのviewテンプレート
+    メインのviewテンプレート. このファイルがない場合は、defaultのテーマ
+    (app/views/layouts/themes/default/application.html.erb)が使用される。
 app/views/layouts/themes/<theme>/_header.html.erb
     headerテンプレート
 app/views/layouts/themes/<theme>/_side.html.erb

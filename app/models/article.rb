@@ -12,10 +12,6 @@ class Article < ActiveRecord::Base
   # 公開開始日時が将来に設定されている場合、公開状態をoffにする
   before_save :check_published
   
-  # 新規作成前のcallback
-  # menu order をサイトでの最大値とする
-  before_create :set_max_menu_order
-  
   # 保存前のcallback
   # 各属性の不要な前後空白をぬく
   before_save :strip_attributes
@@ -118,20 +114,6 @@ class Article < ActiveRecord::Base
     true
   end
 
-  # menu order をサイトでの最大値とする
-  def set_max_menu_order
-    max_article = Article.select('max(menu_order) as max_order').
-                          where('site_id = :site_id', 
-                                :site_id => self.site.id).
-                          first
-    self.menu_order = 
-      if max_article.nil? || max_article.max_order.nil? 
-        1 
-      else 
-        max_article.max_order + 1 
-      end
-    true
-  end
   
   # 公開開始日時が将来に設定されている場合、公開状態をoffにする
   def check_published

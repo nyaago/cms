@@ -1,7 +1,10 @@
 # = 毎時間ごとに実行すべき タスク
 # crontab 設定例 =>
 # 1 * * * * <home>/.rvm/gems/ruby-1.9.2-p136/bin/rails runner <app>/runners/runner_by_hour.rb
-
+# == 実行タスク
+# * 解約予約日時が過ぎていれば解約
+# * 公開予定日時の過ぎている記事を公開
+# * temporary の 記事を削除
 
 # 解約予約日時が過ぎていれば、解約
 def cancel_if_reserved_before(site)

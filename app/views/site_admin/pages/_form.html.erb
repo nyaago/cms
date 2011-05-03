@@ -45,7 +45,7 @@ function previewArticle() {
 function insertImages(images, align) {
 
   var editor = CKEDITOR.instances.page_article_content;
-  var alignStyle = align == "none" ? "" : "align-text: " + align + ";";
+  var alignStyle = align == "none" ? "" : "text-align: " + align + ";";
   $.each(images, function(i) {
     var p;
     var img;
