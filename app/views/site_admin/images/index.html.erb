@@ -106,12 +106,15 @@
              {:id => 'process_with_batch', :method => 'get', :name => 'images'}) do -%>
     <%= hidden_field_tag 'page', params[:page], { :id => 'page'}  %>
 <div id="batch_and_filtering">
+  <span id="batch">
   チェックされたものの
   <%= select_tag('images[processing_method]',
   options_for_select([['削除', 'destroy']]),
   { :include_blank => true }) %>
   <%= button_to_function('一括実行', 'return processBatch();') %>
-  
+  </span>
+  <span id="filtering">
+  作成日が
   <%= select_tag('images[months]',
   options_for_select(
     [['全て', '']] +
@@ -122,7 +125,8 @@
   ), { :include_blank => false, :id => 'filtering_month', :name => 'month'} )
 
   %>
-    <%= button_to_function('フィルター', 'return filterByMonth();') %>
+  で<%= button_to_function('フィルター', 'return filterByMonth();') %>
+  </span>
 </div>
 <% if @images.size > 0 %>
   <%= will_paginate @images,  

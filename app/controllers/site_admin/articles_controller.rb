@@ -24,7 +24,7 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
   # GET /articles.xml
   # 記事一覧の表示
   def index
-    @months = self.class.model.updated_months(@site.id)
+    @months = self.class.model.created_months(@site.id)
     cur_month = if params[:month] then params[:month] else nil end
     @articles = articles.filter_by_updated_month(cur_month).
                         order(order_by).
@@ -201,7 +201,8 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
     url_for(:action => :index, 
       :page => if !params[:page].blank? then params[:page] else 1 end,
       :sort => if !params[:sort].blank? then params[:sort] else nil end,
-      :direction => if !params[:direction].blank? then params[:direction] else nil end
+      :direction => if !params[:direction].blank? then params[:direction] else nil end,
+      :month => if !params[:month].blank? then params[:month] end
       )
   end
   
