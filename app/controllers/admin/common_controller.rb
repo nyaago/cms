@@ -1,3 +1,4 @@
+# = Admin::CommonController
 class Admin::CommonController < Admin::BaseController
 
   # 機能に対するアクセス不可報告ページを表示

@@ -1,8 +1,13 @@
 <h1>
+  <% if @information %> 
   <%= @information.title %>
+  <% else %>
+  記事がみつかりません
+  <% end %>
 </h1>
 
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= flash[:notice] %></p>
+<p id="warning"><%= flash[:warning] %></p>
 
 <% if @information %>
 <div class="information">
@@ -14,11 +19,8 @@
 
 </div>
 <% else %>  
-  <p class='not_found'>
-    指定された記事はみつかりません
-  </p>
 <% end %>
   
 <div class="actions">
-<%= link_to '戻る', url_for(:back) %>
+<%= link_to '戻る', url_for(:controller => :dashboard) %>
 </div>

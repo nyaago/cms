@@ -12,7 +12,7 @@ class SiteAdmin::InformationsController < SiteAdmin::BaseController
     flash[:notice] = ''
     @information = Information.where("id = :id", :id => params[:id]).first
     if @information.nil?
-      flash[:notice] = I18n.t :not_found, :scape => TRANSLATION_SCOPE
+      flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
     end
     respond_to do |format|
       format.html # show.html.erb

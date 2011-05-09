@@ -53,7 +53,7 @@ class SiteAdmin::BaseController < ActionController::Base
       current_user.site 
     end
     if @site.nil? || @site.name != params[:site]
-      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb"      
+      render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", :layout => 'site_no_navi'
       return false
     end
     

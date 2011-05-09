@@ -22,7 +22,7 @@ class Admin::SitesController < Admin::BaseController
   # * direction => ソートの方向(asc | desc)
   def index
     
-    @sites = Site.select('id,name,title,published,suspended,canceled,email,created_at,updated_at')
+    @sites = sites
     if params[:conditions] && params[:conditions][:words]
       params[:conditions][:words].split(/\s+/).each do |word|
         @sites = @sites.where("(name like :word or title like :word or email like :word)",
@@ -83,6 +83,11 @@ class Admin::SitesController < Admin::BaseController
     @user = User.new
     if @site.nil?
       flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
+      respond_to do |format|
+        format.html { redirect_to(index_url) }
+        format.xml  { render :xml => "NG", :status => :unprocessable_entity }
+      end
+      return
     end
     respond_to do |format|
       format.html { render :action => :edit }
@@ -97,8 +102,8 @@ class Admin::SitesController < Admin::BaseController
     if @site.nil?
       flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
       respond_to do |format|
-        format.html { render :action => :edit}
-        format.xml { render :xml => :NG }
+        format.html { redirect_to(index_url) }
+        format.xml  { render :xml => "NG", :status => :unprocessable_entity }
       end
       return
     end
@@ -126,7 +131,7 @@ class Admin::SitesController < Admin::BaseController
   def destroy
     @site = Site.find_by_id(params[:id])
     if @site.nil?
-      flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
+      flash[:warning] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
       respond_to do |format|
         format.html do 
           redirect_to(index_url)
@@ -224,6 +229,12 @@ protected
 
 private
 
+  # 指定された日時要素より、Timeオブジェクトを返す.
+  # == parameters
+  # * date_params - 日時の要素を含むHash, 以下の要素を含む
+  # ** :date
+  # ** :hour 
+  # ** :minute
   def date_from_partial(date_params)
   
     begin
@@ -251,5 +262,8 @@ private
     end
   end
 
+  def sites
+    Site.select('id,name,title,published,suspended,canceled,email,created_at,updated_at')
+  end
   
 end

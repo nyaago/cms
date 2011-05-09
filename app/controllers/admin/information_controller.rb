@@ -5,6 +5,8 @@ class Admin::InformationController < Admin::BaseController
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "admin", "information"].freeze
 
+  # GET admin/information
+  # お知らせ一覧
   def index
     @information = Information.order("updated_at desc")
     respond_to do |format|
@@ -13,13 +15,19 @@ class Admin::InformationController < Admin::BaseController
     end
   end
 
-  # GET admin/information/edit/id
+  # GET admin/information/edit/<id>
   # お知らせ編集
   def edit
-    flash[:notice] = ''
+    clear_flash
     @information = Information.where("id = :id", :id => params[:id]).first
     if @information.nil?
-      flash[:notice] = I18n.t :not_found, :scape => TRANSLATION_SCOPE
+      respond_to do |format|
+        flash[:warning] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
+        format.html { redirect_to(:action => :index) }
+        format.xml  { render :xml => "NG", 
+                :status => :unprocessable_entity }
+      end
+      return
     end
     respond_to do |format|
       format.html # edit.html.erb
@@ -30,7 +38,7 @@ class Admin::InformationController < Admin::BaseController
   # GET admin/information/new
   # お知らせ新規編集
   def new
-    flash[:notice] = ''
+    clear_flash
     @information = Information.new
     respond_to do |format|
       format.html # edit.html.erb
@@ -45,8 +53,8 @@ class Admin::InformationController < Admin::BaseController
                               first
     if @information.nil?
       respond_to do |format|
-        flash[:notice] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
-        format.html { render :action => :edit}
+        flash[:warning] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
+        format.html { redirect_to(:action => :index) }
         format.xml  { render :xml => "NG", 
                 :status => :unprocessable_entity }
       end
@@ -99,7 +107,8 @@ class Admin::InformationController < Admin::BaseController
                               first
     if @information.nil?
       respond_to do |format|
-        format.html { render :action => :index}
+        flash[:warning] = I18n.t :not_found, :scope => TRANSLATION_SCOPE
+        format.html { redirect_to(:action => :index) }
         format.xml  { render :xml => "NG", 
                 :status => :unprocessable_entity }
       end
@@ -114,12 +123,5 @@ class Admin::InformationController < Admin::BaseController
   end
   
   protected
-  
-  # ユーザがこのcontroller の機能を使用可能かどうかを返す.
-  # userがnilでなければOKにする.
-  def accessible_for?(user)
-    !!user
-  end
-  
   
 end
