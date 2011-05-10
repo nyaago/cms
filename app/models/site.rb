@@ -44,6 +44,9 @@ require 'email_validator'
   has_many  :blogs, 
             :class_name => 'BlogArticle',
             :conditions => "is_temporary is null or is_temporary = false"
+  has_many  :page_histories, 
+            :class_name => 'PageArticleHistory',
+            :conditions => "is_temporary is null or is_temporary = false"
   has_many  :images
 
   # レイアウト、設定関連

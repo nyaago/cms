@@ -31,7 +31,8 @@ module SiteAdmin::PagesHelper
     else 
       'asc'
     end,
-    :id => false
+    :id => false,
+    :month => if !params[:month].blank? then params[:month] end
      )
   end
 
@@ -62,7 +63,8 @@ module SiteAdmin::PagesHelper
             :is_history => if article.respond_to?(:article_id) then 1 else  nil end,
             :page => if !params[:page].blank?  then params[:page]  else 1 end,
             :sort => if !params[:sort].blank?  then params[:sort]  else nil end,
-            :direction => if !params[:direction].blank?  then params[:direction]  else nil end
+            :direction => if !params[:direction].blank?  then params[:direction]  else nil end,
+            :month => if !params[:month].blank? then params[:month] end
               )
   end
 

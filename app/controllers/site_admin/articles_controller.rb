@@ -26,7 +26,7 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
   def index
     @months = self.class.model.created_months(@site.id)
     cur_month = if params[:month] then params[:month] else nil end
-    @articles = articles.filter_by_updated_month(cur_month).
+    @articles = articles.filter_by_created_month(cur_month).
                         order(order_by).
                         paginate(
                               :page => 
@@ -73,18 +73,19 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
     @header_image = LayoutImage.new
     @article = 
     if params[:is_history]
-      article = PageArticleHistory.find_by_id_and_site_id(
-        params[:id] ,
-        @site.id)
-      if !article.nil?
-        article.id = article.article_id
+      article = nil
+      if self.respond_to?(:article_histories)
+        article = article_histories.where("id = :id", :id => params[:id]).first
+        if !article.nil?
+          article.id = article.article_id
+        end
       end
       article
     else 
       articles.where("id = :id", :id => params[:id]).first
     end
     if @article.nil?
-      flash[:notice] = I18n.t("not_found", :scope => self.class.translation_scope)
+      flash[:warning] = I18n.t("not_found", :scope => self.class.translation_scope)
     end
     @layout_defs = Layout::DefinitionArrays.new
   end
@@ -115,9 +116,14 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
       @article.attributes = @orig_article.attributes
     end
     
-    # 送信された属性値をcopy
+    # 送信された属性値をcopy, 属性名->page_article|blog_article|page_article_history
     @article.title = ''
-    @article.attributes = params[self.class.model.name.underscore.to_sym]
+    @article.attributes = 
+      if params[self.class.model.name.underscore.to_sym]
+        params[self.class.model.name.underscore.to_sym]
+      else
+        params["#{self.class.model.name.underscore}_history".to_sym]
+      end
     # 
     @article.is_temporary = true
     @article.updated_at = Time.now
@@ -149,7 +155,7 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
     if @article.nil?
       respond_to do |format|
         format.html { redirect_to(index_url, 
-          :notice => I18n.t("not_found", :scope => self.class.translation_scope)) }
+          :warning => I18n.t("not_found", :scope => self.class.translation_scope)) }
         format.xml  { render :xml => @article.errors, 
           :status => :unprocessable_entity }
       end

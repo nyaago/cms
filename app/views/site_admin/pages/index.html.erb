@@ -9,6 +9,8 @@
              {:id => 'process_with_batch', :method => 'get', :name => 'pages'}) do -%>
 <%= hidden_field_tag 'page', params[:page], { :id => 'page'}  %>
 <p id="notice"><%= flash[:notice] %></p>
+<p id="warning"><%= flash[:warning] %></p>
+
 <div id="batch_and_filtering">
   <span id="batch">
   チェックされたものの

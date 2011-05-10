@@ -2,6 +2,8 @@
   <%= PageArticle.model_name.human %>の編集
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
+<p id="warning"><%= flash[:warning] %></p>
+
 <% if @article %>
 <%= render 'form' %>
 <% else %>  

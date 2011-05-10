@@ -2,6 +2,7 @@
   <%= Image.model_name.human %>情報変更
 </h1>
 <p id="notice"><%= flash[:notice] %></p>
+<p id="warning"><%= flash[:warning] %></p>
 
 <%= form_for(@image, :html => { :multipart => true, 
                 #                :target => 'frame'  

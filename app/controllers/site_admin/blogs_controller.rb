@@ -58,7 +58,7 @@ class SiteAdmin::BlogsController < SiteAdmin::ArticlesController
     @article = Article.find_by_id_and_site_id(params[:id], @site.id)
     if @article.nil?
       respond_to do |format|
-        flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
+        flash[:warning] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
         format.html { 
           render :action => "edit" }
         format.xml  { render :xml => @article.errors, 

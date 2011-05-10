@@ -144,7 +144,7 @@ class SiteAdmin::PagesController < SiteAdmin::ArticlesController
     @layout_defs = Layout::DefinitionArrays.new
     if @article.nil?
       respond_to do |format|
-        flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
+        flash[:warning] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)
         format.html { 
           render :action => "edit" }
         format.xml  { render :xml => @article.errors, 
@@ -217,6 +217,11 @@ class SiteAdmin::PagesController < SiteAdmin::ArticlesController
     @site.pages
   end
   
+  # 記事履歴一覧を得る
+  def article_histories
+    @site.page_histories
+  end
+  
   # モデルクラス
   def self.model
     PageArticle
@@ -285,7 +290,7 @@ class SiteAdmin::PagesController < SiteAdmin::ArticlesController
     ['header'].each do |loc|
       size += capacity_previos_revison_image(loc)
     end
-    size
+    sizef
   end
   
   # 最新以外の画像の容量
