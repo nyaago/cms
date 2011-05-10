@@ -30,8 +30,15 @@
     $('#images .check_for_batch:checked').each( function() {
       var checkedId =  $(this).val();
       var url  = '';
+      var thumb = '';
       if($('#image_' + checkedId + "_is_image").val() == "true") {
-        url = $('#image_' + checkedId + "_" + size).val();
+        if(size == 'thumb') {
+          url = $('#image_' + checkedId + "_original" ).val();
+          thumb = $('#image_' + checkedId + "_thumb" ).val();
+        }
+        else {
+          url = $('#image_' + checkedId + "_" + size).val();
+        }
       }
       else {
         url = $('#image_' + checkedId + "_original").val();
@@ -39,6 +46,7 @@
       // alert(url);
       var image = new Array();
       image['url'] = url;
+      image['thumb'] = thumb;
       image['is_image'] = $('#image_' + checkedId + "_is_image").val();
       image['title'] = $('#image_' + checkedId + "_title").val();;
       image['alternative'] = $('#image_' + checkedId + "_alternative").val();;

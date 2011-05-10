@@ -8,8 +8,10 @@
   <meta name="robots" content="all" /> 
   
   <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag "jquery.lightbox-0.5" %>
   <%= csrf_meta_tag %>
   <%= stylesheet_link_tag "common", :media => :all %>
+  <%= stylesheet_link_tag "jquery.lightbox-0.5", :media => :all %>
   <%= site_stylesheet_link_tags :media => :all %>
   <%= rss_link_for_addressbar.html_safe %>
   <style type="text/css">
@@ -17,6 +19,14 @@
   <%= background_css %>
   -->
   </style>
+  
+  <script type="text/javascript" charset="utf-8">
+    
+    jQuery(function($){
+        $('a.lightbox').lightBox(); 
+    });
+  
+  </script>
   
 </head>
 <body>

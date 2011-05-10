@@ -48,14 +48,28 @@ function insertImages(images, align) {
   var alignStyle = align == "none" ? "" : "text-align: " + align + ";";
   $.each(images, function(i) {
     var p;
+    var a = '';
     var img;
     if(this['is_image'] == "true") {
-      p = '<p style="' + alignStyle + '">';
-      p += '</p>';
-      img = '<img src="' + this['url'] +  '" ' + 
-      'alt="' +  (this['alternative'] != "" ? this['alternative'] : this['title'])   +  '" ' +
-      'title="' + this['title'] + '"' +
-      '/>';
+      if(this['thumb'] != '') {
+        p = '<p style="' + alignStyle + '">';
+        p += '</p>';
+        img = '<img src="' + this['thumb'] +  '" ' + 
+        'alt="' +  (this['alternative'] != "" ? this['alternative'] : this['title'])   +  '" ' +
+        '/>';
+        a = '<a href="' + this['url'] +  '" ' + 
+        'title="' + this['title'] + '" ' +
+        'class="lightbox" '  +
+        '/>';
+      }
+      else {
+        p = '<p style="' + alignStyle + '">';
+        p += '</p>';
+        img = '<img src="' + this['url'] +  '" ' + 
+        'alt="' +  (this['alternative'] != "" ? this['alternative'] : this['title'])   +  '" ' +
+        'title="' + this['title'] + '"' +
+        '/>';
+      }
     }
     else {
       p = '<p style="' + alignStyle + '">';
@@ -65,7 +79,14 @@ function insertImages(images, align) {
     var pElement = CKEDITOR.dom.element.createFromHtml(p);
     var imgElement = CKEDITOR.dom.element.createFromHtml(img);
     editor.insertElement(pElement);
-    pElement.append(imgElement);
+    if(a != '') {
+      var aElement = CKEDITOR.dom.element.createFromHtml(a);
+      pElement.append(aElement );
+      aElement.append(imgElement );
+    }
+    else {
+      pElement.append(imgElement);
+    }
   }
   );
 
