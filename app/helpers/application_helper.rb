@@ -91,7 +91,7 @@ module ApplicationHelper
   
   # header 画像のhtmlタグを返す
   def header_image_tag
-    if instance_variable_defined?(:@article) && !@article.header_image_url.blank? 
+    if instance_variable_defined?(:@article) && @article && !@article.header_image_url.blank? 
       image_tag(@article.header_image_url, :alt => @article.title)
     elsif !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.header_image_url.blank?
       image_tag(@site.site_layout.header_image_url, :alt => @site.title)
