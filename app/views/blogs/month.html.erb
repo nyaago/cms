@@ -24,7 +24,7 @@
 <% end %>
 
 <% if @articles.size > 0 %>
-  <%= will_paginate @articles, :prev_label => '<=', :next_label => '=>' %>
+  <%= will_paginate @articles, :previous_label => '<=', :next_label => '=>' %>
 <% end %>
 
 <div class="actions">  

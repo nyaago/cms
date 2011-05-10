@@ -142,7 +142,7 @@
 <% if @images.size > 0 %>
   <%= will_paginate @images,  
     :params=>{:display_upload=>0}, 
-    :prev_label => '<=', :next_label => '=>' %>
+    :previous_label => '<=', :next_label => '=>' %>
 <% end %>
 
 <table id="images">
@@ -199,7 +199,7 @@
 <% if @images.size > 0 %>
     <%= will_paginate @images,  
       :params=>{:display_upload=>0}, 
-      :prev_label => '<=', :next_label => '=>' %>
+      :previous_label => '<=', :next_label => '=>' %>
 <% end %>
 
 </div>
