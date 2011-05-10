@@ -33,7 +33,15 @@ $(document).ready( function(){
 </script>
 
 <p id="notice"><%= flash[:notice] %></p>
+<p class="explanation">「選択可能な項目」から「選択された項目」にドラッグして追加してください。<p>
+<p class="explanation">「選択された項目」内の項目をドラッグすることにより並び換えができます。<p>
+
 <div id="inquiry_items" class="selectable" >
+  <div class="inquiry_items_title">
+    <h4>
+      選択可能な項目
+    </h4>
+  </div>
 
 <% @inquiry_items.each_with_index do |inquiry_item, i| %>
 <div class="inquiry_item" id="<%= inquiry_item.name %>">

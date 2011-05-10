@@ -227,8 +227,8 @@ ja:
       unpublished: "下書き"
 
     is_home:
-      is_home: "トップページである"
-      not_home: "トップページでない"
+      is_home: "○"
+      not_home: ""
       
     heading_level:
       h1: "見出し１"

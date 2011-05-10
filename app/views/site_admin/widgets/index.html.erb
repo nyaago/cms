@@ -36,8 +36,14 @@
 </script>
 
 <p id="notice"><%= flash[:notice] %></p>
+<p class="explanation">選択可能なウィジットから配置先にドラッグして追加してください。<p>
+<p class="explanation">配置先のエリア内でウィジットをドラッグすることにより並び換えができます。<p>
 <div id="widgets" >
-
+  <div class="widget_area_title">
+    <h4>
+      選択可能なウィジット
+    </h4>
+  </div>
 <% @widgets.each_with_index do |widget, i| %>
 <div class="widget selectable" id="<%= widget.name %>">
   <div class="widget_title">

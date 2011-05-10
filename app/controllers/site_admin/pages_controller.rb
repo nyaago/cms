@@ -290,7 +290,7 @@ class SiteAdmin::PagesController < SiteAdmin::ArticlesController
     ['header'].each do |loc|
       size += capacity_previos_revison_image(loc)
     end
-    sizef
+    size
   end
   
   # 最新以外の画像の容量
