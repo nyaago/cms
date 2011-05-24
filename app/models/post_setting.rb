@@ -13,7 +13,7 @@ class PostSetting < ActiveRecord::Base
   include ::ReversibleCipher
 
   # 新規作成前のフィルターdefault 値の設定.
-  before_create :set_default
+  before_create :set_default!
 
   before_save   :crypt_password
   
@@ -32,7 +32,7 @@ class PostSetting < ActiveRecord::Base
 
   # 保存前のフィルター
   # 各属性の不要な前後空白をぬく
-  before_save :strip_attributes
+  before_save :strip_attributes!
 
 
   # pop3パスワードを返す.
@@ -76,7 +76,7 @@ class PostSetting < ActiveRecord::Base
   protected
   
   # default 値の設定
-  def set_default
+  def set_default!
     self.editor_row_count = 10
     self.pop3_port = 110
   end
@@ -85,7 +85,7 @@ class PostSetting < ActiveRecord::Base
   end
 
   # 各属性の不要な前後空白をぬく
-  def strip_attributes
+  def strip_attributes!
     !pop3_host.nil? && pop3_host.strip_with_full_size_space!
     !pop3_login.nil? && pop3_login.strip_with_full_size_space!
     true

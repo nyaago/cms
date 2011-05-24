@@ -26,7 +26,7 @@ class Image < ActiveRecord::Base
 
   # 保存前のcallback
   # 各属性の不要な前後空白をぬく
-  before_save :strip_attributes
+  before_save :strip_attributes!
 
   # Returns the public URL of the attachment, with a given style. Note that
   # this does not necessarily need to point to a file that your web server
@@ -174,12 +174,12 @@ class Image < ActiveRecord::Base
   # 保存後フィルター.画像のトータルサイズと画像区分フラグを計算して保存
   # Paperclipのafter_save より後に実行される必要があるので、
   # ここ（Paperclipをincludeするコードより後）に指定.
-  after_save :set_calculated_attributes
+  after_save :set_calculated_attributes!
 
   protected
   
   # 画像のトータルサイズと画像区分フラグを計算して保存
-  def set_calculated_attributes
+  def set_calculated_attributes!
     return true unless self.changed?
     return true if (size = self.size) == self.total_size
     self.total_size = size
@@ -189,7 +189,7 @@ class Image < ActiveRecord::Base
   end
 
   # 各属性の不要な前後空白をぬく
-  def strip_attributes
+  def strip_attributes!
     begin
       if self.respond_to?(:title) 
         title.strip_with_full_size_space! unless title.nil?  

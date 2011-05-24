@@ -17,12 +17,12 @@ class SiteLayout < ActiveRecord::Base
   belongs_to :user, :readonly => true, :foreign_key => :updated_by
   
   # 作成時のFilter. default値の設定
-  before_create :set_default
+  before_create :set_default!
   
   # formatに関する属性について.そのformatの属性への値設定
-  before_update :set_format
+  before_update :set_format!
   # locationに関する属性について.そのformatの属性への値設定
-  before_update :set_location
+  before_update :set_location!
   
   # @deprecated
   # タイトルタグフォーマット属性より、タイトルに表示する値を得る
@@ -150,7 +150,7 @@ class SiteLayout < ActiveRecord::Base
   protected
   
   # default値の設定
-  def set_default
+  def set_default!
     self.theme = 'default'
     self.eye_catch_type = 'none'
     self.font_size = 'default'
@@ -163,8 +163,10 @@ class SiteLayout < ActiveRecord::Base
   end
 
   # formatに関する属性について.そのformatの属性への値設定
+  # <attr_name>属性の値に設定されている値をもとに<attr_name>_format 属性への値設定を行う.
+  # config/layout/<attr_name>.yml の定義とマッピングして行う。
   #   (現行では,title_tag属性の値に対応するtitle_tag_format属性への値設定)
-  def set_format
+  def set_format!
     defs = Layout::DefinitionArrays.new
     ["title_tag"].
     each do |attr_name|
@@ -177,8 +179,10 @@ class SiteLayout < ActiveRecord::Base
   end
 
   # locationに関する属性について.そのlocationの属性への値設定
-  #   (現行では,eye_catch_type属性の値に対応するeye_catch_type_format属性への値設定)
-  def set_location
+  # <attr_name>属性の値に設定されている値をもとに<attr_name>_location 属性への値設定を行う.
+  # config/layout/<attr_name>.yml の定義とマッピングして行う。
+  #   (現行では,eye_catch_type属性の値に対応するeye_catch_type_location属性への値設定)
+  def set_location!
     defs = Layout::DefinitionArrays.new
     ["eye_catch_type"].
     each do |attr_name|

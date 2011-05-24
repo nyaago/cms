@@ -10,22 +10,18 @@ class Article < ActiveRecord::Base
 
   # 保存前のcallback
   # 公開開始日時が将来に設定されている場合、公開状態をoffにする
-  before_save :check_published
+  before_save :check_published!
   
   # 保存前のcallback
   # 各属性の不要な前後空白をぬく
-  before_save :strip_attributes
+  before_save :strip_attributes!
 
   # 更新前のFilter
   # 公開予約日が過ぎていれば, 公開Onにする
   # before_update :published_if_require_before
-  
+
+  # 翻訳リソースのscope
   TRANSLATION_SCOPE = [:errors, :messages]
-  
-  # 記事タイプ
-  TYPE_PAGE = 1
-  TYPE_BLOG = 2
-  
 
   belongs_to :site, :readonly => true
   belongs_to :user, :readonly => true, :foreign_key => :updated_by
@@ -116,7 +112,7 @@ class Article < ActiveRecord::Base
 
   
   # 公開開始日時が将来に設定されている場合、公開状態をoffにする
-  def check_published
+  def check_published!
     unless published_from.nil?
       if Time.now < published_from
         self.published = nil
@@ -126,7 +122,7 @@ class Article < ActiveRecord::Base
   end
 
   # 各属性の不要な前後空白をぬく
-  def strip_attributes
+  def strip_attributes!
     begin
       if self.respond_to?(:name) 
         name.strip_with_full_size_space! unless name.nil?

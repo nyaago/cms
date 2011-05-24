@@ -8,7 +8,7 @@ require 'email_validator'
   include Figure::Site::Capacity
 
   # 作成時のFilter. default値の設定
-  before_create :set_default
+  before_create :set_default!
   # 作成時のFilter. 依存する子のモデルを生成
   after_create  :create_dependance
   # 更新後のFilter. (存在しなければ)依存する子のモデルを生成
@@ -16,7 +16,7 @@ require 'email_validator'
   # 更新前のFilter. cancel予約されている日時が過ぎていれば, cancelする.
   #before_update :cancel_if_reserved_before
   # 更新前のFilter . cancelされたなら、cancel日時を設定
-  before_update :set_canceled_at_if_canceled
+  before_update :set_canceled_at_if_canceled!
 
   # validator
   validates_presence_of :email
@@ -66,6 +66,7 @@ require 'email_validator'
               :dependent => :destroy
   end
   
+  # 問い合わせの入力項目の関連
   has_many :site_inquiry_items
   Layout::InquiryItem.load.each do |item|
     has_many  item.name.pluralize.to_sym, :through => :site_inquiry_items,
@@ -122,11 +123,11 @@ require 'email_validator'
   protected
   
   # default値の設定
-  def set_default
+  def set_default!
   end
   
   # cancelされたなら、cancel日時を設定
-  def set_canceled_at_if_canceled
+  def set_canceled_at_if_canceled!
     if self.canceled_at.nil? && self.canceled
       self.canceled_at = Time.now
     end

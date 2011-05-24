@@ -7,7 +7,7 @@ class PageArticle < Article
 
   # 新規作成前のcallback
   # menu order をサイトでの最大値とする
-  before_create :set_max_menu_order
+  before_create :set_max_menu_order!
   
   has_many   :page_article_histories
 
@@ -164,7 +164,7 @@ class PageArticle < Article
   protected
   
   # menu order をサイトでの最大値とする
-  def set_max_menu_order
+  def set_max_menu_order!
     max_article = self.site.pages.select('max(menu_order) as max_order').
                           first
     self.menu_order = 

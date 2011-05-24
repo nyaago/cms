@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110408085326) do
+ActiveRecord::Schema.define(:version => 20110427062125) do
 
   create_table "article_histories", :force => true do |t|
     t.integer  "article_id",                                          :null => false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20110408085326) do
     t.string   "column_layout",    :limit => 20
     t.boolean  "is_temporary"
     t.integer  "parent_id"
+    t.string   "header_image_url"
   end
 
   create_table "articles", :force => true do |t|
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20110408085326) do
     t.boolean  "is_temporary"
     t.integer  "parent_id"
     t.string   "column_layout",    :limit => 20
+    t.string   "header_image_url"
   end
 
   create_table "checkbox_inquiry_items", :force => true do |t|
@@ -115,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20110408085326) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "updated_by"
   end
 
   create_table "layout_images", :force => true do |t|
@@ -126,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20110408085326) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "updated_by"
+    t.integer  "article_id"
   end
 
   create_table "post_settings", :force => true do |t|

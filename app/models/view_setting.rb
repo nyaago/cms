@@ -3,7 +3,7 @@
 class ViewSetting < ActiveRecord::Base
   
   # 新規作成前のフィルター.default 値の設定.
-  before_create :set_default
+  before_create :set_default!
   
   # サイトへの所属関連
   belongs_to :site
@@ -26,7 +26,7 @@ class ViewSetting < ActiveRecord::Base
   protected
   
   # default 値の設定.
-  def set_default
+  def set_default!
     self.title_count_in_home = 5 if self.title_count_in_home.nil?
     self.article_count_per_page = 5 if self.article_count_per_page.nil?
     self.rss_type = "rss2" if self.rss_type.nil?

@@ -10,11 +10,11 @@ class SearchEngineOptimization < ActiveRecord::Base
   
   # record生成時のfilter.
   # default値の設定を行う.
-  before_create :set_default
+  before_create :set_default!
   
   # 保存前のフィルター
   # 各属性の不要な前後空白をぬく
-  before_save :strip_attributes
+  before_save :strip_attributes!
 
   
   # フォーマット属性より、ページ記事のタイトルに表示する値を得る
@@ -59,7 +59,7 @@ class SearchEngineOptimization < ActiveRecord::Base
   protected
 
   # default値の設定
-  def set_default
+  def set_default!
     self.page_title_format = "#{self.class::REPLACE_MAP_FOR_ARTICLE.to_a[0][0]} | " + 
                               "#{self.class::REPLACE_MAP_FOR_SITE.to_a[0][0]}"
     self.blog_title_format = "#{self.class::REPLACE_MAP_FOR_ARTICLE.to_a[0][0]} | " + 
@@ -72,7 +72,7 @@ class SearchEngineOptimization < ActiveRecord::Base
   end
   
   # 各属性の不要な前後空白をぬく
-  def strip_attributes
+  def strip_attributes!
     !page_keywords.nil? && page_keywords.strip_with_full_size_space!
     !blog_keywords.nil? && blog_keywords.strip_with_full_size_space!
     !page_description.nil? && page_description.strip_with_full_size_space!
