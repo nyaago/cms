@@ -41,6 +41,9 @@ module Cms
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
     
+    # logger - daily で rotate
+    config.logger = Logger.new(Rails.configuration.paths.log.paths.first, 'daily')
+    
     config.generators do |g|
       g.test_framework :rspec
     end
