@@ -7,6 +7,10 @@ require 'domain_validator'
 class PostSetting < ActiveRecord::Base
 
   @@password_for_cipher = Rails.application.config.secret_token_for_pop3_password
+  if @@password_for_cipher.blank? || @@password_for_cipher.size < 16
+    raise ArgumentError, "secret is required to generate an integrity hash for cookie session data. " + 
+    "Use config.secret_token_for_pop3_password = \"some secret phrase of at least 16 characters\"in config/application.rb"
+  end
 
   # 暗号化、複合化モジュールをinclude
   # see lib/reversile_cipher
@@ -15,8 +19,6 @@ class PostSetting < ActiveRecord::Base
   # 新規作成前のフィルターdefault 値の設定.
   before_create :set_default!
 
-  before_save   :crypt_password
-  
   # サイトへの所属関連
   belongs_to :site
   belongs_to :user, :readonly => true, :foreign_key => :updated_by
@@ -36,7 +38,8 @@ class PostSetting < ActiveRecord::Base
 
 
   # pop3パスワードを返す.
-  # @pop3_passwordで設定されていなければ,pop3_crypted_password属性から復号化
+  # @pop3_passwordで設定されていなければ,pop3_crypted_password属性,
+  # pop3_password_salt属性から復号化
   def pop3_password
     @pop3_password = if @pop3_password.blank?  && 
           !self.pop3_crypted_password.blank? &&
@@ -52,7 +55,7 @@ class PostSetting < ActiveRecord::Base
   end
 
   # pop3のパスワードを設定.
-  # 暗号化して、pop3_crypted_password属性への設定も行う.
+  # 暗号化して、pop3_crypted_password属性, pop3_password_salt属性への設定も行う.
   def pop3_password= (password)
     if password.blank?
       self.pop3_crypted_password = nil
@@ -72,16 +75,12 @@ class PostSetting < ActiveRecord::Base
         
   end
 
-
   protected
   
   # default 値の設定
   def set_default!
     self.editor_row_count = 10
     self.pop3_port = 110
-  end
-
-  def crypt_password
   end
 
   # 各属性の不要な前後空白をぬく

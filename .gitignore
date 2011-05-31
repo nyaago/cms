@@ -12,4 +12,5 @@ app/**/.DS_Store
 rdoc
 documents/private/*
 config/email.yml
-
+config/initializers/secret_token.rb
+config/database.yml
