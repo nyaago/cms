@@ -44,10 +44,15 @@ class PostSetting < ActiveRecord::Base
     @pop3_password = if @pop3_password.blank?  && 
           !self.pop3_crypted_password.blank? &&
           !self.pop3_password_salt.blank?
-      decrypt([self.pop3_crypted_password].pack("H*").force_encoding("ASCII-8BIT"), 
-              @@password_for_cipher,
-              [self.pop3_password_salt].pack("H*").force_encoding("ASCII-8BIT")).
-          force_encoding("UTF-8")
+      begin
+        decrypt([self.pop3_crypted_password].pack("H*").force_encoding("ASCII-8BIT"), 
+                @@password_for_cipher,
+                [self.pop3_password_salt].pack("H*").force_encoding("ASCII-8BIT")).
+            force_encoding("UTF-8")
+      rescue => e
+        p e.backtrace
+        ''
+      end
     else
       @pop3_password
     end
