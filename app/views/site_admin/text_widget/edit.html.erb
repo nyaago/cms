@@ -1,4 +1,4 @@
-<div class="edit_widget" id="edit_widget_<%= @widget.id %>" style="display:none;">
+<div class="edit_widget edit_text_widget" id="edit_widget_<%= @widget.id %>" style="display:none;">
 <%= form_for(@widget, :url => url_for(:action => :update)) do |f| %>
   <div id="error_explanation" style="display:none;">
     <h2 id="error_count"></h2>
@@ -11,7 +11,7 @@
       <%= f.label :title %>
       <%= f.text_field :title %>
     </div>
-    <div class="field" id="title_filed">
+    <div class="field" id="content_filed">
       <%= f.label :content %>
       <%= f.text_area :content, :rows => 8, :cols => 20 %>
     </div>

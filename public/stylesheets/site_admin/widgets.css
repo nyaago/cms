@@ -1,3 +1,7 @@
+/* ウィジット選択ページ
+ ================================== */
+
+
 #widgets {
   float: left; 
   border-style: solid; 
@@ -20,8 +24,6 @@
   margin-right: 10px;
   
 }
-
-
 
 .widget_title h4{
   margin:0;
@@ -72,4 +74,200 @@
 .widget_area_content .widget_title {
 }
 
+/* 会社情報ウィジット
+ ================================== */
+/* 
+-------------- */
+.edit_company_profile_widget {
+
+}
+
+/* 入力領域
+-------------- */
+.edit_company_profile_widget #widget_fields {
+
+}
+
+/* 各入力項目div-共通
+-------------- */
+.edit_company_profile_widget .fields {
+
+}
+
+
+
+/* 名前
+-------------- */
+.edit_company_profile_widget #widget_fields #name_field{
+
+}
+
+.edit_company_profile_widget #widget_fields #name_field label {
+
+}
+
+.edit_company_profile_widget #widget_fields #name_field input {
+
+}
+
+
+/* 住所
+-------------- */
+.edit_company_profile_widget #widget_fields #address_filed{
+
+}
+
+.edit_company_profile_widget #widget_fields #address_filed label {
+
+}
+
+.edit_company_profile_widget #widget_fields #address_filed input {
+
+}
+
+/* 住所
+-------------- */
+.edit_company_profile_widget #widget_fields #zip_code_filed{
+
+}
+
+.edit_company_profile_widget #widget_fields #zip_code_filed label {
+
+}
+
+.edit_company_profile_widget #widget_fields #zip_code_filed input {
+
+}
+
+/* tel
+-------------- */
+.edit_company_profile_widget #widget_fields #tel_no_filed{
+
+}
+
+.edit_company_profile_widget #widget_fields #tel_no_filed label {
+
+}
+
+.edit_company_profile_widget #widget_fields #tel_no_filed input {
+
+}
+
+/* 営業時間
+-------------- */
+.edit_company_profile_widget #widget_fields #business_hours_filed{
+
+}
+
+.edit_company_profile_widget #widget_fields #business_hours_filed label {
+
+}
+
+.edit_company_profile_widget #widget_fields #business_hours_filed input {
+
+}
+
+/* 休日
+-------------- */
+.edit_company_profile_widget #widget_fields #regular_holidays_filed{
+
+}
+
+.edit_company_profile_widget #widget_fields #regular_holidays_filed label {
+
+}
+
+.edit_company_profile_widget #widget_fields #regular_holidays_filed input {
+
+}
+
+/* email
+-------------- */
+.edit_company_profile_widget #widget_fields #email_filed{
+
+}
+
+.edit_company_profile_widget #widget_fields #email_filed label {
+
+}
+
+.edit_company_profile_widget #widget_fields #email_filed input {
+
+}
+
+/* url1
+-------------- */
+.edit_company_profile_widget #widget_fields #link_url1_filed{
+
+}
+
+.edit_company_profile_widget #widget_fields #link_url1_filed label {
+
+}
+
+.edit_company_profile_widget #widget_fields #link_url1_filed input {
+
+}
+
+/* url2
+-------------- */
+.edit_company_profile_widget #widget_fields #link_url2_filed{
+
+}
+
+.edit_company_profile_widget #widget_fields #link_url2_filed label {
+
+}
+
+.edit_company_profile_widget #widget_fields #link_url2_filed input {
+
+}
+
+/* テキストウィジット
+ ================================== */
+/* 
+-------------- */
+.edit_text_widget {
+
+}
+
+/* 入力領域
+-------------- */
+.edit_text_widget #widget_fields {
+
+}
+
+/* 各入力項目div-共通
+-------------- */
+.edit_text_widget .fields {
+
+}
+
+/* タイトル
+-------------- */
+.edit_text_widget .fields #title {
+
+}
+
+.edit_text_widget .fields #title label {
+
+}
+
+.edit_text_widget .fields #title input {
+
+}
+
+/* 内容
+-------------- */
+.edit_text_widget .fields #content_filed {
+
+}
+
+.edit_text_widget .fields #content_filed label {
+
+}
+
+.edit_text_widget .fields #content_filed textarea {
+
+}
 

@@ -1,3 +1,6 @@
+/* 選択ページ
+ ================================== */
+
 #inquiry_items {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -83,18 +86,334 @@
 }
 
 
+/* Radio ボタンの 設定ダイアログ
+======================== */
 
-/*
- * Radio ボタン項目
-*/
+/* top のdiv
+---------------------- */
+div.edit_radio_inquiry_item {
+  
+}
 
-.radio_inquiry_item_value_field  {
+/* 入力領域
+---------------------- */
+#radio_inquiry_item_fields {
+  
+}
+
+/* タイトル
+---------------------- */
+#radio_inquiry_item_fields #title_field {
+  
+}
+
+#radio_inquiry_item_fields #title_field label {
+  
+}
+
+#radio_inquiry_item_fields #title_field input {
+  
+}
+
+
+/* 各ラジオボタンの設定入力
+---------------------- */
+#radio_inquiry_item_fields  .radio_inquiry_item_value_field  {
   margin-top: 2px;
   margin-bottom: 2px;
   margin-left: 4px;
   margin-right: 4px;
   border-width: thin;
 }
-.radio_inquiry_item_value_field .radio_inquiry_item_value_text {
-  width: 12em;
+
+/* テキスト */
+#radio_inquiry_item_fields  .radio_inquiry_item_value_field  .radio_inquiry_item_value_text {
 }
+
+/* ボタン */
+#radio_inquiry_item_fields  .radio_inquiry_item_value_field  input[type='button'] {
+}
+
+/* ラジオ */
+#radio_inquiry_item_fields  .radio_inquiry_item_value_field  input[type='radio'] {
+}
+
+/*  */
+#radio_inquiry_item_fields  .radio_inquiry_item_value_field  label {
+}
+
+
+/* 表示
+---------------------- */
+#radio_inquiry_item_fields #displayed_field {
+  
+}
+
+#radio_inquiry_item_fields #displayed_field label {
+  
+}
+
+#radio_inquiry_item_fields #displayed_field input {
+  
+}
+
+/* 必須
+---------------------- */
+#radio_inquiry_item_fields #required_field {
+  
+}
+
+#radio_inquiry_item_fields #required_field label {
+  
+}
+
+#radio_inquiry_item_fields #required_field input {
+  
+}
+
+
+/* テキストの設定ダイアログ
+======================== */
+/* top のdiv
+---------------------- */
+div.edit_text_inquiry_item {
+  
+}
+
+/* 入力領域
+---------------------- */
+#text_inquiry_item_fields {
+  
+}
+
+/* タイトル
+---------------------- */
+#text_inquiry_item_fields #title_field {
+  
+}
+
+#text_inquiry_item_fields #title_field label {
+  
+}
+
+#text_inquiry_item_fields #title_field input{
+  
+}
+
+/* 複数行?
+---------------------- */
+#text_inquiry_item_fields #title_field {
+  
+}
+
+#text_inquiry_item_fields #multi_rows_field label {
+  
+}
+
+#text_inquiry_item_fields #multi_rows_field input{
+  
+}
+
+/* 行数
+---------------------- */
+#text_inquiry_item_fields #row_count_field {
+  
+}
+
+#text_inquiry_item_fields #row_count_field label {
+  
+}
+
+#text_inquiry_item_fields #row_count_field input{
+  
+}
+
+/* 表示
+---------------------- */
+#text_inquiry_item_fields #displayed_field {
+  
+}
+
+#text_inquiry_item_fields #displayed_field label {
+  
+}
+
+#text_inquiry_item_fields #displayed_field input {
+  
+}
+
+/* 必須
+---------------------- */
+#text_inquiry_item_fields #required_field {
+  
+}
+
+#text_inquiry_item_fields #required_field label {
+  
+}
+
+#text_inquiry_item_fields #required_field input {
+  
+}
+
+
+
+/* チェックボックスの設定ダイアログ
+======================== */
+/* top のdiv
+---------------------- */
+div.edit_checkbox_inquiry_item {
+  
+}
+
+/* 入力領域
+---------------------- */
+#checkbox_inquiry_item_fields {
+  
+}
+
+/* タイトル
+---------------------- */
+#checkbox_inquiry_item_fields #title_field {
+  
+}
+
+#checkbox_inquiry_item_fields #title_field label {
+  
+}
+
+#checkbox_inquiry_item_fields #title_field input{
+  
+}
+
+
+/* 初期ステータス
+---------------------- */
+#checkbox_inquiry_item_fields #default_status_field {
+  
+}
+
+#checkbox_inquiry_item_fields #default_status_field label {
+  
+}
+
+#checkbox_inquiry_item_fields #default_status_field input{
+  
+}
+
+/* 表示
+---------------------- */
+#checkbox_inquiry_item_fields #displayed_field {
+  
+}
+
+#checkbox_inquiry_item_fields #displayed_field label {
+  
+}
+
+#checkbox_inquiry_item_fields #displayed_field input {
+  
+}
+
+/* 必須
+---------------------- */
+#checkbox_inquiry_item_fields #required_field {
+  
+}
+
+#checkbox_inquiry_item_fields #required_field label {
+  
+}
+
+#checkbox_inquiry_item_fields #required_field input {
+  
+}
+
+
+/* emailの設定ダイアログ
+======================== */
+/* top のdiv
+---------------------- */
+div.edit_email_inquiry_item {
+  
+}
+
+/* 入力領域
+---------------------- */
+#email_inquiry_item_fields {
+  
+}
+
+/* タイトル
+---------------------- */
+#email_inquiry_item_fields #title_field {
+  
+}
+
+#email_inquiry_item_fields #title_field label {
+  
+}
+
+#email_inquiry_item_fields #title_field input{
+  
+}
+
+
+/* 確認入力を含むか
+---------------------- */
+#checkbox_inquiry_item_fields #confirmation_required_field {
+  
+}
+
+#checkbox_inquiry_item_fields #confirmation_required_field label {
+  
+}
+
+#checkbox_inquiry_item_fields #confirmation_required_field input{
+  
+}
+
+/* 確認メイル送信先か
+---------------------- */
+#checkbox_inquiry_item_fields #confirm_to_field {
+  
+}
+
+#checkbox_inquiry_item_fields #confirm_to_field label {
+  
+}
+
+#checkbox_inquiry_item_fields #confirm_to_field input{
+  
+}
+
+
+
+/* 表示
+---------------------- */
+#email_inquiry_item_fields #displayed_field {
+  
+}
+
+#email_inquiry_item_fields #displayed_field label {
+  
+}
+
+#email_inquiry_item_fields #displayed_field input {
+  
+}
+
+/* 必須
+---------------------- */
+#email_inquiry_item_fields #required_field {
+  
+}
+
+#email_inquiry_item_fields #required_field label {
+  
+}
+
+#email_inquiry_item_fields #required_field input {
+  
+}
+
