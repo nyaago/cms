@@ -1,4 +1,4 @@
-<h1>
+<h1 class="article_title">
   <% if @article %>
   <%= @article.title %>
   <% else %>
@@ -12,7 +12,7 @@
 <p id="notice"><%= notice %></p>
 
 <% if @article %>
-<p id="content" class="article">
+<p  class="article">
   <%= @article.content.html_safe %>
 </p>
 

@@ -1,8 +1,8 @@
-<p>
-  ヘッダー
+<hgroup> 
+  <h1><%= logo_image_tag %></h1> 
+  <% if logo_image_tag.blank? %>
   <%= home_link_if_required('ホームへ') %>
-  <%= rss_link :text => 'RSS表示', :class =>"rss_link" %>
-  <%= logo_image_tag %>
-  <%= menu_html :id => :header_menu, :class => :menu %>
+  <% end %>
+  <h2><%= site_description %></h2>
   
-</p>
+</hgroup>

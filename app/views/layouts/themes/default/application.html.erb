@@ -1,6 +1,16 @@
 <!DOCTYPE html>
+<html lang="ja">
 <html>
 <head>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]--> 
+  <!--[if lt IE 9]>
+  <script src=http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+  <![endif]-->
+  <meta charset="UTF-8" /> 
+  <meta name="google-site-verification" content="q8IDxkNLwaG6KI-_Hx_G1LUj8P6MuD0u4B69cfJQfCw" />
+  
   <%= title_tag %>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
   <%= meta_keywords_tag %>
@@ -16,7 +26,10 @@
   <%= rss_link_for_addressbar.html_safe %>
   <style type="text/css">
   <!--
-  <%= background_css %>
+  #main_content {
+      <%= background_css %>
+  }
+  
   -->
   </style>
   
@@ -31,37 +44,39 @@
 </head>
 <body>
     
-<div id="header">
-    <%= render_theme_partial :header %>
-    <%= render_eye_catch_if_required :header %>
-</div>   <!-- header -->
+<header>
+  <%= render_theme_partial :header %>
+  <%= render_eye_catch_if_required :header %>
+</header>   <!-- header -->
+<nav> 
+<%= menu_html :id => :header_menu, :class => :menu %>
+</nav>
 
-<div id="container">
 
 <%= render_eye_catch_if_required :container %>
 
-<div id="contents">
-
+<div id="main_content">
+<section> 
 <%= render_eye_catch_if_required :contents %>
 
 <%= yield %>
+</section> 
+</div>   <!-- main_content -->
 
-</div>   <!-- contents -->
-
-<div id="side">
+<aside>
 
 
 <%= render_theme_partial :side %>
 
-</div>   <!-- side -->
+</aside>   <!-- side -->
 
-<div style="clear: both;"></div>
 
-</div>   <!-- container -->
+<footer> 
 
-<div class="footer">
     <%= render_theme_partial :footer %>
-</div>
+</footer>
+
+<address><%= copyright %></address> 
 
 <%= analystic_javascript_tag %>
 </body>

@@ -1,10 +1,481 @@
-body { background-color: #fff; color: #333; }
+@charset "utf-8";
+/* -------------------------------------------------------------- 
+-----------------------------------------------------------------
 
-body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
+	DEFINITIONS:	Wasabi Inc.
+	AUTHOR:			Wasabi Inc.
+	VERSION:		2011.05.14
+	
+	CONTENTS:
+	
+	1. RESET
+	
+	2. LAYOUT
+		2.1 global
+		
+		2.2 header
+			
+		2.3 nav
+		
+		2.4 section
+		
+		2.5 aside
+		
+		2.6 footer
+-----------------------------------------------------------------
+-------------------------------------------------------------- */
+
+/* 1. RESET
+-----------------------------------------------------------------------------------------------
+===============================================================================================*/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* 2. layout
+-----------------------------------------------------------------------------------------------
+===============================================================================================*/
+body {
+	color: #333333;
+	background: #fff url(../images/bg_body.jpg) no-repeat top center;
+	font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Meiryo, "メイリオ", "ＭＳ Ｐゴシック", Verdana, Geneva, Arial, Helvetica;
+	font-size: 80%;
+}
+/* 2.1 global
+--------------------------------------------------------- */
+a{
+	color: #0C6EB4;
+	text-decoration: none;
+}
+
+a:link{
+	color: #0C6EB4;
+	text-decoration: none;
+}
+
+a:visited{
+	color: #0C6EB4;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #0C6EB4;
+	text-decoration: underline;
+}
+/* 2.2 header
+--------------------------------------------------------- */
+header {
+	margin: 0;
+	width: 100%;
+}
+header hgroup{ 
+	margin: 0 auto;
+	position: relative;
+	width: 910px;
+	height: 85px;
+	top: 16px;
+}
+header hgroup h1{
+	width:283px;
+	height: 58px;
+}
+header hgroup h2{
+	font-size: 13px;
+	font-style: italic;
+	font-weight: 400;
+	margin: 0px 0px 0px 295px;
+	position: relative;
+	top: -23px;  
+}
+/* 2.3 nav
+--------------------------------------------------------- */
+nav ul {
+	margin:12px auto 16px auto;
+	background-image:url('../images/bg_nav.png');
+	background-repeat:no-repeat;
+	width:910px;
+	height: 43px;
+	white-space:nowrap;
+	padding:10px 0px 0px 0px;
+	text-align: left;
+}
+nav li {
+	margin:0;
+	padding:0px 20px 0px 20px;
+	display: inline;
+	font-size: 115%;
+	color: #333333;
+	text-shadow: white 1px 1px 1px;
+}
+nav a{
+	color: #333333;
+	text-shadow: white 1px 1px 1px;
+}
+nav a:link {
+	color: #333333;
+	text-shadow: white 1px 1px 1px;
+}
+nav a:visited{
+	text-decoration: underline;
+	color: #333333;
+	text-shadow: white 1px 1px 1px;
+}
+nav a:hover {
+	text-decoration: underline;
+	text-shadow: white 1px 1px 1px;
+}
+
+/* 2.4 section
+--------------------------------------------------------- */
+#main_content {
+	width: 910px;
+	margin: -10px auto 20px auto;
+	padding: 0px;
+}
+section {
+	width: 602px;
+	margin: 0px 0px 0px 11px;
+}
+section header nav {
+	border-bottom: 1px dotted #CCCCCC;
+	margin: 10px 0px 15px 0px;
+	padding: 18px 5px 15px 5px;
+}
+section header nav li {
+	margin: 10px 0px 15px 0px;
+	padding:0px 5px 0px 1px;
+	display: inline;
+	font-size: 90%;
+}
+section header nav a{
+	color: #0C6EB4;
+	text-decoration: underline;
+	padding:0px 15px 0px 0px;
+	background:url(../images/crumb.gif) no-repeat right center;
+}
+section header nav a:link {
+	color: #0C6EB4;
+	text-decoration: underline;
+}
+section header nav a:visited{
+	color: #0C6EB4;
+	text-decoration: underline;
+}
+section header nav a:hover {
+	color: #0C6EB4;
+	text-decoration: underline;
+}
+
+section header h1{
+	margin: 0px 0px 10px 0px;
+	width: 602px;
+}
+section h2{
+	background: url(../images/bg_h2.jpg) no-repeat 0px 0px;
+	height: 17px;
+	padding: 19px 10px 20px 20px;
+	margin: 0px 0px 8px 0px;
+	font-weight: bold;
+}
+section table {
+	width: 100%;
+	border-top: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-collapse: collapse;
+	margin: 0px 0px 0px 0px;
+}
+
+section th {
+	width: 99px;
+	border-bottom: 1px dotted #CCCCCC;
+	border-collapse: collapse;
+	background: #E9E9E9;
+	padding: 5px 8px 5px 8px;
+	font-weight: bold;
+	line-height: 140%;
+	vertical-align: top;
+}
+
+section td {
+	border-bottom: 1px dotted #CCCCCC;
+	border-collapse: collapse;
+	padding: 5px 8px 5px 8px;
+	line-height: 140%;
+	vertical-align: top;
+}
+section h3 {
+	background: url(../images/bg_h3_ball.jpg) no-repeat 0px 5px;
+	border-bottom: 1px solid #CCCCCC;
+	padding: 5px 10px 11px 20px;
+	margin: 20px 0px 12px 0px;
+	font-weight: bold
+	color: #7FB5E5;/*薄いブルー#B5D3EC*/
+}
+section p {
+	margin: 20px 0px 12px 0px;
+	font-size: 100%;
+}
+/* 2.5 aside
+--------------------------------------------------------- */
+aside {
+	position: absolute;
+	width: 272px;
+	top: 167px;
+	left: 50%;
+	margin: 0 0 0 172px;
+}
+aside h3{
+	margin: 0px 0px 17px 0px;
+	padding: 13px 15px 15px 15px;
+	background: url(../images/bg_side.jpg) no-repeat;
+	font-size: 115%;
+	font-weight: bold;
+}
+/* 2.6 footer
+--------------------------------------------------------- */
+footer {
+	width: 100%;
+	height: 50px;
+	margin: 0;
+	background: url(../images/bg_footer.jpg) repeat-x;
+}
+#foot a {
+	color: #FFF;
+	text-decoration: underline;
+}
+#foot ul {
+	width: 910px;
+	margin: 0px auto;
+	padding: 5px 0px 0px 0px;
+	text-align: left;
+}
+#foot li {
+	display: inline;
+	margin: 0px 7px 0px 7px;
+}
+
+address {
+	display: block;
+	margin: 0px 0px 20px 0px;
+	text-align: center;
+}
+
+#footer_image {
+  
+}
+
+/*
+ ========================== 
+ ウィジットなど
+*/
+
+/* 問い合わせリンク領域
+--------------------------------------------------------- */
+.link_to_inquiry {
+  
+}
+
+/* 問い合わせリンク
+--------------------------------------------------------- */
+.link_to_inquiry a {
+  
+}
+
+
+/* rss リンク領域
+--------------------------------------------------------- */
+.link_to_rss {
+  
+}
+
+/* rss リンク領域
+--------------------------------------------------------- */
+.link_to_rss {
+  
+}
+
+
+/* rss リンク
+--------------------------------------------------------- */
+.link_to_rss a {
+  
+}
+
+
+/* サイドの widget / 新着 / アーカイブ 領域共通
+--------------------------------------------------------- */
+aside div.widget {
+}
+
+/* サイドの widget / 新着 / アーカイブ 領域のヘッダー
+--------------------------------------------------------- */
+aside div.widget widget_header {
+  
+}
+
+/* フッターの widget 領域共通
+--------------------------------------------------------- */
+footer div.widget {
+}
+
+/* footerの widget  領域のヘッダー
+--------------------------------------------------------- */
+footer div.widget widget_header {
+  
+}
+
+
+/* 新着お知らせ領域
+--------------------------------------------------------- */
+div#new_blogs {
+  
+}
+
+/* 新着お知らせエントリー
+--------------------------------------------------------- */
+li.new_blogs {
+  
+}
+
+
+/* お知らせアーカイブ領域
+--------------------------------------------------------- */
+div#blog_months {
+  
+}
+
+/* お知らせアーカイブエントリー
+--------------------------------------------------------- */
+li.blog_month {
+  
+}
+
+
+/* テキストウィジット 領域
+--------------------------------------------------------- */
+div.text_widget {
+  
+}
+
+/* テキストウィジット のヘッダー
+--------------------------------------------------------- */
+.text_widget_header {
+  
+}
+
+/* テキストウィジット の 内容
+--------------------------------------------------------- */
+div.text_widget widget_field {
+  
+}
+
+
+
+/* 会社情報 ウィジット 領域
+--------------------------------------------------------- */
+div.company_profile_widget {
+  
+}
+
+/* 会社情報 のヘッダー
+--------------------------------------------------------- */
+.company_profile_widget_header {
+  
+}
+
+/* 会社情報 の 各項目
+--------------------------------------------------------- */
+div.company_profile_widget widget_field {
+  
+}
+
+/* 会社情報 の 各項目名
+--------------------------------------------------------- */
+div.company_profile_widget widget_field widget_field_name {
+  
+}
+
+/* 会社情報 の 各項目値
+--------------------------------------------------------- */
+div.company_profile_widget widget_field widget_field_value {
+  
+}
+
+
+/*
+ ========================== 
+ 記事部分
+*/
+
+/* 記事タイトル
+--------------------------------------------------------- */
+.article_title {
+  
+}
+
+/* 記事本体
+--------------------------------------------------------- */
+.article {
+  
+}
+
+
+/* お知らせ記事の年月
+--------------------------------------------------------- */
+.articles_month {
+  
+}
+
+
+/*
+ ========================== 
+ ページャー
+*/
+
 
 pre {
   background-color: #eee;
@@ -12,31 +483,44 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; }
-a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; }
-
 div.field, div.actions {
   margin-bottom: 10px;
 }
 
-/* ****** */
+/*
+ ========================== 
+ メッセージ関連
+*/
 
-
-
-/* ****** */
-
+/* 注意メッセージ
+--------------------------------------------------------- */
 #notice {
   color: green;
 }
 
+/* ワーニングメッセージ
+--------------------------------------------------------- */
 #warning {
   color: magenta;
 }
 
+/* エラーメッセージ
+--------------------------------------------------------- */
 #error {
   color: red;
 }
+
+/* (記事などが)みつかりませんメッセージ
+--------------------------------------------------------- */
+#not_found {
+  
+}
+
+
+/*
+ ========================== 
+ エラーメッセージ関連
+*/
 
 .field_with_errors {
   padding: 2px;
@@ -69,8 +553,10 @@ div.field, div.actions {
   list-style: square;
 }
 
-/* ****** */
 
+/*
+ ========================== 
+*/
 .actions {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -78,111 +564,34 @@ div.field, div.actions {
   text-align: center;
 }
 
+/*
+ ========================== 
+ ページ替えリンク関連
+*/
+/* ページ替えリンク領域
+--------------------------------------------------------- */
 .pagination {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   text-align: center;
 }
 
-div {
+/* ページ替えリンク
+--------------------------------------------------------- */
+.pagination a {
 
 }
 
-div#header {
-    width: 1000px;
-}
-
-div#container {
-  width: 1000px;
-}
-
-div#side {
-  float: left;
-  width: 20%;
+/* ページ替えリンク 前へリンク領域
+--------------------------------------------------------- */
+.pagination .previous_page {
 
 }
 
-div#contents {
-  width: 80%;
-  float: right;
+/* ページ替えリンク 次へリンク領域
+--------------------------------------------------------- */
+.pagination .next_page {
+
 }
 
-div#footer {
-  clear :both;
-}
 
-ul#head_menu {
-	list-style:none;
-	padding:0em;
-	margin:0em;
-}
-ul#head_menu li {
-	float:left;
-	margin-right:2px;
-}
-ul#head_menu li a {
-	display:block;
-	color:#000000;
-	padding:0.2em 0.8em;
-	text-decoration:none;
-}
-ul#head_menu li a:hover {
-	color:#333333;
-	background:#dddddd;
-	text-decoration:underline;
-}
-ul#head_menu li a:active {
-	color:#ffffff;
-	background:#999999;
-}
-
-ul#head_menu li a:link {　　/*未訪問のリンク*/
-font-weight: bold;
-color: #FFFFFF;
-background-color: #7B7B3C;
-display: block;
-margin-top: 3px;
-margin-right: 0px;
-margin-bottom: 0px;
-margin-left: 0px;
-padding-top: 3px;
-padding-right: 0px;
-padding-bottom: 3px;
-padding-left: 0px;
-width: 100%;
-text-indent: 10px;
-}
-ul#head_menu li a:visited {　　/*訪問済みのリンク*/
-font-weight: bold;
-color: #FFFFFF;
-background-color: #7B7B3C;
-display: block;
-margin-top: 3px;
-margin-right: 0px;
-margin-bottom: 0px;
-margin-left: 0px;
-padding-top: 3px;
-padding-right: 0px;
-padding-bottom: 3px;
-padding-left: 0px;
-text-decoration: none;
-width: 100%;
-text-indent: 10px;
-}
-ul#head_menu li a:hover {　　/*マウスポインタが乗ったとき*/
-font-weight: bold;
-color: #7B7B3C;
-background-color: #FFCC99;
-display: block;
-margin-top: 3px;
-margin-right: 0px;
-margin-bottom: 0px;
-margin-left: 0px;
-padding-top: 3px;
-padding-right: 0px;
-padding-bottom: 3px;
-padding-left: 0px;
-text-decoration: none;
-width: 100%;
-text-indent: 10px;
-}

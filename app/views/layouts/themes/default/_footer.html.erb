@@ -1,8 +1,9 @@
-<p>
-  フッター
+<div id="foot">
+  <%= menu_html %>
   <% footer_widgets.each do |widget| %>
   <%= render_widget widget %>
   <% end %>
-  <%= footer_image_tag %>
-  
-</p>
+</div>
+<div id="footer_image">
+<%= footer_image_tag %>
+</div>

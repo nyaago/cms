@@ -1,4 +1,4 @@
-<h1>
+<h1 class="articles_month">
 <%= localize_month(@month) %>の<%= BlogArticle.human_name %>
 </h1>
 <% if @articles.size > 0 %>
@@ -11,7 +11,7 @@
 
     <p id="notice"><%= notice %></p>
 
-    <p id="content" class="article">
+    <p class="article">
       <%= article.content.html_safe %>
     </p>
 

@@ -1,3 +1,7 @@
 div.side_bar {
   display: none;
 }
+
+aside {
+  display: none;
+}

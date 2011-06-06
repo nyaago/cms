@@ -20,6 +20,7 @@ class BlogsController < ApplicationController
       respond_to do |format|
          format.html { 
            render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", 
+            :layout =>  @site.site_layout.theme_layout_path_for_rendering,
             :status => :not_found 
           }
          format.xml  { render :status => :not_found }

@@ -131,6 +131,33 @@ module ApplicationHelper
     end
   end
   
+  # header の画像を表示するためのbackground-image プロパティを返す
+  def header_image_style
+    if @site.site_layout && @site.site_layout.header_image_url
+      "background-image:url('#{@site.site_layout.header_image_url}');"
+    else
+      ""
+    end
+  end
+
+  # footer の画像を表示するためのbackground-image プロパティを返す
+  def footer_image_style
+    if @site.site_layout && @site.site_layout.footer_image_url
+      "background-image:url('#{@site.site_layout.footer_image_url}');"
+    else
+      ""
+    end
+  end
+
+  # logo の画像を表示するためのbackground-image プロパティを返す
+  def logo_image_style
+    if @site.site_layout && @site.site_layout.logo_image_url
+      "background-image:url('#{@site.site_layout.logo_image_url}');"
+    else
+      ""
+    end
+  end
+  
   # homeリンク表示が指定されているか?
   # homeリンク表示なら true, そうでなければfalseを返す.
   def home_link_required?
@@ -154,11 +181,13 @@ module ApplicationHelper
     end
   end
   
-  # 背景のcssを返す
-  # 
+  # 背景のcss プロパティの記述を返す
+  # 背景画像が指定されている場合は、background-image と background-repeat、
+  # 色が指定されている場合は、background-colorの内容を返す.
   def background_css
     return '' if @site.nil? && @site.site_layout.nil?
-    content = "body { \n"
+#    content = "body { \n"
+    content = ""
     content <<  unless @site.site_layout.background_image_url.blank?
       "background-image: url(#{@site.site_layout.background_image_url});\n" <<
       "background-repeat: " <<
@@ -176,7 +205,7 @@ module ApplicationHelper
     else
       ''
     end
-    content << "}\n"
+ #   content << "}\n"
   end
   
   # menu のhtmlを返す
@@ -564,6 +593,21 @@ module ApplicationHelper
     :id => if options[:id] then options[:id] else nil end,
     :class => if options[:class] then options[:class] else nil end
     ) 
+  end
+  
+  # サイト説明を返す
+  def site_description
+    @site.description || ""
+  end
+  
+  # サイトのコピーライトを返す
+  def copyright
+    @site.copyright || ""
+  end
+  
+  # サイトタイトルを返す
+  def site_title
+    @site.title || ""
   end
   
   # 各widgetの　rendering

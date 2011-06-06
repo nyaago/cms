@@ -70,6 +70,7 @@ ja:
         name: "サイト名"
         title: "サイトタイトル"
         description: "サイトの説明"
+        copyright: "コピーライト"
         email: "連絡先メイルアドレス"
         updated_at: "更新日時"
         created_at: "作成日時"

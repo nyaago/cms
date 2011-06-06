@@ -1,7 +1,15 @@
-div.content {
+div#content {
   float: center;
 }
 
-div.side_bar {
+div#main_content {
+  float: center;
+}
+
+div#side {
+  float: right;
+}
+
+aside {
   float: right;
 }
