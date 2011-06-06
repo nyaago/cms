@@ -9,7 +9,7 @@ class EmailInquiryItem < ActiveRecord::Base
 
   # 保存前のフィルター
   # 各属性の不要な前後空白をぬく
-  before_save :strip_attributes1
+  before_save :strip_attributes!
 
   # 各属性の不要な前後空白をぬく
   def strip_attributes!

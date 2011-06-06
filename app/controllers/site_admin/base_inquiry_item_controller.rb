@@ -35,10 +35,10 @@ module SiteAdmin
         return
       end
       inquiry_item = site_inquiry_item.inquiry_item
-
       inquiry_item.attributes = params[record_parameter_name.to_sym]
       site_inquiry_item.attributes = params[:site_inquiry_item]
       inquiry_item.user = current_user
+      
       begin
         ActiveRecord::Base.transaction do
           inquiry_item.save!(:validate => true)
@@ -47,7 +47,8 @@ module SiteAdmin
             format.json { render :text => { 'inquiry_item' => inquiry_item.attributes }.to_json }
           end
         end
-      rescue
+      rescue => ex
+        p ex.backtrace
         respond_to do |format|
           format.json { render :json => inquiry_item.errors.full_messages }
         end
