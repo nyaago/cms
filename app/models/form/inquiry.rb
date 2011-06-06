@@ -122,7 +122,7 @@ module Form
     def method_missing(name, *args)
       # method 名分解 -  
       # 1 => 属性名, 2 => site_inquiry_item_id, 3 => _confirmaton | '', 4 => '=' | ''
-      matches = /^(item_([0-9])+(_confirmation|))(=|){0,1}$/.match(name)
+      matches = /^(item_([0-9]+)(_confirmation|))(=|){0,1}$/.match(name)
       if matches.nil?
         return super
       end
@@ -135,7 +135,7 @@ module Form
         return super
       end
       if @inquiry_items.index { |item| item.id == item_id  }.nil?
-        return super
+        return nil
       end
       if is_writer then
         if args.size == 0
