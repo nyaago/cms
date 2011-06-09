@@ -1,3 +1,274 @@
+/*
+  ページ
+*/
+
+/*  ページ一覧
+=======================*/
+
+
+/*  一括処理、フィルタリング領域
+----------------------- */
+#batch_and_filtering {
+  
+}
+
+
+#batch_and_filtering #batch {
+  
+}
+
+
+#batch_and_filtering #batch select {
+  
+}
+
+
+#batch_and_filtering #batch input {
+  
+}
+
+#batch_and_filtering #filtering {
+  
+}
+
+#batch_and_filtering #filtering select {
+  
+}
+
+#batch_and_filtering #filtering input {
+  
+}
+
+/*  記事一覧
+----------------------- */
+div#articles {
+  
+}
+
+div#articles table {
+  
+}
+
+div#articles table tr{
+  
+}
+
+div#articles table tr th{
+  
+}
+
+div#articles table tr th.check_for_batch {
+  
+}
+
+div#articles table tr th.check_for_batch input {
+  
+}
+
+div#articles table tr th.title {
+  
+}
+
+div#articles table tr th.published {
+  
+}
+
+div#articles table tr th.created_at {
+  
+}
+
+div#articles table tr th.edit {
+  
+}
+
+div#articles table tr th.destroy {
+  
+}
+
+div#articles table tr td{
+  
+}
+
+div#articles table tr td.edit a {
+  
+}
+
+div#articles table tr td.destroy a {
+  
+}
+
+/*  ページ編集
+=======================*/
+
+
+/*  記事
+----------------------- */
+div#edit_article {
+  
+}
+
+div#edit_article #article_fields #article_heading{
+  
+}
+
+div#edit_article #article_fields div#updated_at_info {
+  
+}
+
+div#edit_article #article_fields div#updated_at_info #updated_at {
+  
+}
+
+
+div#edit_article #article_fields #title_field{
+  
+}
+
+div#edit_article #article_fields #title_field label {
+  
+}
+
+div#edit_article #article_fields #title_field input {
+  
+}
+
+div#edit_article #article_fields #content_field {
+  
+}
+
+div#edit_article #article_fields #content_field label {
+  
+}
+
+div#edit_article #article_fields #content_field textarea {
+  
+}
+
+
+/*  公開
+----------------------- */
+div#edit_article #published_fields {
+  
+}
+
+/* 公開状態-日時 の概要 */
+div#edit_article #published_fields #published_heading {
+  
+}
+
+
+div#edit_article #published_fields div#published_status_info{
+  
+}
+
+div#edit_article #published_fields div#published_status_info #published_status_info {
+  
+}
+
+
+div#edit_article #published_fields div#published_status_info #published_status_info #published_status {
+  
+}
+
+div#edit_article #published_fields div#published_status_info #published_status_info a{
+  
+}
+
+div#edit_article #published_fields div#published_status_info #published_from_status {
+  
+}
+
+div#edit_article #published_fields div#published_status_info a {
+  
+}
+
+/* 公開状態 */
+div#edit_article #published_fields div#published {
+  
+}
+
+div#edit_article #published_fields #published #published_field {
+  
+}
+
+div#edit_article #published_fields #published #published_field label {
+  
+}
+
+div#edit_article #published_fields #published #published_field select {
+  
+}
+
+/* 公開日時 */
+div#edit_article #published_fields div#published_from {
+  
+}
+
+
+div#edit_article #published_fields div#published_from #published_from_filed {
+  
+}
+
+
+
+div#edit_article #published_fields div#published_from #published_from_filed input {
+  
+}
+
+div#edit_article #published_fields div#published_from #published_from_filed select {
+  
+}
+
+/* action */
+div#edit_article #published_fields .actions {
+  
+}
+
+div#edit_article #published_fields .actions input {
+  
+}
+
+
+div#edit_article #seo_field{
+  
+}
+
+div#edit_article #seo_field #meta_keywords_filed{
+  
+}
+
+div#edit_article #seo_field #meta_keywords_filed label {
+  
+}
+
+div#edit_article #seo_field #meta_keywords_filed input {
+  
+}
+
+div#edit_article #seo_field #meta_description_field {
+  
+}
+div#edit_article #seo_field #meta_description_field label{
+  
+}
+div#edit_article #seo_field #meta_description_field input {
+  
+}
+
+
+
+div#edit_article #seo_field #ignore_meta_field{
+  
+}
+div#edit_article #seo_field #ignore_meta_field label {
+  
+}
+div#edit_article #seo_field #ignore_meta_field input {
+  
+}
+
+/*  ページ表示
+=======================*/
 div.inputs div#article {
   float: left;
 }
@@ -7,6 +278,8 @@ div.inputs div#article {
   float: left;
 }
 
+/*  並び換え
+=======================*/
 /* 並び替え - 上方向 のボタン */
 input.previous_order {
   background-color: #FFCCAA; 

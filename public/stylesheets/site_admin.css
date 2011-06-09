@@ -1,5 +1,11 @@
+@charset "utf-8";
 /*
- サイト管理の共通スタイルシート
+管理の共通スタイルシート
+*/
+
+/*
+ ========================== 
+ レイアウト / 共通
 */
 body { background-color: #fff; color: #333; }
 
@@ -7,6 +13,35 @@ body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   13px;
   line-height: 18px;
+}
+
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+
+
+div#header {
+    width: 1000px;
+}
+
+div#container {
+  width: 1000px;
+}
+
+div#side {
+  float: left;
+  width: 20%;
+
+}
+
+div#contents {
+  width: 80%;
+  float: left;
+}
+
+div#footer {
+  clear :both;
 }
 
 pre {
@@ -20,22 +55,39 @@ a:visited { color: #666; }
 a:hover { color: #fff; background-color:#000; }
 
 
-div.field, div.actions {
-  margin-bottom: 10px;
-}
+/*
+ ========================== 
+ メッセージ関連
+*/
 
+/* 注意メッセージ
+--------------------------------------------------------- */
 #notice {
   color: green;
 }
 
+/* ワーニングメッセージ
+--------------------------------------------------------- */
 #warning {
   color: magenta;
 }
 
+/* エラーメッセージ
+--------------------------------------------------------- */
 #error {
   color: red;
 }
 
+/* (記事などが)みつかりませんメッセージ
+--------------------------------------------------------- */
+#not_found {
+  
+}
+
+/*
+ ========================== 
+ エラーメッセージ関連
+*/
 .field_with_errors {
   padding: 2px;
   background-color: red;
@@ -68,8 +120,112 @@ div.field, div.actions {
 }
 
 
-/* ******** */
 
+/*
+ ========================== 
+ ヘッダー部分
+*/
+
+
+/* ヘッダーの情報(サイト、ログイン名)表示部
+--------------------------------------------------------- */
+div#header  div#header_infomations {
+  
+}
+
+div#header  div#header_infomations .header_information_name {
+  
+}
+
+div#header  div#header_infomations .header_information_value {
+  
+}
+
+div#header  div#header_infomations #header_site_name {
+  
+}
+
+div#header  div#header_infomations #header_site_title {
+  
+}
+
+
+div#header  div#header_infomations #header_user_name {
+  
+}
+
+/* ヘッダー, アクション部分(ログアウトリンクを含む)
+--------------------------------------------------------- */
+#header_menu {
+  
+}
+
+#header_menu li {
+  
+}
+
+#header_menu li a {
+  
+}
+
+
+/*
+ ========================== 
+ フッター部分
+*/
+div#footer {
+  
+}
+
+/*
+ ========================== 
+ コンテンツ部分 - 各要素
+*/
+#contents h1 {
+  
+}
+
+#contents h2 {
+  
+}
+
+#contents input {
+  
+}
+
+#contents input[type=text] {
+  
+}
+
+#contents input[type=button] {
+  
+}
+
+#contents input[type=checkbox] {
+  
+}
+
+#contents input[type=radio] {
+  
+}
+
+#contents input[type=submit] {
+  
+}
+
+
+#contents textarea {
+  
+}
+
+#contents select {
+  
+}
+
+/*
+ ========================== 
+ action 領域
+*/
 .actions {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -77,60 +233,76 @@ div.field, div.actions {
   text-align: center;
 }
 
+.actions input {
+  
+}
+
+.actions a {
+  
+}
+
+/*
+ ========================== 
+ ページ替えリンク関連
+*/
+/* ページ替えリンク領域
+--------------------------------------------------------- */
 .pagination {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   text-align: center;
 }
 
-
-div {
- 
-}
-
-div#header {
-    width: 1000px;
-}
-
-div#container {
-  width: 1000px;
-}
-
-div#side {
-  float: left;
-  width: 20%;
+/* ページ替えリンク
+--------------------------------------------------------- */
+.pagination a {
 
 }
 
-div#contents {
-  width: 80%;
-  float: left;
+/* ページ替えリンク 前へリンク領域
+--------------------------------------------------------- */
+.pagination .previous_page {
+
 }
 
-div#footer {
-  clear :both;
+/* ページ替えリンク 次へリンク領域
+--------------------------------------------------------- */
+.pagination .next_page {
+
 }
 
-div.inputs  {
+/*
+ ========================== 
+ 入力領域 / フィールド領域
+*/
+#contents .inputs {
   border-style :groove;
   border-width: medium;
   border-color: #cccccc;
   margin-top: 1em;
   margin-bottom: 1em;
-
 }
 
-div.inputs_bottom {
+#contents .fields {
+  
+}
+
+#contents .inputs .field {
+  
+}
+
+#contents .fields .field {
+  
+}
+
+
+#contents div.inputs_bottom {
   clear: both;  
 }
 
-div.actions {
-  
-}
 
-div.actions input {
-  
-}
+/* ========================== 
+*/
 
 
 /* HTMLエディタの画像挿入アイコン  */
@@ -139,4 +311,3 @@ div.actions input {
   background-image: url(/images/site/image_selector.png);
 	background-position: 0 0;
 }
-
