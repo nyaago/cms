@@ -24,7 +24,7 @@
 <% inquiry_item = site_inquiry_item.inquiry_item %>  
   <div class='inquiry_item  <%= "#{inquiry_item.class.name.underscore}" %>'>
   <span class="inquiry_item_title">
-    <%= label_tag inquiry_item.title + 
+    <%= label_tag inquiry_item.title || '' + 
         if confirmation_flag 
           I18n.t :confirmation, :scope => Form::Inquiry::TRANSLATION_SCOPE
         else
