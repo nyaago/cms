@@ -37,8 +37,8 @@ ja:
         password: "パスワード"  
       
       article:
-        name: "名前"
-        title: "タイトル"
+        name: "url"
+        title: "ページ名"
         content: "内容"
         published: "公開状態"
         menu_order: "メニュー表示順"
@@ -51,8 +51,8 @@ ja:
         column_layout: "カラムレイアウト"
 
       article_history:
-        name: "名前"
-        title: "タイトル"
+        name: "url"
+        title: "ページ名"
         content: "内容"
         published: "公開状態"
         menu_order: "メニュー表示順"

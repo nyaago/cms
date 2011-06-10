@@ -33,6 +33,17 @@ module ApplicationHelper
           end
         end
       end
+      Layout::DefinitionArrays.layout_classes.each do |clazz|
+        if @site.site_layout.respond_to?(clazz.attribute_name)
+          path = clazz.css_path(@site.site_layout.send(clazz.attribute_name), @site.site_layout.theme)
+          p "@@@@@@@@@" + path
+          if File.file?(path)
+            result << stylesheet_link_tag(
+                      clazz.css_url(@site.site_layout.send(clazz.attribute_name), @site.site_layout.theme),
+                      options)
+          end
+        end
+      end
     else
       ''
     end
@@ -90,11 +101,15 @@ module ApplicationHelper
   end
   
   # header 画像のhtmlタグを返す
-  def header_image_tag
+  # == parameters
+  # * options - 追加するタグ属性のハッシュ
+  def header_image_tag(options = {})
     if instance_variable_defined?(:@article) && @article && !@article.header_image_url.blank? 
-      image_tag(@article.header_image_url, :alt => @article.title)
+      options[:alt] = @article.title
+      image_tag(@article.header_image_url, options)
     elsif !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.header_image_url.blank?
-      image_tag(@site.site_layout.header_image_url, :alt => @site.title)
+      options[:alt] = @site.title
+      image_tag(@site.site_layout.header_image_url, options)
     else
       ''
     end
@@ -131,16 +146,30 @@ module ApplicationHelper
     end
   end
   
-  # header の画像を表示するためのbackground-image プロパティを返す
+  # header 画像の url
+  def header_image_url
+    if instance_variable_defined?(:@article) && @article && !@article.header_image_url.blank? 
+      @article.header_image_url
+    elsif !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.header_image_url.blank?
+      @site.site_layout.header_image_url
+    else
+      ''
+    end
+    
+  end
+  
+  # header の画像を表示するためのbackground-image スタイルを返すを返す
   def header_image_style
-    if @site.site_layout && @site.site_layout.header_image_url
-      "background-image:url('#{@site.site_layout.header_image_url}');"
+    if instance_variable_defined?(:@article) && @article && !@article.header_image_url.blank? 
+      "background-image:url('#{@article.header_image_url}');" 
+    elsif !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.header_image_url.blank?
+      "background-image:url('#{@site.site_layout.header_image_url}');" 
     else
       ""
     end
   end
 
-  # footer の画像を表示するためのbackground-image プロパティを返す
+  # footer の画像を表示するためのbackground-image スタイルを返すを返す
   def footer_image_style
     if @site.site_layout && @site.site_layout.footer_image_url
       "background-image:url('#{@site.site_layout.footer_image_url}');"
@@ -312,6 +341,35 @@ module ApplicationHelper
         I18n.t(:title, :scope => [:messages, scope, controller]), @site)
       end) +
       "</title>").html_safe
+    end
+  end
+  
+  # ページタイトルを返す
+  # ページ記事の場合は、記事タイトル .ただし、トップページの場合は、空白
+  # それ以外の場合は、メッセージリソースの messages.<controller>.title  の値
+  def page_title
+    # page title を含むオブジェクト, いずれかの変数
+    controller = params[:controller]
+    matched = /^([_a-z]+)\/([_a-z]+)$/.match(controller)
+    scope = if matched 
+      matched[1]
+    else
+      nil
+    end
+    controller = if matched 
+      matched[2]
+    else
+      controller
+    end
+    
+    if instance_variable_defined?(:@article) && @article.respond_to?(:title)
+      if @article.respond_to?(:is_home) && @article.is_home
+        ''
+      else
+        @article.title
+      end
+    else 
+      I18n.t(:title, :scope => [:messages, scope, controller])
     end
   end
   

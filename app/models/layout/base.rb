@@ -30,15 +30,22 @@ module Layout
     end
     
     # スタイルシートのパス
-    def self.css_path(name)
+    def self.css_path(name, theme = nil)
+      theme_parts = if theme then "themes/#{theme}/stylesheets/" else '' end
       ::Rails.root.to_s + 
-      "/public/#{self.name.demodulize.underscore.pluralize}/#{name}/" + 
+      "/public/#{theme_parts}#{self.name.demodulize.underscore.pluralize}/#{name}/" + 
         "#{self.name.demodulize.underscore}.css"
     end
     # スタイルシートのパス
-    def self.css_url(name)
-      "/#{self.name.demodulize.underscore.pluralize}/#{name}/" + 
-        "#{self.name.demodulize.underscore}.css"
+    def self.css_url(name, theme = nil)
+      if theme 
+        theme_parts = if theme then "themes/#{theme}/stylesheets/" else '' end
+        "/#{theme_parts}#{self.name.demodulize.underscore.pluralize}/#{name}/" + 
+          "#{self.name.demodulize.underscore}.css"
+      else
+        "/#{self.name.demodulize.underscore.pluralize}/#{name}/" + 
+          "#{self.name.demodulize.underscore}.css"
+      end
     end
 
     

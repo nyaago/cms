@@ -2,6 +2,15 @@
 <html lang="ja">
 <html>
 <head>
+  <style type="text/css">  <!--
+  /* eye_catch 仮の幅、高さ */
+  #eye_catch {
+    width: 600px;
+    height: 150px;
+  }
+  
+  -->
+  </style>
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]--> 
@@ -26,8 +35,13 @@
   <%= rss_link_for_addressbar.html_safe %>
   <style type="text/css">
   <!--
-  #body {
+  body {
       <%= background_css %>
+  }
+  #eye_catch {
+    <%= header_image_style %>
+    width: 800px;
+    height: 200px;
   }
   
   -->
@@ -41,19 +55,22 @@
   
   </script>
   
+  
+  
 </head>
 <body>
-    
 <header>
   <%= render_theme_partial :header %>
   <%= render_eye_catch_if_required :header %>
 </header>   <!-- header -->
+
 <nav> 
 <%= menu_html :id => :header_menu, :class => :menu %>
 </nav>
 
-<%= render_eye_catch_if_required :container %>
 
+<div id="container">
+<%= render_eye_catch_if_required :container %>
 
 <div id="main_content">
 <section> 
@@ -70,9 +87,9 @@
 
 </aside>   <!-- side -->
 
+</div>
 
 <footer> 
-
     <%= render_theme_partial :footer %>
 </footer>
 

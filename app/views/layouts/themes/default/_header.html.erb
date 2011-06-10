@@ -1,8 +1,11 @@
 <hgroup> 
-  <h1><%= logo_image_tag %></h1> 
-  <% if logo_image_tag.blank? %>
-  <%= home_link_if_required('ホームへ') %>
+  <!-- logo、eye_catch が headerでない場合のみ表示
+  -->
+  <% unless eye_catch_required?(:header) %>
+    <h1><%= logo_image_tag %></h1> 
   <% end %>
+  <!-- logoおわり -->
+
   <h2><%= site_description %></h2>
   
 </hgroup>

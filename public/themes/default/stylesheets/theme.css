@@ -352,7 +352,7 @@ aside div.widget {
 
 /* サイドの widget / 新着 / アーカイブ 領域のヘッダー
 --------------------------------------------------------- */
-aside div.widget widget_header {
+aside div.widget .widget_header {
   
 }
 
@@ -363,7 +363,7 @@ footer div.widget {
 
 /* footerの widget  領域のヘッダー
 --------------------------------------------------------- */
-footer div.widget widget_header {
+footer div.widget .widget_header {
   
 }
 
@@ -408,7 +408,7 @@ div.text_widget {
 
 /* テキストウィジット の 内容
 --------------------------------------------------------- */
-div.text_widget widget_field {
+div.text_widget .widget_field {
   
 }
 
@@ -428,19 +428,19 @@ div.company_profile_widget {
 
 /* 会社情報 の 各項目
 --------------------------------------------------------- */
-div.company_profile_widget widget_field {
+div.company_profile_widget .widget_field {
   
 }
 
 /* 会社情報 の 各項目名
 --------------------------------------------------------- */
-div.company_profile_widget widget_field widget_field_name {
+div.company_profile_widget .widget_field .widget_field_name {
   
 }
 
 /* 会社情報 の 各項目値
 --------------------------------------------------------- */
-div.company_profile_widget widget_field widget_field_value {
+div.company_profile_widget .widget_field .widget_field_value {
   
 }
 

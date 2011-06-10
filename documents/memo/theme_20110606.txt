@@ -1,3 +1,5 @@
+テーマの作成に関して
+
 ○調整したもの
 
 ・logo 画像 - 
@@ -47,4 +49,35 @@ cssの場所は、<app root>/public/stylesheets/column_layouts/<レイアウト>
 ・コンテンツ領域とサイド領域の上の階層のdiv(container/wrapperなど　にあたるもの)は不要ですか？
 これがないと、カラムレイアウト（サイド領域の位置）の変更に対応されるのに、難しそうです。
 また、eye_catchの配置も、メインエリア（コンテンツエリア外）に配置する場合は難しそうです。
+
+
+
+
+====
+2011.6.9 打ち合わせ結果
+
+1.eye_catch  画像 - css の background-image にする。
+
+2.font size -  large, middle, small
+
+3. eye catch がヘッダーの場合、Logoを出さない。
+
+4.eye_catch の banner は articles.title ー 
+          ページ記事でtopでないときみ出す。
+          問い合わせのとき - お問い合わせ 固定
+          お知らせ - お知らせ 固定
+
+
+5.globalnavigation - メニューの  home の有無
+
+6.お問い合わせリンク設定 - メニュー / サイド / いれない
+
+=======
+その後
+
+
+各テーマにもデザイン設定に関するスタイルシートを設定できるようにする。
+例 public/themes/<theme>/stylesheets/eye_catch_types/main_area/eye_catch_type.css
+
+
 

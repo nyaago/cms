@@ -153,6 +153,8 @@ var widgetEditor = function(attributes) {
   
   // 初期化 
   init = function() {
+    
+    
     $('.widget .widget_title').draggable( {
       start: function(e, ui) {
       },
@@ -187,6 +189,7 @@ var widgetEditor = function(attributes) {
       }
       });
     $('.widget_area_contents').disableSelection();
+
 
   };
 

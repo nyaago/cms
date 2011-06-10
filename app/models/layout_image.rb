@@ -6,6 +6,8 @@
 # * path(style = default_style)
 class LayoutImage < ActiveRecord::Base
   
+  @geo = nil
+  
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["errors", "layout_image", "messages"].freeze
   #
@@ -64,7 +66,6 @@ class LayoutImage < ActiveRecord::Base
   validates_attachment_size :image,
     :less_than => 2.megabytes,
     :message => I18n.t(:attachment_size, :scope => TRANSLATION_SCOPE)
-
 
   protected
 
