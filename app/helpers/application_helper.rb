@@ -6,7 +6,7 @@ module ApplicationHelper
   # 選択されているthemeのstylesheer、各レイアウト設定に対応するstylesheetを読み込みタグ
   # が生成される.
   # == parameters
-  # * options =>
+  # * options - 以下のoptionを含むハッシュ
   #   :media => stylesheetを適用するmedia :all, :print, ..
   # == 例
   # site_stylesheet_link_tags :media => :all
@@ -36,7 +36,6 @@ module ApplicationHelper
       Layout::DefinitionArrays.layout_classes.each do |clazz|
         if @site.site_layout.respond_to?(clazz.attribute_name)
           path = clazz.css_path(@site.site_layout.send(clazz.attribute_name), @site.site_layout.theme)
-          p "@@@@@@@@@" + path
           if File.file?(path)
             result << stylesheet_link_tag(
                       clazz.css_url(@site.site_layout.send(clazz.attribute_name), @site.site_layout.theme),
@@ -133,14 +132,10 @@ module ApplicationHelper
                   :page => nil)
   end
   
-  # log 画像のhtmlタグを返す. ホームリンク表示が有効の場合はリンクを含める
+  # ホームリンクへのリンクを含むlogo画像のhtmlタグを返す. 
   def logo_image_tag
     if !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.logo_image_url.blank?
-      if @site.site_layout.global_navigation == 'home_link'
-        link_to(image_tag(@site.site_layout.logo_image_url, :alt => @site.title), home_url)
-      else
-        image_tag(@site.site_layout.logo_image_url, :alt => @site.title)
-      end
+      link_to(image_tag(@site.site_layout.logo_image_url, :alt => @site.title), home_url)
     else
       ''
     end
@@ -260,6 +255,7 @@ module ApplicationHelper
     @site.pages.select("title, name, is_home").
                 where('published = 1').
                 order('menu_order').each do |page|
+      next if page.is_home && @site && @site.site_layout.global_navigation == "no_home_link"
       url = url_for(:controller => :pages, 
                     :action => :show, 
                     :site => @site.name, 
@@ -269,8 +265,33 @@ module ApplicationHelper
             page.title <<
             "</a></li>\n"
     end
+    if @site && @site.site_layout.inquiry_link_position == 'on_menu'
+      url = url_for(:controller => :inquiry, 
+                    :site => @site.name)
+      li_tag_id = "#{tag_id}_inquiry"
+      html << "<li id='#{li_tag_id}'><a href='#{url}'>" <<
+            I18n.t(:title, :scope => [:messages, :inquiry] ) <<
+            "</a></li>\n"
+    end
     html << '</ul>'
     html.html_safe
+  end
+  
+  # 問い合わせリンクが指定したareaに配置することが要求されているかどうか?
+  # == parameters 
+  # * area - :side | :menu (サイドエリア or ナビゲーションメニュー)
+  def inquiry_link_required_on?(area)
+    if @site && @site.site_layout 
+      if area == :side
+        @site.site_layout.inquiry_link_position == 'on_side'
+      elsif area == :menu
+        @site.site_layout.inquiry_link_position == 'on_menu'
+      else
+        false
+      end
+    else
+      false
+    end
   end
   
   # title タグを返す.

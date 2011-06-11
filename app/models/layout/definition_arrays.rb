@@ -10,7 +10,9 @@ module Layout
                         Layout::FontSize, 
                         Layout::GlobalNavigation, 
                         Layout::SkinColor, 
-                        Layout::TitleTag]
+                        Layout::TitleTag,
+                        Layout::InquiryLinkPosition
+                        ]
 
     # 各レイアウト定義のArrayを格納する読み込み属性(reader属性)を生成
     # 以下の属性を生成.
@@ -20,6 +22,7 @@ module Layout
     # * global_navigations
     # * skin_colors
     # * title_tags
+    # * inquiry_link_position
     LAYOUT_CLASSES.each do |clazz|
       attr_reader clazz.name.split('::').last.underscore.pluralize
     end

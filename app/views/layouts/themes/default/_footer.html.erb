@@ -1,9 +1,14 @@
+<!-- === フッター === -->
 <div id="foot">
+  <!-- ナビゲーションメニュー -->
   <%= menu_html %>
+  <!-- ウィジット -->
   <% footer_widgets.each do |widget| %>
-  <%= render_widget widget %>
+    <%= render_widget widget %>
   <% end %>
 </div>
+<!-- フッター画像 -->
 <div id="footer_image">
 <%= footer_image_tag %>
 </div>
+<!-- === フッター終わり === -->

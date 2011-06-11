@@ -32,12 +32,16 @@
   <%= stylesheet_link_tag "common", :media => :all %>
   <%= stylesheet_link_tag "jquery.lightbox-0.5", :media => :all %>
   <%= site_stylesheet_link_tags :media => :all %>
+  
+  <!-- アドレスバーのrssリンク -->
   <%= rss_link_for_addressbar.html_safe %>
   <style type="text/css">
   <!--
+  /* 背景 */
   body {
       <%= background_css %>
   }
+  /* アイキャッチ */
   #eye_catch {
     <%= header_image_style %>
     width: 800px;

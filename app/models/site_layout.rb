@@ -158,6 +158,7 @@ class SiteLayout < ActiveRecord::Base
     self.column_layout = 'menu_on_left'
     self.global_navigation = 'home_link'
     self.background_repeat = 'repeat'
+    self.inquiry_link_position = 'on_menu'
     self.background_color = ''
     true
   end

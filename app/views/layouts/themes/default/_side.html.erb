@@ -1,11 +1,18 @@
-<p class="link_to_inquiry">
-<%= inquiry_link :text => 'お問い合わせはこちら', :class => "inquiry_link" %>
-</p>
+<!-- 問い合わせリンク(デザイン設定ページでサイドに配置する設定がされている場合) -->
+<% if inquiry_link_required_on?(:side) %>
+  <p class="link_to_inquiry">
+  <%= inquiry_link :text => 'お問い合わせはこちら', :class => "inquiry_link" %>
+  </p>
+<% end %>
+<!-- RSSリンク -->
 <p class="link_to_rss">
 <%= rss_link :text => 'RSS表示', :class =>"rss_link" %>
 </p>
+<!-- 新着お知らせ -->
 <%= render '/widget/new_blogs' %>
+<!-- お知らせアーカイブ -->
 <%= render '/widget/blog_months' %>
+<!-- ウィジット -->
 <% side_widgets.each do |widget| %>
-<%= render_widget widget %>
+  <%= render_widget widget %>
 <% end %>

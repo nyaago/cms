@@ -138,8 +138,11 @@
   <%= SiteLayout.human_attribute_name(:global_navigation) %>
 </h2>
 <div id="global_navigation">
-  <%= f.select(:global_navigation, 
-      @layout_defs.global_navigations.collect { |navi| [navi.human_name, navi.name] }  ) %>
+  <%= f.label :global_navigation, 'ホームリンクを' %><%= f.select(:global_navigation, 
+      @layout_defs.global_navigations.collect { |navi| [navi.human_name, navi.name] }  ) %><br/>
+  <%= f.label :inquiry_link_position, '問い合わせリンクを' %><%= f.select(:inquiry_link_position,
+      @layout_defs.inquiry_link_positions.collect { |navi| [navi.human_name, navi.name] } ) %>
+  
 </div>
 </div>
 
