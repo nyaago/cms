@@ -111,8 +111,6 @@ module Form
           end
         end
       end
-      p "=========addresses"
-      p addresses
       addresses
     end
   
@@ -161,7 +159,11 @@ module Form
         site_inquiry_item = SiteInquiryItem.find_by_id(id)
         if site_inquiry_item && site_inquiry_item.inquiry_item &&
             site_inquiry_item.inquiry_item.respond_to?(:title)
-          site_inquiry_item.inquiry_item.title +
+          if site_inquiry_item.inquiry_item.title.blank? then 
+            '' 
+            else 
+              site_inquiry_item.inquiry_item.title 
+            end +
           if is_confirmation  
             I18n.t :confirmation, :scope => TRANSLATION_SCOPE
           else
