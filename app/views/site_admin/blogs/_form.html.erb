@@ -128,9 +128,6 @@ CKEDITOR.config.imageSelctorUrl =
   <% end %>
 
   <div class="inputs fields" id="article_fields">
-    <h2 id="article_heading">
-      記事入力
-    </h2>
     <div id="updated_at_info">
     <% if @article.updated_at %>
      最終<%= BlogArticle.human_attribute_name(:updated_at) %>:

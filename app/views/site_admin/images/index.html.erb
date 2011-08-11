@@ -91,11 +91,6 @@
     <%= text_field :image_additional, :alternative %>
   </div>
   
-  <div class="field" id="caption_field">
-    <%= label :image, :caption %><br />
-    <%= text_field :image_additional, :caption %>
-  </div>
-  
   <div class="field" id="description_filed">
     <%= label :image, :description %><br />
     <%= text_area :image_additional, :description %>
@@ -182,8 +177,13 @@
           <div class="title">
             <%= image.title %>
           </div>
+          <div class="image_file_name">
+            <%= Image.human_attribute_name(:image_file_name) %>:
+            <span><%= image.image_file_name %></span>
+          </div>
           <div class="description">
-            <%= image.description %>
+            <%= Image.human_attribute_name(:description) %>:
+            <span><%= image.description %></span>
           </div>
           <div class="actions"> 
             <%= link_to("編集", site_image_path(image, :action => :edit)) %>

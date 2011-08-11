@@ -166,7 +166,7 @@ ja:
         alternative: "代替テキスト"
         url: "画像url"
         caption: "キャプション"
-        description: "説明"
+        description: "メモ"
                 
       layout_image: 
         image_file_name: "ファイル名"
