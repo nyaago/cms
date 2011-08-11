@@ -1,6 +1,6 @@
 <script type="text/javascript">
 //<![CDATA[
-  
+  /*
   $(document).ready( function(){
     var menuGroupToControllerMap =  {
         "dashboard_menu_header" : ["site_admin/dashboard", ""],
@@ -22,15 +22,47 @@
     }
 
     $("#side_menu").accordion({autoHeight : false,
-                              navigation: true,
+                              navigation: false,
+                              alwaysOpen: true,
                               active: currentId
                               });
     $("#side_menu").css("display", "block");
   });
-  
+  */
+  /*
+  jQuery(document).ready(function(){
+      var menuGroupToControllerMap =  {
+          "dashboard_menu_header" : ["site_admin/dashboard", ""],
+          "blogs_menu_header" : ["site_admin/blogs", ""],
+          "pages_menu_header" : ["site_admin/pages", ""],
+          "images_menu_header" : ["site_admin/images"],
+          "layout_menu_header" : ["site_admin/theme","site_admin/layout","site_admin/widgets"],
+          "setting_menu_header" :
+           ["site_admin/setting","site_admin/post_setting","site_admin/view_setting",
+           "site_admin/optimization","site_admin/inquiry_items", "site_admin/users"],
+           "password_menu_header" : ["site_admin/users"]
+       };
+      var controller = '<%= params[:controller]%>';
+      var currentId = 0;
+      for(key in menuGroupToControllerMap) {
+        if(menuGroupToControllerMap[key].contains(controller)) {
+          currentId = "#" + key;
+        }
+      }
+
+  	$('#side_menu .menu_group_header').click(function() {
+  		$(this).next().toggle('slow');
+  		return false;
+  	}).next().hide();
+  	$("#side_menu").css("display", "block");
+  	$("#side_menu .menu_group").css("display", "none");
+  	$(currentId).next().css("display", "block");
+
+  });
+  */
 //]]>
 </script>
-<div id="side_menu" style="display:none;">
+<div id="side_menu" >
 
 <h2 class="menu_group_header"  id="dashboard_menu_header"><a href="#">
   ダッシュボード
