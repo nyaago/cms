@@ -50,6 +50,35 @@ ja:
         ignore_meta: "無効にする"
         column_layout: "カラムレイアウト"
 
+      blog_article:
+        name: "url"
+        title: "タイトル"
+        content: "内容"
+        published: "公開状態"
+        menu_order: "メニュー表示順"
+        is_home: "トップページか?"
+        updated_at: "更新日時"
+        meta_keywords: "キーワード"
+        published_from: "公開開始日時"
+        meta_description: "概要"
+        ignore_meta: "無効にする"
+        column_layout: "カラムレイアウト"
+
+      page_article:
+        name: "url"
+        title: "ページ名"
+        content: "内容"
+        published: "公開状態"
+        menu_order: "順序"
+        is_home: "トップページか?"
+        updated_at: "更新日時"
+        meta_keywords: "キーワード"
+        published_from: "公開開始日時"
+        meta_description: "概要"
+        ignore_meta: "無効にする"
+        column_layout: "カラムレイアウト"
+
+
       article_history:
         name: "url"
         title: "ページ名"
@@ -157,6 +186,14 @@ ja:
         menu_order: "メニュー表示順"
         updated_at: "更新日時"
         column_layout: "カラムレイアウト"
+
+      blog:
+        title: "タイトル"
+        description: "説明"
+        published: "公開状態"
+        menu_order: "メニュー表示順"
+        updated_at: "更新日時"
+        column_layout: "カラムレイアウト"
         
       search_engine_optimization:
         enabled: "設定有効"
@@ -224,7 +261,7 @@ ja:
         
   categories:
     published:
-      published: "公開済み"
+      published: "公開中"
       unpublished: "下書き"
 
     is_home:

@@ -105,6 +105,11 @@
 <li>
   <%=link_to "ページ一覧", :controller => "site_admin/pages", :action => :index, :site => @site.name %>
 </li>
+<li>
+  <%=link_to "ページ追加", :controller => "site_admin/pages", :action => :new, :site => @site.name %>
+  <li>
+  <%=link_to "順序の変更", :controller => "site_admin/pages", :action => :place, :site => @site.name %>
+</li>
 </ul>
 
 <% if @current_user.is_admin || @current_user.is_site_admin %>

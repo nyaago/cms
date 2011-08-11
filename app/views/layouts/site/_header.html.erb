@@ -1,7 +1,9 @@
 <% unless @site.nil? %>
 <div id="header_infomations">
   <span class="header_information_name">サイト名:</span>
-  <span class="header_information_value" id="header_site_name"><%= @site.name %></span>
+  <span class="header_information_value" id="header_site_name">
+  <%= link_to(@site.name, :controller => :pages, :action => :index, :site => @site) %>
+  </span>
   <span class="header_information_name">サイトタイトル:</span>
   <span class="header_information_value"  id="header_site_title"><%= @site.title %></span>
   <span class="header_information_name">ログインユーザ:</span>

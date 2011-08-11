@@ -41,19 +41,19 @@
       {:class => 'check_all'}) %>
     </th>
     <th class="title">
-      <%= link_to Article.human_attribute_name(:title), 
+      <%= link_to BlogArticle.human_attribute_name(:title), 
         site_blogs_path(:sort => 'title') %>
     </th>
     <th class="published">
-      <%= link_to Article.human_attribute_name(:published), 
+      <%= link_to BlogArticle.human_attribute_name(:published), 
         site_blogs_path(:sort => 'published') %>
     </th>
     <th class="created_at">
-      <%= link_to Article.human_attribute_name(:created_at), 
+      <%= link_to BlogArticle.human_attribute_name(:created_at), 
         site_blogs_path(:sort => 'updated_at') %>
     </th>
     <th class="updated_at">
-      <%= link_to Article.human_attribute_name(:updated_at), 
+      <%= link_to BlogArticle.human_attribute_name(:updated_at), 
         site_blogs_path(:sort => 'updated_at') %>
     </th>
     <th class="edit action"></th>
@@ -68,7 +68,7 @@
       {:class => 'check_for_batch'}) %>
     </td>
     <td class="title">
-      <%= link_to article.title, site_page_path(article) %>
+      <%= link_to article.title, site_page_path(article, :action => :edit) %>
     </td>
     <td class="published">
       <%= article.published_name %>
@@ -79,8 +79,11 @@
     <td class="updated_at">
       <%= I18n.l article.updated_at, :format => :short %>
     </td>
-    <td class="edit action"><%= link_to '編集', 
-        site_blog_path(article, :action => :edit) %></td>
+    <td class="edit action">
+      <%= link_to '表示', 
+        :controller => '/blogs', :action => :show, 
+        :id => article, :site => @site.name %>
+    </td>
     <td class="destroy action"><%= link_to '削除', 
         site_blog_path(article, :action => :destroy) ,
                 :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>

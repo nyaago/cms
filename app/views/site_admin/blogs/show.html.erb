@@ -9,25 +9,25 @@
 
 
 <p class="title">
-  <b><%= Article.human_attribute_name(:title) %>:</b>
+  <b><%= BlogArticle.human_attribute_name(:title) %>:</b>
   <%= @article.title %>
 </p>
 
 <p class="content">
-  <b><%= Article.human_attribute_name(:content) %>:</b>
+  <b><%= BlogArticle.human_attribute_name(:content) %>:</b>
   <%= @article.content.html_safe %>
 </p>
 <p class="published">
-  <b><%= Article.human_attribute_name(:published) %>:</b>
+  <b><%= BlogArticle.human_attribute_name(:published) %>:</b>
   <%= @article.published_name %>
 </p>
 
 <p class="created_at">
-  <b><%= Article.human_attribute_name(:created_at) %>:</b>
+  <b><%= BlogArticle.human_attribute_name(:created_at) %>:</b>
   <%= I18n.l @article.updated_at, :format => :long %>
 </p>
 <p class="updated_at">
-  <b><%= Article.human_attribute_name(:updated_at) %>:</b>
+  <b><%= BlogArticle.human_attribute_name(:updated_at) %>:</b>
   <%= I18n.l @article.updated_at, :format => :long %>
 </p>
 
@@ -54,12 +54,12 @@
 </p>
 
 <p class="meta_keywords">
-  <b><%= Article.human_attribute_name(:meta_keywords) %>:</b>
+  <b><%= BlogArticle.human_attribute_name(:meta_keywords) %>:</b>
   <%= @article.meta_keywords %>
 </p>
 
 <p class="meta_description">
-  <b><%= Article.human_attribute_name(:meta_description) %>:</b>
+  <b><%= BlogArticle.human_attribute_name(:meta_description) %>:</b>
   <%= @article.meta_description %>
 </p>
 

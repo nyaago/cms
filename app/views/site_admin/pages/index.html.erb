@@ -43,27 +43,27 @@
       {:class => 'check_all'}) %>
     </th>
     <th class="name">
-      <%= link_to Article.human_attribute_name(:name), 
+      <%= link_to PageArticle.human_attribute_name(:name), 
         site_pages_path(:sort => 'name') %>
     </th>
     <th class="title">
-      <%= link_to Article.human_attribute_name(:title), 
+      <%= link_to PageArticle.human_attribute_name(:title), 
         site_pages_path(:sort => 'title') %>
     </th>
     <th class="menu_order">
-      <%= link_to Article.human_attribute_name(:menu_order), 
+      <%= link_to PageArticle.human_attribute_name(:menu_order), 
         site_pages_path(:sort => 'menu_order') %>
     </th>
     <th class="published">
-      <%= link_to Article.human_attribute_name(:published), 
+      <%= link_to PageArticle.human_attribute_name(:published), 
         site_pages_path(:sort => 'published') %>
     </th>
     <th class="is_home">
-      <%= link_to Article.human_attribute_name(:is_home), 
+      <%= link_to PageArticle.human_attribute_name(:is_home), 
         site_pages_path(:sort => 'is_home') %>
     </th>
     <th class="updated_at">
-      <%= link_to Article.human_attribute_name(:updated_at), 
+      <%= link_to PageArticle.human_attribute_name(:updated_at), 
         site_pages_path(:sort => 'updated_at') %>
     </th>
     <th class="edit action"></th>
@@ -77,7 +77,7 @@
       {:class => 'check_for_batch'}) %>
     </td>
     <td class="name">
-      <%= link_to h(article.name), site_page_path(article) %>
+      <%= link_to h(article.name), site_page_path(article, :action => :edit) %>
     </td>
     <td class="title">
       <%= article.title %>
@@ -94,8 +94,11 @@
     <td class="updated_at">
       <%= I18n.l article.updated_at, :format => :short %>
     </td>
-    <td class="edit action"><%= link_to '編集', 
-        site_page_path(article, :action => :edit) %></td>
+    <td class="edit action">
+      <%= link_to '表示', 
+        :controller => '/pages', :action => :show, 
+        :id => article, :site => @site.name %>
+    </td>
     <td class="destroy action"><%= link_to '削除', 
         site_page_path(article, :action => :destroy) ,
                 :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>

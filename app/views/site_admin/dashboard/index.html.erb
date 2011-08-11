@@ -32,19 +32,32 @@
     </h2>
 
     <div class="field" id="blog_count">
-      <span class="field_name">お知らせ</span>
-      <span  class="field_value"><%= @blog_count %> 件</span>
+      <span class="field_name">
+      <%= link_to 'お知らせ', :controller => 'site_admin/blogs', :action => :index  %>
+      </span>
+      <span  class="field_value">
+        <%= @blog_count %> 
+        件
+      </span>
     </div>
     <div class="field" id="page_count">
-      <span class="field_name">ページ</span>
-      <span  class="field_value"><%= @page_count %> 件</span>
+      <span class="field_name">
+        <%= link_to 'ページ', :controller => 'site_admin/pages', :action => :index  %>
+      </span>
+      <span  class="field_value">
+        <%= @page_count%>
+        件</span>
     </div>
     <div class="field" id="theme">
-      <span class="field_name">テーマ</span>
+      <span class="field_name">
+        <%= link_to 'テーマ', :controller => 'site_admin/theme', :action => :index  %>
+        </span>
       <span  class="field_value"><%= @theme.human_name %></span>
     </div>
     <div class="field" id="widget_count">
-      <span class="field_name">ウィジット</span>
+      <span class="field_name">
+        <%= link_to 'ウィジット', :controller => 'site_admin/widgets', :action => :index  %>
+      </span>
       <span  class="field_value"><%= @widget_count %> 件</span>
     </div>
     <div class="field" id="widget_count">
