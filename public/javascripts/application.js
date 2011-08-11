@@ -1,6 +1,8 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+// required library - jQuery
+
 // 日付けを日本語の書式の文字列へ
 Date.prototype.toJapaneseString = function() {
   return this.getFullYear() + "年" + (this.getMonth() + 1) + "月" + this.getDate() + "日" +
@@ -9,7 +11,8 @@ Date.prototype.toJapaneseString = function() {
 
 // camel => underscore
 String.prototype.underscore = function() {
-  return this.split(/(?![a-z])(?=[A-Z])/).map( function(word) { 
+  return jQuery.map(this.split(/(?![a-z])(?=[A-Z])/), 
+                                function(word) { 
                                         return word.toLowerCase(); } ).
                                         join('_');
 };
