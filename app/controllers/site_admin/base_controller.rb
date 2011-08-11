@@ -30,7 +30,7 @@ class SiteAdmin::BaseController < ActionController::Base
   # 現在ログインしているユーザの情報(User)を得る
   # 
   def current_user
-    request.session_options[:expire_after] = 1.weeks.from_now
+    request.session_options[:expire_after] = 1.weeks
     @current_user ||= current_user_session && current_user_session.user
   end
   
@@ -121,7 +121,7 @@ class SiteAdmin::BaseController < ActionController::Base
   # セッションの有効期限設定 - ブラウザを落としてもLoginを保持できるようにする
   def session_expire
     if current_user.auto_login
-      request.session_options[:expire_after] = 1.weeks.from_now
+      request.session_options[:expire_after] = 1.weeks
     else
       request.session_options[:expire_after] = nil
     end
