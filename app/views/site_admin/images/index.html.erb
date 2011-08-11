@@ -14,6 +14,27 @@
       f = false;
     }
     showOrHideUpload(f);
+    
+    // キー入力されている場合、ページを離れてもよいか確認
+    var keyCount = 0;
+    $('form :input').keypress( function() {
+      keyCount += 1
+    } );
+    $('form :file').change( function() {
+      keyCount += 1
+    } );
+    $('form :button').click( function() {
+      keyCount += 1
+    } );
+    $('form :submit').click( function()  {
+      keyCount = 0;
+    } );
+    $(window).bind('beforeunload', function(event) {
+      if(keyCount > 0) {
+    	  return '編集内容が保存されていません';
+  	  }
+    });
+    
   });
 
 
