@@ -688,6 +688,22 @@ module ApplicationHelper
   def site_title
     @site.title || ""
   end
+
+  # 表示しているのがトップ（ホーム）ページであるか?
+  def is_home?
+    defined?(@article) && !@article.nil? && @arricle.is_home
+  end
+  
+  # 表示しているのがページ記事であるか
+  def is_page_article?
+    defined?(@article) && !@article.nil? && @article.type == "PageArticle"
+  end
+
+  # 表示しているのがblog(お知らせ)記事であるか
+  def is_blog_article?
+    defined?(@article) && !@article.nil? && @article.type == "BlogArticle"
+  end
+  
   
   # 各widgetの　rendering
   # == parameters
