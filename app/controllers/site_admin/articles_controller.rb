@@ -275,6 +275,25 @@ class SiteAdmin::ArticlesController < SiteAdmin::BaseController
     Article.delete(id)
   end
   
+  # 指定されたidの行を公開設定
+  def publish_by_id(id)
+    article = Article.find_by_id(id)
+    if article
+      article.published = true
+      article.save!(:validate => false)
+    end
+  end
+  
+  # 指定されたidの行を非公開設定
+  def unpublish_by_id(id)
+    article = Article.find_by_id(id)
+    if article
+      article.published = false
+      article.save!(:validate => false)
+    end
+  end
+  
+  
   
   
 end

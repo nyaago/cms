@@ -8,15 +8,21 @@ class BlogsController < ApplicationController
   # 翻訳リソースのスコープ
   TRANSLATION_SCOPE = ["messages", "blogs"].freeze
 
+
   # GET /blogs/show/1
   # GET /blogs/shouw/1.xml
   # 指定されたidの記事を表示
   def show
-    @article = @site.blogs.where("id = :id and published = true", 
-                                  :id => params[:id]).
-                                  first
+    
+    arel = @site.blogs.where("id = :id", 
+                                  :id => params[:id])
+    unless current_user 
+      arel = arel = arel.where("published = ?", true)
+    end                              
+    @article = arel.first
 
-    if @article.nil?
+    if @article.nil? || 
+        current_user && (@article.site != current_user.site && !current_user.is_admin)
       respond_to do |format|
          format.html { 
            render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", 
@@ -154,6 +160,19 @@ class BlogsController < ApplicationController
       (current_user.site && current_user.site.name == @site.name  ||
       current_user.is_admin)
   end
+
+  # 現在ログインしているユーザセッション情報を得る
+  def current_user_session
+    @current_user_session ||= UserSession.find
+  end
+  
+  # 現在ログインしているユーザの情報(User)を得る
+  # 
+  def current_user
+    request.session_options[:expire_after] = 1.weeks
+    @current_user ||= current_user_session && current_user_session.user
+  end
+
 
 end
 

@@ -14,7 +14,7 @@
   <span id="batch">
   チェックされたものの
   <%= select_tag('blogs[processing_method]',
-  options_for_select([['削除', 'destroy']]),
+  options_for_select([['削除', 'destroy'],['公開', 'publish'],['下書き', 'unpublish']]),
   { :include_blank => true }) %>
   <%= button_to_function('一括実行', 'return processBatch();') %>
   </span>

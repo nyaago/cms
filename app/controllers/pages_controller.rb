@@ -9,13 +9,18 @@ class PagesController < ApplicationController
   # GET /pages/show/1.xml
   # 記事を表示
   def show
-    @article = unless params[:page].blank? 
-      @site.pages.where("name = :name and published = true", :name => params[:page])
+    arel = unless params[:page].blank? 
+      @site.pages.where("name = :name", :name => params[:page])
     else
       @site.pages.where("is_home = true and published = true")
-    end.
-    first
-    if @article.nil?
+    end
+    unless current_user 
+      arel = arel = arel.where("published = ?", true)
+    end                              
+    @article = arel.first
+
+    if @article.nil? || 
+        current_user && (@article.site != current_user.site && !current_user.is_admin)
       respond_to do |format|
          format.html { 
            render :file => "#{::Rails.root.to_s}/app/views/404.html.erb", 
@@ -77,5 +82,16 @@ class PagesController < ApplicationController
       current_user.is_admin)
   end
   
+  # 現在ログインしているユーザセッション情報を得る
+  def current_user_session
+    @current_user_session ||= UserSession.find
+  end
+  
+  # 現在ログインしているユーザの情報(User)を得る
+  # 
+  def current_user
+    request.session_options[:expire_after] = 1.weeks
+    @current_user ||= current_user_session && current_user_session.user
+  end
   
 end
