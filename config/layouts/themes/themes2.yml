@@ -1,9 +1,12 @@
 themes:
   - name: "school"
     human_name: "学校"
+    order: 1
 
   - name: "beauty_salon"
     human_name: "美容院"
+    order: 2
 
   - name: "dentist"
     human_name: "歯医者"
+    order: 3

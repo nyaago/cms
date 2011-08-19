@@ -17,7 +17,7 @@ class SiteAdmin::ThemeController < SiteAdmin::BaseController
     @site = Site.find_by_id( @site.id)
     if @site.nil? || @site.site_layout.nil?
       respond_to do |format|
-        @themes = Layout::Theme.load
+        @themes = Layout::Theme.load.sort {|a,b| a.order <=> b.order }
         @selected_theme = @themes.find_by_name(@site.site_layout.theme)
         
         flash[:notice] = I18n.t("not_found", :scope => TRANSLATION_SCOPE)

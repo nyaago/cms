@@ -2,4 +2,5 @@ themes:
   name: "default"
   human_name: "標準"
   description: "<p>標準のテーマです</p>"
+  order: 0
   
