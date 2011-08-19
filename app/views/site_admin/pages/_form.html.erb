@@ -28,6 +28,12 @@ jQuery(function($){
     $('form :submit').click( function()  {
       keyCount = 0;
     } );
+    
+    $('form').submit( function() {
+      okPublished();
+      return true;
+    });
+    
     CKEDITOR.on('instanceReady',
         function(e) {e.editor.on('key', function() { keyCount += 1; }  )  } );
     
@@ -219,7 +225,6 @@ CKEDITOR.config.imageSelctorUrl =
       <!-- 公開/下書き切り替えの確定値を格納するhiddenフィールド -->
       <%= f.hidden_field :published %>
       <div class="actions">
-        <%= button_to_function "OK", "okPublished();" %>
         <%= button_to_function "キャンセル", "cancelPublished();" %>
       </div>
       
