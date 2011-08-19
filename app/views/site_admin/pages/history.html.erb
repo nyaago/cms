@@ -1,0 +1,38 @@
+<h1>
+  <%= PageArticle.model_name.human %>編集履歴
+</h1>
+
+<p id="notice"><%= notice %></p>
+
+
+<div id="article_histories" class="articles_div">
+<table>
+  <tr>
+    <th class="updated_at">
+      <%= ArticleHistory.human_attribute_name(:updated_at) %>
+    </th>
+    <th class="last_updated_at">
+      <%= ArticleHistory.human_attribute_name(:last_updated_at) %>
+    </th>
+    <th>
+    </th>
+  </tr>
+  <% @article_histories.each do |article| %>
+    <tr>
+      <td class="updated_at">
+        <%= I18n.l article.updated_at, :format => :short %>
+      </td>
+      <td class="last_udated_at">
+        <%= I18n.l article.last_updated_at, :format => :short %>
+      </td>
+      <td class="actions"><%= link_to '編集', 
+          site_page_path(article, :action => :edit) %></td>
+    </tr>
+
+  <% end %>
+  </table>
+</div>
+  
+<div class="actions">
+<%= link_to '一覧へ戻る', url_for(:back) %>
+</div>

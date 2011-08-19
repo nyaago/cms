@@ -13,7 +13,7 @@ class SiteAdmin::PagesController < SiteAdmin::ArticlesController
   # GET /pages/1
   # GET /pages/1.xml
   # 記事詳細表示
-  def show
+  def history
     flash[:notice] = ''
     @article = articles.where("id = :id", :id => params[:id]).first
     @article_histories = if @article

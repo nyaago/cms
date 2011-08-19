@@ -66,7 +66,8 @@
       <%= link_to PageArticle.human_attribute_name(:updated_at), 
         site_pages_path(:sort => 'updated_at') %>
     </th>
-    <th class="edit action"></th>
+    <th class="show action"></th>
+    <th class="history action"></th>
     <th class="destroy action"></th>
   </tr>
 
@@ -97,11 +98,17 @@
     <td class="edit action">
       <%= link_to '表示', 
         :controller => '/pages', :action => :show, 
-        :id => article, :site => @site.name %>
+        :page => article.name, :site => @site.name %>
     </td>
-    <td class="destroy action"><%= link_to '削除', 
+    <td>
+      <%= link_to '編集履歴', 
+        site_page_path(article, :action => :history) %>
+    </td>
+    <td class="destroy action">
+      <%= link_to '削除', 
         site_page_path(article, :action => :destroy) ,
-                :confirm => '削除してよろしいでしょうか?', :method => :delete %></td>
+                :confirm => '削除してよろしいでしょうか?', :method => :delete %>
+    </td>
   </tr>
 <% end %>
 </table>
