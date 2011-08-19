@@ -6,8 +6,9 @@ class SiteAdmin::ThemeController < SiteAdmin::BaseController
   TRANSLATION_SCOPE = ["messages", "site_admin", "theme"].freeze
   
   def index
-    @themes = Layout::Theme.load.sort {|a,b| a.order <=> b.order }
+    @themes = Layout::Theme.load
     @selected_theme = @themes.find_by_name(@site.site_layout.theme)
+    @themes = Layout::Theme.load.sort {|a,b| a.order <=> b.order }
     #@site.theme = 'default'
   end
   
