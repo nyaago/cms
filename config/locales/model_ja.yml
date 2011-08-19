@@ -8,8 +8,8 @@ ja:
       blog_article: "お知らせ"
       image: "画像"
       site: "サイト"
-      site_layout: "レイアウトデザイン設定"
-      site_setting: "サイト一般設定"
+      site_layout: "レイアウト設定"
+      site_setting: "設定"
       search_engine_optimization: "SEO設定"
       post_setting: "投稿設定"
       view_setting: "表示設定"
@@ -19,7 +19,7 @@ ja:
       text_inquiry_item: "任意のテキスト"
       radio_inquiry_item: "ラジオボタン"
       checkbox_inquiry_item: "チェックボックス"
-      email_inquiry_item: "EMailアドレス"
+      email_inquiry_item: "メールアドレス"
       information: "お知らせ"
 
     attributes: 
@@ -97,10 +97,10 @@ ja:
       
       site:
         name: "サイト名"
-        title: "サイトタイトル"
+        title: "サイトのタイトル"
         description: "サイトの説明"
         copyright: "コピーライト"
-        email: "連絡先メイルアドレス"
+        email: "連絡先メールアドレス"
         updated_at: "更新日時"
         created_at: "作成日時"
         published: "公開"
@@ -147,7 +147,7 @@ ja:
         pop3_ssl: "SSLを使用する"
 
       view_setting:
-        title_count_in_home: "トップページに表示するタイトル数"
+        title_count_in_home: "トップページに表示する最新記事の日付・タイトル数"
         article_count_per_page: "１ページに表示する投稿数"
         rss_type: "RSS/Atomタイプ"
         article_count_of_rss: "RSS/Atomで表示する投稿数"
@@ -197,7 +197,7 @@ ja:
         
       search_engine_optimization:
         enabled: "設定有効"
-        canonical_url_enabled: "Canonical URL"
+        canonical_url_enabled: "Canonical URL(標準URL)"
         title_rewriting: "タイトルの書き換え"
         page_title_format: "ページ記事タイトルフォーマット"
         blog_title_format: "お知らせ（ブログ）記事タイトルフォーマット"
@@ -219,7 +219,7 @@ ja:
         tel_no: "電話番号"
         business_hours: "営業時間"
         regular_holidays: "定休日"
-        email: "メイルアドレス"
+        email: "メールアドレス"
         link_url1: "参考先リンクURL1"
         link_title1: "参考先1"
         link_url2: "参考先リンクURL2"
@@ -253,7 +253,7 @@ ja:
       email_inquiry_item:
         title: "タイトル"
         confirmation_required: "確認入力を要求する"
-        confirm_to: "確認メイル送信先である"
+        confirm_to: "確認メール送信先である"
         
       information:
         title: "タイトル"
@@ -263,6 +263,10 @@ ja:
     published:
       published: "公開中"
       unpublished: "下書き"
+      selection:
+        published: "公開"
+        unpublished: "下書き"
+        
 
     is_home:
       is_home: "○"

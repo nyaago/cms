@@ -1,7 +1,7 @@
 inquiry_link_positions:
   - name: "on_menu"
-    human_name: "メニューに表示"
-  - name: "on_side"
-    human_name: "サイドに表示"
+    human_name: "表示"
   - name: "none"
-    human_name: "表示しない"
+    human_name: "非表示"
+  - name: "on_side"
+    human_name: "サイドメニューに表示"

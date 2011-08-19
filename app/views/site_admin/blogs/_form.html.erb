@@ -1,4 +1,5 @@
 <%= javascript_include_tag 'ckeditor/ckeditor' %>
+<%= javascript_include_tag 'jquery.selection' %>
 
 
 <script type="text/javascript" charset="utf-8">
@@ -19,11 +20,12 @@ jQuery(function($){
     
     // キー入力されている場合、ページを離れてもよいか確認
     var keyCount = 0;
-    $('form :input').keypress( function() {
-      keyCount += 1
+    $('form :input').keypress( function(e) {
+      keyCount += 1;
+      
     } );
     $('form :button').click( function() {
-      keyCount += 1
+      keyCount += 1;
     } );
     $('form :submit').click( function()  {
       keyCount = 0;
@@ -36,6 +38,20 @@ jQuery(function($){
     	  return '編集内容が保存されていません';
   	  }
     });
+
+    CKEDITOR.on('instanceReady',
+        function(e) {e.editor.on('key', function(evt) { 
+            if(e.editor.mode == "source") {
+              if(evt.data.keyCode == 13) {
+                // $(e.editor.textarea.$).insertBeforeSelection("<br/>", 'start');
+                /*
+                var dom =
+                 CKEDITOR.dom.element.createFromHtml(e.editor.textarea.$.value);
+                */
+              }
+            }
+           }  )  } );
+    
     
 });
 

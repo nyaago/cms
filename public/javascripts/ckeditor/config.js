@@ -4,7 +4,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 CKEDITOR.config.extraPlugins = 'imageselector';
-
+//CKEDITOR.config.startupMode = 'source';
 CKEDITOR.config.toolbar =
 [
 ['Source','-','Save','Preview'],

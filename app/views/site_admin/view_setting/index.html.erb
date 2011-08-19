@@ -25,17 +25,17 @@
 
   <div class="field" id="title_count_in_home">
     <%= f.label :title_count_in_home %>
-    <%= f.text_field :title_count_in_home %>
+    <%= f.select(:title_count_in_home, [5,10,15,20,25,30].each  {|e| [e,e] } )%>
   </div>
 
   <div class="field" id="article_count_per_page">
     <%= f.label :article_count_per_page %>
-    <%= f.text_field :article_count_per_page %>
+    <%= f.select(:article_count_per_page, (1..10).to_a.each  {|e| [e,e] } )%>
   </div>
 
   <div class="field" id="article_count_of_rss">
     <%= f.label :article_count_of_rss %>
-    <%= f.text_field :article_count_of_rss %>
+    <%= f.select(:article_count_of_rss, [5,10,15,20,25,30].each  {|e| [e,e] } )%>
   </div>
 
   <div class="field" id="rss_type">

@@ -9,5 +9,7 @@ skin_colors:
     human_name: "赤"
   - name: "green"
     human_name: "緑"
+  - name: "orange"
+    human_name: "オレンジ"
 
   

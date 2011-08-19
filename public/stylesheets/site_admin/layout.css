@@ -24,7 +24,7 @@ input {
 
 
 input.eye_catch_type_radio_button {
-  display: none;
+/*  display: none; */
 }
 
 .eye_catch_type {
@@ -64,7 +64,7 @@ input.eye_catch_type_radio_button {
 }
 
 input.skin_color_radio_button {
-  display: none;
+/*  display: none; */
 }
 
 
@@ -106,7 +106,7 @@ input.skin_color_radio_button {
 }
 
 input.column_layout_radio_button {
-  display: none;
+/*  display: none; */
 }
 
 

@@ -6,5 +6,5 @@ inquiry_items:
   - name: "checkbox_inquiry_item"
     description: "チェックボックスの選択"
   - name: "email_inquiry_item"
-    description: "EMailアドレス"
+    description: "メールアドレス"
     

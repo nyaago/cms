@@ -24,10 +24,10 @@ class BlogFromPop3
       connection.disable_ssl
     end
     begin
-      p "connecting to #{post_setting.pop3_login}..."
+      #p "connecting to #{post_setting.pop3_login}..."
       connection.start(post_setting.pop3_login, post_setting.pop3_password) do |pop|
-      p "connected..."
-        begin
+      #p "connected..."
+       begin
           pop.each_mail do |pop_mail|
             mail = Mail.new(pop_mail.pop)
             p mail.body.decoded.toutf8

@@ -109,7 +109,7 @@ function okPublished() {
     $("#blog_article_published").val($("#article_published_select").val());
     $("div#published").css("display", "none");
     if($("#blog_article_published").val()) {
-      $('#published_status').text('公開済み');
+      $('#published_status').text('公開中');
     }
     else {
       $('#published_status').text('下書き');
