@@ -1,0 +1,9 @@
+themes:
+  - name: "school"
+    human_name: "学校"
+
+  - name: "beauty_salon"
+    human_name: "美容院"
+
+  - name: "dentist"
+    human_name: "歯医者"
