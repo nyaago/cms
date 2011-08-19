@@ -17,6 +17,8 @@ ja:
         not_found: "記事がみつかりませんでした"
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
+        complete_publish_batch: "%{count}件を公開設定しました"
+        complete_unpublish_batch: "%{count}件を下書きとして設定しました"
         none: "記事が登録されていません。"
         over_capacity: "画像の容量がが使用容量に達しています"
         
@@ -50,6 +52,8 @@ ja:
         destroyed: "記事が削除されました"
         not_implemented_batch: "操作が定義されていません"
         complete_destroy_batch: "%{count}件の削除を行いました"
+        complete_publish_batch: "%{count}件を公開設定しました"
+        complete_unpublish_batch: "%{count}件を下書きとして設定しました"
         not_found: "記事がみつかりませんでした"
         none: "該当する記事はありません。"
   
