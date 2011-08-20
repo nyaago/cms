@@ -3,45 +3,285 @@
 管理の共通スタイルシート
 */
 
+/*-------reset--------*/
+body,div,h1,h2,h3,h4,h5,h6,p,blockquote,pre,dl,table,th,td,form,fielset,ul,ol,li,dt,dd,address{
+	margin: 0;
+	padding: 0;
+}
+h1,h2,h3,h4,h5,h6{
+	font-size: 100%;
+}
+ul,ol{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+a img{
+	border: none;
+}
+* html img{
+vertical-align: bottom;
+}
+*:first-child+html img{
+vertical-align: bottom;
+}
+header, section, aside, article, hgroup, nav, header, footer {
+	display: block;
+}
+
+/*-------body--------*/
+body{
+	background-color: #ccc;
+	font-family: "ＭＳ ゴシック", "MS Gothic", "Osaka－等幅", Osaka-mono, monospace;
+}
+
+/*-------header--------*/
+header{
+	background-color: #666;
+	height: 120px;
+	margin-bottom: 15px;
+}
+#header_area{
+	width: 840px;
+	margin: 0 auto;
+	overflow: hidden;
+	zoom: 1;
+	height: 120px;
+}
+header h1{
+	background: url(images/canp_s1.gif) no-repeat;
+	float: left;
+	font-size: 30px;
+	color: #fff;
+	margin-top: 70px;
+	padding:15px 0 0 60px;
+}
+header .header_right{
+	float: right;
+	width: 400px;
+	height: 120px
+}
+header .header_right a:visited{
+	color: #00F;
+}
+header p{
+	float: right;
+	color: #fff;
+	margin: 10px 5px 0px 0px;
+}
+
+header ul{
+	color: #fff;
+	text-align: right;
+	margin: 5px 5px 0px 0px;
+}
+header span{
+	color: #F90;
+}
+header a:visited {
+	color: #fff;
+}
+header a:hover{
+	text-decoration: underline;
+}
+
+/*-------contet--------*/
+#content{
+	width: 840px;
+	margin: 0 auto;
+	background: #e4e4e4;
+	overflow: hidden;
+	zoom: 1;
+	margin-bottom: 15px;
+}
+
+/*-------main_section--------*/
+.main{
+	float: right;
+	width: 630px;
+	margin-right: 15px;
+	padding-top: 50px;
+	
+}
+.main h1{
+	font-size: 21px;
+	margin-bottom: 10px;
+}
+.main h2{
+	height: 30px;
+	background: #666;
+	line-height: 30px;
+	color: #fff;
+	padding-left: 10px;
+    -webkit-border-top-left-radius: 8px; /*css3角丸*/ 
+    -webkit-border-top-right-radius: 8px;/*css3角丸*/
+}
+.main ul{
+	background-color: #fff;
+	font-size: 14px;
+    -webkit-border-bottom-left-radius: 8px; /*css3角丸*/ 
+    -webkit-border-bottom-right-radius: 8px;/*css3角丸*/
+}
+.main ul li{
+	padding: 10px 0 10px 20px;
+	line-height: 1.3em; 
+}
+.main ul li a:hover{
+	text-decoration: underline;
+}
+.main ul li a:link {
+	color: #00F;
+}
+.main ul li a:visited {
+	color: #00f;
+}
+.main .status{
+	margin-top: 50px;
+}
+.main dl{
+	background-color: #fff;
+	overflow: hidden;
+	zoom: 1;
+	padding: 10px 0 10px 20px;
+	line-height: 1.8em; 
+	font-size: 14px;
+}
+.main dt{
+	float: left;
+}
+.main dd{
+	margin-left: 130px;
+}
+.main dd.theme{
+	background: #c4c4c4;
+	width: 100px;
+	height: 25px;
+	text-align: center;
+	display: block;
+	font-size: 12px;
+	margin-top: 10px
+}
+.main dd.theme a:visited{
+	color: #000;
+}
+
+.main p{
+	background-color: #fff;
+	padding: 0 0 10px 30px;
+    -webkit-border-bottom-left-radius: 8px; /*css3角丸*/ 
+    -webkit-border-bottom-right-radius: 8px;/*css3角丸*/
+}
+.main span{
+	color: #F00;
+}
+/*-------aside--------*/
+aside{
+	float: left;
+	width: 165px;
+	min-height: 700px;
+}
+aside .main_nav{
+	margin-left: 16px; 
+}
+aside ul.button{
+	margin: 20px 0 10px 0;
+}
+aside ul.button li{
+	height: 20px;
+	width: 100px;
+	background: #c4c4c4;
+	margin: 0 auto;
+	line-height: 20px;
+	margin-bottom: 10px;
+    border-radius: 15px;        /* CSS3草案 */  
+    -webkit-border-radius: 15px;    /* Safari,Google Chrome用 */  
+    -moz-border-radius: 15px;   /* Firefox用 */  
+}
+aside ul.button li a{
+    border-radius: 15px;        /* CSS3草案 */  
+    -webkit-border-radius: 15px;    /* Safari,Google Chrome用 */  
+    -moz-border-radius: 15px;   /* Firefox用 */  
+}
+aside h2{
+	width: 150px;
+	height: 30px;
+	background: #666 url(images/h2_bottan001.gif) no-repeat 5%;
+	font-size: 14px;
+    border-radius: 5px;        /* CSS3草案 */  
+    -webkit-border-radius: 5px;    /* Safari,Google Chrome用 */  
+    -moz-border-radius: 5px;   /* Firefox用 */  
+}
+aside h2 a{
+	display: block;
+	padding-left: 35px;
+	line-height: 30px;
+}
+aside h2 a:hover {
+	text-decoration: underline;
+}
+aside h2 a:visited {
+	color: #fff;
+}
+aside ul{
+	text-align: center;
+}
+aside ul li{
+	height: 25px;
+	width: 150px;
+	line-height: 25px;
+	font-size: 12px;
+}
+aside ul li a{
+	display: block;
+	background-color: #d7d7d7;
+}
+aside ul li a:hover{
+	background-color: #6CF;
+}
+aside ul li a:visited{
+	color: #000;
+}
+
+/*-------footer--------*/
+footer{
+	background-color: #666;
+	height: 70px;	
+}
+#footer_area{
+	width: 840px;
+	margin: 0 auto;
+	height: 70px;
+	overflow: hidden;	
+	zoom: 1;	
+}
+#footer_area ul{
+	overflow: hidden;
+	zoom: 1;	
+	font-size: 14px;
+	margin: 10px 0 0 10px;
+	float: left;
+	width: 300px
+}
+#footer_area ul li{
+	float: left;
+}
+#footer_area p{
+	text-align: right;
+	color: #FFF;
+	float: right;
+	margin-top: 50px;
+}
+
+
+
 /*
  ========================== 
  レイアウト / 共通
 */
-body { background-color: #fff; color: #333; }
-
-body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
-}
-
 
 div.field, div.actions {
   margin-bottom: 10px;
-}
-
-
-div#header {
-    width: 1000px;
-}
-
-div#container {
-  width: 1000px;
-}
-
-div#side {
-  float: left;
-  width: 20%;
-
-}
-
-div#contents {
-  width: 80%;
-  float: left;
-}
-
-div#footer {
-  clear :both;
 }
 
 pre {
@@ -50,7 +290,6 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; }
 a:visited { color: #666; }
 a:hover { color: #fff; background-color:#000; }
 
@@ -63,18 +302,21 @@ a:hover { color: #fff; background-color:#000; }
 /* 注意メッセージ
 --------------------------------------------------------- */
 #notice {
+  background-color: #e4e4e4;
   color: green;
 }
 
 /* ワーニングメッセージ
 --------------------------------------------------------- */
 #warning {
+  background-color: #e4e4e4;
   color: magenta;
 }
 
 /* エラーメッセージ
 --------------------------------------------------------- */
 #error {
+  background-color: #e4e4e4;  
   color: red;
 }
 

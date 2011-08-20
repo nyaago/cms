@@ -62,7 +62,21 @@
   */
 //]]>
 </script>
-<div id="side_menu" >
+<nav class="main_nav">
+
+<ul class="button">
+  <li>
+    <%=link_to "新規投稿", :controller => "site_admin/blogs", :action => :new, :site => @site.name %>
+  </li>
+
+  <li>
+    <%=link_to "プレビュー", 
+    {:controller => "/pages", :action => :preview, :site => @site.name},
+    {:target => "_preview"} 
+    %>
+  </li>
+
+</ul>
 
 <h2 class="menu_group_header"  id="dashboard_menu_header"><a href="#">
   ダッシュボード
@@ -198,4 +212,4 @@
 </li>
 </ul>
 <% end %>
-</div>
+</nav>

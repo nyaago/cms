@@ -15,35 +15,33 @@
 </head>
 <body>
     
-<div id="header">
+<header>
     <%= render "/layouts/site/header" %>
-</div>   <!-- header -->
+</header>   <!-- header -->
 
-<div id="container">
+<div id="content">
 
-<div id="side">
+  <div class="main">
+
+  <%= yield %>
+
+  </div>   <!-- main -->
+
+<aside>
 
 
 <%= render "/layouts/site/side" %>
 
-</div>   <!-- side -->
+</aside>   <!-- side -->
 
 
-<div id="contents">
 
-<%= yield %>
-
-</div>   <!-- contents -->
-
-
-<div style="clear: both;">
-</div>
 
 </div>   <!-- container -->
 
-<div id="footer">
+<footer>
     <%= render "/layouts/site/footer" %>
-</div>
+</footer>
 
 </body>
 </html>

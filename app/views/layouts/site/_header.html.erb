@@ -1,18 +1,25 @@
+<div id="header_area">
 <% unless @site.nil? %>
-<div id="header_infomations">
-  <span class="header_information_name">サイト名:</span>
-  <span class="header_information_value" id="header_site_name">
-  <%= link_to(@site.name, :controller => '/pages', :action => :show, :site => @site.name) %>
-  </span>
-  <span class="header_information_name">サイトタイトル:</span>
-  <span class="header_information_value"  id="header_site_title"><%= @site.title %></span>
-  <span class="header_information_name">ログインユーザ:</span>
-  <span class="header_information_value"  id="header_user_name"><%= @current_user.login %></span>
-</div>
-<% end %>
-<ul id="header_menu">
-  <li>
-    <%=link_to "ログアウト", :controller => '/user_sessions', :action => :destroy %>
-  </li>
-</ul>
+<h1><a href="#">WASABI</a></h1>
 
+
+<div class="header_right">
+<ul>
+      <li>お問い合わせ</li>
+      <li>078-843-6682</li>
+      <li>月～金 9：30 ～ 18：00</li>
+      <li>土曜日 9：30 ～ 12：00</li>
+      <li><a href="#">メールでのお問い合わせ</a></li>
+</ul>
+<p>
+  <strong>こんにちは、
+    <strong style="color:red;font-size:1.5em;line-height:1;">
+      <%= @current_user.login %>さん
+    </strong>  ｜   
+    <%=link_to "ログアウト", :controller => '/user_sessions', :action => :destroy %>
+  </strong>  
+</p>
+</div><!-- header_right -->
+
+<% end %>
+</div>
