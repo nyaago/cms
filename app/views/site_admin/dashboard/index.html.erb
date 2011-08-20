@@ -16,7 +16,7 @@
 
   <ul >
     <% @informations.each do |information| %>
-      <li>
+      <li><%= I18n.l information.updated_at.to_date, :format => :middle %>&nbsp;
       <%= link_to(information.title, 
       url_for(:controller => :informations, :action => :show, :id => information.id)) %>
       </li>

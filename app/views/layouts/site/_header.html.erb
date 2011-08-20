@@ -1,6 +1,6 @@
 <div id="header_area">
 <% unless @site.nil? %>
-<h1><a href="#">WASABI</a></h1>
+<h1><%= link_to @site.name, :controller => :dashboard, :site => @site.name %></a></h1>
 
 
 <div class="header_right">
