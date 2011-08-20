@@ -60,12 +60,9 @@ class ApplicationController < ActionController::Base
   # siteモデルをロード
   # サイトがなければ, 404リダイレクト
   def load_site
-    
     site_name = params[:site]
     @site = nil
-    if !site_name.blank?
-      @site = Site.find_by_name(site_name)
-    end
+    @site = Site.find_by_host(request.host) || Site.find_by_name(site_name)
     if @site.nil? || !@site.published || @site.suspended || @site.canceled
       respond_to do |format|
          format.html { 

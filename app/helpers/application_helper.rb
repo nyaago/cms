@@ -258,8 +258,9 @@ module ApplicationHelper
       next if page.is_home && @site && @site.site_layout.global_navigation == "no_home_link"
       url = url_for(:controller => :pages, 
                     :action => :show, 
-                    :site => @site.name, 
-                    :page => if page.is_home then nil else page.name  end)
+                    :site => if @site.host == request.host;nil;else; @site.name end,  
+                    :page => if page.is_home then nil else page.name  end,
+                    :id => nil)
       li_tag_id = "#{tag_id}_#{page.name}"
       html << "<li id='#{li_tag_id}'><a href='#{url}'>" <<
             page.title <<
@@ -267,7 +268,7 @@ module ApplicationHelper
     end
     if @site && @site.site_layout.inquiry_link_position == 'on_menu'
       url = url_for(:controller => :inquiry, 
-                    :site => @site.name)
+                    :site => if @site.host == request.host;nil;else; @site.name end)
       li_tag_id = "#{tag_id}_inquiry"
       html << "<li id='#{li_tag_id}'><a href='#{url}'>" <<
             I18n.t(:title, :scope => [:messages, :inquiry] ) <<
@@ -596,7 +597,8 @@ module ApplicationHelper
     
     "<link rel='alternate' type='application/#{format}+xml' title='RSS' " +
     " href='#{request.protocol}#{request.host_with_port}" + 
-    "#{url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format)}' />".
+    "#{url_for(:controller => 'articles', :action => 'index', 
+    :site => if @site.host == request.host;nil;else; @site.name end, :format => format)}' />".
     html_safe
   end
 
@@ -634,7 +636,8 @@ module ApplicationHelper
       end)
     end,
     request.protocol + request.host_with_port + 
-    url_for(:controller => 'articles', :action => 'index', :site => @site.name, :format => format),
+    url_for(:controller => 'articles', :action => 'index', 
+      :site => if @site.host == request.host;nil;else; @site.name end, :format => format),
     :id => if options[:id] then options[:id] else nil end,
     :class => if options[:class] then options[:class] else nil end
     )
@@ -668,7 +671,8 @@ module ApplicationHelper
       end)
     end,
     request.protocol + request.host_with_port + 
-    url_for(:controller => 'inquiry', :action => 'index', :site => @site.name),
+    url_for(:controller => 'inquiry', :action => 'index', 
+    :site => if @site.host == request.host;nil;else; @site.name end),
     :id => if options[:id] then options[:id] else nil end,
     :class => if options[:class] then options[:class] else nil end
     ) 

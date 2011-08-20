@@ -126,14 +126,7 @@ Cms::Application.routes.draw do
     
     resources :users
   end
-
-#  resources :articles
   
-#  root :to => 'home#show'
-  
-  match 'sitemap.:format' => 'sitemap#index#:format'
-  
-
   # pages
 #  match 'pages/:site/:page' => 'pages#show#:site#:page'
   match ':site/pages/preview' => 'pages#preview#:site'
@@ -163,10 +156,37 @@ Cms::Application.routes.draw do
   match 'password_reissue/:action' => 'password_reissue#:action'
 
 
+  match 'pages/preview' => 'pages#preview'
+  match 'pages/:page' => 'pages#show#:page'
+  match 'pages/:action/:id' => 'pages#:action#:id'
+
+  # blogs
+  match 'blogs/:id' => 'blogs#show#:id'
+  match 'blogs/month/:month' => 'blogs#month#:month'
+  match 'blogs/:action/:id' => 'blogs#:action#:id'
+
+  # article (sitemap , rss, atom ..)
+  match 'articles/index.:format' => 'articles#index#:format'
+  match 'articles/index' => 'articles#index'
+  match 'articles/:action/:id' => 'articles#:action#:id'
+#  match 'articles/index.:format' => 'articles#index.:format'
+
+  # inquiry
+  match 'inquiry' => 'inquiry#index'
+  match 'inquiry/:action' => 'inquiry#:action'
+
+
+#  match '' => 'pages#show'
+
+
+#  root :to => 'home#show'
+
+  match 'sitemap.:format' => 'sitemap#index#:format'
+
+
   # 公開 - サイトの root
   match ':site/' => 'pages#show#:site'
 
-  
 
 
 
@@ -221,6 +241,8 @@ Cms::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => "welcome#index"
+  # 公開 - サイトの root
+  root :to => 'pages#show'
 
   # See how all your routes lay out with "rake routes"
 

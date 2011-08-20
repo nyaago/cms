@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110427062125) do
+ActiveRecord::Schema.define(:version => 20110820064932) do
 
   create_table "article_histories", :force => true do |t|
     t.integer  "article_id",                                          :null => false
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(:version => 20110427062125) do
     t.string   "eye_catch_type_location", :limit => 20
     t.string   "background_repeat",       :limit => 20
     t.integer  "updated_by"
+    t.string   "inquiry_link_position",   :limit => 20
   end
 
   create_table "site_settings", :force => true do |t|
@@ -264,6 +265,7 @@ ActiveRecord::Schema.define(:version => 20110427062125) do
     t.integer  "max_mbyte",                                :default => 50
     t.datetime "cancellation_reserved_at"
     t.datetime "canceled_at"
+    t.string   "host",                     :limit => 256
   end
 
   create_table "text_inquiry_items", :force => true do |t|

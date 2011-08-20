@@ -6,7 +6,7 @@
   <% @new_blogs.each do |article| %>
   <li class="widget_field new_blog">
     <%= link_to article.title, :controller => "blogs", :action => :show, 
-                              :site => @site.name,
+                              :site => if @site.host == request.host;nil;else; @site.name end,
                               :id => article.id %>
   </li>
   <% end %>

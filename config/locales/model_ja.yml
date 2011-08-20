@@ -108,6 +108,7 @@ ja:
         canceled: "解約"
         cancellation_reserved_at: "解約予約"
         max_mbyte: "利用最大容量(MByte)"
+        host: "ホスト（ドメイン）名"
       
       site_layout:
         background_repeat: "背景画像の繰り返し"
