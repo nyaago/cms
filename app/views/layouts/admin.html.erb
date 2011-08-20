@@ -13,34 +13,33 @@
 </head>
 <body>
     
-<div id="header">
+  <header>
     <%= render "/layouts/admin/header" %>
-</div>   <!-- header -->
+  </header>   <!-- header -->
 
-<div id="container">
+  <div id="content">
 
-<div id="side">
+  <div class="main">
 
-<%= render "/layouts/admin/side" %>
+  <%= yield %>
 
-</div>   <!-- side -->
+  </div>   <!-- main -->
 
-
-<div id="contents">
-
-<%= yield %>
-
-</div>   <!-- contents -->
+  <aside>
 
 
-<div style="clear: both;">
-</div>
+  <%= render "/layouts/admin/side" %>
 
-</div>   <!-- container -->
+  </aside>   <!-- side -->
 
-<div id="footer">
+
+
+
+  </div>   <!-- container -->
+
+  <footer>
     <%= render "/layouts/admin/footer" %>
-</div>
+  </footer>
 
 </body>
 </html>
