@@ -102,7 +102,9 @@ class SiteAdmin::PagesController < SiteAdmin::ArticlesController
 
     # 公開開始日
     @article.published_from = date_from_partial(params[:published_from])
-                          
+    # preview用のtemporary登録
+    @article.is_temporary = true
+    @article.save!(:validate => false)
     respond_to do |format|
       if @article.save(:validate => true)
         @article.reload
