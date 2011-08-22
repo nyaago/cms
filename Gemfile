@@ -8,7 +8,13 @@ require 'csv'
 
 # database adapter
 # gem 'sqlite3-ruby', :require => 'sqlite3'
-gem "mysql2"
+if RUBY_VERSION.match(/^1\.8/)
+  p "ruby version -  1.8"
+  gem 'mysql2','0.2.6'
+else
+  p "ruby version -  1.9"
+  gem 'mysql2','0.2.6'
+end
 
 # additional gem
 # gem "fastercsv"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110820064932) do
+ActiveRecord::Schema.define(:version => 20110822043333) do
 
   create_table "article_histories", :force => true do |t|
     t.integer  "article_id",                                          :null => false
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20110820064932) do
     t.integer  "updated_by"
     t.integer  "pop3_port",             :limit => 2
     t.boolean  "pop3_ssl"
+    t.string   "from_address",          :limit => 256
   end
 
   create_table "radio_inquiry_items", :force => true do |t|
@@ -226,6 +227,7 @@ ActiveRecord::Schema.define(:version => 20110820064932) do
     t.string   "background_repeat",       :limit => 20
     t.integer  "updated_by"
     t.string   "inquiry_link_position",   :limit => 20
+    t.string   "preset_header_image",     :limit => 50
   end
 
   create_table "site_settings", :force => true do |t|

@@ -192,6 +192,7 @@
     </div>
   <% end %>
 </div>
+
 <div class="inputs_bottom">
 </div>
 
@@ -230,6 +231,18 @@
   </div>
   <%= layout_image_tag(@site_layout, :header) %>
 </div>
+  <div class="field">
+    <label for="preset_header_image" id="preset_header_image" > 
+    デフォルト画像
+    </label><br/>
+    <p>自分の画像をアップロードしたくない場合は、以下のすてきなヘッダーを使えます。</p>
+    <% @layout_defs.header_images.each do |image| %>
+    <div class="preset_header_image">
+      <%= f.radio_button :preset_header_image, image.name %>
+      <%= image_tag image.thumb_url %>
+    </div>
+    <% end %>
+  </div>
 </div>
 
 <div class="inputs fields">

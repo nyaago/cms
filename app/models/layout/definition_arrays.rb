@@ -11,7 +11,8 @@ module Layout
                         Layout::GlobalNavigation, 
                         Layout::SkinColor, 
                         Layout::TitleTag,
-                        Layout::InquiryLinkPosition
+                        Layout::InquiryLinkPosition,
+                        Layout::HeaderImage
                         ]
 
     # 各レイアウト定義のArrayを格納する読み込み属性(reader属性)を生成

@@ -106,9 +106,15 @@ module ApplicationHelper
     if instance_variable_defined?(:@article) && @article && !@article.header_image_url.blank? 
       options[:alt] = @article.title
       image_tag(@article.header_image_url, options)
-    elsif !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.header_image_url.blank?
-      options[:alt] = @site.title
-      image_tag(@site.site_layout.header_image_url, options)
+    elsif !@site.nil? && !@site.site_layout.nil? 
+      if !@site.site_layout.header_image_url.blank?   # ユーザがアップロードしたもの
+        options[:alt] = @site.title
+        image_tag(@site.site_layout.header_image_url, options)
+      elsif !@site.site_layout.preset_header_image.blank? # presetから選択
+        image_tag(Layout::HeaderImage.image_url(@site.site_layout.preset_header_image))
+      else
+        ''
+      end
     else
       ''
     end
@@ -145,8 +151,14 @@ module ApplicationHelper
   def header_image_url
     if instance_variable_defined?(:@article) && @article && !@article.header_image_url.blank? 
       @article.header_image_url
-    elsif !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.header_image_url.blank?
-      @site.site_layout.header_image_url
+    elsif !@site.nil? && !@site.site_layout.nil?  
+      if !@site.site_layout.header_image_url.blank?
+        @site.site_layout.header_image_url
+      elsif !@site.site_layout.preset_header_image.blank? # presetから選択
+        Layout::HeaderImage.image_url(@site.site_layout.preset_header_image)
+      else
+        ''
+      end
     else
       ''
     end
@@ -157,8 +169,14 @@ module ApplicationHelper
   def header_image_style
     if instance_variable_defined?(:@article) && @article && !@article.header_image_url.blank? 
       "background-image:url('#{@article.header_image_url}');" 
-    elsif !@site.nil? && !@site.site_layout.nil? && !@site.site_layout.header_image_url.blank?
-      "background-image:url('#{@site.site_layout.header_image_url}');" 
+    elsif !@site.nil? && !@site.site_layout.nil? 
+      if !@site.site_layout.header_image_url.blank?
+        "background-image:url('#{@site.site_layout.header_image_url}');" 
+      elsif !@site.site_layout.preset_header_image.blank? # presetから選択
+        "background-image:url('#{Layout::HeaderImage.image_url(@site.site_layout.preset_header_image)}');" 
+      else
+        ""
+      end
     else
       ""
     end

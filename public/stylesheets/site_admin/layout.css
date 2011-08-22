@@ -155,3 +155,12 @@ div.font_size {
   border-style: double;
   border-color: blue;
 }
+
+.preset_header_image {
+  float: left;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  
+}
