@@ -146,6 +146,7 @@ ja:
         pop3_password: "パスワード"
         pop3_port: "ポート番号"
         pop3_ssl: "SSLを使用する"
+        from_address: "送信元メールアドレス"
 
       view_setting:
         title_count_in_home: "トップページに表示する最新記事の日付・タイトル数"

@@ -30,6 +30,14 @@ class BlogFromPop3
        begin
           pop.each_mail do |pop_mail|
             mail = Mail.new(pop_mail.pop)
+            unless post_setting.from_address.blank? 
+              regexp = Regexp.new(post_setting.from_address)
+              unless mail.from.size > 0 && regexp.match(mail.from[0].toutf8)
+                pop_mail.delete
+                p "skip"
+                next
+              end
+            end
             p mail.body.decoded.toutf8
             p mail.subject.toutf8
             BlogArticle.create(:content => hbr(mail.body.decoded.toutf8),
