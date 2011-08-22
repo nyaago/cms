@@ -10,7 +10,7 @@ class Article < ActiveRecord::Base
 
   # 保存前のcallback
   # 公開開始日時が将来に設定されている場合、公開状態をoffにする
-  before_save :check_published!
+  #before_save :check_published!
   
   # 保存前のcallback
   # 各属性の不要な前後空白をぬく
@@ -67,6 +67,7 @@ class Article < ActiveRecord::Base
   end
 
   # 公開予約日が過ぎていれば, 公開する
+  # 公開にする場合はtrueを返し、そうで内場合はfalseを返す
   def published_if_require_before
     return false if published_from.nil?
     return false if published
