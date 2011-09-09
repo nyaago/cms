@@ -713,7 +713,7 @@ module ApplicationHelper
 
   # 表示しているのがトップ（ホーム）ページであるか?
   def is_home?
-    defined?(@article) && !@article.nil? && @arricle.is_home
+    defined?(@article) && !@article.nil? && @article.is_home
   end
   
   # 表示しているのがページ記事であるか

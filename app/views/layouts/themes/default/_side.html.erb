@@ -12,7 +12,9 @@
 <%= render '/widget/new_blogs' %>
 <!-- お知らせアーカイブ -->
 <%= render '/widget/blog_months' %>
+<% unless is_home? %>
 <!-- ウィジット -->
 <% side_widgets.each do |widget| %>
   <%= render_widget widget %>
+<% end %>
 <% end %>
