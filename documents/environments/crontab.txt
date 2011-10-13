@@ -1,0 +1,2 @@
+1 * * * * cd /home/smart539/cms;export GEM_HOME=/home/smart539/.rvm/gems/ruby-1.9.2-p180;/home/smart539/.rvm/gems/ruby-1.9.2-p180/bin/rails runner -e production  /home/smart539/cms/runners/runner_by_hour.rb
+* * * * * cd /home/smart539/cms;export GEM_HOME=/home/smart539/.rvm/gems/ruby-1.9.2-p180;/home/smart539/.rvm/gems/ruby-1.9.2-p180/bin/rails  runner -e production  /home/smart539/cms/runners/runner_for_posting_from_pop3.rb 2>> /home/smart539/cms/log/runner.log
